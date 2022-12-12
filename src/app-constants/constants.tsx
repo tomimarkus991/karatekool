@@ -21,6 +21,8 @@ export const groups: Group[] = [
   },
 ];
 
+export const rowWidthInPercent = 14.28571428571429;
+
 export const colStartClasses = [
   "",
   "col-start-2",

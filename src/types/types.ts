@@ -36,16 +36,19 @@ export interface SEventTrailer {
 }
 export interface SAllDayEvent {
   title: string;
-  description: string;
+  sub_title: string;
+}
+export interface SMultiDayEvent {
+  title: string;
 }
 
 export interface EventData {
   id: number;
   start: string;
   long_event_end: string | null;
-  title: string;
   is_highlighted: boolean;
   event_trailer: SEventTrailer | null;
-  all_day_event: SAllDayEvent;
+  all_day_event: SAllDayEvent | null;
+  multi_day_event: SMultiDayEvent | null;
   group: Partial<SGroup[]>;
 }

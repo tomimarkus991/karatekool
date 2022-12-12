@@ -1,6 +1,7 @@
 import {
   add,
   eachDayOfInterval,
+  eachWeekOfInterval,
   endOfMonth,
   endOfWeek,
   format,
@@ -16,6 +17,34 @@ import { useGetCurrentMonthEvents } from "hooks";
 
 import { CalendarDate } from ".";
 
+// const longEvents = [
+//   {
+//     id: 11,
+//     start: "2022-12-22T22:00:00+00:00",
+//     is_highlighted: false,
+//     long_event_end: "2023-01-08T21:59:59+00:00",
+//     all_day_event: null,
+//     multi_day_event: {
+//       title: "Nüke jõuluvaheaeg 23. detsember 2022 - 08. jaanuar 2023",
+//     },
+//     event_trailer: null,
+//     group: [],
+//   },
+//   {
+//     id: 10,
+//     start: "2022-12-18T22:00:00+00:00",
+//     is_highlighted: false,
+//     long_event_end: "2022-12-21T21:59:59+00:00",
+//     all_day_event: null,
+//     multi_day_event: {
+//       title:
+//         "Eesti kumitekoondise laager/seminar 19.-21. detsember Kääriku Lorem ipsum veel teksti mis juhtub",
+//     },
+//     event_trailer: null,
+//     group: [],
+//   },
+// ];
+
 // should mark current day as red on number
 //
 
@@ -29,7 +58,7 @@ export const Calendar = () => {
 
   // console.log("ff 1234", firstDayOfCurrentMonth);
 
-  const dates = eachDayOfInterval({
+  const weeks = eachWeekOfInterval({
     start: startOfWeek(startOfMonth(today)),
     end: endOfWeek(endOfMonth(today)),
   });
@@ -37,9 +66,6 @@ export const Calendar = () => {
   // const convertDaysToText = (day: number) => {
   //   return days.short[day];
   // };
-
-  // TODO: Add events to days
-  // unix timestamp today at 13:00 = 1620000000 and at 14:00 = 1620003600
 
   const reorder = (result: DropResult, provided: ResponderProvided) => {
     console.log("12345", result);
@@ -53,21 +79,36 @@ export const Calendar = () => {
     // put it back in the right place
     items.splice(result.destination.index, 0, removed);
   };
+  console.log("events", events);
 
   return (
-    <div className="w-[80%] m-auto bg-white rounded-lg px-4">
+    <div className="max-w-[60rem] m-auto bg-white rounded-lg p-4">
       <DragDropContext onDragEnd={reorder}>
         <p className="pt-2">{currentMonth}</p>
-        <div className="grid grid-cols-7">
+        <div className="grid grid-cols-7 mb-2">
           {days.short.map(day => (
-            <div key={day} className="flex w-24 justify-end p-2">
+            <div key={day} className="flex justify-center">
               <p>{day}</p>
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-7">
-          {dates.map(date => {
-            return <CalendarDate key={date.toISOString()} events={events} date={date} />;
+        <div className="grid grid-rows-5 overflow-hidden">
+          {weeks.map(week => {
+            const daysForWeek = eachDayOfInterval({
+              start: startOfWeek(week),
+              end: endOfWeek(week),
+            });
+            return (
+              <div
+                id="week"
+                key={week.toISOString()}
+                className="grid grid-cols-7 last:border-b border-t border-gray-200 h-36"
+              >
+                {daysForWeek.map(day => {
+                  return <CalendarDate key={day.toISOString()} events={events} date={day} />;
+                })}
+              </div>
+            );
           })}
         </div>
       </DragDropContext>
