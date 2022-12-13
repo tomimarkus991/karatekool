@@ -21,16 +21,23 @@ export interface Event {
   groupId: string;
 }
 
+export type GroupLetters = "S" | "V" | "A" | "E" | "N" | "M" | "K" | "T";
+
 export interface Group {
   id?: string;
-  letter: "S" | "V" | "A" | "E" | "N" | "M" | "K" | "T";
+  letter: GroupLetters;
   description: string;
   color: "red" | "blue" | "green" | "yellow" | "orange" | "purple" | "pink" | "rose";
 }
 
 export interface SGroup {
-  letter: "S" | "V" | "A" | "E" | "N" | "M" | "K" | "T";
-  color: "red" | "blue" | "green" | "yellow" | "orange" | "purple" | "pink" | "rose";
+  letter: GroupLetters;
+  // color: "red" | "blue" | "green" | "yellow" | "orange" | "purple" | "pink" | "rose";
+}
+export interface SHighLightedGroup {
+  letter: GroupLetters;
+  // color: "red" | "blue" | "green" | "yellow" | "orange" | "purple" | "pink" | "rose";
+  is_highlighted: boolean;
 }
 export interface SEventTrailer {
   text: string;
@@ -42,12 +49,6 @@ export interface SAllDayEvent {
 export interface SMultiDayEvent {
   title: string;
 }
-
-// export const EventTypes = {
-//   MULTI_DAY_EVENT: "MULTI_DAY_EVENT",
-//   ALL_DAY_EVENT: "ALL_DAY_EVENT",
-//   NORMAL_EVENT: "NORMAL_EVENT",
-// };
 
 export enum EventTypes {
   MULTI_DAY = "MULTI_DAY",
@@ -63,6 +64,7 @@ export interface EventData {
   event_trailer: SEventTrailer | null;
   all_day_event: SAllDayEvent | null;
   multi_day_event: SMultiDayEvent | null;
-  group: Partial<SGroup[]>;
+  group: SGroup[];
+  highlighted_group: SHighLightedGroup[];
   event_type: EventTypes;
 }

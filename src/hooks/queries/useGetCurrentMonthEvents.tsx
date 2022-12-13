@@ -14,10 +14,14 @@ export const useGetCurrentMonthEvents = () => {
     all_day_event (title, sub_title),
     multi_day_event (title),
     event_trailer (text),
-    group (color, letter)
+    group (letter),
+    highlighted_group (letter)
     `
       )
       .order("start", { ascending: true });
+    // highlighted_group (letter (color, letter), is_highlighted)
+
+    console.log(data);
 
     if (error) {
       toast.error(`Error getting events: ${error.message}`);
