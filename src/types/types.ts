@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 export interface Event {
   id: string;
   title: string;
@@ -42,6 +43,18 @@ export interface SMultiDayEvent {
   title: string;
 }
 
+// export const EventTypes = {
+//   MULTI_DAY_EVENT: "MULTI_DAY_EVENT",
+//   ALL_DAY_EVENT: "ALL_DAY_EVENT",
+//   NORMAL_EVENT: "NORMAL_EVENT",
+// };
+
+export enum EventTypes {
+  MULTI_DAY = "MULTI_DAY",
+  ALL_DAY = "ALL_DAY",
+  NORMAL = "NORMAL",
+}
+
 export interface EventData {
   id: number;
   start: string;
@@ -51,4 +64,5 @@ export interface EventData {
   all_day_event: SAllDayEvent | null;
   multi_day_event: SMultiDayEvent | null;
   group: Partial<SGroup[]>;
+  event_type: EventTypes;
 }

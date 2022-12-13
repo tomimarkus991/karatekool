@@ -10,7 +10,7 @@ export const useGetCurrentMonthEvents = () => {
       .from("event")
       .select(
         `
-    id,start,is_highlighted,long_event_end,
+    id,start,is_highlighted,long_event_end,event_type,
     all_day_event (title, sub_title),
     multi_day_event (title),
     event_trailer (text),
