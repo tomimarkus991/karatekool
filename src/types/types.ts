@@ -23,6 +23,8 @@ export interface Event {
 
 export type GroupLetters = "S" | "V" | "A" | "E" | "N" | "M" | "K" | "T";
 
+export type GroupFilters = GroupLetters | "all" | "none";
+
 export interface Group {
   id?: string;
   letter: GroupLetters;
@@ -32,12 +34,9 @@ export interface Group {
 
 export interface SGroup {
   letter: GroupLetters;
-  // color: "red" | "blue" | "green" | "yellow" | "orange" | "purple" | "pink" | "rose";
 }
 export interface SHighLightedGroup {
   letter: GroupLetters;
-  // color: "red" | "blue" | "green" | "yellow" | "orange" | "purple" | "pink" | "rose";
-  is_highlighted: boolean;
 }
 export interface SEventTrailer {
   text: string;
@@ -60,6 +59,7 @@ export interface EventData {
   id: number;
   start: string;
   long_event_end: string | null;
+  normal_event_end: string | null;
   is_highlighted: boolean;
   event_trailer: SEventTrailer | null;
   all_day_event: SAllDayEvent | null;

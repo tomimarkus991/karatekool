@@ -1,17 +1,19 @@
 import { GroupLetters } from "types";
 
-export const groupColorMapper = (group: GroupLetters) => {
-  const groupColors = {
-    S: "text-red-600",
-    V: "text-blue-600",
-    A: "text-green-600",
-    E: "text-yellow-600",
-    N: "text-orange-600",
-    M: "text-purple-600",
-    K: "text-pink-600",
-    T: "text-rose-600",
-  };
+export const groupColors = {
+  S: "text-red-600",
+  V: "text-blue-600",
+  A: "text-green-600",
+  E: "text-yellow-600",
+  N: "text-orange-600",
+  M: "text-purple-600",
+  K: "text-pink-600",
+  T: "text-rose-600",
+};
 
+export const groupLetters: GroupLetters[] = Object.keys(groupColors) as GroupLetters[];
+
+export const groupColorMapper = (group: GroupLetters) => {
   switch (group) {
     case "S":
     case "V":

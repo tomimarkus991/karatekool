@@ -1,3 +1,3 @@
 export * from "./AllDayEvent";
-export * from "./NormalEvent";
+export * from "./normal";
 export * from "./MultiDayEvent";

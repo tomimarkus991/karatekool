@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
-import { EventData } from "types";
+import { EventData, GroupLetters } from "types";
 import { supabase } from "utils";
 
-export const useGetCurrentMonthEvents = () => {
+export const useGetCurrentMonthEventsForGroup = (group: GroupLetters) => {
   const getEvents = async () => {
     const { data, error } = await supabase
       .from("event")
@@ -18,7 +18,11 @@ export const useGetCurrentMonthEvents = () => {
     highlighted_group (letter)
     `
       )
+      .eq("group.letter", group)
+      .eq("highlighted_group.letter", group)
       .order("start", { ascending: true });
+
+    console.log(data);
 
     if (error) {
       toast.error(`Error getting events: ${error.message}`);
@@ -30,5 +34,5 @@ export const useGetCurrentMonthEvents = () => {
     return _eventData || [];
   };
 
-  return useQuery(["current_month_events"], () => getEvents());
+  return useQuery([`current_month_events`, group], () => getEvents());
 };

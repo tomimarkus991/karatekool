@@ -9,6 +9,7 @@ import { createRoot } from "react-dom/client";
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter } from "react-router-dom";
 
+import { CalendarFiltersProvider } from "context";
 import { Router } from "routes";
 import "./index.css";
 
@@ -24,10 +25,12 @@ root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <SidebarProvider>
-        <BrowserRouter>
-          <Router />
-          <Toaster />
-        </BrowserRouter>
+        <CalendarFiltersProvider>
+          <BrowserRouter>
+            <Router />
+            <Toaster />
+          </BrowserRouter>
+        </CalendarFiltersProvider>
       </SidebarProvider>
     </QueryClientProvider>
   </StrictMode>

@@ -15,57 +15,19 @@ import { DragDropContext, DropResult, ResponderProvided } from "react-beautiful-
 import { days } from "app-constants";
 import { useGetCurrentMonthEvents } from "hooks";
 
-import { CalendarDate } from ".";
-
-// const longEvents = [
-//   {
-//     id: 11,
-//     start: "2022-12-22T22:00:00+00:00",
-//     is_highlighted: false,
-//     long_event_end: "2023-01-08T21:59:59+00:00",
-//     all_day_event: null,
-//     multi_day_event: {
-//       title: "Nüke jõuluvaheaeg 23. detsember 2022 - 08. jaanuar 2023",
-//     },
-//     event_trailer: null,
-//     group: [],
-//   },
-//   {
-//     id: 10,
-//     start: "2022-12-18T22:00:00+00:00",
-//     is_highlighted: false,
-//     long_event_end: "2022-12-21T21:59:59+00:00",
-//     all_day_event: null,
-//     multi_day_event: {
-//       title:
-//         "Eesti kumitekoondise laager/seminar 19.-21. detsember Kääriku Lorem ipsum veel teksti mis juhtub",
-//     },
-//     event_trailer: null,
-//     group: [],
-//   },
-// ];
-
-// should mark current day as red on number
-//
+import { CalendarDate, CalendarFilterButtons } from ".";
 
 export const Calendar = () => {
   const { data: events = [] } = useGetCurrentMonthEvents();
+
   const today = add(startOfToday(), { days: 0 });
-  // const [selectedDate, setSelectedDate] = useState(today);
+
   const [currentMonth] = useState(format(today, "MMMM yyyy"));
-
-  // const firstDayOfCurrentMonth = parse(today, "MMM-yyyy", new Date());
-
-  // console.log("ff 1234", firstDayOfCurrentMonth);
 
   const weeks = eachWeekOfInterval({
     start: startOfWeek(startOfMonth(today)),
     end: endOfWeek(endOfMonth(today)),
   });
-
-  // const convertDaysToText = (day: number) => {
-  //   return days.short[day];
-  // };
 
   const reorder = (result: DropResult, provided: ResponderProvided) => {
     console.log("12345", result);
@@ -83,6 +45,7 @@ export const Calendar = () => {
 
   return (
     <div className="max-w-[60rem] m-auto bg-white rounded-lg p-4">
+      <CalendarFilterButtons />
       <DragDropContext onDragEnd={reorder}>
         <p className="pt-2">{currentMonth}</p>
         <div className="grid grid-cols-7 mb-2">
