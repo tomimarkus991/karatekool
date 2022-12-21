@@ -27,7 +27,10 @@ const Child = ({ width, multi_day_event }: ChildProps) => {
   return (
     <div
       style={{ width }}
-      className={clsx("bg-blue-600 mt-4 ml-2 rounded-md left-0", "absolute whitespace-nowrap")}
+      className={clsx(
+        "bg-blue-600 mt-4 ml-2 rounded-md left-0",
+        "absolute whitespace-nowrap overflow-hidden"
+      )}
     >
       <p className="text-white text-sm font-medium ml-2">{title}</p>
     </div>
