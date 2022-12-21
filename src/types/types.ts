@@ -59,6 +59,7 @@ export interface EventData {
   id: number;
   start: string;
   long_event_end: string | null;
+  description: string | null;
   normal_event_end: string | null;
   is_highlighted: boolean;
   event_trailer: SEventTrailer | null;

@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const NormalEvent = ({ event, date }: Props) => {
-  const { group, event_trailer, highlighted_group } = event;
+  const { group, event_trailer, highlighted_group, description } = event;
   const start = parseISO(event.start);
   const { letter } = useCalendarFilters();
 
@@ -34,14 +34,19 @@ export const NormalEvent = ({ event, date }: Props) => {
     return <></>;
   }
 
+  console.log(description);
+
   return (
-    <div className="flex flex-row justify-start items-center">
-      <NormalEventTime event={event} />
-      <div className="flex">
-        <MapGroupLetter groups={group} />
-        <MapHighLightedGroupLetter highlightedGroups={highlighted_group} />
-        <p className="text-red-500 ml-1">{event_trailer?.text}</p>
+    <div className="flex flex-col justify-start">
+      <div className="flex flex-row justify-start items-center">
+        <NormalEventTime event={event} />
+        <div className="flex">
+          <MapGroupLetter groups={group} />
+          <MapHighLightedGroupLetter highlightedGroups={highlighted_group} />
+          <p className="text-red-500 ml-1">{event_trailer?.text}</p>
+        </div>
       </div>
+      {description && <p>{description}</p>}
     </div>
   );
 };
