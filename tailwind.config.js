@@ -18,6 +18,14 @@ module.exports = {
       },
       colors: {
         primary:"#E50815",
+        casualBlue:"#59ADF6",
+        casualPurple:"#C780E8",
+        casualRed:"#FF6961",
+        casualOrange:"#FFB480",
+        casualAqua:"#08CAD1",
+        casualGreen:"#42D6A4",
+        casualYellow:"#F8F38D",
+        casualViolet:"#9D94FF",
       },
       animation: {
         'spin-slow': 'spin-backwards 20s linear infinite',

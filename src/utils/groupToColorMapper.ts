@@ -1,24 +1,25 @@
 import { GroupLetters } from "types";
 
 export const groupColors = {
-  S: "text-red-600",
-  V: "text-blue-600",
-  A: "text-green-600",
-  E: "text-yellow-600",
-  N: "text-orange-600",
-  M: "text-purple-600",
-  K: "text-pink-600",
-  T: "text-rose-600",
+  S: "text-casualBlue",
+  V: "text-casualPurple",
+  A: "text-casualRed",
+  E: "text-casualOrange",
+  N: "text-casualAqua",
+  M: "text-casualGreen",
+  K: "text-casualYellow",
+  T: "text-casualViolet",
 };
-export const groupBgColors = {
-  S: "bg-red-600",
-  V: "bg-blue-600",
-  A: "bg-green-600",
-  E: "bg-yellow-600",
-  N: "bg-orange-600",
-  M: "bg-purple-600",
-  K: "bg-pink-600",
-  T: "bg-rose-600",
+
+export const groupAllColors = {
+  S: "casualBlue",
+  V: "casualPurple",
+  A: "casualRed",
+  E: "casualOrange",
+  N: "casualAqua",
+  M: "casualGreen",
+  K: "casualYellow",
+  T: "casualViolet",
 };
 
 export const groupLetters: GroupLetters[] = Object.keys(groupColors) as GroupLetters[];
@@ -33,7 +34,7 @@ export const groupColorMapper = (group: GroupLetters, map: "text" | "bg") => {
     case "M":
     case "K":
     case "T":
-      return map === "text" ? groupColors[group] : groupBgColors[group];
+      return map === "text" ? groupColors[group] : groupAllColors[group];
     default:
       throw new Error(`Invalid group letter: ${group}`);
   }
