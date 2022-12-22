@@ -16,6 +16,17 @@ module.exports = {
         // xl	1280px
         // 2xl 1536px
       },
+      colors: {
+        primary:"#E50815",
+      },
+      animation: {
+        'spin-slow': 'spin-backwards 20s linear infinite',
+      },
+      keyframes:{
+        "spin-backwards":{
+          "to": { transform: "rotate(-360deg)" }
+        }
+      }
     },
     fontFamily: {
       varela: ["Varela Round", "sans-serif"],
