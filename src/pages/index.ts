@@ -1,2 +1,5 @@
 export * from "./home";
-export * from "./about";
+export * from "./newcomer";
+export * from "./about-club";
+export * from "./karateka";
+export * from "./contact";
