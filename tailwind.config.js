@@ -18,14 +18,14 @@ module.exports = {
       },
       colors: {
         primary:"#E50815",
-        casualBlue:"#59ADF6",
-        casualPurple:"#C780E8",
-        casualRed:"#FF6961",
-        casualOrange:"#FFB480",
-        casualAqua:"#08CAD1",
-        casualGreen:"#42D6A4",
-        casualYellow:"#F8F38D",
-        casualViolet:"#9D94FF",
+        casualRed: "#FF695A",
+        casualOrange: "#FFA033",
+        casualGreen: "#42D68C",
+        casualAqua: "#08CAD1",
+        casualSkyBlue: "#59ADF6",
+        casualSlateBlue: "#97B8FC",
+        casualViolet: "#C780E8",
+        casualPink: "#F07DD7",
       },
       animation: {
         'spin-slow': 'spin-backwards 20s linear infinite',
@@ -34,12 +34,13 @@ module.exports = {
         "spin-backwards":{
           "to": { transform: "rotate(-360deg)" }
         }
-      }
+      },
     },
     fontFamily: {
       varela: ["Varela Round", "sans-serif"],
       sans: ["Rubik", "sans-serif"],
-    },
+      baloo: ["baloo-2", "cursive"],
+  },
     linearBorderGradients: () => ({
       colors: {
         "light-green": [
