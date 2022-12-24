@@ -1553,10 +1553,10 @@
   resolved "https://registry.yarnpkg.com/@redlotus/tsconfig/-/tsconfig-1.0.1.tgz#192180bd4ccbe2053cc592c51c32a7d95a308d23"
   integrity sha512-9lJSvNEsZO0wOj/IVOXquj5hvpt/dUmIwUBcq2bgiYysWmC8w+9LRlv6R9xnKFyH3MNlJc4ks223/8eEKsaomA==
 
-"@redlotus/ui@^0.1.42":
-  version "0.1.42"
-  resolved "https://registry.yarnpkg.com/@redlotus/ui/-/ui-0.1.42.tgz#5e53b5dd3670be4ed238e5103f3a89b172aa3ba7"
-  integrity sha512-5ZecZtEOLbV+VpVlcQDzO44ebtRanxNxcWw4EyMh7zGmC5ovJ6IBdxzId4T0JhJsVsLhbYYT2y9TGBnMTmJsVA==
+"@redlotus/ui@^0.1.43":
+  version "0.1.43"
+  resolved "https://registry.yarnpkg.com/@redlotus/ui/-/ui-0.1.43.tgz#29669ad67790e68ba7def7b0785ca24967639706"
+  integrity sha512-9cFAv4+VckMyDDWg2iXiO7Ax04vMQ0cPkK/PqXb4B0+dK83gHt4lgT9oWvU1j3PEsRMdxJh1+/SlJqHz6LLW4g==
   dependencies:
     "@emotion/react" "^11.10.5"
     "@emotion/styled" "^11.10.5"
