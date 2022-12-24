@@ -1,18 +1,16 @@
 import { RealButton } from "@redlotus/ui";
 
 import { useCalendarFilters } from "context";
-import { groupColorMapper, groupLetters } from "utils";
+import { buttonVariantMapper, groupLetters } from "utils";
 
 export const CalendarFilterButtons = () => {
   const { setLetter } = useCalendarFilters();
   return (
     <div className="flex flex-row space-x-3">
       {groupLetters.map(letter => {
-        console.log(groupColorMapper(letter, "bg"));
-
         return (
           <RealButton
-            variant={groupColorMapper(letter, "bg")}
+            variant={buttonVariantMapper(letter)}
             size="oneLetter"
             onClick={() => setLetter(letter)}
           >
@@ -20,10 +18,10 @@ export const CalendarFilterButtons = () => {
           </RealButton>
         );
       })}
-      <RealButton size="oneLetter" onClick={() => setLetter("all")}>
+      <RealButton size="sm" onClick={() => setLetter("all")}>
         All
       </RealButton>
-      <RealButton size="oneLetter" onClick={() => setLetter("none")}>
+      <RealButton size="sm" onClick={() => setLetter("none")}>
         None
       </RealButton>
     </div>

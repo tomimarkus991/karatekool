@@ -12,7 +12,7 @@ export const MapGroupLetter = ({ groups }: MapGroupLetterProps) => {
     <>
       {groups.map(group => {
         return (
-          <p className={clsx("ml-1", groupColorMapper(group?.letter, "text"))} key={group?.letter}>
+          <p className={clsx("ml-1", groupColorMapper(group?.letter))} key={group?.letter}>
             {group?.letter}
           </p>
         );
@@ -32,10 +32,10 @@ export const MapHighLightedGroupLetter = ({
       {highlightedGroups.map(highlightedGroup => {
         return (
           <div className={clsx("ml-1 flex flex-row")} key={highlightedGroup?.letter}>
-            <p className={clsx("underline", groupColorMapper(highlightedGroup?.letter, "text"))}>
+            <p className={clsx("underline", groupColorMapper(highlightedGroup?.letter))}>
               {highlightedGroup?.letter}
             </p>
-            <p className="text-red-500 ml-1">!</p>
+            <p className="text-red-500 ml-[0.1rem]">!</p>
           </div>
         );
       })}

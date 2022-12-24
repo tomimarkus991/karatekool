@@ -34,8 +34,6 @@ export const NormalEvent = ({ event, date }: Props) => {
     return <></>;
   }
 
-  console.log(description);
-
   return (
     <div className="flex flex-col justify-start">
       <div className="flex flex-row justify-start items-center">

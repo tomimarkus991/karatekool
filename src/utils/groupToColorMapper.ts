@@ -1,30 +1,31 @@
+import { realButtonVariants } from "@redlotus/ui";
+
 import { GroupLetters } from "types";
 
 export const groupColors = {
-  S: "text-casualBlue",
-  V: "text-casualPurple",
-  A: "text-casualRed",
-  E: "text-casualOrange",
-  N: "text-casualAqua",
-  M: "text-casualGreen",
-  K: "text-casualYellow",
-  T: "text-casualViolet",
+  S: "text-casualRed",
+  V: "text-casualOrange",
+  A: "text-casualGreen",
+  E: "text-casualAqua",
+  N: "text-casualSkyBlue",
+  M: "text-casualSlateBlue",
+  K: "text-casualViolet",
+  T: "text-casualPink",
 };
-
 export const groupAllColors = {
-  S: "casualBlue",
-  V: "casualPurple",
-  A: "casualRed",
-  E: "casualOrange",
-  N: "casualAqua",
-  M: "casualGreen",
-  K: "casualYellow",
-  T: "casualViolet",
+  S: "casualRed",
+  V: "casualOrange",
+  A: "casualGreen",
+  E: "casualAqua",
+  N: "casualSkyBlue",
+  M: "casualSlateBlue",
+  K: "casualViolet",
+  T: "casualPink",
 };
 
-export const groupLetters: GroupLetters[] = Object.keys(groupColors) as GroupLetters[];
+export const groupLetters = Object.keys(groupColors) as GroupLetters[];
 
-export const groupColorMapper = (group: GroupLetters, map: "text" | "bg") => {
+export const groupColorMapper = (group: GroupLetters) => {
   switch (group) {
     case "S":
     case "V":
@@ -34,7 +35,22 @@ export const groupColorMapper = (group: GroupLetters, map: "text" | "bg") => {
     case "M":
     case "K":
     case "T":
-      return map === "text" ? groupColors[group] : groupAllColors[group];
+      return groupColors[group];
+    default:
+      throw new Error(`Invalid group letter: ${group}`);
+  }
+};
+export const buttonVariantMapper = (group: GroupLetters) => {
+  switch (group) {
+    case "S":
+    case "V":
+    case "A":
+    case "E":
+    case "N":
+    case "M":
+    case "K":
+    case "T":
+      return groupAllColors[group] as keyof typeof realButtonVariants;
     default:
       throw new Error(`Invalid group letter: ${group}`);
   }

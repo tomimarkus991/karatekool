@@ -19,7 +19,9 @@ export const CalendarDate = ({ events, date }: Props) => {
     >
       <div className="flex-col flex h-full">
         <div className="flex justify-center">
-          <time dateTime={format(date, "dd-MM-yyyy")}>{date.getDate()}</time>
+          <time className="font-baloo" dateTime={format(date, "dd-MM-yyyy")}>
+            {date.getDate()}
+          </time>
         </div>
         <div className="flex h-full flex-col relative">
           {events.map(event => {
