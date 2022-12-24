@@ -19,7 +19,7 @@ export const CalendarDate = ({ events, date }: Props) => {
     >
       <div className="flex-col flex h-full">
         <div className="flex justify-center">
-          <time className="font-baloo" dateTime={format(date, "dd-MM-yyyy")}>
+          <time className="font-varela" dateTime={format(date, "dd-MM-yyyy")}>
             {date.getDate()}
           </time>
         </div>

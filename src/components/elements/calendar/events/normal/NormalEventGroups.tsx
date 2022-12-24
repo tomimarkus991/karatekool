@@ -7,12 +7,17 @@ interface MapGroupLetterProps {
   groups: SGroup[];
 }
 
+const className = "text-sm";
+
 export const MapGroupLetter = ({ groups }: MapGroupLetterProps) => {
   return (
     <>
       {groups.map(group => {
         return (
-          <p className={clsx("ml-1", groupColorMapper(group?.letter))} key={group?.letter}>
+          <p
+            className={clsx("ml-1", groupColorMapper(group?.letter), className)}
+            key={group?.letter}
+          >
             {group?.letter}
           </p>
         );
@@ -32,10 +37,10 @@ export const MapHighLightedGroupLetter = ({
       {highlightedGroups.map(highlightedGroup => {
         return (
           <div className={clsx("ml-1 flex flex-row")} key={highlightedGroup?.letter}>
-            <p className={clsx("underline", groupColorMapper(highlightedGroup?.letter))}>
+            <p className={clsx("underline", groupColorMapper(highlightedGroup?.letter), className)}>
               {highlightedGroup?.letter}
             </p>
-            <p className="text-red-500 ml-[0.1rem]">!</p>
+            <p className={clsx("text-red-500 ml-[0.1rem]", className)}>!</p>
           </div>
         );
       })}

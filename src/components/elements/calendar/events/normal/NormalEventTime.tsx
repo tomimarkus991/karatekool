@@ -16,16 +16,14 @@ export const NormalEventTime = ({ event }: Props) => {
   return (
     <p
       className={clsx(
-        "mr-1 text-left text-sm whitespace-nowrap font-baloo font-medium",
+        "text-left text-sm whitespace-nowrap font-varela",
         is_highlighted && "underline text-red-500"
       )}
     >
       {normal_event_end
-        ? `${format(start, "HH:mm", { locale: et })} - ${format(
-            parseISO(normal_event_end),
-            "HH:mm",
-            { locale: et }
-          )}`
+        ? `${format(start, "HH:mm", { locale: et })}-${format(parseISO(normal_event_end), "HH:mm", {
+            locale: et,
+          })}`
         : format(start, "HH:mm", { locale: et })}
     </p>
   );

@@ -44,7 +44,7 @@ export const Calendar = () => {
   console.log("events", events);
 
   return (
-    <div className="max-w-[60rem] m-auto bg-white rounded-lg p-4">
+    <div className="max-w-[60rem] m-auto bg-white rounded-lg p-4 select-none">
       <CalendarFilterButtons />
       <DragDropContext onDragEnd={reorder}>
         <p className="pt-2">{currentMonth}</p>

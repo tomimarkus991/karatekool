@@ -41,10 +41,10 @@ export const NormalEvent = ({ event, date }: Props) => {
         <div className="flex">
           <MapGroupLetter groups={group} />
           <MapHighLightedGroupLetter highlightedGroups={highlighted_group} />
-          <p className="text-red-500 ml-1">{event_trailer?.text}</p>
+          <p className="text-red-500 ml-1 text-sm">{event_trailer?.text}</p>
         </div>
       </div>
-      {description && <p>{description}</p>}
+      {description && <p className="text-sm font-medium">{description}</p>}
     </div>
   );
 };
