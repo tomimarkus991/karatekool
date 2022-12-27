@@ -1,9 +1,9 @@
-import { DefaultPageWrapper } from "components";
+import { Calendar, DefaultPageWrapper } from "components";
 
 export const KaratekaPage = () => {
   return (
     <DefaultPageWrapper>
-      <p>KaratekaPage</p>
+      <Calendar />
     </DefaultPageWrapper>
   );
 };

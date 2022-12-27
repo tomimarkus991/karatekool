@@ -1,9 +1,9 @@
-import { DefaultPageWrapper, Calendar } from "components";
+import { DefaultPageWrapper } from "components";
 
 export const HomePage = () => {
   return (
     <DefaultPageWrapper>
-      <Calendar />
+      <div>Home</div>
     </DefaultPageWrapper>
   );
 };
