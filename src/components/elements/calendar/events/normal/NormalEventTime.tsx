@@ -14,17 +14,24 @@ export const NormalEventTime = ({ event }: Props) => {
   const start = parseISO(event.start);
 
   return (
-    <p
-      className={clsx(
-        "text-left text-sm whitespace-nowrap font-varela",
-        is_highlighted && "underline text-red-500"
-      )}
-    >
-      {normal_event_end
-        ? `${format(start, "HH:mm", { locale: et })}-${format(parseISO(normal_event_end), "HH:mm", {
-            locale: et,
-          })}`
-        : format(start, "HH:mm", { locale: et })}
-    </p>
+    <>
+      <p
+        className={clsx(
+          "text-left whitespace-nowrap font-quicksand font-semibold text-base",
+          is_highlighted && "underline text-red-500"
+        )}
+      >
+        {normal_event_end
+          ? `${format(start, "HH:mm", { locale: et })}-${format(
+              parseISO(normal_event_end),
+              "HH:mm",
+              {
+                locale: et,
+              }
+            )}`
+          : format(start, "HH:mm", { locale: et })}
+      </p>
+      {/* <p className="font-varela text-sm">{format(start, "HH:mm", { locale: et })}</p> */}
+    </>
   );
 };

@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -41,6 +42,10 @@ input[type="number"] {
 
   .input-error {
     @apply border-2 border-red-300 caret-red-400 focus: outline-none focus:border-red-500;
+  }
+
+  .scrollbar-overflow {
+    @apply scrollbar-thumb-gray-300 overflow-scroll hover:scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thin scrollbar-thumb-rounded-full;
   }
 
   .gradient-border-example {

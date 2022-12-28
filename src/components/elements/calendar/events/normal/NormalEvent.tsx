@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { isSameDay, parseISO } from "date-fns";
 
 import { useCalendarFilters } from "context";
@@ -35,16 +36,18 @@ export const NormalEvent = ({ event, date }: Props) => {
   }
 
   return (
-    <div className="flex flex-col justify-start">
+    <div className={clsx("flex flex-col justify-start")}>
       <div className="flex flex-row justify-start items-center">
         <NormalEventTime event={event} />
-        <div className="flex">
+        <div className="flex justify-center items-center">
           <MapGroupLetter groups={group} />
           <MapHighLightedGroupLetter highlightedGroups={highlighted_group} />
-          <p className="text-red-500 ml-1 text-sm">{event_trailer?.text}</p>
+          <p className="text-red-500 ml-1 text-base font-quicksand font-semibold text-center">
+            {event_trailer?.text}
+          </p>
         </div>
       </div>
-      {description && <p className="text-sm font-medium">{description}</p>}
+      {description && <p className="text-sm font-medium -mt-[0.4rem]">{description}</p>}
     </div>
   );
 };

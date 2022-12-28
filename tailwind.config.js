@@ -40,6 +40,7 @@ module.exports = {
       varela: ["Varela Round", "sans-serif"],
       sans: ["Rubik", "sans-serif"],
       baloo: ["baloo-2", "cursive"],
+      quicksand: ["Quicksand", "sans-serif"],
   },
     linearBorderGradients: () => ({
       colors: {
@@ -62,7 +63,7 @@ module.exports = {
     }),
   },
   plugins: [
-    require("tailwind-scrollbar"),
+    require("tailwind-scrollbar")({ nocompatible: true }),
     require("tailwind-scrollbar-hide"),
     require("tailwindcss-border-gradient-radius"),
   ],

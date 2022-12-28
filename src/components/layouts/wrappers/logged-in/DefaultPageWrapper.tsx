@@ -1,6 +1,4 @@
-import { NavbarBottom } from "@redlotus/ui";
-
-import { NavbarBottomContent, NavbarTop, PartialPageWrapper } from "components";
+import { NavbarTop, PartialPageWrapper } from "components";
 
 interface Props {
   children: React.ReactNode;
@@ -16,9 +14,6 @@ export const DefaultPageWrapper = ({ children }: Props) => {
             user={{ id: "1", username, email: "galaxy@gmail.com", avatar: null }}
           /> */}
           <div className="px-4">{children}</div>
-          <NavbarBottom>
-            <NavbarBottomContent />
-          </NavbarBottom>
         </>
       }
     >

@@ -1,6 +1,6 @@
 import { EventData, EventTypes } from "types";
 
-import { AllDayEvent, MultiDayEvent, NormalEvent } from ".";
+import { AllDayEvent, MultiDayEvent, NormalEvent } from "../..";
 
 interface Props {
   event: EventData;
