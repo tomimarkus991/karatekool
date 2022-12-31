@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { isSameDay, parseISO } from "date-fns";
+import { useDetectOverflow } from "use-detect-overflow";
 
 import { useCalendarFilters } from "context";
 import { EventData } from "types";
@@ -34,14 +35,15 @@ export const NormalEvent = ({ event, date }: Props) => {
   ) {
     return <></>;
   }
+  const [ref, { overflowX }] = useDetectOverflow();
 
   return (
     <div className={clsx("flex flex-col justify-start")}>
-      <div className="flex flex-row justify-start items-center">
+      <div className="flex flex-row justify-start items-center" ref={ref}>
         <NormalEventTime event={event} />
-        <div className="flex justify-center items-center">
-          <MapGroupLetter groups={group} />
-          <MapHighLightedGroupLetter highlightedGroups={highlighted_group} />
+        <div className={clsx("flex justify-center items-center")}>
+          <MapGroupLetter groups={group} overflowX={overflowX} />
+          <MapHighLightedGroupLetter highlightedGroups={highlighted_group} overflowX={overflowX} />
           <p className="text-red-500 ml-1 text-base font-quicksand font-semibold text-center">
             {event_trailer?.text}
           </p>

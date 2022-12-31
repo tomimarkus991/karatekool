@@ -1,7 +1,7 @@
 import { NavbarTopLink } from "components";
 import { definedRoutes } from "routes";
 
-import { Logo } from "..";
+import { GlowButton, Logo } from "..";
 
 export const NavbarTop = () => {
   return (
@@ -19,9 +19,7 @@ export const NavbarTop = () => {
         <NavbarTopLink to={definedRoutes.aboutClub}>klubist</NavbarTopLink>
         <NavbarTopLink to={definedRoutes.karateka}>karateka</NavbarTopLink>
         <NavbarTopLink to={definedRoutes.contact}>kontakt</NavbarTopLink>
-        <button className="bg-primary py-1 px-3 rounded-3xl">
-          <p className="text-white">logi sisse</p>
-        </button>
+        <GlowButton>logi sisse</GlowButton>
       </div>
     </div>
   );

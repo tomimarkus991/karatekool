@@ -26,12 +26,12 @@
     "formik": "^2.2.9",
     "framer-motion": "^7.10.3",
     "react": "^18.2.0",
-    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.5.0",
     "tailwindcss-border-gradient-radius": "^3.0.1",
+    "use-detect-overflow": "^1.0.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {

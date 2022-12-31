@@ -5,17 +5,19 @@ import { groupColorMapper } from "utils";
 
 interface MapGroupLetterProps {
   groups: SGroup[];
+  overflowX: boolean;
 }
 
-const className = "text-lg font-quicksand font-semibold";
+const className = (overflowX: boolean) =>
+  clsx("font-quicksand font-semibold", overflowX ? "text-base ml-[0.1rem]" : "text-lg ml-1");
 
-export const MapGroupLetter = ({ groups }: MapGroupLetterProps) => {
+export const MapGroupLetter = ({ groups, overflowX }: MapGroupLetterProps) => {
   return (
     <>
       {groups.map(group => {
         return (
           <p
-            className={clsx("ml-1", groupColorMapper(group?.letter), className)}
+            className={clsx(groupColorMapper(group?.letter), className(overflowX))}
             key={group?.letter}
           >
             {group?.letter}
@@ -27,21 +29,23 @@ export const MapGroupLetter = ({ groups }: MapGroupLetterProps) => {
 };
 interface MapHighlightedGroupLetterProps {
   highlightedGroups: SHighLightedGroup[];
+  overflowX: boolean;
 }
 
 export const MapHighLightedGroupLetter = ({
   highlightedGroups,
+  overflowX,
 }: MapHighlightedGroupLetterProps) => {
   return (
     <>
       {highlightedGroups.map(highlightedGroup => {
         return (
-          <div className={clsx("ml-1 flex flex-row")} key={highlightedGroup?.letter}>
+          <div className={clsx("flex flex-row")} key={highlightedGroup?.letter}>
             <p
               className={clsx(
                 "underline decoration-red-500",
                 groupColorMapper(highlightedGroup?.letter),
-                className
+                className(overflowX)
               )}
             >
               {highlightedGroup?.letter}
