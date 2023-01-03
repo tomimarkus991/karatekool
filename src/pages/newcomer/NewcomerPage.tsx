@@ -12,7 +12,7 @@ export const NewcomerPage = () => {
           title={"Uute liikmete vastuvõtt"}
           body={
             <div className="mb-2">
-              <div className="text-lg px-4 py-2 mb-2 text-gray-700">
+              <div className="text-lg px-4 pb-2 mb-2 text-gray-700">
                 Uute liikmete vastuvõtt on taas avatud septembris 2023.
               </div>
 
@@ -47,8 +47,8 @@ export const NewcomerPage = () => {
           key="Miks tulla harjutama just Nüke klubisse?"
           title={"Miks tulla harjutama just Nüke klubisse?"}
           body={
-            <div className="px-6 pt-4 mb-2">
-              <ul className="list-disc text-base text-gray-700">
+            <div className="px-6 mb-2">
+              <ul className="list-disc text-base text-gray-700 space-y-1">
                 <li>
                   Klubi Nüke on kõige pikema traditsiooniga karateklubi Eestis. Meil on heade
                   kogemuste ja oskustega treenerid, selle tunnistuseks on rahulolevate harjutajate
@@ -86,50 +86,52 @@ export const NewcomerPage = () => {
           key="Miks peaks karated õppima?"
           title={"Miks peaks karated õppima?"}
           body={
-            <div className="mb-2">
-              <p>
-                Nii füüsilise kui ka vaimse võimekuse paranemisega tuleneb ka elukvaliteedi tõus ja
-                heaolu.
-              </p>
-              <div className="px-6 pt-4">
-                <ul className="list-disc text-base text-gray-700">
-                  <li>
-                    Karated õppides ja harjutades omandab õpilane enesearendamiseks ja eluks
-                    vajalikke teadmisi, oskusi ja võimeid.
-                  </li>
-                  <li>
-                    Kujuneb välja mõtlemis-, mõistmis- ja analüüsimisvõime, enese- ja sihiteadlikus,
-                    karate-, tervise-, ja spordialane intelligentsus, õpioskused jne.
-                  </li>
-                  <li>
-                    Karateõpilasel kujuneb aja jooksul välja kindel iseloom ja psühholoogiline
-                    võimekus (kõlbeline eluhoiak ja eetiline distsipliin, vägivallatu ja rahumeelne
-                    suhtlemisoskus, enesekontroll, kannatlikkus, meelekindlus, pühendatus).
-                  </li>
-                  <li>
-                    Sotsiaalne aspekt: meie trennides pannakse rõhku omavahelistele headele
-                    suhetele. Riiukukki ja kaklejaid meil pole, karates on mõttetöö ülioluline.
-                  </li>
-                  <li>
-                    Läbi karatetreeningute omandab õpilane kahevõitlus- ja enesekaitseoskusi,
-                    kaitse- ja ründetehnikaid nii ühe, kui mitme vastase vastu, kaitsevõtteid
-                    relvade vastu.
-                  </li>
-                  <li>
-                    Kujuneb välja nii füüsiline kui ka vaimne valmisolek, enesekindlus, julgus,
-                    tähelepanelikkus, kiire reageerimisvõime ja taiplikus.
-                  </li>
-                  <li>
-                    Enesekaitseoskusest tulenev tasakaal aitab vältida konfliktseid olukordi.
-                    Rünnatakse ja kiusatakse eelkõige nõrgemaid, karate harjutaja pole kerge saak.
-                  </li>
-                  <li>
-                    Süstemaatiline karatega tegelemine arendab kehalisi võimeid, tagab keha
-                    harmoonilise arengu, annab hea rühi, parandab liikumiskoordinatsiooni, karastab
-                    organismi, parandab tervist, tõstab kehalist tublidust ja töövõimet.
-                  </li>
-                </ul>
-              </div>
+            <div>
+              <AccordionContentList
+                title="Nii füüsilise kui ka vaimse võimekuse paranemisega tuleneb ka elukvaliteedi tõus ja
+                heaolu."
+                content={
+                  <>
+                    <li>
+                      Karated õppides ja harjutades omandab õpilane enesearendamiseks ja eluks
+                      vajalikke teadmisi, oskusi ja võimeid.
+                    </li>
+                    <li>
+                      Kujuneb välja mõtlemis-, mõistmis- ja analüüsimisvõime, enese- ja
+                      sihiteadlikus, karate-, tervise-, ja spordialane intelligentsus, õpioskused
+                      jne.
+                    </li>
+                    <li>
+                      Karateõpilasel kujuneb aja jooksul välja kindel iseloom ja psühholoogiline
+                      võimekus (kõlbeline eluhoiak ja eetiline distsipliin, vägivallatu ja
+                      rahumeelne suhtlemisoskus, enesekontroll, kannatlikkus, meelekindlus,
+                      pühendatus).
+                    </li>
+                    <li>
+                      Sotsiaalne aspekt: meie trennides pannakse rõhku omavahelistele headele
+                      suhetele. Riiukukki ja kaklejaid meil pole, karates on mõttetöö ülioluline.
+                    </li>
+                    <li>
+                      Läbi karatetreeningute omandab õpilane kahevõitlus- ja enesekaitseoskusi,
+                      kaitse- ja ründetehnikaid nii ühe, kui mitme vastase vastu, kaitsevõtteid
+                      relvade vastu.
+                    </li>
+                    <li>
+                      Kujuneb välja nii füüsiline kui ka vaimne valmisolek, enesekindlus, julgus,
+                      tähelepanelikkus, kiire reageerimisvõime ja taiplikus.
+                    </li>
+                    <li>
+                      Enesekaitseoskusest tulenev tasakaal aitab vältida konfliktseid olukordi.
+                      Rünnatakse ja kiusatakse eelkõige nõrgemaid, karate harjutaja pole kerge saak.
+                    </li>
+                    <li>
+                      Süstemaatiline karatega tegelemine arendab kehalisi võimeid, tagab keha
+                      harmoonilise arengu, annab hea rühi, parandab liikumiskoordinatsiooni,
+                      karastab organismi, parandab tervist, tõstab kehalist tublidust ja töövõimet.
+                    </li>
+                  </>
+                }
+              />
             </div>
           }
           iconClassName={className}
@@ -267,7 +269,7 @@ export const NewcomerPage = () => {
           key="Treeningtasu"
           title={"Treeningtasu"}
           body={
-            <div className="px-6 pt-4 space-y-6 mb-2">
+            <div className="px-6 space-y-6 mb-2">
               <p>
                 Treeningtasu makstakse kord kuus, enne uue treeningtsükli algust. Selle kohta
                 saadetakse info iga kuu e-maili teel, koos uue kuu treeninggraafikuga.

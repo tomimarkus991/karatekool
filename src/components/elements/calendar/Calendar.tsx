@@ -10,6 +10,7 @@ import {
   startOfWeek,
 } from "date-fns";
 import { useState } from "react";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 
 import { days } from "app-constants";
 import { useGetCurrentMonthEvents } from "hooks";
@@ -44,18 +45,26 @@ export const Calendar = () => {
   console.log("events", events);
 
   return (
-    <div className="max-w-[60rem] m-auto bg-white rounded-lg p-4 select-none">
+    <div className="p-4 select-none">
       <CalendarFilterButtons />
+      <div className="flex justify-center items-center mt-2 mb-3">
+        <div className="px-5 py-3 bg-white flex flex-row my-4 justify-center space-x-3 items-center max-w-fit rounded-lg border-b-4">
+          <HiChevronLeft className="text-gray-600 text-3xl cursor-pointer transition-all duration-300 hover:-translate-y-[0.05rem]" />
+          <p className="first-letter:uppercase font-catamaran font-semibold text-lg">
+            {currentMonth}
+          </p>
+          <HiChevronRight className="text-gray-600 text-3xl cursor-pointer transition-all duration-300 hover:-translate-y-[0.05rem]" />
+        </div>
+      </div>
 
-      <p className="pt-2">{currentMonth}</p>
-      <div className="grid grid-cols-7 mb-2">
-        {days.short.map(day => (
+      <div className="grid grid-cols-7 font-semibold font-catamaran">
+        {days.long.map(day => (
           <div key={day} className="flex justify-center">
             <p>{day}</p>
           </div>
         ))}
       </div>
-      <div className="grid grid-rows-5 overflow-hidden">
+      <div className="grid grid-rows-5 overflow-hidden bg-white">
         {weeks.map(week => {
           const daysForWeek = eachDayOfInterval({
             start: startOfWeek(week),

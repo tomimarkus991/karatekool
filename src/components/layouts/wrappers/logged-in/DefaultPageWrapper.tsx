@@ -18,7 +18,7 @@ export const DefaultPageWrapper = ({ children }: Props) => {
       }
     >
       <NavbarTop />
-      {children}
+      <div className="w-full py-16 lg:px-8 xl:px-20 2xl:px-[20%]">{children}</div>
     </PartialPageWrapper>
   );
 };

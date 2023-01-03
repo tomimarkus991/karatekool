@@ -7,8 +7,10 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-          red:"0px 4px 12px 0 rgba(229, 8, 21, 0.6)",
-          orange:"0px 4px 12px 0 rgba(229, 141, 8, 0.5)",
+          // red:"0px 4px 12px 0 rgba(229, 8, 21, 0.6)",
+          red: "0px 4px 12px 0 rgba(174, 9, 9, 0.3)",
+          orange:"0px 4px 12px 0 rgba(229, 141, 8, 0.3)",
+          // orange:"0px 20px 20px -12px rgba(229, 141, 8, 0.3)",
       },
       screens: {
         min: "340px",
@@ -21,6 +23,8 @@ module.exports = {
         // 2xl 1536px
       },
       colors: {
+        "surface-bg": "#FCFDFF",
+        "text-primary": "#393939",
         primary:"#E50815",
         secondary:"#E58D08",
         casualRed: "#FF695A",
@@ -46,6 +50,7 @@ module.exports = {
       sans: ["Rubik", "sans-serif"],
       baloo: ["baloo-2", "cursive"],
       quicksand: ["Quicksand", "sans-serif"],
+      catamaran: ["Catamaran", "sans-serif"],
   },
     linearBorderGradients: () => ({
       colors: {

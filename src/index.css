@@ -2,6 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -20,11 +21,15 @@ input[type="number"] {
 
 @layer base {
   p {
-    @apply text-gray-800;
+    @apply text-[#393939] font-catamaran;
+  }
+
+  h1 {
+    @apply text-[#393939] font-catamaran;
   }
 
   span {
-    @apply text-gray-800;
+    @apply text-[#393939];
   }
 }
 

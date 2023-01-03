@@ -25,7 +25,7 @@ export const PartialPageWrapper = ({ children, RightSide, Sidebar, MobileContent
           <div
             id="main-content"
             className={clsx(
-              "flex min-h-screen min-w-full justify-center bg-slate-50",
+              "flex min-h-screen min-w-full justify-center bg-surface-bg",
               sidebarState === "mobile" && "h-full overflow-hidden",
               "py-32 pb-[6.5rem]"
             )}
@@ -35,11 +35,11 @@ export const PartialPageWrapper = ({ children, RightSide, Sidebar, MobileContent
           {Sidebar}
         </>
       ) : (
-        <div id="main-content" className="flex min-h-screen w-full bg-slate-50">
+        <div id="main-content" className="flex min-h-screen w-full bg-surface-bg">
           <div className="flex justify-start">{Sidebar}</div>
           <div
             className={clsx(
-              "w-full py-0 px-40",
+              "w-full py-0 px-10 lg:px-40",
               (sidebarState === "expanded" || sidebarState === "small") && "ml-[6.5rem]"
             )}
           >
