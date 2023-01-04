@@ -5,7 +5,7 @@ import {
   endOfMonth,
   endOfWeek,
   format,
-  startOfMonth,
+  parse,
   startOfToday,
   startOfWeek,
 } from "date-fns";
@@ -20,40 +20,42 @@ import { CalendarDate, CalendarFilterButtons } from ".";
 export const Calendar = () => {
   const { data: events = [] } = useGetCurrentMonthEvents();
 
-  const today = add(startOfToday(), { days: 0 });
+  const today = startOfToday();
 
-  const [currentMonth] = useState(format(today, "MMMM yyyy"));
+  const [currentMonth, setCurrentMonth] = useState(format(today, "MMMM yyyy"));
+  const firstDayOfCurrentMonth = parse(currentMonth, "MMMM yyyy", today);
 
   const weeks = eachWeekOfInterval({
-    start: startOfWeek(startOfMonth(today)),
-    end: endOfWeek(endOfMonth(today)),
+    start: startOfWeek(firstDayOfCurrentMonth),
+    end: endOfWeek(endOfMonth(firstDayOfCurrentMonth)),
   });
 
-  // const reorder = (result: DropResult, provided: ResponderProvided) => {
-  //   console.log("12345", result);
-  //   console.log("123456", provided);
+  const nextMonth = () => {
+    const firstDayNextMonth = add(firstDayOfCurrentMonth, { months: 1 });
+    setCurrentMonth(format(firstDayNextMonth, "MMMM yyyy"));
+  };
 
-  //   if (!result.destination) return;
-
-  //   const items = Array.from(events);
-  //   const [removed] = items.splice(result.source.index, 1);
-
-  //   // put it back in the right place
-  //   items.splice(result.destination.index, 0, removed);
-  // };
-
-  console.log("events", events);
+  const prevMonth = () => {
+    const firstDayPrevMonth = add(firstDayOfCurrentMonth, { months: -1 });
+    setCurrentMonth(format(firstDayPrevMonth, "MMMM yyyy"));
+  };
 
   return (
     <div className="p-4 select-none">
       <CalendarFilterButtons />
       <div className="flex justify-center items-center mt-2 mb-3">
-        <div className="px-5 py-3 bg-white flex flex-row my-4 justify-center space-x-3 items-center max-w-fit rounded-lg border-b-4">
-          <HiChevronLeft className="text-gray-600 text-3xl cursor-pointer transition-all duration-300 hover:-translate-y-[0.05rem]" />
-          <p className="first-letter:uppercase font-catamaran font-semibold text-lg">
+        <div className="px-5 py-3 bg-white flex flex-row my-4 justify-center items-center max-w-fit rounded-lg border-b-4 min-w-[16rem]">
+          <HiChevronLeft
+            onClick={prevMonth}
+            className="text-gray-600 mr-3 text-3xl cursor-pointer transition-all duration-300 hover:-translate-y-[0.05rem]"
+          />
+          <p className="min-w-[8rem] text-center first-letter:uppercase font-catamaran font-semibold text-lg">
             {currentMonth}
           </p>
-          <HiChevronRight className="text-gray-600 text-3xl cursor-pointer transition-all duration-300 hover:-translate-y-[0.05rem]" />
+          <HiChevronRight
+            onClick={nextMonth}
+            className="text-gray-600 ml-3 text-3xl cursor-pointer transition-all duration-300 hover:-translate-y-[0.05rem]"
+          />
         </div>
       </div>
 
@@ -86,3 +88,15 @@ export const Calendar = () => {
     </div>
   );
 };
+// const reorder = (result: DropResult, provided: ResponderProvided) => {
+//   console.log("12345", result);
+//   console.log("123456", provided);
+
+//   if (!result.destination) return;
+
+//   const items = Array.from(events);
+//   const [removed] = items.splice(result.source.index, 1);
+
+//   // put it back in the right place
+//   items.splice(result.destination.index, 0, removed);
+// };

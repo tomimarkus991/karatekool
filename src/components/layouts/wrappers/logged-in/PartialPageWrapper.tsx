@@ -36,7 +36,6 @@ export const PartialPageWrapper = ({ children, RightSide, Sidebar, MobileContent
         </>
       ) : (
         <div id="main-content" className="flex min-h-screen w-full bg-surface-bg">
-          <div className="flex justify-start">{Sidebar}</div>
           <div
             className={clsx(
               "w-full py-0 px-10 lg:px-40",

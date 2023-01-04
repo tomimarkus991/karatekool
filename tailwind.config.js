@@ -13,7 +13,7 @@ module.exports = {
           // orange:"0px 20px 20px -12px rgba(229, 141, 8, 0.3)",
       },
       screens: {
-        min: "340px",
+        minscreen: "340px",
         xs: "460px",
         xs2: "500px",
         // sm	640px
@@ -21,6 +21,8 @@ module.exports = {
         // lg	1024px
         // xl	1280px
         // 2xl 1536px
+      },
+      fontSize: {
       },
       colors: {
         "surface-bg": "#FCFDFF",
@@ -37,7 +39,7 @@ module.exports = {
         casualPink: "#F07DD7",
       },
       animation: {
-        'spin-slow': 'spin-backwards 20s linear infinite',
+        'spin-slow': 'spin-backwards 40s linear infinite',
       },
       keyframes:{
         "spin-backwards":{

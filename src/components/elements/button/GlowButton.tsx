@@ -7,9 +7,17 @@ const glowButtonVariants = {
 };
 
 const glowButtonSizes = {
-  sm: "py-2 px-10 text-sm rounded-3xl max-h-[4rem]",
-  md: "py-2 px-5 text-md rounded-3xl max-h-[4rem]",
-  lg: "py-3 px-18 text-lg rounded-3xl max-h-[4rem]",
+  xs: "py-2 px-3 rounded-3xl max-h-[2.5rem]",
+  sm: "py-2 px-3 rounded-3xl max-h-[2.5rem]",
+  md: "py-2 px-5 rounded-3xl max-h-[4rem]",
+  lg: "py-3 px-18 rounded-3xl max-h-[4rem]",
+  //   oneLetter: "py-3 px-5 text-md rounded-lg uppercase max-h-[3.2rem] max-w-[3.2rem]",
+};
+const glowButtonFontSizes = {
+  xs: "text-xs",
+  sm: "text-sm",
+  md: "text-md",
+  lg: "text-lg",
   //   oneLetter: "py-3 px-5 text-md rounded-lg uppercase max-h-[3.2rem] max-w-[3.2rem]",
 };
 
@@ -38,7 +46,9 @@ export const GlowButton = ({
       )}
       {...props}
     >
-      <p className="text-white lowercase font-semibold text-lg">{children}</p>
+      <p className={clsx("text-white lowercase font-semibold", glowButtonFontSizes[size])}>
+        {children}
+      </p>
     </button>
   );
 };
