@@ -23,9 +23,10 @@ module.exports = {
         // 2xl 1536px
       },
       fontSize: {
+        xs2: "0.6rem",
       },
       colors: {
-        "surface-bg": "#FCFDFF",
+        "surface-bg": "#F7F8FA",
         "text-primary": "#393939",
         primary:"#E50815",
         secondary:"#E58D08",
@@ -37,6 +38,10 @@ module.exports = {
         casualSlateBlue: "#97B8FC",
         casualViolet: "#C780E8",
         casualPink: "#F07DD7",
+      },
+      aspectRatio: {
+        '4/3': '4 / 3',
+        '16/9': '16 / 9',
       },
       animation: {
         'spin-slow': 'spin-backwards 40s linear infinite',

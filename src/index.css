@@ -7,6 +7,19 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+:focus {
+  outline: none !important;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -40,11 +53,6 @@ input[type="number"] {
     -ms-overflow-style: none;
   }
 
-  .scrollbar-styles {
-    /* @apply scrollbar-none no-scrollbar scrollbar-thumb-slate-500 scrollbar-track-gray-100 active:scrollbar-thumb-slate-600; */
-    @apply scrollbar-hide;
-  }
-
   .input-error {
     @apply border-2 border-red-300 caret-red-400 focus: outline-none focus:border-red-500;
   }
@@ -55,6 +63,10 @@ input[type="number"] {
 
   .gradient-border-example {
     @apply border-4 border-transparent border-solid border-gradient-br-light-green-white;
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    @apply hidden
   }
 }
 

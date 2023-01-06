@@ -17,8 +17,8 @@ export const AllDayEvent = ({ event, date }: Props) => {
 
   return (
     <div className="text-center flex flex-col justify-center flex-grow">
-      <p className="text-blue-600 mb-3">{all_day_event.title}</p>
-      <p className="text-sm">{all_day_event.sub_title}</p>
+      <p className="text-blue-600 mb-3 text-xs md:text-base">{all_day_event.title}</p>
+      <p className="text-xs2">{all_day_event.sub_title}</p>
     </div>
   );
 };

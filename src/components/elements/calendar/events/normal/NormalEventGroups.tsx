@@ -8,18 +8,17 @@ interface MapGroupLetterProps {
   overflowX: boolean;
 }
 
-const className = (overflowX: boolean) =>
-  clsx("font-quicksand font-semibold", overflowX ? "text-base ml-[0.1rem]" : "text-lg ml-1");
+const className = () =>
+  clsx("font-quicksand font-semibold", "text-[0.5rem] ml-[0.05rem] sm:text-lg sm:ml-1");
+// const className = (overflowX: boolean) =>
+//   clsx("font-quicksand font-semibold", overflowX ? "text-base ml-[0.1rem]" : "text-lg ml-1");
 
-export const MapGroupLetter = ({ groups, overflowX }: MapGroupLetterProps) => {
+export const MapGroupLetter = ({ groups }: MapGroupLetterProps) => {
   return (
     <>
       {groups.map(group => {
         return (
-          <p
-            className={clsx(groupColorMapper(group?.letter), className(overflowX))}
-            key={group?.letter}
-          >
+          <p className={clsx(groupColorMapper(group?.letter), className())} key={group?.letter}>
             {group?.letter}
           </p>
         );
@@ -27,6 +26,7 @@ export const MapGroupLetter = ({ groups, overflowX }: MapGroupLetterProps) => {
     </>
   );
 };
+
 interface MapHighlightedGroupLetterProps {
   highlightedGroups: SHighLightedGroup[];
   overflowX: boolean;
@@ -34,7 +34,6 @@ interface MapHighlightedGroupLetterProps {
 
 export const MapHighLightedGroupLetter = ({
   highlightedGroups,
-  overflowX,
 }: MapHighlightedGroupLetterProps) => {
   return (
     <>
@@ -45,14 +44,14 @@ export const MapHighLightedGroupLetter = ({
               className={clsx(
                 "underline decoration-red-500",
                 groupColorMapper(highlightedGroup?.letter),
-                className(overflowX)
+                className()
               )}
             >
               {highlightedGroup?.letter}
             </p>
             <p
               className={clsx(
-                "text-red-500 ml-[0.1rem] font-bold font-quicksand text-xl",
+                "text-red-500 ml-[0.1rem] font-bold font-quicksand text-sm sm:text-xl",
                 className
               )}
             >

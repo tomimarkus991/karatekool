@@ -17,7 +17,7 @@ export const NormalEventTime = ({ event }: Props) => {
     <>
       <p
         className={clsx(
-          "text-left whitespace-nowrap font-quicksand font-semibold text-base",
+          "text-left whitespace-nowrap font-quicksand font-semibold sm:text-base text-[0.37rem]",
           is_highlighted && "underline text-red-500"
         )}
       >

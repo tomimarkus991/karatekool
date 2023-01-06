@@ -1,11 +1,35 @@
 import { animations, AnimationWrapper, useSidebar } from "@redlotus/ui";
+import { useTransform, motion, useMotionTemplate } from "framer-motion";
+
+import { useBoundedScroll } from "hooks";
 
 import { Logo } from "../Logo";
 
 export const NavbarTopMobile = () => {
   const { setSidebarState, setPrevSidebarState } = useSidebar();
+  const { scrollYBoundedProgress } = useBoundedScroll(100);
+
+  const scrollYBoundedProgressThrottled = useTransform(
+    scrollYBoundedProgress,
+    // percentage of the scrollYBoundedProgress so when 0.75 it starts effect when 75 pixels are scrolled
+    [0, 0.75, 1],
+    [0, 0, 1]
+  );
+
+  // const opacity = useTransform(scrollYBoundedProgress, [0, 1], [1, 0]);
+
   return (
-    <div className="mx-auto inset-x-0 my-2 fixed top-0 z-[1200] flex h-16 rounded-md drop-shadow-lg shadow-inner items-center w-[95%] bg-slate-50 py-12">
+    <motion.div
+      style={{
+        height: useTransform(scrollYBoundedProgress, [0, 1], [150, 60]),
+        backgroundColor: useMotionTemplate`rgba(255, 255, 255, ${useTransform(
+          scrollYBoundedProgressThrottled,
+          [0, 1],
+          [1, 0.1]
+        )})`,
+      }}
+      className="mx-auto inset-x-0 my-2 fixed top-0 z-[1200] flex rounded-md drop-shadow-lg backdrop-blur-md shadow-inner items-center w-[95%]"
+    >
       <div className="flex flex-1 items-center justify-between px-4">
         <div className="font-semibold">
           <p className="text-3xl">nüke</p>
@@ -28,6 +52,6 @@ export const NavbarTopMobile = () => {
           </AnimationWrapper>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

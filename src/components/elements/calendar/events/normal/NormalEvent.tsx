@@ -44,12 +44,14 @@ export const NormalEvent = ({ event, date }: Props) => {
         <div className={clsx("flex justify-center items-center")}>
           <MapGroupLetter groups={group} overflowX={overflowX} />
           <MapHighLightedGroupLetter highlightedGroups={highlighted_group} overflowX={overflowX} />
-          <p className="text-red-500 ml-1 text-base font-quicksand font-semibold text-center">
-            {event_trailer?.text}
-          </p>
+          {event_trailer?.text && (
+            <p className="text-red-500 ml-1 text-base font-quicksand font-semibold text-center">
+              {event_trailer?.text}
+            </p>
+          )}
         </div>
       </div>
-      {description && <p className="text-sm font-medium -mt-[0.4rem]">{description}</p>}
+      {description && <p className="text-xs sm:text-sm font-medium -mt-[0.4rem]">{description}</p>}
     </div>
   );
 };

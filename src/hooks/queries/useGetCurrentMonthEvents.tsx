@@ -3,8 +3,12 @@ import { toast } from "react-hot-toast";
 
 import { EventData } from "types";
 import { supabase } from "utils";
+// must get events for only current month and long events if they are in both months
 
-export const useGetCurrentMonthEvents = () => {
+export const useGetCurrentMonthEvents = (
+  firstDayOfCurrentMonth: string,
+  lastDayOfCurrentMonth: string
+) => {
   const getEvents = async () => {
     const { data, error } = await supabase
       .from("event")
@@ -18,6 +22,9 @@ export const useGetCurrentMonthEvents = () => {
     highlighted_group (letter)
     `
       )
+      .or(
+        `and(start.gte.${firstDayOfCurrentMonth},start.lte.${lastDayOfCurrentMonth}),and(long_event_end.gte.${firstDayOfCurrentMonth},long_event_end.lte.${lastDayOfCurrentMonth})`
+      )
       .order("start", { ascending: true });
 
     if (error) {
@@ -30,5 +37,9 @@ export const useGetCurrentMonthEvents = () => {
     return _eventData || [];
   };
 
-  return useQuery(["current_month_events"], () => getEvents());
+  return useQuery(
+    ["current_month_events", `[${firstDayOfCurrentMonth} ${lastDayOfCurrentMonth}]`],
+    () => getEvents(),
+    { enabled: false }
+  );
 };

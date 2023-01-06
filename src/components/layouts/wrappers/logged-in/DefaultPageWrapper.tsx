@@ -1,7 +1,10 @@
 import { Sidebar, useIsMobile } from "@redlotus/ui";
+import clsx from "clsx";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 import { MobileSidebarContent, NavbarTop, PartialPageWrapper, NavbarTopMobile } from "components";
-import { routes } from "routes";
+import { routes, definedRoutes } from "routes";
 
 interface Props {
   children: React.ReactNode;
@@ -9,13 +12,32 @@ interface Props {
 
 export const DefaultPageWrapper = ({ children }: Props) => {
   const { isMobile } = useIsMobile("sm");
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    document.documentElement.classList.add("scrollbar-none");
+    return () => {
+      document.documentElement.classList.remove("scrollbar-none");
+    };
+  }, []);
+
   return (
     <PartialPageWrapper
       MobileContent={
         <>
           {/* make isMobile true only until sm screen */}
           {isMobile ? <NavbarTopMobile /> : <NavbarTop />}
-          <div className="px-4">{children}</div>
+          <div
+            className={clsx(
+              pathname !== definedRoutes.karateka
+                ? "px-4"
+                : // : "!no-scrollbar !scrollbar-none !scrollbar-hide"
+                  // "scrollbar-hide md:scrollbar-default"
+                  "scrollbar-hidden"
+            )}
+          >
+            {children}
+          </div>
         </>
       }
       Sidebar={

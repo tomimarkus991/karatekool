@@ -8,16 +8,18 @@ import {
   parseISO,
   startOfWeek,
 } from "date-fns";
+import { RectReadOnly } from "react-use-measure";
 
 import { EventData, SMultiDayEvent } from "types";
 
 interface Props {
   event: EventData;
   date: Date;
+  bounds: RectReadOnly;
 }
 
 interface ChildProps {
-  width: string;
+  width: number;
   multi_day_event: SMultiDayEvent;
 }
 
@@ -33,7 +35,7 @@ const Child = ({ width, multi_day_event }: ChildProps) => {
   );
 };
 
-export const MultiDayEvent = ({ event, date }: Props) => {
+export const MultiDayEvent = ({ event, date, bounds }: Props) => {
   const { long_event_end, multi_day_event } = event;
   const start = parseISO(event.start);
 
@@ -65,8 +67,8 @@ export const MultiDayEvent = ({ event, date }: Props) => {
   const longEventLengthForWeek = eachDayOfLongEvents.filter(eventDay =>
     weekDays.includes(eventDay)
   ).length;
-
-  const width = `${longEventLengthForWeek * 100}%`;
+  // 4 days * calendar date width - 24 (margin)
+  const width = longEventLengthForWeek * bounds.width - 24;
 
   if (longEventWeekStartDays.some(day => isSameDay(day, date))) {
     return <Child multi_day_event={multi_day_event} width={width} />;

@@ -62,15 +62,19 @@ export const ContactPage = () => {
           võimla. Kollase koolimaja peaukse kaudu trenni ei pääse!
         </p>
 
-        <iframe
+        {/* <iframe
           title="vhk-door"
-          src="https://www.google.com/maps/embed?pb=!4v1672586292325!6m8!1m7!1sWoylyElRgEjZ4AMPK4W0gg!2m2!1d59.43875058234357!2d24.74853988221851!3f76.67107239277681!4f-12.538823574173904!5f0.7820865974627469"
+          src="https://www.google.com/maps/embed?pb=!4v1672930327547!6m8!1m7!1sXMecyfKoHC599Gkqk8Escg!2m2!1d59.43866558139087!2d24.74846176838619!3f48.41854115344992!4f3.8139882712168856!5f0.7820865974627469"
           className="w-full"
           height="450"
           loading="lazy"
+        /> */}
+        <img
+          alt="vhk-door"
+          src="/general/vhk_door_arrow.jpg"
+          className="aspect-auto object-cover"
         />
       </div>
-
       <div className="flex mt-8 mb-6">
         <div>
           <div className="flex flex-row justify-center items-center space-x-4">

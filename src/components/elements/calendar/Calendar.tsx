@@ -1,3 +1,4 @@
+import { useIsMobile } from "@redlotus/ui";
 import {
   add,
   eachDayOfInterval,
@@ -5,11 +6,12 @@ import {
   endOfMonth,
   endOfWeek,
   format,
+  formatISO9075,
   parse,
   startOfToday,
   startOfWeek,
 } from "date-fns";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 
 import { days } from "app-constants";
@@ -18,16 +20,24 @@ import { useGetCurrentMonthEvents } from "hooks";
 import { CalendarDate, CalendarFilterButtons } from ".";
 
 export const Calendar = () => {
-  const { data: events = [] } = useGetCurrentMonthEvents();
-
   const today = startOfToday();
+  const { isMobile } = useIsMobile();
 
   const [currentMonth, setCurrentMonth] = useState(format(today, "MMMM yyyy"));
   const firstDayOfCurrentMonth = parse(currentMonth, "MMMM yyyy", today);
+  const firstDayOfCalendarMonth = startOfWeek(firstDayOfCurrentMonth);
+  const lastDayOfCalendarMonth = endOfWeek(endOfMonth(firstDayOfCurrentMonth));
+
+  const { data: events = [], refetch: fetchEvents } = useGetCurrentMonthEvents(
+    formatISO9075(firstDayOfCalendarMonth),
+    formatISO9075(lastDayOfCalendarMonth)
+  );
+
+  console.log(events);
 
   const weeks = eachWeekOfInterval({
-    start: startOfWeek(firstDayOfCurrentMonth),
-    end: endOfWeek(endOfMonth(firstDayOfCurrentMonth)),
+    start: firstDayOfCalendarMonth,
+    end: lastDayOfCalendarMonth,
   });
 
   const nextMonth = () => {
@@ -40,8 +50,15 @@ export const Calendar = () => {
     setCurrentMonth(format(firstDayPrevMonth, "MMMM yyyy"));
   };
 
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+  useEffect(() => {
+    fetchEvents();
+  }, [currentMonth]);
+
   return (
-    <div className="p-4 select-none">
+    <div className="lg:p-4 select-none">
       <CalendarFilterButtons />
       <div className="flex justify-center items-center mt-2 mb-3">
         <div className="px-5 py-3 bg-white flex flex-row my-4 justify-center items-center max-w-fit rounded-lg border-b-4 min-w-[16rem]">
@@ -60,11 +77,23 @@ export const Calendar = () => {
       </div>
 
       <div className="grid grid-cols-7 font-semibold font-catamaran">
-        {days.long.map(day => (
-          <div key={day} className="flex justify-center">
-            <p>{day}</p>
-          </div>
-        ))}
+        {isMobile ? (
+          <>
+            {days.short.map(day => (
+              <div key={day} className="flex justify-center">
+                <p>{day}</p>
+              </div>
+            ))}
+          </>
+        ) : (
+          <>
+            {days.long.map(day => (
+              <div key={day} className="flex justify-center">
+                <p>{day}</p>
+              </div>
+            ))}
+          </>
+        )}
       </div>
       <div className="grid grid-rows-5 overflow-hidden bg-white">
         {weeks.map(week => {
