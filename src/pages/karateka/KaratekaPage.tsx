@@ -3,7 +3,7 @@ import { Calendar, DefaultPageWrapper, GlowButton } from "components";
 export const KaratekaPage = () => {
   return (
     <DefaultPageWrapper>
-      <div className="px-4">
+      <div className="px-4 mb-10">
         <h1 className="font-semibold text-xl font-catamaran mb-3">Õppematerjalid</h1>
         <p className="font-light text-lg font-catamaran mb-2">
           Õppematerjalide nägemiseks palun logi sisse või loo kasutaja.
@@ -12,7 +12,6 @@ export const KaratekaPage = () => {
           <GlowButton>logi sisse</GlowButton>
           <GlowButton variant="orange">loo kasutaja</GlowButton>
         </div>
-        <h1 className="font-semibold text-xl font-catamaran mb-3">Treeninggraafikud</h1>
       </div>
       <Calendar />
     </DefaultPageWrapper>

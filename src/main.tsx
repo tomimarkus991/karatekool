@@ -1,6 +1,7 @@
 import { SidebarProvider } from "@redlotus/ui";
 // eslint-disable-next-line import/no-duplicates
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { setDefaultOptions } from "date-fns";
 // eslint-disable-next-line import/no-duplicates
 import { et } from "date-fns/locale";

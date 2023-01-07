@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { format, isToday } from "date-fns";
+import { format, isSameMonth, isToday } from "date-fns";
 import useMeasure from "react-use-measure";
 
 import { EventData } from "types";
@@ -9,17 +9,20 @@ import { Event } from ".";
 interface Props {
   events: EventData[];
   date: Date;
+  month: Date;
+  isFetched: boolean;
+  isAnimating: boolean;
 }
 
-export const CalendarDate = ({ events, date }: Props) => {
+export const CalendarDate = ({ events, date, month }: Props) => {
   const [ref, bounds] = useMeasure();
 
   return (
     <div
       ref={ref}
       className={clsx(
-        "w-full h-full border-r first:border-l m-auto box-border p-1",
-        "border-gray-200"
+        "w-full h-full m-auto box-border p-1",
+        "border-stone-100 border-r first:border-l"
       )}
     >
       <div className="flex-col flex h-full">
@@ -29,7 +32,7 @@ export const CalendarDate = ({ events, date }: Props) => {
               "font-varela text-xs sm:text-sm md:text-base",
               isToday(date)
                 ? "text-white bg-primary h-6 w-6 rounded-full text-center"
-                : "text-text-primary"
+                : `${!isSameMonth(date, month) ? "text-stone-300" : "text-text-primary"}`
             )}
             dateTime={format(date, "dd-MM-yyyy")}
           >

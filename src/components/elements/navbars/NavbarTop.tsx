@@ -1,14 +1,9 @@
-import { useIsMobile } from "@redlotus/ui";
-
 import { NavbarTopLink } from "components";
 import { definedRoutes } from "routes";
 
 import { GlowButton, Logo } from "..";
 
 export const NavbarTop = () => {
-  const { isMobile } = useIsMobile("xl");
-  console.log(isMobile);
-
   return (
     <div className="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl m-auto mt-4">
       <div className="flex justify-between">

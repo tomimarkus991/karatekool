@@ -37,9 +37,7 @@ export const useGetCurrentMonthEvents = (
     return _eventData || [];
   };
 
-  return useQuery(
-    ["current_month_events", `[${firstDayOfCurrentMonth} ${lastDayOfCurrentMonth}]`],
-    () => getEvents(),
-    { enabled: false }
-  );
+  return useQuery([firstDayOfCurrentMonth, lastDayOfCurrentMonth], async () => getEvents(), {
+    enabled: false,
+  });
 };
