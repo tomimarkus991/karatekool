@@ -3,7 +3,7 @@ import { Calendar, DefaultPageWrapper, GlowButton } from "components";
 export const KaratekaPage = () => {
   return (
     <DefaultPageWrapper>
-      <div className="px-4 mb-10 2xl:px-[15%]">
+      <div className="px-4 mb-10 2xl:px-[20%]">
         <h1 className="mb-3 text-xl font-semibold font-catamaran">Õppematerjalid</h1>
         <p className="mb-2 text-lg font-light font-catamaran">
           Õppematerjalide nägemiseks palun logi sisse või loo kasutaja.

@@ -6,11 +6,11 @@ import { buttonVariantMapper, groupLetters } from "utils";
 export const CalendarFilterButtons = () => {
   const { setLetter } = useCalendarFilters();
   return (
-    <div className="grid grid-cols-4 gap-y-2 xs2:grid-cols-8 xs2:gap-x-2 xs2:gap-y-0 lg:grid-cols-12 lg:gap-x-0">
+    <div className="grid justify-center grid-cols-4 gap-2 max-w-[340px] m-auto xs2:flex xs2:justify-start xs:max-w-none xs:m-0 xs:ml-4">
       {groupLetters.map(letter => {
         return (
           <RealButton
-            className="place-self-center"
+            className="active:translate-y-[0.2rem] active:duration-75"
             variant={buttonVariantMapper(letter)}
             size="oneLetter"
             onClick={() => setLetter(letter)}
