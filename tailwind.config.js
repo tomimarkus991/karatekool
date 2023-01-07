@@ -1,26 +1,23 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const colors = require("tailwindcss/colors");
+const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   // darkMode: "class",
   theme: {
+    screens:{
+      minscreen: "340px",
+      xs: "460px",
+      xs2: "500px",
+      ...defaultTheme.screens,
+    },
     extend: {
       boxShadow: {
           // red:"0px 4px 12px 0 rgba(229, 8, 21, 0.6)",
           red: "0px 4px 12px 0 rgba(174, 9, 9, 0.3)",
           orange:"0px 4px 12px 0 rgba(229, 141, 8, 0.3)",
           // orange:"0px 20px 20px -12px rgba(229, 141, 8, 0.3)",
-      },
-      screens: {
-        minscreen: "340px",
-        xs: "460px",
-        xs2: "500px",
-        sm: "640px",
-        md: "768px",
-        lg: "1024px",
-        xl: "1280px",
-        "2xl": "1536px",
       },
       fontSize: {
         xs2: "0.6rem",
