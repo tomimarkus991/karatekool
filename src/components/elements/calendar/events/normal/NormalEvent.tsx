@@ -53,13 +53,13 @@ export const NormalEvent = ({ event, date }: Props) => {
       }}
       className={clsx("flex flex-col justify-start")}
     >
-      <div className="flex flex-row justify-start items-center" ref={ref}>
+      <div className="flex flex-row items-center justify-start" ref={ref}>
         <NormalEventTime event={event} />
         <div className={clsx("flex justify-center items-center")}>
           <MapGroupLetter groups={group} overflowX={overflowX} />
           <MapHighLightedGroupLetter highlightedGroups={highlighted_group} overflowX={overflowX} />
           {event_trailer?.text && (
-            <p className="text-red-500 ml-1 sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] font-quicksand font-semibold text-center">
+            <p className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] font-quicksand font-semibold text-center">
               {event_trailer?.text}
             </p>
           )}

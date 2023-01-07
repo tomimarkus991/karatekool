@@ -17,13 +17,13 @@ export const NormalEventTime = ({ event }: Props) => {
     <>
       <p
         className={clsx(
-          "sm:text-sm text-left md:text-2xl whitespace-nowrap font-quicksand font-semibold xs:text-[0.7rem] text-[0.6rem]",
+          "sm:text-sm text-left md:text-base whitespace-nowrap font-quicksand font-semibold xs:text-[0.7rem] text-[0.6rem]",
           is_highlighted && "underline text-red-500"
         )}
       >
         {format(start, "HH:mm", { locale: et })}
       </p>
-      {/* <p className="font-varela text-sm">{format(start, "HH:mm", { locale: et })}</p> */}
+      {/* <p className="text-sm font-varela">{format(start, "HH:mm", { locale: et })}</p> */}
     </>
   );
 };

@@ -11,7 +11,7 @@ interface MapGroupLetterProps {
 const className = () =>
   clsx(
     "font-quicksand font-semibold",
-    "text-[0.6rem] ml-[0.05rem] xs:ml-[0.1rem] xs:text-xs sm:text-sm sm:ml-[0.15rem]"
+    "text-[0.6rem] ml-[0.05rem] xs:ml-[0.1rem] xs:text-xs sm:text-sm md:text-base sm:ml-[0.15rem]"
   );
 // const className = (overflowX: boolean) =>
 //   clsx("font-quicksand font-semibold", overflowX ? "text-base ml-[0.1rem]" : "text-lg ml-1");
@@ -54,7 +54,7 @@ export const MapHighLightedGroupLetter = ({
             </p>
             <p
               className={clsx(
-                "text-red-500 ml-[0.06rem] xs:text-xs xs:ml-[0.1rem] font-bold font-quicksand text-[0.6rem] sm:text-sm flex justify-center items-center",
+                "text-red-500 ml-[0.06rem] md:text-base xs:text-xs xs:ml-[0.1rem] font-bold font-quicksand text-[0.6rem] sm:text-sm flex justify-center items-center",
                 className
               )}
             >

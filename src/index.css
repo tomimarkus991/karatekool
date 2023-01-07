@@ -1,36 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-html, body {
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-:focus {
-  outline: none !important;
-}
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
-}
 
 @layer base {
   p {
@@ -45,28 +15,3 @@ input[type="number"] {
     @apply text-[#393939];
   }
 }
-
-@layer components {
-
-  /* IE and Edge */
-  .no-scrollbar {
-    -ms-overflow-style: none;
-  }
-
-  .input-error {
-    @apply border-2 border-red-300 caret-red-400 focus: outline-none focus:border-red-500;
-  }
-
-  .scrollbar-overflow {
-    @apply scrollbar-thumb-gray-300 overflow-scroll hover:scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thin scrollbar-thumb-rounded-full;
-  }
-
-  .gradient-border-example {
-    @apply border-4 border-transparent border-solid border-gradient-br-light-green-white;
-  }
-
-  .scrollbar-hidden::-webkit-scrollbar {
-    @apply hidden
-  }
-}
-

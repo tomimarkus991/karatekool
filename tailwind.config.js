@@ -3,7 +3,7 @@ const colors = require("tailwindcss/colors");
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}", "./node_modules/@redlotus/ui/dist/style.css"],
   // darkMode: "class",
   theme: {
     screens:{

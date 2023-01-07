@@ -27,15 +27,7 @@ export const DefaultPageWrapper = ({ children }: Props) => {
         <>
           {/* make isMobile true only until sm screen */}
           {isMobile ? <NavbarTopMobile /> : <NavbarTop />}
-          <div
-            className={clsx(
-              pathname !== definedRoutes.karateka
-                ? "px-4"
-                : // : "!no-scrollbar !scrollbar-none !scrollbar-hide"
-                  // "scrollbar-hide md:scrollbar-default"
-                  "scrollbar-hidden"
-            )}
-          >
+          <div className={clsx(pathname !== definedRoutes.karateka ? "px-4" : "px-0")}>
             {children}
           </div>
         </>
@@ -49,7 +41,14 @@ export const DefaultPageWrapper = ({ children }: Props) => {
     >
       <NavbarTop />
 
-      <div className="w-full py-16 lg:px-8 xl:px-20 2xl:px-[20%]">{children}</div>
+      <div
+        className={clsx(
+          "w-full py-16 lg:px-8 xl:px-20",
+          pathname !== definedRoutes.karateka ? "2xl:px-[20%]" : "2xl:px-0"
+        )}
+      >
+        {children}
+      </div>
     </PartialPageWrapper>
   );
 };

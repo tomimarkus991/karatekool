@@ -1,3 +1,6 @@
+import "@redlotus/ui/dist/style.css";
+import "index.css";
+
 import { SidebarProvider } from "@redlotus/ui";
 // eslint-disable-next-line import/no-duplicates
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -12,9 +15,6 @@ import { BrowserRouter } from "react-router-dom";
 
 import { CalendarFiltersProvider } from "context";
 import { Router } from "routes";
-import "./index.css";
-
-import "@redlotus/ui/dist/style.css";
 
 setDefaultOptions({ locale: et });
 

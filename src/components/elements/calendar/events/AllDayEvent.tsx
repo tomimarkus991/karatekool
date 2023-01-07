@@ -28,7 +28,7 @@ export const AllDayEvent = ({ event, date }: Props) => {
       }}
       className="flex flex-col justify-center flex-grow text-center"
     >
-      <p className="mb-3 text-xs text-blue-600 sm:text-base sm:mb-1 xs:text-sm">
+      <p className="mb-3 text-xs text-blue-600 sm:text-base sm:mb-1 xs:text-sm md:text-lg">
         {all_day_event.title}
       </p>
       <p className="text-xs2 xs:text-xs sm:text-sm">{all_day_event.sub_title}</p>
