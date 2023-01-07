@@ -19,14 +19,17 @@ export const NormalEvent = ({ event, date }: Props) => {
   const { letter } = useCalendarFilters();
   const [ref, { overflowX }] = useDetectOverflow();
 
+  // show event if it is the same day as the date
   if (!isSameDay(start, date)) {
     return <></>;
   }
 
+  // if filter is none then show nothing
   if (letter === "none") {
     return <></>;
   }
 
+  // if filter is all show all groups
   if (
     letter !== "all" &&
     !(group.filter(_group => _group?.letter === letter).length > 0) &&
@@ -38,8 +41,6 @@ export const NormalEvent = ({ event, date }: Props) => {
     return <></>;
   }
 
-  console.log(letter);
-
   return (
     <motion.div
       initial="enter"
@@ -47,8 +48,8 @@ export const NormalEvent = ({ event, date }: Props) => {
       exit="exit"
       variants={{
         enter: { opacity: 0 },
-        middle: { opacity: 1 },
-        exit: { opacity: 0, x: 300, transition: { duration: 3 } },
+        middle: { opacity: 1, transition: { opacity: { duration: 0.2 } } },
+        exit: { opacity: 0, x: 300, transition: { duration: 1 } },
       }}
       className={clsx("flex flex-col justify-start")}
     >
@@ -58,13 +59,17 @@ export const NormalEvent = ({ event, date }: Props) => {
           <MapGroupLetter groups={group} overflowX={overflowX} />
           <MapHighLightedGroupLetter highlightedGroups={highlighted_group} overflowX={overflowX} />
           {event_trailer?.text && (
-            <p className="text-red-500 ml-1 text-base font-quicksand font-semibold text-center">
+            <p className="text-red-500 ml-1 sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] font-quicksand font-semibold text-center">
               {event_trailer?.text}
             </p>
           )}
         </div>
       </div>
-      {description && <p className="text-xs sm:text-sm font-medium -mt-[0.4rem]">{description}</p>}
+      {description && (
+        <p className="text-[0.4rem] xs:text-[0.6rem] sm:text-[0.71rem] font-semibold text-left -mt-[0.2rem]">
+          {description}
+        </p>
+      )}
     </motion.div>
   );
 };

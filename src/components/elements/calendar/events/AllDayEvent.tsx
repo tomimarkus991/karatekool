@@ -21,11 +21,17 @@ export const AllDayEvent = ({ event, date }: Props) => {
       initial="enter"
       animate="middle"
       exit="exit"
-      variants={{ enter: { opacity: 0 }, middle: { opacity: 1 }, exit: { opacity: 0 } }}
+      variants={{
+        enter: { opacity: 0 },
+        middle: { opacity: 1, transition: { opacity: { duration: 0.5 } } },
+        exit: { opacity: 0 },
+      }}
       className="text-center flex flex-col justify-center flex-grow"
     >
-      <p className="text-blue-600 mb-3 text-xs md:text-base">{all_day_event.title}</p>
-      <p className="text-xs2">{all_day_event.sub_title}</p>
+      <p className="text-blue-600 mb-3 sm:mb-1 text-xs xs:text-sm sm:text-base">
+        {all_day_event.title}
+      </p>
+      <p className="text-xs2 xs:text-xs sm:text-sm">{all_day_event.sub_title}</p>
     </motion.div>
   );
 };

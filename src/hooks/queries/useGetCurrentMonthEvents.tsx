@@ -39,5 +39,6 @@ export const useGetCurrentMonthEvents = (
 
   return useQuery([firstDayOfCurrentMonth, lastDayOfCurrentMonth], async () => getEvents(), {
     enabled: false,
+    // staleTime: 0,
   });
 };

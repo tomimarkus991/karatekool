@@ -32,7 +32,11 @@ const Child = ({ width, multi_day_event }: ChildProps) => {
       initial="enter"
       animate="middle"
       exit="exit"
-      variants={{ enter: { opacity: 0 }, middle: { opacity: 1 }, exit: { opacity: 0 } }}
+      variants={{
+        enter: { opacity: 0 },
+        middle: { opacity: 1, transition: { opacity: { duration: 0.5 } } },
+        exit: { opacity: 0 },
+      }}
       style={{ width }}
       className={clsx("bg-blue-600 mt-4 ml-2 rounded-md left-0", "absolute")}
     >
