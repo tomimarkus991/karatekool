@@ -1,0 +1,109 @@
+import { Tab } from "@headlessui/react";
+import clsx from "clsx";
+import { motion, Variants } from "framer-motion";
+import { Fragment } from "react";
+
+import { DirectionsButton } from "components";
+
+interface ContactHeadingProps {
+  children: React.ReactNode;
+}
+export const ContactHeading = ({ children }: ContactHeadingProps) => {
+  return (
+    <p className="font-catamaran self-start text-[#393939] text-lg font-semibold">{children}</p>
+  );
+};
+
+interface ContactDojosTabProps {
+  children: React.ReactNode;
+  selectedIndex: number;
+  index: number;
+}
+
+export const ContactDojosTab = ({ children, selectedIndex, index }: ContactDojosTabProps) => {
+  const tabVariant: Variants = {
+    active: {
+      color: "#E50815",
+      transition: {
+        ease: "easeOut",
+        duration: 0.6,
+      },
+    },
+    inactive: {
+      transition: {
+        ease: "easeOut",
+        duration: 0.6,
+      },
+    },
+  };
+
+  return (
+    <Tab as={Fragment}>
+      {({ selected }) => (
+        <motion.button
+          variants={tabVariant}
+          animate={selectedIndex === index ? "active" : "inactive"}
+          className={clsx(
+            "rounded-xl z-10 mx-[0.2rem] text-[0.8rem] font-catamaran font-semibold px-1 py-3 w-full",
+            selected ? "" : " hover:bg-stone-200",
+            "focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none"
+          )}
+        >
+          {children}
+        </motion.button>
+      )}
+    </Tab>
+  );
+};
+
+interface ContactAddressProps {
+  title: string;
+  address: string;
+  directionsLink: string;
+}
+
+export const ContactAddress = ({ title, address, directionsLink }: ContactAddressProps) => {
+  return (
+    <>
+      <div className="flex flex-row justify-between mb-5">
+        <div className="flex flex-row md:hidden">
+          <div className="flex flex-col items-center justify-start mr-2">
+            <ContactHeading>{title}</ContactHeading>
+            <p className="text-[0.9rem] self-start">{address}</p>
+          </div>
+          <DirectionsButton onClick={() => window.open(directionsLink, "_blank")} />
+        </div>
+        <div className="hidden md:block">
+          <div className="flex flex-row items-center justify-center space-x-4">
+            <ContactHeading>{title}</ContactHeading>
+            <DirectionsButton onClick={() => window.open(directionsLink, "_blank")} />
+          </div>
+          <p className="text-xl">{address}</p>
+        </div>
+        <div className="hidden space-y-2 text-lg md:block">
+          <ContactHeading>Kontakt</ContactHeading>
+          <p>(+372) 57 50 17 33</p>
+          <p>info@karatekool.ee</p>
+          <p>MTÜ Karate-do klubi Nüke</p>
+          <p>EE 2310 1022 0004 3840 13</p>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export const ContactGeneralInfo = () => {
+  return (
+    <div className="mb-4">
+      <ContactHeading>Üldine info</ContactHeading>
+      <ul className="md:ml-10 ml-6 text-[0.9rem] md:text-base list-disc">
+        <li>
+          <p>Esimesse trenni tuleb kaasa võtta tavalised spordiriided ja hea tuju.</p>
+        </li>
+        <li>
+          <p>Varustust (kimono ja vööd) pole alguses vaja, kuid kui on olemas võib kaasa võtta.</p>
+        </li>
+      </ul>
+    </div>
+  );
+};

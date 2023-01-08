@@ -18,6 +18,9 @@
   li {
     @apply text-stone-600;
   }
+  button {
+    @apply text-[#393939];
+  }
 }
 
 /* @layer components {

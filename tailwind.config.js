@@ -25,6 +25,7 @@ module.exports = {
       colors: {
         "surface-bg": "#F7F8FA",
         "text-primary": "#393939",
+        "tab-bg":"#F6F6F8",
         primary:"#E50815",
         secondary:"#E58D08",
         casualRed: "#FF695A",

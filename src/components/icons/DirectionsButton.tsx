@@ -1,6 +1,7 @@
 import { animations, AnimationWrapper } from "@redlotus/ui";
+import { SVGProps } from "react";
 
-export const DirectionsButton = () => {
+export const DirectionsButton = (props: SVGProps<SVGSVGElement>) => {
   return (
     <AnimationWrapper variants={animations.smallScale} key="directions-button">
       <svg
@@ -9,6 +10,7 @@ export const DirectionsButton = () => {
         height="50"
         viewBox="0 0 50 50"
         fill="none"
+        {...props}
         xmlns="http://www.w3.org/2000/svg"
       >
         <g clip-path="url(#clip0_221_849)">
