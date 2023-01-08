@@ -3,7 +3,7 @@ import { DefaultPageWrapper } from "components";
 export const HomePage = () => {
   return (
     <DefaultPageWrapper>
-      <div>Home</div>
+      <p className="font-semibold text-xl">Coming soon</p>
     </DefaultPageWrapper>
   );
 };
