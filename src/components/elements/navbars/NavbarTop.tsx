@@ -1,11 +1,9 @@
-import { NavbarTopLink } from "components";
+import { NavbarTopLink, GlowButton, Logo } from "components";
 import { definedRoutes } from "routes";
-
-import { GlowButton, Logo } from "..";
 
 export const NavbarTop = () => {
   return (
-    <div className="max-w-5xl xl:max-w-6xl 2xl:max-w-7xl m-auto mt-4">
+    <div className="max-w-5xl m-auto mt-4 xl:max-w-6xl 2xl:max-w-7xl">
       <div className="flex justify-between">
         <div className="flex flex-row items-center space-x-1 lg:space-x-3">
           <Logo className="scale-[0.8] lg:scale-[0.9]" />
@@ -14,7 +12,7 @@ export const NavbarTop = () => {
             <p className="md:text-base lg:text-lg">karate-do klubi</p>
           </div>
         </div>
-        <div className="flex flex-row space-x-5 lg:space-x-8 items-center font-normal">
+        <div className="flex flex-row items-center space-x-5 font-normal lg:space-x-8">
           <NavbarTopLink to={definedRoutes.home}>kodu</NavbarTopLink>
           <NavbarTopLink to={definedRoutes.newcomer}>uustulnukale</NavbarTopLink>
           <NavbarTopLink to={definedRoutes.aboutClub}>klubist</NavbarTopLink>

@@ -7,9 +7,9 @@ import {
 } from "@redlotus/ui";
 import { HiX } from "react-icons/hi";
 
-import { Logo } from "../Logo";
+import { Logo } from "components";
 
-import { SidebarLink } from "./SidebarLink";
+import { SidebarLink } from ".";
 
 interface Props {
   routes: Router[];
@@ -29,11 +29,11 @@ export const MobileSidebarContent = ({ routes, BottomContent }: Props) => {
           </div>
           <button onClick={modifyOnClick}>
             <AnimationWrapper key="expanded-sidebar-x-icon" variants={animations.scaleAndRotation}>
-              <HiX className="h-12 w-12 fill-text-primary hover:fill-gray-800" />
+              <HiX className="w-12 h-12 fill-text-primary hover:fill-gray-800" />
             </AnimationWrapper>
           </button>
         </div>
-        <div className="mt-8 h-full space-y-4">
+        <div className="h-full mt-8 space-y-4">
           {routes.map(({ bigIcon, to, routeName }, index) => {
             return (
               <>
