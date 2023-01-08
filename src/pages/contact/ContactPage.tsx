@@ -1,21 +1,41 @@
-import { DefaultPageWrapper } from "components";
+import { DefaultPageWrapper, DirectionsButton } from "components";
 
-import { DirectionsButton } from "./DirectionsButton";
+interface ContactHeadingProps {
+  children: React.ReactNode;
+}
+const ContactHeading = ({ children }: ContactHeadingProps) => {
+  return <p className="font-catamaran text-[#393939] text-lg font-semibold">{children}</p>;
+};
 
 export const ContactPage = () => {
   return (
     <DefaultPageWrapper>
-      <div className="flex flex-row justify-between">
-        <div className="flex flex-row">
-          <div>
-            <div className="flex flex-row justify-center items-center space-x-4">
-              <p className="text-4xl font-medium">VHK võimla Vanalinnas</p>
-              <DirectionsButton />
-            </div>
-            <p className="text-xl">Vene 22, 10123 Tallinn, Estonia</p>
-          </div>
+      <div className="mb-4 md:hidden">
+        <ContactHeading>Kontakt</ContactHeading>
+        <div className="space-y-2 text-[0.9rem]">
+          <p>(+372) 57 50 17 33</p>
+          <p>info@karatekool.ee</p>
+          <p>MTÜ Karate-do klubi Nüke</p>
+          <p>EE 2310 1022 0004 3840 13</p>
         </div>
-        <div className="space-y-2 text-lg">
+      </div>
+      <div className="flex flex-row justify-between mb-5">
+        <div className="hidden md:block">
+          <div className="flex flex-row items-center justify-center space-x-4">
+            <ContactHeading>VHK võimla Vanalinnas</ContactHeading>
+            <DirectionsButton />
+          </div>
+          <p className="text-xl">Vene 22, 10123 Tallinn, Estonia</p>
+        </div>
+        <div className="flex flex-row md:hidden">
+          <div className="flex flex-col items-center justify-center mr-2">
+            <ContactHeading>VHK võimla Vanalinnas</ContactHeading>
+            <p className="text-[0.9rem]">Vene 22, 10123 Tallinn, Estonia</p>
+          </div>
+          <DirectionsButton />
+        </div>
+        <div className="hidden space-y-2 text-lg md:block">
+          <ContactHeading>Kontakt</ContactHeading>
           <p>(+372) 57 50 17 33</p>
           <p>info@karatekool.ee</p>
           <p>MTÜ Karate-do klubi Nüke</p>
@@ -23,9 +43,9 @@ export const ContactPage = () => {
         </div>
       </div>
       <div className="flex flex-col">
-        <div className="mb-8">
-          <p className="text-2xl font-medium mb-2 mt-4">Üldine info</p>
-          <ul className="list-disc ml-10 text-lg">
+        <div className="mb-4">
+          <ContactHeading>Üldine info</ContactHeading>
+          <ul className="md:ml-10 ml-6 text-[0.9rem] md:text-base list-disc">
             <li>
               <p>Esimesse trenni tuleb kaasa võtta tavalised spordiriided ja hea tuju.</p>
             </li>
@@ -36,14 +56,14 @@ export const ContactPage = () => {
             </li>
           </ul>
         </div>
-        <div className="mb-8">
-          <p className="text-2xl font-medium mb-2">Trenni tulek</p>
-          <p className="mb-3 max-w-4xl">
+        <div className="mb-4">
+          <ContactHeading>Trenni tulek</ContactHeading>
+          <p className="max-w-4xl mb-3 text-[0.9rem] md:text-base">
             Vene tänav asub Tallinna vanalinna tasulises parkimistsoonis, soodsaim variant on tulla
             ühistranspordiga. VHK võimla on meeldiva jalutuskäigu kaugusel mitmetest Tallinna
             kesklinna ühistranspordi sõlmedest (Viru Keskus, Vabaduse väljak, Balti jaam).
           </p>
-          <p className="max-w-4xl">
+          <p className="max-w-4xl text-[0.9rem] md:text-base">
             Isikliku autoga tulija peab arvestama, et ukse ees Vene tänaval parkimise hind on 1,15
             EUR 15 minuti eest. Lähimad Europarki parklad on aadressidel Aia 18 ja Aia 7 (3,20 EUR
             tund). Ka kesklinna tasulise parkimise tsoon ei asu kaugel, kuid odavamas
@@ -57,7 +77,7 @@ export const ContactPage = () => {
           className="w-full"
           loading="lazy"
         />
-        <p className="mt-6 mb-3">
+        <p className="mt-6 mb-3 text-[0.9rem] md:text-base">
           Trenni tulija peaks sisenema sellest hooviväravast, kust peale sisenemist paistab kohe ka
           võimla. Kollase koolimaja peaukse kaudu trenni ei pääse!
         </p>
@@ -72,22 +92,22 @@ export const ContactPage = () => {
         <img
           alt="vhk-door"
           src="/general/vhk_door_arrow.jpg"
-          className="aspect-auto object-cover"
+          className="object-cover aspect-auto"
         />
       </div>
       <div className="flex mt-8 mb-6">
         <div>
-          <div className="flex flex-row justify-center items-center space-x-4">
-            <p className="text-3xl font-medium">KSG Spordisaal Sikupillis</p>
+          <div className="flex flex-row items-center justify-center space-x-4">
+            <ContactHeading>KSG Spordisaal Sikupillis</ContactHeading>
             <DirectionsButton />
           </div>
-          <p className="text-xl mt-2">Mäe maja, Kivimurru 9, 11411 Tallinn, Estonia</p>
+          <p className="mt-2 text-xl">Mäe maja, Kivimurru 9, 11411 Tallinn, Estonia</p>
         </div>
       </div>
 
       <div className="mb-8">
-        <p className="text-2xl font-medium mb-2">Üldine info</p>
-        <ul className="list-disc ml-10 text-lg">
+        <ContactHeading>Üldine info</ContactHeading>
+        <ul className="ml-10 text-lg list-disc">
           <li>
             <p>Esimesse trenni tuleb kaasa võtta tavalised spordiriided ja hea tuju.</p>
           </li>
