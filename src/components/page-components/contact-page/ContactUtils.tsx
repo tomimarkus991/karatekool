@@ -8,9 +8,12 @@ import { DirectionsButton } from "components";
 interface ContactHeadingProps {
   children: React.ReactNode;
 }
+
 export const ContactHeading = ({ children }: ContactHeadingProps) => {
   return (
-    <p className="font-catamaran self-start text-[#393939] text-lg font-semibold">{children}</p>
+    <p className="font-catamaran self-start text-[#393939] text-lg md:text-xl font-semibold md:self-center">
+      {children}
+    </p>
   );
 };
 
@@ -65,7 +68,7 @@ interface ContactAddressProps {
 export const ContactAddress = ({ title, address, directionsLink }: ContactAddressProps) => {
   return (
     <>
-      <div className="flex flex-row justify-between mb-5">
+      <div className="flex flex-row justify-between mb-5 max-w-4xl m-auto">
         <div className="flex flex-row md:hidden">
           <div className="flex flex-col items-center justify-start mr-2">
             <ContactHeading>{title}</ContactHeading>
@@ -78,9 +81,9 @@ export const ContactAddress = ({ title, address, directionsLink }: ContactAddres
             <ContactHeading>{title}</ContactHeading>
             <DirectionsButton onClick={() => window.open(directionsLink, "_blank")} />
           </div>
-          <p className="text-xl">{address}</p>
+          <p className="text-lg leading-[0.5rem]">{address}</p>
         </div>
-        <div className="hidden space-y-2 text-lg md:block">
+        <div className="hidden space-y-2 md:text-base text-lg md:block">
           <ContactHeading>Kontakt</ContactHeading>
           <p>(+372) 57 50 17 33</p>
           <p>info@karatekool.ee</p>

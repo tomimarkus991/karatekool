@@ -7,21 +7,21 @@ import { ContactAddress, ContactDojosTab, ContactGeneralInfo, ContactHeading } f
 
 const dojoContentVariants: Variants = {
   hidden: {
-    opacity: 0,
+    opacity: 0.5,
     y: 20,
   },
   active: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.3,
+      duration: 0.6,
     },
   },
   exit: {
     opacity: 0,
     y: 20,
     transition: {
-      duration: 0.3,
+      duration: 0.6,
     },
   },
 };
@@ -48,7 +48,7 @@ export const ContactDojos = () => {
     <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
       <Tab.List
         className={clsx(
-          "flex flex-row relative px-1 w-full flex-1 mb-3 bg-stone-100 rounded-2xl max-w-md m-auto"
+          "flex flex-row relative px-1 w-full flex-1 mb-3 bg-stone-100 rounded-2xl max-w-md m-auto md:mb-6"
         )}
       >
         <ContactDojosTab selectedIndex={selectedIndex} index={0}>
@@ -78,17 +78,17 @@ export const ContactDojos = () => {
               address="Vene 22, 10123 Tallinn"
               directionsLink="https://goo.gl/maps/gD7T4aTC7Xx55HMZ6"
             />
-            <div className="flex flex-col">
+            <div className="flex flex-col max-w-4xl m-auto">
               <ContactGeneralInfo />
               <div className="mb-4">
                 <ContactHeading>Trenni tulek</ContactHeading>
-                <p className="max-w-4xl mb-3 text-[0.9rem] md:text-base">
+                <p className="mb-3 text-[0.9rem] md:text-base">
                   Vene tänav asub Tallinna vanalinna tasulises parkimistsoonis, soodsaim variant on
                   tulla ühistranspordiga. VHK võimla on meeldiva jalutuskäigu kaugusel mitmetest
                   Tallinna kesklinna ühistranspordi sõlmedest (Viru Keskus, Vabaduse väljak, Balti
                   jaam).
                 </p>
-                <p className="max-w-4xl text-[0.9rem] md:text-base">
+                <p className="text-[0.9rem] md:text-base">
                   Isikliku autoga tulija peab arvestama, et ukse ees Vene tänaval parkimise hind on
                   1,15 EUR 15 minuti eest. Lähimad Europarki parklad on aadressidel Aia 18 ja Aia 7
                   (3,20 EUR tund). Ka kesklinna tasulise parkimise tsoon ei asu kaugel, kuid
@@ -126,10 +126,10 @@ export const ContactDojos = () => {
           >
             <ContactAddress
               title="KSG Spordisaal Sikupillis"
-              address="Mäe maja, Kivimurru 9, 11411 Tallinn"
+              address="Kivimurru 9, 11411 Tallinn"
               directionsLink="https://goo.gl/maps/W68nS57PaPRRruiJ8"
             />
-            <div className="flex flex-col">
+            <div className="flex flex-col max-w-4xl m-auto">
               <ContactGeneralInfo />
 
               <iframe
