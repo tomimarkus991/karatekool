@@ -7,8 +7,8 @@ import { ContactAddress, ContactDojosTab, ContactGeneralInfo, ContactHeading } f
 
 const dojoContentVariants: Variants = {
   hidden: {
-    opacity: 0.5,
-    y: 20,
+    opacity: 0.3,
+    y: 0,
   },
   active: {
     opacity: 1,
@@ -19,7 +19,7 @@ const dojoContentVariants: Variants = {
   },
   exit: {
     opacity: 0,
-    y: 20,
+    y: -5,
     transition: {
       duration: 0.6,
     },
