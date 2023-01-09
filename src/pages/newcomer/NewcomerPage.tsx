@@ -3,37 +3,38 @@ import { Accordion } from "@redlotus/ui";
 import { AccordionContentList, DefaultPageWrapper } from "components";
 
 export const NewcomerPage = () => {
-  const className = "h-8 w-8 text-[#E50815]";
+  const iconClassName = "h-8 w-8 text-[#E50815]";
+
   return (
     <DefaultPageWrapper>
-      <div className="flex flex-col justify-center items-center space-y-4 mb-8">
+      <div className="flex flex-col items-center justify-center mb-8 space-y-4 font-catamaran">
         <Accordion
           key="Uute liikmete vastuvõtt"
           title={"Uute liikmete vastuvõtt"}
           body={
-            <div className="mb-2">
-              <div className="text-lg px-4 pb-2 mb-2 text-gray-700">
+            <div className="mb-2 text-base md:text-lg">
+              <p className="px-4 pb-2 mb-2">
                 Uute liikmete vastuvõtt on taas avatud septembris 2023.
-              </div>
+              </p>
 
-              <div className="px-4 py-2 text-xl mb-2 text-gray-700">
+              <p className="px-4 py-2 mb-2">
                 Treeningud <b>algklasside lastele</b>, VHK spordisaalis (Vene 22):
-              </div>
-              <ul className="list-disc pl-8 mb-4">
-                <li className="font-bold text-lg mb-2 text-gray-800">V-grupp:</li>
-                <ul className="list-disc pl-8 text-base text-gray-700">
+              </p>
+              <ul className="pl-8 mb-4 list-disc">
+                <li className="mb-2 font-bold">V-grupp:</li>
+                <ul className="pl-8 list-disc">
                   <li>TEISIPÄEVAL kell 15:00 – 16:00</li>
                   <li>KOLMAPÄEVAL kell 15:00 – 16:00</li>
                   <li>REEDEL kell 15:00 – 16:00</li>
                 </ul>
               </ul>
 
-              <div className="px-4 py-2 text-xl mb-2 text-gray-700">
+              <div className="px-4 py-2 mb-2">
                 Treeningud <b>noortele ja täiskasvanutele</b>, VHK spordisaalis (Vene 22):
               </div>
-              <ul className="list-disc pl-8 mb-4">
-                <li className="font-bold text-lg mb-2 text-gray-800">A-grupp:</li>
-                <ul className="list-disc pl-8 text-base text-gray-700">
+              <ul className="pl-8 mb-4 list-disc">
+                <li className="mb-2 font-bold">A-grupp:</li>
+                <ul className="pl-8 list-disc">
                   <li>TEISIPÄEVAL kell 16:30-17:45</li>
                   <li>NELJAPÄEVAL kell 16:30-17:45</li>
                   <li>LAUPÄEVAL kell 11:15-12:45 (vastavalt treeninggraafikule)</li>
@@ -41,14 +42,14 @@ export const NewcomerPage = () => {
               </ul>
             </div>
           }
-          iconClassName={className}
+          iconClassName={iconClassName}
         />
         <Accordion
           key="Miks tulla harjutama just Nüke klubisse?"
           title={"Miks tulla harjutama just Nüke klubisse?"}
           body={
             <div className="px-6 mb-2">
-              <ul className="list-disc text-base text-gray-700 space-y-1">
+              <ul className="space-y-1 list-disc">
                 <li>
                   Klubi Nüke on kõige pikema traditsiooniga karateklubi Eestis. Meil on heade
                   kogemuste ja oskustega treenerid, selle tunnistuseks on rahulolevate harjutajate
@@ -80,7 +81,7 @@ export const NewcomerPage = () => {
               </ul>
             </div>
           }
-          iconClassName={className}
+          iconClassName={iconClassName}
         />
         <Accordion
           key="Miks peaks karated õppima?"
@@ -134,7 +135,7 @@ export const NewcomerPage = () => {
               />
             </div>
           }
-          iconClassName={className}
+          iconClassName={iconClassName}
         />
         <Accordion
           key="Kellele karate sobib?"
@@ -185,7 +186,7 @@ export const NewcomerPage = () => {
               />
             </div>
           }
-          iconClassName={className}
+          iconClassName={iconClassName}
         />
         <Accordion
           key="Milline näeb välja treeningriietus?"
@@ -232,7 +233,7 @@ export const NewcomerPage = () => {
               />
             </>
           }
-          iconClassName={className}
+          iconClassName={iconClassName}
         />
         <Accordion
           key="Nõuded treeningutel"
@@ -263,13 +264,13 @@ export const NewcomerPage = () => {
               />
             </div>
           }
-          iconClassName={className}
+          iconClassName={iconClassName}
         />
         <Accordion
           key="Treeningtasu"
           title={"Treeningtasu"}
           body={
-            <div className="px-6 space-y-6 mb-2">
+            <div className="px-6 mb-2 space-y-6">
               <p>
                 Treeningtasu makstakse kord kuus, enne uue treeningtsükli algust. Selle kohta
                 saadetakse info iga kuu e-maili teel, koos uue kuu treeninggraafikuga.
@@ -280,7 +281,7 @@ export const NewcomerPage = () => {
               </p>
             </div>
           }
-          iconClassName={className}
+          iconClassName={iconClassName}
         />
       </div>
     </DefaultPageWrapper>

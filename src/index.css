@@ -14,6 +14,9 @@
   span {
     @apply text-[#393939];
   }
+  b {
+    @apply text-[#393939];
+  }
 
   li {
     @apply text-stone-600;
