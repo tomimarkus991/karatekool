@@ -1,9 +1,15 @@
 import { Sidebar, useIsMobile } from "@redlotus/ui";
 import clsx from "clsx";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
-import { MobileSidebarContent, NavbarTop, PartialPageWrapper, NavbarTopMobile } from "components";
+import {
+  MobileSidebarContent,
+  NavbarTop,
+  PartialPageWrapper,
+  NavbarTopMobile,
+  GlowButton,
+} from "components";
 import { routes, definedRoutes } from "routes";
 
 interface Props {
@@ -34,7 +40,23 @@ export const DefaultPageWrapper = ({ children }: Props) => {
       }
       Sidebar={
         <Sidebar
-          ExpandedSidebarContent={<MobileSidebarContent routes={routes} />}
+          ExpandedSidebarContent={
+            <MobileSidebarContent
+              routes={routes}
+              BottomContent={
+                <div className="flex flex-col items-center justify-center flex-1 space-y-3">
+                  <Link to={definedRoutes.login}>
+                    <GlowButton className="w-[13rem]">logi sisse</GlowButton>
+                  </Link>
+                  <Link to={definedRoutes.register}>
+                    <GlowButton className="w-[13rem]" variant="orange">
+                      loo kasutaja
+                    </GlowButton>
+                  </Link>
+                </div>
+              }
+            />
+          }
           SmallSidebarContent={<></>}
         />
       }

@@ -48,7 +48,7 @@ export const NavbarTopMobile = () => {
         <AnimationWrapper variants={animations.smallScale} key="ntm-club-icon">
           <MenuIcon
             id="sidebar-button"
-            className="scale-[.80] cursor-pointer"
+            className="scale-[.70] sm:scale-[.80] cursor-pointer"
             onClick={() => {
               setPrevSidebarState("closed");
               setSidebarState("mobile");

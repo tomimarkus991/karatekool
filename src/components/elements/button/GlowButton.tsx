@@ -1,9 +1,10 @@
+import { animations, AnimationWrapper } from "@redlotus/ui";
 import clsx from "clsx";
 
 const glowButtonVariants = {
   // regular --> hover --> active --> dark --> focus
-  red: `bg-primary py-2 px-3 rounded-3xl shadow-red`,
-  orange: `bg-secondary py-2 px-3 rounded-3xl shadow-orange`,
+  red: `bg-primary rounded-3xl shadow-red`,
+  orange: `bg-secondary rounded-3xl shadow-orange`,
 };
 
 const glowButtonSizes = {
@@ -35,20 +36,20 @@ export const GlowButton = ({
   ...props
 }: GlowButtonProps) => {
   return (
-    <button
-      className={clsx(
-        "m-0 text-center font-medium tracking-wider",
-        "transition-all duration-300 hover:-translate-y-[0.15rem]",
-        "active:scale-105 active:duration-100",
-        glowButtonVariants[variant],
-        glowButtonSizes[size],
-        className
-      )}
-      {...props}
-    >
-      <p className={clsx("text-white lowercase font-semibold", glowButtonFontSizes[size])}>
-        {children}
-      </p>
-    </button>
+    <AnimationWrapper key="regular-button" variants={animations.button}>
+      <button
+        className={clsx(
+          "m-0 text-center font-medium tracking-wider",
+          glowButtonVariants[variant],
+          glowButtonSizes[size],
+          className
+        )}
+        {...props}
+      >
+        <p className={clsx("text-white lowercase font-semibold", glowButtonFontSizes[size])}>
+          {children}
+        </p>
+      </button>
+    </AnimationWrapper>
   );
 };

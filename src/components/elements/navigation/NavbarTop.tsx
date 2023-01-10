@@ -1,4 +1,4 @@
-import { NavbarTopLink, GlowButton, Logo } from "components";
+import { NavbarTopLink, Logo, LoginModal } from "components";
 import { definedRoutes } from "routes";
 
 export const NavbarTop = () => {
@@ -18,10 +18,12 @@ export const NavbarTop = () => {
           <NavbarTopLink to={definedRoutes.aboutClub}>klubist</NavbarTopLink>
           <NavbarTopLink to={definedRoutes.karateka}>karateka</NavbarTopLink>
           <NavbarTopLink to={definedRoutes.contact}>kontakt</NavbarTopLink>
-          <GlowButton className="lg:hidden" size="sm">
-            logi sisse
-          </GlowButton>
-          <GlowButton className="max-lg:hidden lg:block">logi sisse</GlowButton>
+          <div className="lg:hidden">
+            <LoginModal />
+          </div>
+          <div className="max-lg:hidden lg:block">
+            <LoginModal />
+          </div>
         </div>
       </div>
     </div>

@@ -4,13 +4,14 @@ import { AccordionContentList, DefaultPageWrapper } from "components";
 
 export const NewcomerPage = () => {
   const iconClassName = "h-8 w-8 text-[#E50815]";
-
+  const titleClassname = "!text-lg font-semibold xs2:!text-xl";
   return (
     <DefaultPageWrapper>
       <div className="flex flex-col items-center justify-center mb-8 space-y-4 font-catamaran">
         <Accordion
           key="Uute liikmete vastuvõtt"
           title={"Uute liikmete vastuvõtt"}
+          titleClassname={titleClassname}
           body={
             <div className="mb-2 text-base md:text-lg">
               <p className="px-4 pb-2 mb-2">
@@ -47,6 +48,7 @@ export const NewcomerPage = () => {
         <Accordion
           key="Miks tulla harjutama just Nüke klubisse?"
           title={"Miks tulla harjutama just Nüke klubisse?"}
+          titleClassname={titleClassname}
           body={
             <div className="px-6 mb-2">
               <ul className="space-y-1 list-disc">
@@ -86,6 +88,7 @@ export const NewcomerPage = () => {
         <Accordion
           key="Miks peaks karated õppima?"
           title={"Miks peaks karated õppima?"}
+          titleClassname={titleClassname}
           body={
             <div>
               <AccordionContentList
@@ -140,6 +143,7 @@ export const NewcomerPage = () => {
         <Accordion
           key="Kellele karate sobib?"
           title={"Kellele karate sobib?"}
+          titleClassname={titleClassname}
           body={
             <div>
               <AccordionContentList
@@ -191,6 +195,7 @@ export const NewcomerPage = () => {
         <Accordion
           key="Milline näeb välja treeningriietus?"
           title={"Milline näeb välja treeningriietus?"}
+          titleClassname={titleClassname}
           body={
             <>
               <AccordionContentList
@@ -238,6 +243,7 @@ export const NewcomerPage = () => {
         <Accordion
           key="Nõuded treeningutel"
           title={"Nõuded treeningutel"}
+          titleClassname={titleClassname}
           body={
             <div>
               <AccordionContentList
@@ -269,6 +275,7 @@ export const NewcomerPage = () => {
         <Accordion
           key="Treeningtasu"
           title={"Treeningtasu"}
+          titleClassname={titleClassname}
           body={
             <div className="px-6 mb-2 space-y-6">
               <p>

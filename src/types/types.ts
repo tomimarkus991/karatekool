@@ -69,3 +69,8 @@ export interface EventData {
   highlighted_group: SHighLightedGroup[];
   event_type: EventTypes;
 }
+
+export interface JustRouter {
+  to: string;
+  element?: JSX.Element;
+}

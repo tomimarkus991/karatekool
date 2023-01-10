@@ -47,7 +47,7 @@ export const ContactDojosTab = ({ children, selectedIndex, index }: ContactDojos
           variants={tabVariant}
           animate={selectedIndex === index ? "active" : "inactive"}
           className={clsx(
-            "rounded-xl z-10 mx-[0.2rem] text-[0.8rem] font-catamaran font-semibold px-1 py-3 w-full",
+            "rounded-xl z-10 mx-[0.2rem] text-[0.8rem] md:text-base font-catamaran font-semibold px-1 py-3 w-full",
             selected ? "" : " hover:bg-stone-200",
             "focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none"
           )}
@@ -68,7 +68,7 @@ interface ContactAddressProps {
 export const ContactAddress = ({ title, address, directionsLink }: ContactAddressProps) => {
   return (
     <>
-      <div className="flex flex-row justify-between mb-5 max-w-4xl m-auto">
+      <div className="flex flex-row justify-between max-w-4xl m-auto mb-5">
         <div className="flex flex-row md:hidden">
           <div className="flex flex-col items-center justify-start mr-2">
             <ContactHeading>{title}</ContactHeading>
@@ -83,7 +83,7 @@ export const ContactAddress = ({ title, address, directionsLink }: ContactAddres
           </div>
           <p className="text-lg leading-[0.5rem]">{address}</p>
         </div>
-        <div className="hidden space-y-2 md:text-base text-lg md:block">
+        <div className="hidden space-y-2 text-lg md:text-base md:block">
           <ContactHeading>Kontakt</ContactHeading>
           <p>(+372) 57 50 17 33</p>
           <p>info@karatekool.ee</p>
