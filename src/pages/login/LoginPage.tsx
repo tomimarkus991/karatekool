@@ -45,12 +45,7 @@ export const LoginPage = () => {
                   <div className="pl-3">
                     <p className="text-xl font-bold">Logi sisse</p>
                   </div>
-                  <div
-                    className={clsx(
-                      "scrollbar-hide",
-                      "flex overflow-y-auto items-center flex-col py-2 px-3 h-[10vh] min-h-[10rem]"
-                    )}
-                  >
+                  <div className={clsx("flex items-center flex-col py-2 px-3")}>
                     <div className="w-full m-auto mt-3 space-y-2">
                       <FormikInput className="w-full" placeholder="Email" name="email" />
                       <FormikInput

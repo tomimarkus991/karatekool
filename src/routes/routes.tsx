@@ -13,6 +13,7 @@ import {
   ForgotPasswordPage,
   ResetPasswordPage,
   ApplyToClubPage,
+  EmailConfirmedPage,
 } from "pages";
 
 import { JustRouter } from "../types";
@@ -31,6 +32,7 @@ export const definedRoutes = {
   apply: "/apply-to-club",
   login: "/login",
   register: "/register",
+  emailConfirmed: "/email-confirmed",
 };
 
 export const routes: Router[] = [
@@ -91,5 +93,9 @@ export const justRoutes: JustRouter[] = [
   {
     to: definedRoutes.apply,
     element: <ApplyToClubPage />,
+  },
+  {
+    to: definedRoutes.emailConfirmed,
+    element: <EmailConfirmedPage />,
   },
 ];

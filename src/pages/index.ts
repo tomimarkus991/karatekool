@@ -8,3 +8,4 @@ export * from "./register";
 export * from "./reset-password";
 export * from "./forgot-password";
 export * from "./apply";
+export * from "./email-confirmed";

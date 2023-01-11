@@ -34,10 +34,10 @@ export const RegisterModal = ({ sidebar }: Props) => {
   const { mutate: signUp } = useSignUp();
 
   const [initialValues] = useState<RegisterFormValues>({
-    name: "test",
-    email: "test@gmail.com",
-    password: "test1234",
-    passwordConfirmation: "test1234",
+    name: "",
+    email: "",
+    password: "",
+    passwordConfirmation: "",
   });
   return (
     <Modal

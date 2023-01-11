@@ -25,10 +25,10 @@ export const RegisterPage = () => {
   const { mutate: signUp } = useSignUp();
 
   const [initialValues] = useState<RegisterFormValues>({
-    name: "test",
-    email: "test@gmail.com",
-    password: "test1234",
-    passwordConfirmation: "test1234",
+    name: "",
+    email: "",
+    password: "",
+    passwordConfirmation: "",
   });
 
   return (
@@ -56,12 +56,7 @@ export const RegisterPage = () => {
                   <div className="flex flex-row items-center justify-between pl-3">
                     <p className="text-xl font-bold">Registreeri</p>
                   </div>
-                  <div
-                    className={clsx(
-                      "scrollbar-hide",
-                      "flex overflow-y-auto items-center flex-col py-2 px-3 h-[27vh] min-h-[15rem]"
-                    )}
-                  >
+                  <div className={clsx("flex items-center flex-col py-2 px-3")}>
                     <Link to={definedRoutes.apply}>
                       <p className="mt-2 text-sm font-semibold cursor-pointer text-secondary">
                         Kui sa pole veel luba taotlenud, vajuta siia
