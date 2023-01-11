@@ -1,0 +1,37 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
+import { supabase } from "utils";
+
+import { definedRoutes } from "../../routes";
+
+interface SignInProps {
+  email: string;
+  password: string;
+}
+
+export const useSignIn = () => {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const signIn = async (user: SignInProps) => {
+    const { email, password } = user;
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    if (error) {
+      toast.error(error.message);
+      throw new Error(error.message);
+    }
+  };
+
+  return useMutation((user: SignInProps) => signIn(user), {
+    onSuccess: () => {
+      queryClient.removeQueries();
+      navigate(definedRoutes.karateka);
+    },
+  });
+};

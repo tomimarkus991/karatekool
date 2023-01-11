@@ -14,6 +14,7 @@ import { HiEye, HiEyeOff, HiX } from "react-icons/hi";
 
 import { yupSchemas } from "app-constants";
 import { GlowButton } from "components";
+import { useSignUp } from "hooks";
 
 export interface RegisterFormValues {
   name: string;
@@ -30,12 +31,13 @@ export const RegisterModal = ({ sidebar }: Props) => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+  const { mutate: signUp } = useSignUp();
 
   const [initialValues] = useState<RegisterFormValues>({
-    name: "",
-    email: "",
-    password: "",
-    passwordConfirmation: "",
+    name: "test",
+    email: "test@gmail.com",
+    password: "test1234",
+    passwordConfirmation: "test1234",
   });
   return (
     <Modal
@@ -67,7 +69,8 @@ export const RegisterModal = ({ sidebar }: Props) => {
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
 
-          //   const { email, name, password } = values;
+          const { email, name, password } = values;
+          signUp({ email, password, username: name });
 
           resetForm();
 
@@ -88,7 +91,7 @@ export const RegisterModal = ({ sidebar }: Props) => {
               <div
                 className={clsx(
                   "scrollbar-hide",
-                  "flex overflow-y-auto items-center flex-col py-2 px-3 h-[27vh] min-h-[15rem]"
+                  "flex overflow-y-auto items-center flex-col py-2 px-3 h-[30vh] min-h-[15rem]"
                 )}
               >
                 <p className="mt-2 text-sm font-semibold cursor-pointer text-secondary">

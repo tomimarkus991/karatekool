@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 
 import { yupSchemas } from "app-constants";
 import { DefaultPageWrapper } from "components";
+import { useSignUp } from "hooks";
 import { definedRoutes } from "routes";
 
 export interface RegisterFormValues {
@@ -21,6 +22,7 @@ export interface RegisterFormValues {
 export const RegisterPage = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+  const { mutate: signUp } = useSignUp();
 
   const [initialValues] = useState<RegisterFormValues>({
     name: "",
@@ -40,7 +42,8 @@ export const RegisterPage = () => {
             onSubmit={(values, { setSubmitting, resetForm }) => {
               setSubmitting(true);
 
-              //   const { email, name, password } = values;
+              const { email, name, password } = values;
+              signUp({ email, password, username: name });
 
               resetForm();
 

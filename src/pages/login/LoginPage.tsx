@@ -9,10 +9,12 @@ import { Link } from "react-router-dom";
 
 import { yupSchemas } from "app-constants";
 import { DefaultPageWrapper, LoginFormValues } from "components";
+import { useSignIn } from "hooks";
 import { definedRoutes } from "routes";
 
 export const LoginPage = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const { mutate: signIn } = useSignIn();
 
   const [initialValues] = useState<LoginFormValues>({
     email: "",
@@ -26,13 +28,14 @@ export const LoginPage = () => {
             initialValues={initialValues}
             validationSchema={yupSchemas.LoginYupSchema}
             validateOnChange={true}
-            onSubmit={(values, { setSubmitting, resetForm }) => {
+            onSubmit={async (values, { setSubmitting, resetForm }) => {
               setSubmitting(true);
 
-              //   const { email, name, password } = values;
+              const { email, password } = values;
+
+              signIn({ email, password });
 
               resetForm();
-
               setSubmitting(false);
             }}
           >

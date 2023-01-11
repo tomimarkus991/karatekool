@@ -16,8 +16,8 @@ import { useNavigate } from "react-router-dom";
 
 import { yupSchemas } from "app-constants";
 import { GlowButton } from "components";
-
-import { definedRoutes } from "../../../routes";
+import { useSignIn } from "hooks";
+import { definedRoutes } from "routes";
 
 export interface LoginFormValues {
   email: string;
@@ -32,6 +32,7 @@ export const LoginModal = ({ sidebar }: Props) => {
   const navigate = useNavigate();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const { mutate: signIn } = useSignIn();
 
   const [initialValues] = useState<LoginFormValues>({
     email: "",
@@ -61,7 +62,9 @@ export const LoginModal = ({ sidebar }: Props) => {
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
 
-          //   const { email, name, password } = values;
+          const { email, password } = values;
+
+          signIn({ email, password });
 
           resetForm();
 

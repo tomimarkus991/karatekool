@@ -6,7 +6,7 @@ const LoginYupSchema = object().shape({
 });
 
 const RegisterYupSchema = object().shape({
-  username: string().min(3).required("Vajalik"),
+  name: string().min(3).required("Vajalik"),
   email: string().email("Email peab olema päris").required("Vajalik"),
   password: string()
     .min(8, "Salasõna on liiga lühike - peab olema vähemalt 8 tähemärki pikk.")
