@@ -10,6 +10,9 @@ import {
   KaratekaPage,
   NewcomerPage,
   RegisterPage,
+  ForgotPasswordPage,
+  ResetPasswordPage,
+  ApplyToClubPage,
 } from "pages";
 
 import { JustRouter } from "../types";
@@ -24,7 +27,8 @@ export const definedRoutes = {
   karateka: "/karateka",
   contact: "/kontakt",
   forgotPassword: "/forgot-password",
-  apply: "/apply",
+  resetPassword: "/reset-password",
+  apply: "/apply-to-club",
   login: "/login",
   register: "/register",
 };
@@ -78,10 +82,14 @@ export const justRoutes: JustRouter[] = [
   },
   {
     to: definedRoutes.forgotPassword,
-    element: <div>ForgotPassword</div>,
+    element: <ForgotPasswordPage />,
+  },
+  {
+    to: definedRoutes.forgotPassword,
+    element: <ResetPasswordPage />,
   },
   {
     to: definedRoutes.apply,
-    element: <div>Apply</div>,
+    element: <ApplyToClubPage />,
   },
 ];

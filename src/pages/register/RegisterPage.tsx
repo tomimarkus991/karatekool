@@ -25,10 +25,10 @@ export const RegisterPage = () => {
   const { mutate: signUp } = useSignUp();
 
   const [initialValues] = useState<RegisterFormValues>({
-    name: "",
-    email: "",
-    password: "",
-    passwordConfirmation: "",
+    name: "test",
+    email: "test@gmail.com",
+    password: "test1234",
+    passwordConfirmation: "test1234",
   });
 
   return (
@@ -37,7 +37,7 @@ export const RegisterPage = () => {
         <div className="p-6 bg-white rounded-xl">
           <Formik
             initialValues={initialValues}
-            validationSchema={yupSchemas.LoginYupSchema}
+            validationSchema={yupSchemas.RegisterYupSchema}
             validateOnChange={true}
             onSubmit={(values, { setSubmitting, resetForm }) => {
               setSubmitting(true);
@@ -50,7 +50,7 @@ export const RegisterPage = () => {
               setSubmitting(false);
             }}
           >
-            {({ isValid }) => {
+            {({ isValid, handleSubmit }) => {
               return (
                 <Form className={clsx("flex flex-col")}>
                   <div className="flex flex-row items-center justify-between pl-3">
@@ -62,9 +62,11 @@ export const RegisterPage = () => {
                       "flex overflow-y-auto items-center flex-col py-2 px-3 h-[27vh] min-h-[15rem]"
                     )}
                   >
-                    <p className="mt-2 text-sm font-semibold cursor-pointer text-secondary">
-                      Kui sa pole veel luba taotlenud, vajuta siia
-                    </p>
+                    <Link to={definedRoutes.apply}>
+                      <p className="mt-2 text-sm font-semibold cursor-pointer text-secondary">
+                        Kui sa pole veel luba taotlenud, vajuta siia
+                      </p>
+                    </Link>
                     <div className="w-full mt-3 space-y-2">
                       <FormikInput className="w-full" placeholder="Nimi" name="name" />
                       <FormikInput className="w-full" placeholder="Email" name="email" />
@@ -112,6 +114,7 @@ export const RegisterPage = () => {
                       variant="red"
                       className="w-[20rem] text-xl bg-primary"
                       type="submit"
+                      onClick={handleSubmit as any}
                       isValid={isValid}
                     >
                       Registreeri

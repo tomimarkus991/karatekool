@@ -39,7 +39,7 @@ export const LoginPage = () => {
               setSubmitting(false);
             }}
           >
-            {({ isValid }) => {
+            {({ isValid, handleSubmit }) => {
               return (
                 <Form className={clsx("flex flex-col")}>
                   <div className="pl-3">
@@ -85,6 +85,7 @@ export const LoginPage = () => {
                       className="w-[20rem] text-xl bg-primary"
                       type="submit"
                       isValid={isValid}
+                      onClick={handleSubmit as any}
                     >
                       Logi sisse
                     </Button>
