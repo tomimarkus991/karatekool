@@ -87,7 +87,7 @@ export const justRoutes: JustRouter[] = [
     element: <ForgotPasswordPage />,
   },
   {
-    to: definedRoutes.forgotPassword,
+    to: definedRoutes.resetPassword,
     element: <ResetPasswordPage />,
   },
   {
