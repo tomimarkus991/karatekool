@@ -12,7 +12,7 @@ import clsx from "clsx";
 import { Formik, Form } from "formik";
 import { useState } from "react";
 import { HiEye, HiEyeOff, HiX } from "react-icons/hi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import { yupSchemas } from "app-constants";
 import { GlowButton } from "components";
@@ -126,9 +126,11 @@ export const LoginModal = ({ sidebar }: Props) => {
                   >
                     Logi sisse
                   </Button>
-                  <p className="mt-5 text-sm font-semibold cursor-pointer text-secondary">
-                    Mul pole veel kasutajat. Registreeri
-                  </p>
+                  <Link to={definedRoutes.register}>
+                    <p className="mt-5 text-sm font-semibold cursor-pointer text-secondary">
+                      Mul pole veel kasutajat. Registreeri
+                    </p>
+                  </Link>
                 </div>
               </ModalFooterContainer>
             </Form>

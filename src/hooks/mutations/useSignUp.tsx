@@ -28,13 +28,16 @@ export const useSignUp = () => {
       // when user is not whitelisted
       if (error.message.includes('insert or update on table "identities"')) {
         toast.error(
-          <div>
-            <p className="text-xl font-semibold">
+          <div className="">
+            <p className="text-lg font-semibold max-w-[14rem]">
               Tundub, et sa pole veel klubi liikmete nimekirjas
             </p>
-            <Link to={definedRoutes.apply} onClick={() => toast.dismiss("whitelist-toast")}>
-              <p className="text-xl font-semibold">Vajuta siia, et luba taodelda</p>
-            </Link>
+            <div className="flex flex-row">
+              <Link to={definedRoutes.apply} onClick={() => toast.dismiss("whitelist-toast")}>
+                <p className="text-lg font-semibold text-primary">Vajuta siia,</p>
+              </Link>
+              <p className="ml-1 text-lg font-semibold">et luba taodelda</p>
+            </div>
           </div>,
           { duration: 30000, id: "whitelist-toast" }
         );

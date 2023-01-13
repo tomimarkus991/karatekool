@@ -25,13 +25,14 @@ export const CalendarDate = ({ events, date, month }: Props) => {
         "border-stone-100 border-r first:border-l"
       )}
     >
-      <div className="flex-col flex h-full">
+      <div className="flex flex-col h-full">
         <div className="flex justify-center">
           <time
             className={clsx(
               "font-varela text-xs sm:text-sm md:text-base",
               isToday(date)
-                ? "text-white bg-primary h-4 w-4 sm:h-5 sm:w-5 rounded-full text-center"
+                ? // ? "text-white bg-primary h-4 w-4 sm:h-5 sm:w-5 rounded-full text-center"
+                  "text-primary"
                 : `${!isSameMonth(date, month) ? "text-stone-300" : "text-text-primary"}`
             )}
             dateTime={format(date, "dd-MM-yyyy")}

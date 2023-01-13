@@ -1,4 +1,14 @@
-import { BeltIcon, BronzeMedalIcon, DefaultPageWrapper, KaratekaIcon } from "components";
+import { Tab } from "@headlessui/react";
+import clsx from "clsx";
+import { Fragment } from "react";
+
+import {
+  BeltIcon,
+  BronzeMedalIcon,
+  DefaultPageWrapper,
+  KaratekaIcon,
+  RealDiamondButton,
+} from "components";
 
 export const AboutClubPage = () => {
   return (
@@ -54,7 +64,38 @@ export const AboutClubPage = () => {
             </div>
           </div>
         </div>
-        <div className="w-full h-[30rem] bg-stone-200 mt-12"></div>
+        <Tab.Group>
+          <Tab.List className={clsx("relative w-full h-[30rem] mt-16 mb-12")}>
+            <Tab as={Fragment}>
+              <div className="absolute left-[5%] top-[50%] focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none">
+                <RealDiamondButton variant="casualGreen">Visioon</RealDiamondButton>
+              </div>
+            </Tab>
+            <Tab as={Fragment}>
+              <div className="absolute bottom-[50%] left-[25%] focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none">
+                <RealDiamondButton variant="casualAqua">Missioon</RealDiamondButton>
+              </div>
+            </Tab>
+            <Tab as={Fragment}>
+              <div className="absolute top-[40%] left-[45%] focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none">
+                <RealDiamondButton size="xl" variant="casualSkyBlue">
+                  Eesmärgid
+                </RealDiamondButton>
+              </div>
+            </Tab>
+            <Tab as={Fragment}>
+              <div className="absolute bottom-[50%] left-[75%] focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none">
+                <RealDiamondButton variant="casualSlateBlue">Ajaloost</RealDiamondButton>
+              </div>
+            </Tab>
+          </Tab.List>
+          <Tab.Panels>
+            <Tab.Panel>Visioon</Tab.Panel>
+            <Tab.Panel>Missioon</Tab.Panel>
+            <Tab.Panel>Eesmärgid</Tab.Panel>
+            <Tab.Panel>Ajaloost</Tab.Panel>
+          </Tab.Panels>
+        </Tab.Group>
       </div>
     </DefaultPageWrapper>
   );
