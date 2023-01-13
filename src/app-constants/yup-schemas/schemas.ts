@@ -29,8 +29,8 @@ const ResetPassword = object().shape({
 
 const ApplyToClub = object().shape({
   name: string().min(3).required("Vajalik"),
+  group: string().required("Vajalik"),
   email: string().email("Email peab olema päris").required("Vajalik"),
-  grupp: string().required("Vajalik"),
   reason: string().required("Vajalik"),
 });
 
