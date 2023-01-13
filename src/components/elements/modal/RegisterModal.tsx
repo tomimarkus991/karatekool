@@ -91,7 +91,7 @@ export const RegisterModal = ({ sidebar }: Props) => {
               <div
                 className={clsx(
                   "scrollbar-hide",
-                  "flex overflow-y-auto items-center flex-col py-2 px-3 h-[30vh] min-h-[15rem]"
+                  "flex overflow-y-auto items-center flex-col py-2 px-3"
                 )}
               >
                 <p className="mt-2 text-sm font-semibold cursor-pointer text-secondary">
@@ -148,7 +148,7 @@ export const RegisterModal = ({ sidebar }: Props) => {
                   >
                     Registreeri
                   </Button>
-                  <p className="mt-2 text-sm font-semibold cursor-pointer text-secondary">
+                  <p className="mt-5 text-sm font-semibold cursor-pointer text-secondary">
                     Mul juba on kasutaja. Logi sisse
                   </p>
                 </div>

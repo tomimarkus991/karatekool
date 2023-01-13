@@ -85,7 +85,7 @@ export const LoginModal = ({ sidebar }: Props) => {
               <div
                 className={clsx(
                   "scrollbar-hide",
-                  "flex overflow-y-auto items-center flex-col py-2 px-3 h-[10vh] min-h-[10rem]"
+                  "flex overflow-y-auto items-center flex-col pt-2 px-3"
                 )}
               >
                 <div className="w-full m-auto mt-3 space-y-2">
@@ -110,7 +110,7 @@ export const LoginModal = ({ sidebar }: Props) => {
                   />
                   <p
                     onClick={() => navigate(definedRoutes.forgotPassword)}
-                    className="mt-2 text-sm font-semibold text-center cursor-pointer text-secondary"
+                    className="mt-4 text-sm font-semibold text-center cursor-pointer text-secondary"
                   >
                     Unustasid parooli?
                   </p>
@@ -126,7 +126,7 @@ export const LoginModal = ({ sidebar }: Props) => {
                   >
                     Logi sisse
                   </Button>
-                  <p className="mt-2 text-sm font-semibold cursor-pointer text-secondary">
+                  <p className="mt-5 text-sm font-semibold cursor-pointer text-secondary">
                     Mul pole veel kasutajat. Registreeri
                   </p>
                 </div>

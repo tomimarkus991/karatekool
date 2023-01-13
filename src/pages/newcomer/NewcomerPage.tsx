@@ -18,7 +18,7 @@ export const NewcomerPage = () => {
                 Uute liikmete vastuvõtt on taas avatud septembris 2023.
               </p>
 
-              <p className="px-4 py-2 mb-2">
+              <p className="px-4 pt-1">
                 Treeningud <b>algklasside lastele</b>, VHK spordisaalis (Vene 22):
               </p>
               <ul className="pl-8 mb-4 list-disc">
@@ -30,15 +30,15 @@ export const NewcomerPage = () => {
                 </ul>
               </ul>
 
-              <div className="px-4 py-2 mb-2">
+              <div className="px-4 pt-1">
                 Treeningud <b>noortele ja täiskasvanutele</b>, VHK spordisaalis (Vene 22):
               </div>
               <ul className="pl-8 mb-4 list-disc">
                 <li className="mb-2 font-bold">A-grupp:</li>
                 <ul className="pl-8 list-disc">
-                  <li>TEISIPÄEVAL kell 16:30-17:45</li>
-                  <li>NELJAPÄEVAL kell 16:30-17:45</li>
-                  <li>LAUPÄEVAL kell 11:15-12:45 (vastavalt treeninggraafikule)</li>
+                  <li>TEISIPÄEVAL kell 16:30 - 17:45</li>
+                  <li>NELJAPÄEVAL kell 16:30 - 17:45</li>
+                  <li>LAUPÄEVAL kell 11:15 - 12:45 (vastavalt treeninggraafikule)</li>
                 </ul>
               </ul>
             </div>

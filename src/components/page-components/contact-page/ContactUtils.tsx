@@ -16,6 +16,13 @@ export const ContactHeading = ({ children }: ContactHeadingProps) => {
     </p>
   );
 };
+const ContactAddressHeading = ({ children }: ContactHeadingProps) => {
+  return (
+    <p className="font-catamaran self-start text-[#393939] text-lg md:text-2xl lg:text-3xl font-semibold md:self-center">
+      {children}
+    </p>
+  );
+};
 
 interface ContactDojosTabProps {
   children: React.ReactNode;
@@ -71,14 +78,14 @@ export const ContactAddress = ({ title, address, directionsLink }: ContactAddres
       <div className="flex flex-row justify-between max-w-4xl m-auto mb-5">
         <div className="flex flex-row md:hidden">
           <div className="flex flex-col items-center justify-start mr-2">
-            <ContactHeading>{title}</ContactHeading>
+            <ContactAddressHeading>{title}</ContactAddressHeading>
             <p className="text-[0.9rem] self-start">{address}</p>
           </div>
           <DirectionsButton onClick={() => window.open(directionsLink, "_blank")} />
         </div>
         <div className="hidden md:block">
           <div className="flex flex-row items-center justify-center space-x-4">
-            <ContactHeading>{title}</ContactHeading>
+            <ContactAddressHeading>{title}</ContactAddressHeading>
             <DirectionsButton onClick={() => window.open(directionsLink, "_blank")} />
           </div>
           <p className="text-lg leading-[0.5rem]">{address}</p>

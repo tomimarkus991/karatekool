@@ -48,7 +48,7 @@ export const ContactDojos = () => {
     <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
       <Tab.List
         className={clsx(
-          "flex flex-row relative px-1 w-full flex-1 mb-3 bg-stone-100 rounded-2xl max-w-md m-auto md:mb-6"
+          "flex flex-row relative px-1 w-full flex-1 mb-6 bg-stone-100 rounded-2xl max-w-md m-auto md:mb-12"
         )}
       >
         <ContactDojosTab selectedIndex={selectedIndex} index={0}>
