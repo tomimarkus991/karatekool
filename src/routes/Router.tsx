@@ -1,7 +1,7 @@
 import { useThemeUtils, useRegisterPWA } from "@redlotus/ui";
 import { Route, Routes } from "react-router-dom";
 
-import { justRoutes, routes } from ".";
+import { justRoutes, routes } from "routes";
 
 export const Router = () => {
   useThemeUtils();

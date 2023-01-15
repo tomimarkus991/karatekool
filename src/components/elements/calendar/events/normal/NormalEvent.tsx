@@ -3,10 +3,9 @@ import { isSameDay, parseISO } from "date-fns";
 import { motion } from "framer-motion";
 import { useDetectOverflow } from "use-detect-overflow";
 
+import { NormalEventTime, MapGroupLetter, MapHighLightedGroupLetter } from "components";
 import { useCalendarFilters } from "context";
 import { EventData } from "types";
-
-import { NormalEventTime, MapGroupLetter, MapHighLightedGroupLetter } from ".";
 
 interface Props {
   event: EventData;
