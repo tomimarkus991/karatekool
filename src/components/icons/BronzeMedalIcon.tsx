@@ -1,7 +1,7 @@
 import { SVGProps } from "react";
 
 export const BronzeMedalIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg className="h-[3rem] w-[5rem]" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg className="h-[3rem] w-[4rem]" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path d="m14.57 28.824 4.808 2.74L9.614 48.25l-2.802-6.167 7.758-13.26Z" fill="#4C4C4C" />
     <path
       d="m14.57 28.824-4.808-2.739-9.764 16.687 6.814-.688 7.758-13.26ZM21.426 28.824l-4.808 2.74 9.764 16.687 2.802-6.167-7.758-13.26Z"
