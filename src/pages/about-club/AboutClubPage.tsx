@@ -1,5 +1,6 @@
 import { Tab } from "@headlessui/react";
 import clsx from "clsx";
+import { AnimatePresence, motion } from "framer-motion";
 import { Fragment } from "react";
 
 import {
@@ -99,18 +100,18 @@ export const AboutClubPage = () => {
               </div>
             </Tab>
           </Tab.List>
-          <Tab.Panels as={Fragment}>
-            <ResizablePanel>
-              <Tab.Panel className={clsx("bg-white px-4 py-6 rounded-2xl")}>
+          <Tab.Panels as={ResizablePanel}>
+            <AnimatePresence mode="popLayout" initial={false}>
+              <Tab.Panel key="1" as={motion.div} className={clsx("bg-white px-4 py-6 rounded-2xl")}>
                 Karate-do klubi Nüke visiooniks on karate-do kui spordi-, iseloomu- ja väärtuspõhise
                 kasvatussüsteemi propageerimine ja õpetamine.
               </Tab.Panel>
-              <Tab.Panel className={clsx("bg-white px-4 py-6 rounded-2xl")}>
+              <Tab.Panel key="2" as={motion.div} className={clsx("bg-white px-4 py-6 rounded-2xl")}>
                 Karate-do klubi Nüke missioon on targa, heasoovliku, tugeva tahte ja iseloomuga ning
                 aktiivse ja sportliku eluhoiakuga inimese kasvatamine karate-do ja laiemalt spordi
                 kaudu.
               </Tab.Panel>
-              <Tab.Panel className={clsx("bg-white px-4 py-6 rounded-2xl")}>
+              <Tab.Panel key="3" as={motion.div} className={clsx("bg-white px-4 py-6 rounded-2xl")}>
                 <div>
                   <p className="text-xl">Karate-do klubi Nüke eesmärgid on</p>
                   <ul className="ml-8 list-disc">
@@ -133,7 +134,7 @@ export const AboutClubPage = () => {
                   </ul>
                 </div>
               </Tab.Panel>
-              <Tab.Panel className={clsx("bg-white px-4 py-6 rounded-2xl")}>
+              <Tab.Panel key="4" as={motion.div} className={clsx("bg-white px-4 py-6 rounded-2xl")}>
                 <p>
                   Karate-do klubi Nüke on Eesti kõige pikema traditsiooniga karateklubi. Nüke loodi
                   1978. aastal.
@@ -144,7 +145,7 @@ export const AboutClubPage = () => {
                   taas ning klubi jätkas oma tegevust.
                 </p>
               </Tab.Panel>
-            </ResizablePanel>
+            </AnimatePresence>
           </Tab.Panels>
         </Tab.Group>
       </div>

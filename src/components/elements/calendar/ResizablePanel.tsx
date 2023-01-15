@@ -9,7 +9,9 @@ export const ResizablePanel = ({ children }: Props) => {
   const [ref, bounds] = useMeasure();
 
   return (
-    <motion.div animate={{ height: bounds.height > 0 ? bounds.height : 0 }}>
+    <motion.div
+      animate={{ height: bounds.height > 0 ? bounds.height : 0, transition: { duration: 2 } }}
+    >
       <div ref={ref}>{children}</div>
     </motion.div>
   );
