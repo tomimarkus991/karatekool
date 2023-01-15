@@ -9,3 +9,4 @@ export * from "./forgot-password";
 export * from "./reset-password";
 export * from "./apply";
 export * from "./email-confirmed";
+export * from "./invite-user";

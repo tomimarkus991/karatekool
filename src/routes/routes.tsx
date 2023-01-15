@@ -14,6 +14,7 @@ import {
   ResetPasswordPage,
   ApplyToClubPage,
   EmailConfirmedPage,
+  InviteUserPage,
 } from "pages";
 import { JustRouter } from "types";
 
@@ -32,6 +33,7 @@ export const definedRoutes = {
   login: "/login",
   register: "/register",
   emailConfirmed: "/email-confirmed",
+  inviteUser: "/invite-user",
 };
 
 export const routes: Router[] = [
@@ -96,5 +98,9 @@ export const justRoutes: JustRouter[] = [
   {
     to: definedRoutes.emailConfirmed,
     element: <EmailConfirmedPage />,
+  },
+  {
+    to: definedRoutes.inviteUser,
+    element: <InviteUserPage />,
   },
 ];

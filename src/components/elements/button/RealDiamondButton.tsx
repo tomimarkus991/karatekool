@@ -52,12 +52,12 @@ export const realButtonVariants = {
 };
 
 export const realButtonSizes = {
-  md: "md:w-[10rem] w-[5rem] md:h-[10rem] h-[5rem] rotate-45 rounded-[1.5rem]",
-  xl: "md:w-[15rem] w-[8rem] md:h-[15rem] h-[8rem] rotate-45 rounded-[2rem]",
+  md: "w-[5rem] h-[5rem] sm:w-[7rem] sm:h-[7rem] md:w-[10rem] md:h-[10rem] rotate-45 rounded-[1.5rem]",
+  xl: "w-[7rem] h-[7rem] sm:w-[9rem] sm:h-[9rem] md:w-[15rem] md:h-[15rem] rotate-45 rounded-[2rem]",
 };
 export const textSizes = {
-  md: "md:w-[10rem] w-[5rem] md:h-[10rem] h-[5rem] text-base md:text-xl rotate-45",
-  xl: "md:w-[15rem] w-[8rem] md:h-[15rem] h-[8rem] text-lg md:text-3xl rotate-45",
+  md: "w-[5rem] h-[5rem] sm:w-[7rem] sm:h-[7rem] md:w-[10rem] md:h-[10rem] text-sm md:text-xl rotate-45",
+  xl: "w-[7rem] h-[7rem] sm:w-[9rem] sm:h-[9rem] md:w-[15rem] md:h-[15rem] text-base md:text-3xl rotate-45",
 };
 
 export type RealButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {

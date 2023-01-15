@@ -8,6 +8,7 @@ import {
   DefaultPageWrapper,
   KaratekaIcon,
   RealDiamondButton,
+  ResizablePanel,
 } from "components";
 
 export const AboutClubPage = () => {
@@ -16,13 +17,13 @@ export const AboutClubPage = () => {
       <div className="max-w-4xl m-auto">
         <div className="mb-5">
           <h1 className="mb-3 text-xl font-semibold font-catamaran">Nüke klubist</h1>
-          <p className="mb-2 text-lg font-light font-catamaran">
+          <p className="mb-2 text-base font-light md:text-lg font-catamaran">
             Nükes õpetatakse Shotokan karated. Õppe-ja treeningtegevus, kus omandatakse karate ja
             spordialaseid põhiväärtusi, on väga mitmekesine, mahutades nii karate kui spordi
             teoreetiline, kehaline, tehniline, taktikaline kui ka eetilis-moraalne ja
             psühholoogiline ettevalmistus.
           </p>
-          <p className="mb-2 text-lg font-light font-catamaran">
+          <p className="mb-2 text-base font-light md:text-lg font-catamaran">
             Algperioodil tehakse trenni 3 korda nädalas, hiljem vastavalt õpilase tasemele ja
             soovile treeningute arv kasvab.Soovijatel on võimalus käia ka võistlemas. Klubis
             korraldatakse aastaringselt karatelaagreid, seminare ja võistlusi. Mitmekesine ning
@@ -40,24 +41,29 @@ export const AboutClubPage = () => {
             className="object-cover mr-16 aspect-auto h-80 w-80 rounded-3xl"
           />
           <div className="flex flex-col">
-            <h1 className="mb-3 text-3xl font-semibold font-catamaran">Herik Tölpt</h1>
-            <div className="flex flex-col space-y-10">
-              <div className="flex flex-row items-center">
-                <BeltIcon />
-                <p className="ml-4 text-lg font-light font-catamaran">
+            <h1 className="mt-6 mb-3 text-xl font-semibold md:text-2xl font-catamaran">
+              Herik Tölpt
+            </h1>
+            <div className="flex flex-col space-y-5 md:space-y-10">
+              <div className="flex flex-row items-center justify-center">
+                <div className="scale-75 md:scale-100">
+                  <BeltIcon />
+                </div>
+
+                <p className="ml-2 text-base font-light md:ml-4 md:text-lg font-catamaran">
                   Klubi Nüke peaõpetaja ja musta vöö 3.aste IV kategooria karatetreener. (Riiklikult
                   atesteeritud).
                 </p>
               </div>
               <div className="flex flex-row items-center justify-end max-w-sm ml-auto">
                 <BronzeMedalIcon />
-                <p className="ml-4 text-lg font-light font-catamaran">
+                <p className="ml-2 text-base font-light md:ml-4 md:text-lg font-catamaran">
                   Mitmekordne Eesti meister ja paljude rahvusvaheliste turniiride auhinnavõitja.
                 </p>
               </div>
               <div className="flex flex-row items-center">
                 <KaratekaIcon />
-                <p className="ml-4 text-lg font-light font-catamaran">
+                <p className="ml-2 text-base font-light md:ml-4 md:text-lg font-catamaran">
                   Eesti Karate Föderatsiooni treenerite nõukogu liige ja JKS Estonia instruktor.
                 </p>
               </div>
@@ -65,35 +71,80 @@ export const AboutClubPage = () => {
           </div>
         </div>
         <Tab.Group>
-          <Tab.List className={clsx("relative w-full h-[30rem] mt-16 mb-12")}>
+          <Tab.List
+            className={clsx(
+              "relative w-full h-[16rem] sm:h-[20rem] md:h-[30rem] md:mt-16 mb-12 overflow-hidden"
+            )}
+          >
             <Tab as={Fragment}>
               <div className="absolute left-[5%] top-[50%] focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none">
                 <RealDiamondButton variant="casualGreen">Visioon</RealDiamondButton>
               </div>
             </Tab>
             <Tab as={Fragment}>
-              <div className="absolute bottom-[50%] left-[25%] focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none">
+              <div className="absolute bottom-[50%] md:bottom-[50%] sm:bottom-[45%] left-[25%] focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none">
                 <RealDiamondButton variant="casualAqua">Missioon</RealDiamondButton>
               </div>
             </Tab>
             <Tab as={Fragment}>
-              <div className="absolute top-[40%] left-[45%] focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none">
+              <div className="absolute top-[50%] sm:top-[40%] left-[45%] focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none">
                 <RealDiamondButton size="xl" variant="casualSkyBlue">
                   Eesmärgid
                 </RealDiamondButton>
               </div>
             </Tab>
             <Tab as={Fragment}>
-              <div className="absolute bottom-[50%] left-[75%] focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none">
+              <div className="absolute bottom-[50%] md:bottom-[50%] sm:bottom-[45%] left-[70%] md:left-[75%] focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none">
                 <RealDiamondButton variant="casualSlateBlue">Ajaloost</RealDiamondButton>
               </div>
             </Tab>
           </Tab.List>
-          <Tab.Panels>
-            <Tab.Panel>Visioon</Tab.Panel>
-            <Tab.Panel>Missioon</Tab.Panel>
-            <Tab.Panel>Eesmärgid</Tab.Panel>
-            <Tab.Panel>Ajaloost</Tab.Panel>
+          <Tab.Panels as={Fragment}>
+            <ResizablePanel>
+              <Tab.Panel className={clsx("bg-white px-4 py-6 rounded-2xl")}>
+                Karate-do klubi Nüke visiooniks on karate-do kui spordi-, iseloomu- ja väärtuspõhise
+                kasvatussüsteemi propageerimine ja õpetamine.
+              </Tab.Panel>
+              <Tab.Panel className={clsx("bg-white px-4 py-6 rounded-2xl")}>
+                Karate-do klubi Nüke missioon on targa, heasoovliku, tugeva tahte ja iseloomuga ning
+                aktiivse ja sportliku eluhoiakuga inimese kasvatamine karate-do ja laiemalt spordi
+                kaudu.
+              </Tab.Panel>
+              <Tab.Panel className={clsx("bg-white px-4 py-6 rounded-2xl")}>
+                <div>
+                  <p className="text-xl">Karate-do klubi Nüke eesmärgid on</p>
+                  <ul className="ml-8 list-disc">
+                    <li>
+                      luua tingimused süvendatud karate- ja spordialaseks eneseteostamiseks ja
+                      õppeks
+                    </li>
+                    <li>
+                      organiseerida karate kui spordi ning iseloomu- ja väärtuspõhise
+                      kasvatussüsteemi teoreetiline ja praktiline ettevalmistus ja õpe
+                    </li>
+                    <li>
+                      äratada õpilastes huvi karate õppimise, spordi ja pideva enesetäiustamise
+                      vastu
+                    </li>
+                    <li>
+                      anda karate õppimiseks, sportimiseks ning enese- ja iseloomukasvatuseks
+                      vajalike teadmisi ja oskusi.
+                    </li>
+                  </ul>
+                </div>
+              </Tab.Panel>
+              <Tab.Panel className={clsx("bg-white px-4 py-6 rounded-2xl")}>
+                <p>
+                  Karate-do klubi Nüke on Eesti kõige pikema traditsiooniga karateklubi. Nüke loodi
+                  1978. aastal.
+                </p>
+                <p>
+                  1984. aastal karate harjutamine Eestis keelati ning karated tuli harjutada edasi
+                  salaja „põranda all“. 1989. aastal keeluaeg lõppes. See oli aeg, mil Nüke loodi
+                  taas ning klubi jätkas oma tegevust.
+                </p>
+              </Tab.Panel>
+            </ResizablePanel>
           </Tab.Panels>
         </Tab.Group>
       </div>

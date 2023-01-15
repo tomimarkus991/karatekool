@@ -1,7 +1,12 @@
 import { SVGProps } from "react";
 
 export const KaratekaIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg className="h-[3.6rem] w-[4rem]" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg
+    className="md:w-[6.8rem] h-[3.6rem] w-[6rem] lg:w-[4rem]"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <rect
       width={10.126}
       height={16.095}
