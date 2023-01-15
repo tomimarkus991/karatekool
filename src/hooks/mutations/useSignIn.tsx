@@ -2,9 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
+import { definedRoutes } from "routes";
 import { supabase } from "utils";
-
-import { definedRoutes } from "../../routes";
 
 interface SignInProps {
   email: string;

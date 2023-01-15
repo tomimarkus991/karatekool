@@ -17,9 +17,8 @@ import { useState, useEffect } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 
 import { days } from "app-constants";
+import { CalendarDate, CalendarFilterButtons, calendarUtils, ResizablePanel } from "components";
 import { useGetCurrentMonthEvents } from "hooks";
-
-import { CalendarDate, CalendarFilterButtons, calendarUtils, ResizablePanel } from ".";
 
 const variants: Variants = {
   enter: (direction: number) => {
@@ -95,10 +94,10 @@ export const Calendar = () => {
 
   return (
     <MotionConfig transition={{ ease: "easeInOut", duration: 0.5 }}>
-      <div className="relative mx-auto w-full max-w-7xl overflow-hidden rounded-2xl bg-white select-none">
+      <div className="relative w-full mx-auto overflow-hidden bg-white select-none max-w-7xl rounded-2xl">
         <div className="pt-8">
-          <div className="flex flex-col justify-center rounded text-center">
-            <h1 className="font-semibold text-xl flex justify-start font-catamaran mb-6 ml-4">
+          <div className="flex flex-col justify-center text-center rounded">
+            <h1 className="flex justify-start mb-6 ml-4 text-xl font-semibold font-catamaran">
               Treeninggraafikud
             </h1>
             <CalendarFilterButtons />
@@ -115,14 +114,14 @@ export const Calendar = () => {
                 }}
               >
                 <motion.div key={currentMonthString} initial="enter" animate="middle" exit="exit">
-                  <div className="flex justify-center items-center">
+                  <div className="flex items-center justify-center">
                     <header className="relative my-6 flex justify-between items-center max-w-fit min-w-[20rem]">
                       <motion.button
                         variants={removeImmediately}
                         className={clsx("z-10 rounded-full hover:bg-stone-100 cursor-pointer")}
                         onClick={previousMonth}
                       >
-                        <HiChevronLeft className="text-gray-600 h-6 w-6" />
+                        <HiChevronLeft className="w-6 h-6 text-gray-600" />
                       </motion.button>
                       <motion.p
                         variants={variantsHeader}
@@ -136,7 +135,7 @@ export const Calendar = () => {
                         className={clsx("z-10 rounded-full hover:bg-stone-100 cursor-pointer")}
                         onClick={nextMonth}
                       >
-                        <HiChevronRight className="text-gray-600 h-6 w-6" />
+                        <HiChevronRight className="w-6 h-6 text-gray-600" />
                       </motion.button>
                       <div
                         className="absolute inset-0"
@@ -181,7 +180,7 @@ export const Calendar = () => {
                           <div
                             id="week"
                             key={week.toISOString()}
-                            className="grid grid-cols-7 last:border-b border-t border-stone-100 h-36"
+                            className="grid grid-cols-7 border-t last:border-b border-stone-100 h-36"
                           >
                             {daysForWeek.map(day => {
                               return (

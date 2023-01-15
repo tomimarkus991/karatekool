@@ -1,10 +1,8 @@
 import { animations, AnimationWrapper, useSidebar } from "@redlotus/ui";
 import { useTransform, motion, useMotionTemplate } from "framer-motion";
 
+import { MenuIcon, Logo } from "components";
 import { useBoundedScroll } from "hooks";
-
-import { MenuIcon } from "../../icons";
-import { Logo } from "../../icons/Logo";
 
 export const NavbarTopMobile = () => {
   const { setSidebarState, setPrevSidebarState } = useSidebar();

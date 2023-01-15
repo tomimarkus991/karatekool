@@ -9,9 +9,9 @@ import tsconfigPaths from "vite-tsconfig-paths";
 // https://vitejs.dev/config/
 
 export default defineConfig({
-  experimental: {
-    hmrPartialAccept: true,
-  },
+  // experimental: {
+  //   hmrPartialAccept: true,
+  // },
   plugins: [
     react(),
     tsconfigPaths(),
@@ -68,5 +68,9 @@ export default defineConfig({
   server: {
     host: true,
     port: 3000,
+    hmr: {
+      protocol: "ws",
+      host: "localhost",
+    },
   },
 });
