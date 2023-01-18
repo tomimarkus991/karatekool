@@ -41,9 +41,6 @@ module.exports = {
         '4/3': '4 / 3',
         '16/9': '16 / 9',
       },
-      backgroundImage: {
-        'waves': "url('/public/general/waves.svg')",
-      },
       animation: {
         'spin-slow': 'spin-backwards 40s linear infinite',
       },
