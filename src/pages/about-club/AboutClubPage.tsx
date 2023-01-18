@@ -1,9 +1,9 @@
 import { Tab } from "@headlessui/react";
 import clsx from "clsx";
-import { AnimatePresence, motion } from "framer-motion";
 import { Fragment } from "react";
 
 import {
+  AboutPanel,
   BeltIcon,
   BronzeMedalIcon,
   DefaultPageWrapper,
@@ -78,42 +78,52 @@ export const AboutClubPage = () => {
             )}
           >
             <Tab as={Fragment}>
-              <div className="absolute left-[5%] top-[50%] focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none">
+              <div className="remove-ring absolute left-[5%] top-[50%]">
                 <RealDiamondButton variant="casualGreen">Visioon</RealDiamondButton>
               </div>
             </Tab>
             <Tab as={Fragment}>
-              <div className="absolute bottom-[50%] md:bottom-[50%] sm:bottom-[45%] left-[25%] focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none">
+              <div className="remove-ring absolute bottom-[50%] md:bottom-[50%] sm:bottom-[45%] left-[25%]">
                 <RealDiamondButton variant="casualAqua">Missioon</RealDiamondButton>
               </div>
             </Tab>
             <Tab as={Fragment}>
-              <div className="absolute top-[50%] sm:top-[40%] left-[45%] focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none">
+              <div className="remove-ring absolute top-[50%] sm:top-[40%] left-[45%]">
                 <RealDiamondButton size="xl" variant="casualSkyBlue">
                   Eesmärgid
                 </RealDiamondButton>
               </div>
             </Tab>
             <Tab as={Fragment}>
-              <div className="absolute bottom-[50%] md:bottom-[50%] sm:bottom-[45%] left-[70%] md:left-[75%] focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none">
+              <div className="remove-ring absolute bottom-[50%] md:bottom-[50%] sm:bottom-[45%] left-[70%] md:left-[75%]">
                 <RealDiamondButton variant="casualSlateBlue">Ajaloost</RealDiamondButton>
               </div>
             </Tab>
           </Tab.List>
-          <Tab.Panels as={ResizablePanel}>
-            <AnimatePresence mode="popLayout" initial={false}>
-              <Tab.Panel key="1" as={motion.div} className={clsx("bg-white px-4 py-6 rounded-2xl")}>
-                Karate-do klubi Nüke visiooniks on karate-do kui spordi-, iseloomu- ja väärtuspõhise
-                kasvatussüsteemi propageerimine ja õpetamine.
-              </Tab.Panel>
-              <Tab.Panel key="2" as={motion.div} className={clsx("bg-white px-4 py-6 rounded-2xl")}>
-                Karate-do klubi Nüke missioon on targa, heasoovliku, tugeva tahte ja iseloomuga ning
-                aktiivse ja sportliku eluhoiakuga inimese kasvatamine karate-do ja laiemalt spordi
-                kaudu.
-              </Tab.Panel>
-              <Tab.Panel key="3" as={motion.div} className={clsx("bg-white px-4 py-6 rounded-2xl")}>
+          <div className="px-4 py-6 overflow-hidden bg-white rounded-2xl">
+            <Tab.Panels as={ResizablePanel} duration={1}>
+              <AboutPanel id="visioon">
                 <div>
-                  <p className="text-xl">Karate-do klubi Nüke eesmärgid on</p>
+                  <p className="mb-2 text-xl font-semibold">Visioon</p>
+                  <p>
+                    Karate-do klubi Nüke visiooniks on karate-do kui spordi-, iseloomu- ja
+                    väärtuspõhise kasvatussüsteemi propageerimine ja õpetamine.
+                  </p>
+                </div>
+              </AboutPanel>
+              <AboutPanel id="missioon">
+                <div>
+                  <p className="mb-2 text-xl font-semibold">Missioon</p>
+                  <p>
+                    Karate-do klubi Nüke missioon on targa, heasoovliku, tugeva tahte ja iseloomuga
+                    ning aktiivse ja sportliku eluhoiakuga inimese kasvatamine karate-do ja laiemalt
+                    spordi kaudu.
+                  </p>
+                </div>
+              </AboutPanel>
+              <AboutPanel id="eesmargid">
+                <div>
+                  <p className="mb-2 text-xl font-semibold">Eesmärgid</p>
                   <ul className="ml-8 list-disc">
                     <li>
                       luua tingimused süvendatud karate- ja spordialaseks eneseteostamiseks ja
@@ -133,20 +143,23 @@ export const AboutClubPage = () => {
                     </li>
                   </ul>
                 </div>
-              </Tab.Panel>
-              <Tab.Panel key="4" as={motion.div} className={clsx("bg-white px-4 py-6 rounded-2xl")}>
-                <p>
-                  Karate-do klubi Nüke on Eesti kõige pikema traditsiooniga karateklubi. Nüke loodi
-                  1978. aastal.
-                </p>
-                <p>
-                  1984. aastal karate harjutamine Eestis keelati ning karated tuli harjutada edasi
-                  salaja „põranda all“. 1989. aastal keeluaeg lõppes. See oli aeg, mil Nüke loodi
-                  taas ning klubi jätkas oma tegevust.
-                </p>
-              </Tab.Panel>
-            </AnimatePresence>
-          </Tab.Panels>
+              </AboutPanel>
+              <AboutPanel id="ajaloost">
+                <div>
+                  <p className="mb-2 text-xl font-semibold">Ajaloost</p>
+                  <p>
+                    Karate-do klubi Nüke on Eesti kõige pikema traditsiooniga karateklubi. Nüke
+                    loodi 1978. aastal.
+                  </p>
+                  <p>
+                    1984. aastal karate harjutamine Eestis keelati ning karated tuli harjutada edasi
+                    salaja „põranda all“. 1989. aastal keeluaeg lõppes. See oli aeg, mil Nüke loodi
+                    taas ning klubi jätkas oma tegevust.
+                  </p>
+                </div>
+              </AboutPanel>
+            </Tab.Panels>
+          </div>
         </Tab.Group>
       </div>
     </DefaultPageWrapper>

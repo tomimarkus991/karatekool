@@ -71,7 +71,7 @@ export const DefaultPageWrapper = ({ children }: Props) => {
       >
         {children}
       </div>
-      <div className="w-full h-40 bg-primary" />
+      <div className="absolute inset-0 bottom-0 w-full h-40 bg-primary" />
     </PartialPageWrapper>
   );
 };

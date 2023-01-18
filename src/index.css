@@ -26,6 +26,8 @@
   }
 }
 
-/* @layer components {
-
-} */
+@layer components {
+ .remove-ring {
+    @apply focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none;
+ }
+}

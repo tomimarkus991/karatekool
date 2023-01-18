@@ -38,7 +38,7 @@ export const PartialPageWrapper = ({ children, RightSide, Sidebar, MobileContent
         <div id="main-content" className="flex w-full min-h-screen bg-surface-bg">
           <div
             className={clsx(
-              "w-full py-0",
+              "w-full py-0 min-h-screen relative",
               (sidebarState === "expanded" || sidebarState === "small") && "ml-[6.5rem]"
             )}
           >
