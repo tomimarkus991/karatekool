@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { Formik, Form } from "formik";
 import { useState } from "react";
 
-import { yupSchemas } from "app-constants";
+import { YupSchemas } from "app-constants";
 import { DefaultPageWrapper } from "components";
 import { useSendPasswordResetEmail } from "hooks";
 
@@ -23,7 +23,7 @@ export const ForgotPasswordPage = () => {
         <div className="p-6 bg-white rounded-xl">
           <Formik
             initialValues={initialValues}
-            validationSchema={yupSchemas.ForgotPassword}
+            validationSchema={YupSchemas.ForgotPassword}
             validateOnChange={true}
             onSubmit={(values, { setSubmitting, resetForm }) => {
               setSubmitting(true);

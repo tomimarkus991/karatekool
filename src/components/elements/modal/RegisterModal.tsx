@@ -12,7 +12,7 @@ import { Formik, Form } from "formik";
 import { useState } from "react";
 import { HiEye, HiEyeOff, HiX } from "react-icons/hi";
 
-import { yupSchemas } from "app-constants";
+import { YupSchemas } from "app-constants";
 import { GlowButton } from "components";
 import { useSignUp } from "hooks";
 
@@ -64,7 +64,7 @@ export const RegisterModal = ({ sidebar }: Props) => {
     >
       <Formik
         initialValues={initialValues}
-        validationSchema={yupSchemas.RegisterYupSchema}
+        validationSchema={YupSchemas.Register}
         validateOnChange={true}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);

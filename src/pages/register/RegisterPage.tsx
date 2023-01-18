@@ -7,7 +7,7 @@ import { useState } from "react";
 import { HiEyeOff, HiEye } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
-import { yupSchemas } from "app-constants";
+import { YupSchemas } from "app-constants";
 import { DefaultPageWrapper } from "components";
 import { useSignUp } from "hooks";
 import { definedRoutes } from "routes";
@@ -37,7 +37,7 @@ export const RegisterPage = () => {
         <div className="p-6 bg-white rounded-xl">
           <Formik
             initialValues={initialValues}
-            validationSchema={yupSchemas.RegisterYupSchema}
+            validationSchema={YupSchemas.Register}
             validateOnChange={true}
             onSubmit={(values, { setSubmitting, resetForm }) => {
               setSubmitting(true);

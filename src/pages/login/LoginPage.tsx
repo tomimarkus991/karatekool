@@ -7,7 +7,7 @@ import { useState } from "react";
 import { HiEyeOff, HiEye } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
-import { yupSchemas } from "app-constants";
+import { YupSchemas } from "app-constants";
 import { DefaultPageWrapper, LoginFormValues } from "components";
 import { useSignIn } from "hooks";
 import { definedRoutes } from "routes";
@@ -26,7 +26,7 @@ export const LoginPage = () => {
         <div className="p-6 bg-white rounded-xl">
           <Formik
             initialValues={initialValues}
-            validationSchema={yupSchemas.LoginYupSchema}
+            validationSchema={YupSchemas.Login}
             validateOnChange={true}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
               setSubmitting(true);

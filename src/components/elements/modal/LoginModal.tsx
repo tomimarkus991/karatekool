@@ -14,7 +14,7 @@ import { useState } from "react";
 import { HiEye, HiEyeOff, HiX } from "react-icons/hi";
 import { useNavigate, Link } from "react-router-dom";
 
-import { yupSchemas } from "app-constants";
+import { YupSchemas } from "app-constants";
 import { GlowButton } from "components";
 import { useSignIn } from "hooks";
 import { definedRoutes } from "routes";
@@ -57,7 +57,7 @@ export const LoginModal = ({ sidebar }: Props) => {
     >
       <Formik
         initialValues={initialValues}
-        validationSchema={yupSchemas.LoginYupSchema}
+        validationSchema={YupSchemas.Login}
         validateOnChange={true}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);

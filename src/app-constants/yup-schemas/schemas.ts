@@ -1,11 +1,11 @@
 import { ref, string, object } from "yup";
 
-const LoginYupSchema = object().shape({
+const Login = object().shape({
   email: string().email("Email peab olema päris").required("Vajalik"),
   password: string().min(8).required("Vajalik"),
 });
 
-const RegisterYupSchema = object().shape({
+const Register = object().shape({
   name: string().min(3).required("Vajalik"),
   email: string().email("Email peab olema päris").required("Vajalik"),
   password: string()
@@ -34,9 +34,9 @@ const ApplyToClub = object().shape({
   reason: string().required("Vajalik"),
 });
 
-export const yupSchemas = {
-  LoginYupSchema,
-  RegisterYupSchema,
+export const YupSchemas = {
+  Login,
+  Register,
   ForgotPassword,
   ResetPassword,
   ApplyToClub,

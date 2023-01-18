@@ -5,7 +5,7 @@ import { Formik, Form } from "formik";
 import { useState } from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 
-import { yupSchemas } from "app-constants";
+import { YupSchemas } from "app-constants";
 import { DefaultPageWrapper } from "components";
 import { useResetPassword } from "hooks";
 
@@ -30,7 +30,7 @@ export const ResetPasswordPage = () => {
         <div className="p-6 bg-white rounded-xl">
           <Formik
             initialValues={initialValues}
-            validationSchema={yupSchemas.ResetPassword}
+            validationSchema={YupSchemas.ResetPassword}
             validateOnChange={true}
             onSubmit={(values, { setSubmitting, resetForm }) => {
               setSubmitting(true);
