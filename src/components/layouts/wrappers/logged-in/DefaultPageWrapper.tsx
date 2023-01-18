@@ -9,6 +9,7 @@ import {
   PartialPageWrapper,
   NavbarTopMobile,
   GlowButton,
+  WaveBackground,
 } from "components";
 import { routes, definedRoutes } from "routes";
 
@@ -21,7 +22,9 @@ export const DefaultPageWrapper = ({ children }: Props) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    document.documentElement.classList.add("scrollbar-none");
+    if (pathname === definedRoutes.karateka) {
+      document.documentElement.classList.add("scrollbar-none");
+    }
     return () => {
       document.documentElement.classList.remove("scrollbar-none");
     };
@@ -36,6 +39,7 @@ export const DefaultPageWrapper = ({ children }: Props) => {
           <div className={clsx(pathname !== definedRoutes.karateka ? "px-4" : "px-0")}>
             {children}
           </div>
+          <WaveBackground />
         </>
       }
       Sidebar={
@@ -72,6 +76,7 @@ export const DefaultPageWrapper = ({ children }: Props) => {
         {children}
       </div>
       {/* <div className="absolute inset-0 bottom-0 w-full h-40 bg-primary" /> */}
+      <WaveBackground />
     </PartialPageWrapper>
   );
 };

@@ -2,15 +2,22 @@ import { Tab } from "@headlessui/react";
 import clsx from "clsx";
 import { Fragment } from "react";
 
-import {
-  AboutPanel,
-  BeltIcon,
-  BronzeMedalIcon,
-  DefaultPageWrapper,
-  KaratekaIcon,
-  RealDiamondButton,
-  ResizablePanel,
-} from "components";
+import { AboutPanel, DefaultPageWrapper, RealDiamondButton, ResizablePanel } from "components";
+
+interface Props {
+  icon: React.ReactNode;
+  text: string;
+}
+
+const IconText = ({ icon, text }: Props) => {
+  return (
+    <>
+      <div className="w-[20%] flex justify-center items-center">{icon}</div>
+
+      <p className="ml-2 w-[80%] text-base font-light md:ml-4 md:text-lg font-catamaran">{text}</p>
+    </>
+  );
+};
 
 export const AboutClubPage = () => {
   return (
@@ -47,26 +54,31 @@ export const AboutClubPage = () => {
             </h1>
             <div className="flex flex-col space-y-5 md:space-y-10">
               <div className="flex flex-row items-center justify-center">
-                <div className="scale-75 md:scale-100">
-                  <BeltIcon />
-                </div>
-
-                <p className="ml-2 text-base font-light md:ml-4 md:text-lg font-catamaran">
-                  Klubi Nüke peaõpetaja ja musta vöö 3.aste IV kategooria karatetreener. (Riiklikult
-                  atesteeritud).
-                </p>
+                <IconText
+                  text="Klubi Nüke peaõpetaja ja musta vöö 3.aste IV kategooria karatetreener. (Riiklikult
+                  atesteeritud)."
+                  icon={<img alt="belt" className="w-[3.5rem] sm:w-[4rem]" src="/icons/belt.svg" />}
+                />
               </div>
               <div className="flex flex-row items-center justify-end max-w-sm ml-auto">
-                <BronzeMedalIcon />
-                <p className="ml-2 text-base font-light md:ml-4 md:text-lg font-catamaran">
-                  Mitmekordne Eesti meister ja paljude rahvusvaheliste turniiride auhinnavõitja.
-                </p>
+                <IconText
+                  text="Mitmekordne Eesti meister ja paljude rahvusvaheliste turniiride auhinnavõitja."
+                  icon={
+                    <img alt="medal" className="w-[2.5rem] sm:w-[3rem]" src="/icons/medal.svg" />
+                  }
+                />
               </div>
               <div className="flex flex-row items-center">
-                <KaratekaIcon />
-                <p className="ml-2 text-base font-light md:ml-4 md:text-lg font-catamaran">
-                  Eesti Karate Föderatsiooni treenerite nõukogu liige ja JKS Estonia instruktor.
-                </p>
+                <IconText
+                  text="Eesti Karate Föderatsiooni treenerite nõukogu liige ja JKS Estonia instruktor."
+                  icon={
+                    <img
+                      alt="karateka"
+                      className="w-[3rem] sm:w-[3.5rem]"
+                      src="/icons/karateka.svg"
+                    />
+                  }
+                />
               </div>
             </div>
           </div>
