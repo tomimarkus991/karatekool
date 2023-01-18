@@ -27,7 +27,7 @@ export const NavbarTopLink = ({ children, to, index, ...props }: Props) => {
       <AnimatePresence>
         {hoveredIndex === index && (
           <motion.span
-            className="absolute inset-0 bg-gray-100 rounded-xl"
+            className="absolute inset-0 bg-[#f0f2f4] rounded-xl"
             layoutId="hoverBackground"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { duration: 0.15 } }}
