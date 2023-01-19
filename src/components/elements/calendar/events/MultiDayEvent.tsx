@@ -40,7 +40,7 @@ const Child = ({ width, multi_day_event }: ChildProps) => {
       style={{ width }}
       className={clsx("bg-blue-600 mt-4 ml-2 rounded-md left-0", "absolute")}
     >
-      <p className="text-white text-left text-sm font-medium ml-2 whitespace-nowrap overflow-ellipsis overflow-hidden">
+      <p className="py-2 ml-2 overflow-hidden text-base font-medium text-left text-white whitespace-nowrap overflow-ellipsis">
         {title}
       </p>
     </motion.div>

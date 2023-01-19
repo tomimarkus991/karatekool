@@ -13,8 +13,9 @@ import {
   subMonths,
 } from "date-fns";
 import { motion, AnimatePresence, MotionConfig, Variants } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { useScreenshot, createFileName } from "use-react-screenshot";
 
 import { days } from "app-constants";
 import { CalendarDate, CalendarFilterButtons, calendarUtils, ResizablePanel } from "components";
@@ -44,6 +45,28 @@ export const Calendar = () => {
   const { isMobile } = useIsMobile();
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState<number>();
+
+  const calendarRef = useRef(null!);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [image, takeScreenShot] = useScreenshot({
+    type: "image/png",
+    quality: 1.0,
+  });
+
+  console.log("image", image);
+
+  const download = (picture: any) => {
+    const a = document.createElement("a");
+    a.href = picture;
+    a.download = createFileName("png", "kalender");
+    a.click();
+  };
+
+  const downloadScreenshot = async () => {
+    const data = await takeScreenShot(calendarRef.current);
+    return download(data);
+  };
 
   const [currentMonthString, setCurrentMonthString] = useState(
     format(new Date(), currentMonthType)
@@ -92,6 +115,10 @@ export const Calendar = () => {
     fetchEvents();
   }, []);
 
+  // splice first letter, make it uppercase and then add the rest of the string
+  const beautifulCurrentMonth =
+    currentMonthString.slice(0, 1).toUpperCase() + currentMonthString.slice(1);
+
   return (
     <MotionConfig transition={{ ease: "easeInOut", duration: 0.5 }}>
       <div className="relative w-full mx-auto overflow-hidden bg-white select-none max-w-7xl rounded-2xl">
@@ -100,108 +127,116 @@ export const Calendar = () => {
             <h1 className="flex justify-start mb-6 ml-4 text-xl font-semibold font-catamaran">
               Treeninggraafikud
             </h1>
-            <CalendarFilterButtons />
-            <ResizablePanel>
-              <AnimatePresence
-                mode="popLayout"
-                initial={false}
-                custom={direction}
-                onExitComplete={() => {
-                  setIsAnimating(false);
-                  // setTimeout(() => {
-                  // }, 100);
-                  fetchEvents();
-                }}
-              >
-                <motion.div key={currentMonthString} initial="enter" animate="middle" exit="exit">
-                  <div className="flex items-center justify-center">
-                    <header className="relative my-6 flex justify-between items-center max-w-fit min-w-[20rem]">
-                      <motion.button
-                        variants={removeImmediately}
-                        className={clsx("z-10 rounded-full hover:bg-stone-100 cursor-pointer")}
-                        onClick={previousMonth}
-                      >
-                        <HiChevronLeft className="w-6 h-6 text-gray-600" />
-                      </motion.button>
-                      <motion.p
-                        variants={variantsHeader}
-                        custom={direction}
-                        className="min-w-[8rem] absolute inset-0 flex items-center justify-center font-catamaran font-semibold text-lg"
-                      >
-                        <p className="first-letter:uppercase">{currentMonthString}</p>
-                      </motion.p>
-                      <motion.button
-                        variants={removeImmediately}
-                        className={clsx("z-10 rounded-full hover:bg-stone-100 cursor-pointer")}
-                        onClick={nextMonth}
-                      >
-                        <HiChevronRight className="w-6 h-6 text-gray-600" />
-                      </motion.button>
-                      <div
-                        className="absolute inset-0"
-                        style={{
-                          backgroundImage:
-                            "linear-gradient(to right, white 20%, transparent 30%, transparent 70%, white 80%)",
-                        }}
-                      />
-                    </header>
-                  </div>
-
+            <CalendarFilterButtons downloadScreenshot={downloadScreenshot} />
+            <div ref={calendarRef}>
+              <ResizablePanel>
+                <AnimatePresence
+                  mode="popLayout"
+                  initial={false}
+                  custom={direction}
+                  onExitComplete={() => {
+                    setIsAnimating(false);
+                    // setTimeout(() => {
+                    // }, 100);
+                    fetchEvents();
+                  }}
+                >
                   <motion.div
-                    variants={removeImmediately}
-                    className="grid grid-cols-7 font-semibold font-catamaran"
+                    id="calendar"
+                    key={currentMonthString}
+                    initial="enter"
+                    animate="middle"
+                    exit="exit"
                   >
-                    {isMobile ? (
-                      <>
-                        {days.short.map(day => (
-                          <div key={day} className="flex justify-center">
-                            <p className="text-stone-500">{day}</p>
-                          </div>
-                        ))}
-                      </>
-                    ) : (
-                      <>
-                        {days.long.map(day => (
-                          <div key={day} className="flex justify-center">
-                            <p className="text-stone-500">{day}</p>
-                          </div>
-                        ))}
-                      </>
-                    )}
-                  </motion.div>
-                  <motion.div variants={variants} custom={direction}>
-                    <div className="grid grid-rows-5">
-                      {weeks.map(week => {
-                        const daysForWeek = eachDayOfInterval({
-                          start: startOfWeek(week),
-                          end: endOfWeek(week),
-                        });
-                        return (
-                          <div
-                            id="week"
-                            key={week.toISOString()}
-                            className="grid grid-cols-7 border-t last:border-b border-stone-100 h-36"
-                          >
-                            {daysForWeek.map(day => {
-                              return (
-                                <CalendarDate
-                                  key={day.toISOString()}
-                                  events={events}
-                                  date={day}
-                                  month={month}
-                                  isFetched={isFetched}
-                                  isAnimating={isAnimating}
-                                />
-                              );
-                            })}
-                          </div>
-                        );
-                      })}
+                    <div className="flex items-center justify-center">
+                      <header className="relative my-6 flex justify-between items-center max-w-fit min-w-[20rem]">
+                        <motion.button
+                          variants={removeImmediately}
+                          className={clsx("z-10 rounded-full hover:bg-stone-100 cursor-pointer")}
+                          onClick={previousMonth}
+                        >
+                          <HiChevronLeft className="w-6 h-6 text-gray-600" />
+                        </motion.button>
+                        <motion.p
+                          variants={variantsHeader}
+                          custom={direction}
+                          className="min-w-[8rem] absolute inset-0 flex items-center justify-center font-catamaran font-semibold text-lg"
+                        >
+                          <p className="">{beautifulCurrentMonth}</p>
+                        </motion.p>
+                        <motion.button
+                          variants={removeImmediately}
+                          className={clsx("z-10 rounded-full hover:bg-stone-100 cursor-pointer")}
+                          onClick={nextMonth}
+                        >
+                          <HiChevronRight className="w-6 h-6 text-gray-600" />
+                        </motion.button>
+                        <div
+                          className="absolute inset-0"
+                          style={{
+                            backgroundImage:
+                              "linear-gradient(to right, white 20%, transparent 30%, transparent 70%, white 80%)",
+                          }}
+                        />
+                      </header>
                     </div>
+
+                    <motion.div
+                      variants={removeImmediately}
+                      className="grid grid-cols-7 font-semibold font-catamaran"
+                    >
+                      {isMobile ? (
+                        <>
+                          {days.short.map(day => (
+                            <div key={day} className="flex justify-center">
+                              <p className="text-stone-500">{day}</p>
+                            </div>
+                          ))}
+                        </>
+                      ) : (
+                        <>
+                          {days.long.map(day => (
+                            <div key={day} className="flex justify-center">
+                              <p className="text-stone-500">{day}</p>
+                            </div>
+                          ))}
+                        </>
+                      )}
+                    </motion.div>
+                    <motion.div variants={variants} custom={direction}>
+                      <div className="grid grid-rows-5">
+                        {weeks.map(week => {
+                          const daysForWeek = eachDayOfInterval({
+                            start: startOfWeek(week),
+                            end: endOfWeek(week),
+                          });
+                          return (
+                            <div
+                              id="week"
+                              key={week.toISOString()}
+                              className="grid grid-cols-7 border-t first:border-t-0 last:border-b border-stone-100 h-36"
+                            >
+                              {daysForWeek.map(day => {
+                                return (
+                                  <CalendarDate
+                                    key={day.toISOString()}
+                                    events={events}
+                                    date={day}
+                                    month={month}
+                                    isFetched={isFetched}
+                                    isAnimating={isAnimating}
+                                  />
+                                );
+                              })}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </motion.div>
                   </motion.div>
-                </motion.div>
-              </AnimatePresence>
-            </ResizablePanel>
+                </AnimatePresence>
+              </ResizablePanel>
+            </div>
           </div>
         </div>
       </div>
