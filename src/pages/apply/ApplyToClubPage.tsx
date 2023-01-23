@@ -29,13 +29,13 @@ export const ApplyToClubPage = () => {
             initialValues={initialValues}
             validationSchema={YupSchemas.ApplyToClub}
             validateOnChange={true}
-            onSubmit={(values, { setSubmitting, resetForm }) => {
+            onSubmit={async (_, { setSubmitting, resetForm }) => {
               setSubmitting(true);
 
-              const { email } = values;
-              console.log(email);
+              // he sends to Nüke
+              // const sentFrom = new Sender(email, name);
 
-              // sendPasswordResetEmail({ email });
+              // const recipients = [new Recipient("tomimarkusalber@gmail.com", "Nüke")];
 
               resetForm();
 

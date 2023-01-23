@@ -48,13 +48,10 @@ export const Calendar = () => {
 
   const calendarRef = useRef(null!);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [image, takeScreenShot] = useScreenshot({
+  const [, takeScreenShot] = useScreenshot({
     type: "image/png",
     quality: 1.0,
   });
-
-  console.log("image", image);
 
   const download = (picture: any) => {
     const a = document.createElement("a");
