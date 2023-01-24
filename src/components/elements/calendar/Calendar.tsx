@@ -1,4 +1,4 @@
-import { useIsMobile } from "@redlotus/ui";
+import { ResizablePanel, useIsMobile } from "@redlotus/ui";
 import clsx from "clsx";
 import {
   addMonths,
@@ -18,7 +18,7 @@ import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { useScreenshot, createFileName } from "use-react-screenshot";
 
 import { days } from "app-constants";
-import { CalendarDate, CalendarFilterButtons, calendarUtils, ResizablePanel } from "components";
+import { CalendarDate, CalendarFilterButtons, calendarUtils } from "components";
 import { useGetCurrentMonthEvents } from "hooks";
 
 const variants: Variants = {

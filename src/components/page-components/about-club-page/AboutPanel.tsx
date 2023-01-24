@@ -1,5 +1,4 @@
 import { Tab } from "@headlessui/react";
-// import clsx from "clsx";
 import { motion, Variants } from "framer-motion";
 
 interface Props {
