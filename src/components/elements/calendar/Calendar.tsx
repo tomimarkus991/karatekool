@@ -19,6 +19,7 @@ import { useScreenshot, createFileName } from "use-react-screenshot";
 
 import { days } from "app-constants";
 import { CalendarDate, CalendarFilterButtons, calendarUtils } from "components";
+import { useCalendarFilters } from "context";
 import { useGetCurrentMonthEvents } from "hooks";
 
 const variants: Variants = {
@@ -45,6 +46,7 @@ export const Calendar = () => {
   const { isMobile } = useIsMobile();
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState<number>();
+  const { letter } = useCalendarFilters();
 
   const calendarRef = useRef(null!);
 
@@ -53,10 +55,17 @@ export const Calendar = () => {
     quality: 1.0,
   });
 
+  const [currentMonthString, setCurrentMonthString] = useState(
+    format(new Date(), currentMonthType)
+  );
+
   const download = (picture: any) => {
     const a = document.createElement("a");
     a.href = picture;
-    a.download = createFileName("png", "kalender");
+    a.download = createFileName(
+      "png",
+      `kalender-${letter}-${currentMonthString.replaceAll(" ", "-")}`
+    );
     a.click();
   };
 
@@ -65,9 +74,8 @@ export const Calendar = () => {
     return download(data);
   };
 
-  const [currentMonthString, setCurrentMonthString] = useState(
-    format(new Date(), currentMonthType)
-  );
+  console.log(currentMonthString);
+
   const month = parse(currentMonthString, currentMonthType, new Date());
 
   const firstDayOfCurrentMonth = parse(currentMonthString, currentMonthType, new Date());
@@ -211,7 +219,7 @@ export const Calendar = () => {
                             <div
                               id="week"
                               key={week.toISOString()}
-                              className="grid grid-cols-7 border-t first:border-t-0 last:border-b border-stone-100 h-36"
+                              className="grid h-32 grid-cols-7 border-t first:border-t-0 last:border-b-0 border-stone-100"
                             >
                               {daysForWeek.map(day => {
                                 return (

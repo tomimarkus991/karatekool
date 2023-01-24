@@ -13,7 +13,7 @@ interface FormValues {
   password: string;
   passwordConfirmation: string;
 }
-
+// @todo add animation to success panel when password is reset
 export const ResetPasswordPage = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);

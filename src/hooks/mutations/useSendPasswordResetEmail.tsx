@@ -15,16 +15,21 @@ export const useSendPasswordResetEmail = () => {
   const sendPasswordResetEmail = async (user: SendResetPasswordProps) => {
     const { email } = user;
 
-    const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo });
+    const { error, data } = await supabase.auth.resetPasswordForEmail(email, { redirectTo });
     if (error) {
       toast.error(error.message);
       throw new Error(error.message);
     }
+
+    return { data, error };
   };
 
   return useMutation((user: SendResetPasswordProps) => sendPasswordResetEmail(user), {
     onSuccess: () => {
       queryClient.removeQueries();
     },
+    // onError: () => {
+    //   return "E-posti saatmine ebaõnnestus";
+    // },
   });
 };

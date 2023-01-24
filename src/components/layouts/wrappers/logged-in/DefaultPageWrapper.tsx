@@ -1,16 +1,16 @@
 import { Sidebar, useIsMobile } from "@redlotus/ui";
 import clsx from "clsx";
 import { useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import {
   MobileSidebarContent,
   NavbarTop,
   PartialPageWrapper,
   NavbarTopMobile,
-  GlowButton,
-  WaveBackground,
-  LogoWhite,
+  LoginModal,
+  RegisterModal,
+  Footer,
 } from "components";
 import { routes, definedRoutes } from "routes";
 
@@ -40,22 +40,7 @@ export const DefaultPageWrapper = ({ children }: Props) => {
           <div className={clsx(pathname !== definedRoutes.karateka ? "px-4" : "px-0")}>
             {children}
           </div>
-          <div className="relative mt-12 aspect-[1/1] xs:aspect-[8/5] sm:aspect-[10/5] lg:aspect-[14/5] xl:aspect-[16/3]">
-            <div className="absolute bottom-0 left-0 z-10 flex flex-row items-center justify-between w-full h-full max-w-5xl px-4 space-x-4 text-white xs:px-10">
-              <div className="flex flex-col items-center">
-                <LogoWhite />
-                <p className="mt-10 text-base text-white">© 2023 nüke karate-do klubi</p>
-              </div>
-
-              <div className="space-y-2 text-base">
-                <p className="text-white">(+372) 57 50 17 33</p>
-                <p className="text-white">info@karatekool.ee</p>
-                <p className="text-white">MTÜ Karate-do klubi Nüke</p>
-                <p className="text-white">EE 2310 1022 0004 3840 13</p>
-              </div>
-            </div>
-            <WaveBackground />
-          </div>
+          <Footer />
         </>
       }
       Sidebar={
@@ -65,14 +50,8 @@ export const DefaultPageWrapper = ({ children }: Props) => {
               routes={routes}
               BottomContent={
                 <div className="flex flex-col items-center justify-center flex-1 space-y-3">
-                  <Link to={definedRoutes.login}>
-                    <GlowButton className="w-[13rem]">logi sisse</GlowButton>
-                  </Link>
-                  <Link to={definedRoutes.register}>
-                    <GlowButton className="w-[13rem]" variant="orange">
-                      loo kasutaja
-                    </GlowButton>
-                  </Link>
+                  <LoginModal type="sidebarButton" />
+                  <RegisterModal type="sidebarButton" />
                 </div>
               }
             />
@@ -94,33 +73,7 @@ export const DefaultPageWrapper = ({ children }: Props) => {
         {children}
       </div>
 
-      <div className="relative mt-12 aspect-[1/1] xs:aspect-[8/5] sm:aspect-[10/5] lg:aspect-[14/5] xl:aspect-[16/3]">
-        <div
-          className={clsx(
-            "absolute z-10 flex bottom-0 left-0 w-full h-full justify-center items-center"
-          )}
-        >
-          <div
-            className={clsx(
-              "grow flex flex-row items-center justify-between space-x-4 text-white xs:px-10",
-              "max-w-5xl xl:max-w-6xl 2xl:max-w-7xl px-4"
-            )}
-          >
-            <div className="flex flex-col items-center">
-              <LogoWhite />
-              <p className="mt-10 text-base text-white">© 2023 nüke karate-do klubi</p>
-            </div>
-
-            <div className="space-y-2 text-base">
-              <p className="text-white">(+372) 57 50 17 33</p>
-              <p className="text-white">info@karatekool.ee</p>
-              <p className="text-white">MTÜ Karate-do klubi Nüke</p>
-              <p className="text-white">EE 2310 1022 0004 3840 13</p>
-            </div>
-          </div>
-        </div>
-        <WaveBackground />
-      </div>
+      <Footer />
     </PartialPageWrapper>
   );
 };

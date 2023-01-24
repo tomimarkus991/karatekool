@@ -33,4 +33,8 @@
  .remove-ring {
     @apply focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none;
  }
+
+ .waves-aspect {
+  @apply aspect-[1/1] xs:aspect-[8/5] sm:aspect-[10/5] md:aspect-[14/5] lg:aspect-[18/5] xl:aspect-[16/3];
+ }
 }

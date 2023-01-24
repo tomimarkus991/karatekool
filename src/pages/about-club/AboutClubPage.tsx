@@ -1,8 +1,9 @@
 import { Tab } from "@headlessui/react";
+import { ResizablePanel } from "@redlotus/ui";
 import clsx from "clsx";
 import { Fragment } from "react";
 
-import { AboutPanel, DefaultPageWrapper, RealDiamondButton, ResizablePanel } from "components";
+import { AboutPanel, DefaultPageWrapper, RealDiamondButton } from "components";
 
 interface Props {
   icon: React.ReactNode;
