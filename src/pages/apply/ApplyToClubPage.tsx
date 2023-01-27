@@ -1,10 +1,10 @@
-import { Button, FormikInput } from "@redlotus/ui";
+import { FormikInput } from "@redlotus/ui";
 import clsx from "clsx";
 import { Formik, Form } from "formik";
 import { useState } from "react";
 
 import { YupSchemas } from "app-constants";
-import { DefaultPageWrapper } from "components";
+import { DefaultPageWrapper, GlowButton } from "components";
 
 interface FormValues {
   name: string;
@@ -58,15 +58,15 @@ export const ApplyToClubPage = () => {
                   </div>
 
                   <div className="flex flex-col items-center justify-center">
-                    <Button
+                    <GlowButton
                       variant="red"
-                      className="w-[20rem] text-xl bg-primary"
+                      className="w-[13rem] text-xl bg-primary"
                       type="submit"
                       onClick={handleSubmit as any}
                       isValid={isValid}
                     >
                       Saada taotlus
-                    </Button>
+                    </GlowButton>
                   </div>
                 </Form>
               );
