@@ -74,8 +74,6 @@ export const Calendar = () => {
     return download(data);
   };
 
-  console.log(currentMonthString);
-
   const month = parse(currentMonthString, currentMonthType, new Date());
 
   const firstDayOfCurrentMonth = parse(currentMonthString, currentMonthType, new Date());
