@@ -29,6 +29,7 @@ export const useSignIn = () => {
 
   return useMutation((user: SignInProps) => signIn(user), {
     onSuccess: () => {
+      window.location.reload();
       queryClient.removeQueries();
       navigate(definedRoutes.karateka);
     },
