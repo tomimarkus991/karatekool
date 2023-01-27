@@ -52,9 +52,13 @@ export const LoginForm = ({ closeModal, isValid }: Props) => {
                 onClick={() => setIsPasswordVisible(!isPasswordVisible)}
               >
                 {isPasswordVisible ? (
-                  <HiEyeOff className="w-5 h-5 fill-stone-600" />
+                  <AnimationWrapper variants={animations.smallScale}>
+                    <HiEyeOff className="w-5 h-5 fill-stone-600" />
+                  </AnimationWrapper>
                 ) : (
-                  <HiEye className="w-5 h-5 fill-stone-600" />
+                  <AnimationWrapper variants={animations.smallScale}>
+                    <HiEye className="w-5 h-5 fill-stone-600" />
+                  </AnimationWrapper>
                 )}
               </div>
             }

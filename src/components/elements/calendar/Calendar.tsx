@@ -1,4 +1,4 @@
-import { ResizablePanel, useIsMobile } from "@redlotus/ui";
+import { animations, AnimationWrapper, ResizablePanel, useIsMobile } from "@redlotus/ui";
 import clsx from "clsx";
 import {
   addMonths,
@@ -157,10 +157,12 @@ export const Calendar = () => {
                       <header className="relative my-6 flex justify-between items-center max-w-fit min-w-[20rem]">
                         <motion.button
                           variants={removeImmediately}
-                          className={clsx("z-10 rounded-full hover:bg-stone-100 cursor-pointer")}
+                          className={clsx("z-10 rounded-full cursor-pointer")}
                           onClick={previousMonth}
                         >
-                          <HiChevronLeft className="w-6 h-6 text-gray-600" />
+                          <AnimationWrapper variants={animations.smallScale}>
+                            <HiChevronLeft className="w-6 h-6 text-gray-600" />
+                          </AnimationWrapper>
                         </motion.button>
                         <motion.p
                           variants={variantsHeader}
@@ -171,10 +173,12 @@ export const Calendar = () => {
                         </motion.p>
                         <motion.button
                           variants={removeImmediately}
-                          className={clsx("z-10 rounded-full hover:bg-stone-100 cursor-pointer")}
+                          className={clsx("z-10 rounded-full cursor-pointer")}
                           onClick={nextMonth}
                         >
-                          <HiChevronRight className="w-6 h-6 text-gray-600" />
+                          <AnimationWrapper variants={animations.smallScale}>
+                            <HiChevronRight className="w-6 h-6 text-gray-600" />
+                          </AnimationWrapper>
                         </motion.button>
                         <div
                           className="absolute inset-0"

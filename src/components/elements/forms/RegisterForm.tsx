@@ -61,9 +61,13 @@ export const RegisterForm = ({ closeModal, isValid }: Props) => {
                 onClick={() => setIsPasswordVisible(!isPasswordVisible)}
               >
                 {isPasswordVisible ? (
-                  <HiEyeOff className="w-5 h-5 fill-stone-600" />
+                  <AnimationWrapper variants={animations.smallScale}>
+                    <HiEyeOff className="w-5 h-5 fill-stone-600" />
+                  </AnimationWrapper>
                 ) : (
-                  <HiEye className="w-5 h-5 fill-stone-600" />
+                  <AnimationWrapper variants={animations.smallScale}>
+                    <HiEye className="w-5 h-5 fill-stone-600" />
+                  </AnimationWrapper>
                 )}
               </div>
             }
@@ -79,9 +83,13 @@ export const RegisterForm = ({ closeModal, isValid }: Props) => {
                 onClick={() => setIsConfirmPasswordVisible(!isConfirmPasswordVisible)}
               >
                 {isConfirmPasswordVisible ? (
-                  <HiEyeOff className="w-5 h-5 fill-stone-600" />
+                  <AnimationWrapper variants={animations.smallScale}>
+                    <HiEyeOff className="w-5 h-5 fill-stone-600" />
+                  </AnimationWrapper>
                 ) : (
-                  <HiEye className="w-5 h-5 fill-stone-600" />
+                  <AnimationWrapper variants={animations.smallScale}>
+                    <HiEye className="w-5 h-5 fill-stone-600" />
+                  </AnimationWrapper>
                 )}
               </div>
             }

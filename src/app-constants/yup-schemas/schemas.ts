@@ -2,7 +2,7 @@ import { ref, string, object } from "yup";
 
 const Login = object().shape({
   email: string().email("Email peab olema päris").required("Vajalik"),
-  password: string().min(8).required("Vajalik"),
+  password: string().required("Vajalik"),
 });
 
 const Register = object().shape({
