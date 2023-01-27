@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import {
   animations,
@@ -13,7 +14,7 @@ import { useState } from "react";
 import { HiEye, HiEyeOff, HiX } from "react-icons/hi";
 
 import { YupSchemas } from "app-constants";
-import { GlowButton } from "components";
+import { GlowButton, LoginModal } from "components";
 import { useSignUp } from "hooks";
 
 export interface RegisterFormValues {
@@ -24,10 +25,11 @@ export interface RegisterFormValues {
 }
 
 interface Props {
-  sidebar?: boolean;
+  title?: string;
+  type?: "text" | "button" | "sidebarButton";
 }
 
-export const RegisterModal = ({ sidebar }: Props) => {
+export const RegisterModal = ({ title, type = "button" }: Props) => {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
@@ -39,28 +41,43 @@ export const RegisterModal = ({ sidebar }: Props) => {
     password: "",
     passwordConfirmation: "",
   });
+
+  const openModal = () => {
+    setIsRegisterModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsRegisterModalOpen(false);
+  };
+
+  const modalButton = () => {
+    if (type === "text") {
+      return (
+        <p className="text-sm font-semibold cursor-pointer text-secondary" onClick={openModal}>
+          {title}
+        </p>
+      );
+    }
+    if (type === "sidebarButton") {
+      return (
+        <GlowButton variant="orange" className="w-[13rem]" onClick={openModal}>
+          loo kasutaja
+        </GlowButton>
+      );
+    }
+    return (
+      <GlowButton variant="orange" onClick={openModal}>
+        loo kasutaja
+      </GlowButton>
+    );
+  };
+
   return (
     <Modal
       open={isRegisterModalOpen}
       setOpen={setIsRegisterModalOpen}
       maxWidth="sm"
-      modalButton={
-        <>
-          {sidebar ? (
-            <GlowButton
-              variant="orange"
-              className="w-[13rem]"
-              onClick={() => setIsRegisterModalOpen(true)}
-            >
-              loo kasutaja
-            </GlowButton>
-          ) : (
-            <GlowButton variant="orange" onClick={() => setIsRegisterModalOpen(true)}>
-              loo kasutaja
-            </GlowButton>
-          )}
-        </>
-      }
+      modalButton={modalButton()}
     >
       <Formik
         initialValues={initialValues}
@@ -82,7 +99,7 @@ export const RegisterModal = ({ sidebar }: Props) => {
             <Form className={clsx("flex flex-col")}>
               <div className="flex flex-row items-center justify-between pt-6 px-7">
                 <p className="text-xl font-bold">Registreeri</p>
-                <div role="button" tabIndex={0} onClick={() => setIsRegisterModalOpen(false)}>
+                <div role="button" tabIndex={0} onClick={closeModal}>
                   <AnimationWrapper key="sub-modal-x-icon" variants={animations.rotate360}>
                     <HiX className="w-8 h-8 fill-stone-700 hover:fill-stone-800" />
                   </AnimationWrapper>
@@ -142,15 +159,14 @@ export const RegisterModal = ({ sidebar }: Props) => {
                 <div className="flex flex-col items-center justify-center">
                   <Button
                     variant="red"
-                    className="w-[20rem] text-xl bg-primary"
+                    className="w-[20rem] mb-4 text-xl bg-primary"
                     type="submit"
                     isValid={isValid}
                   >
                     Registreeri
                   </Button>
-                  <p className="mt-5 text-sm font-semibold cursor-pointer text-secondary">
-                    Mul juba on kasutaja. Logi sisse
-                  </p>
+
+                  <LoginModal type="text" title="Mul juba on kasutaja. Logi sisse" />
                 </div>
               </ModalFooterContainer>
             </Form>

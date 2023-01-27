@@ -12,10 +12,10 @@ import clsx from "clsx";
 import { Formik, Form } from "formik";
 import { useState } from "react";
 import { HiEye, HiEyeOff, HiX } from "react-icons/hi";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { YupSchemas } from "app-constants";
-import { GlowButton } from "components";
+import { GlowButton, RegisterModal } from "components";
 import { useSignIn } from "hooks";
 import { definedRoutes } from "routes";
 
@@ -25,10 +25,11 @@ export interface LoginFormValues {
 }
 
 interface Props {
-  sidebar?: boolean;
+  title?: string;
+  type?: "text" | "button" | "sidebarButton";
 }
 
-export const LoginModal = ({ sidebar }: Props) => {
+export const LoginModal = ({ title, type = "button" }: Props) => {
   const navigate = useNavigate();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -38,22 +39,41 @@ export const LoginModal = ({ sidebar }: Props) => {
     email: "",
     password: "",
   });
+
+  const openModal = () => {
+    setIsLoginModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setTimeout(() => {
+      setIsLoginModalOpen(false);
+    }, 1000);
+  };
+
+  const modalButton = () => {
+    if (type === "text") {
+      return (
+        <p className="text-sm font-semibold cursor-pointer text-secondary" onClick={openModal}>
+          {title}
+        </p>
+      );
+    }
+    if (type === "sidebarButton") {
+      return (
+        <GlowButton className="w-[13rem]" onClick={openModal}>
+          logi sisse
+        </GlowButton>
+      );
+    }
+    return <GlowButton onClick={openModal}>logi sisse</GlowButton>;
+  };
+
   return (
     <Modal
       open={isLoginModalOpen}
       setOpen={setIsLoginModalOpen}
       maxWidth="sm"
-      modalButton={
-        <>
-          {sidebar ? (
-            <GlowButton className="w-[13rem]" onClick={() => setIsLoginModalOpen(true)}>
-              logi sisse
-            </GlowButton>
-          ) : (
-            <GlowButton onClick={() => setIsLoginModalOpen(true)}>logi sisse</GlowButton>
-          )}
-        </>
-      }
+      modalButton={modalButton()}
     >
       <Formik
         initialValues={initialValues}
@@ -76,7 +96,7 @@ export const LoginModal = ({ sidebar }: Props) => {
             <Form className={clsx("flex flex-col")}>
               <div className="flex flex-row items-center justify-between pt-6 px-7">
                 <p className="text-xl font-bold">Logi sisse</p>
-                <div role="button" tabIndex={0} onClick={() => setIsLoginModalOpen(false)}>
+                <div role="button" tabIndex={0} onClick={closeModal}>
                   <AnimationWrapper key="sub-modal-x-icon" variants={animations.rotate360}>
                     <HiX className="w-8 h-8 fill-stone-700 hover:fill-stone-800" />
                   </AnimationWrapper>
@@ -120,17 +140,14 @@ export const LoginModal = ({ sidebar }: Props) => {
                 <div className="flex flex-col items-center justify-center">
                   <Button
                     variant="red"
-                    className="w-[20rem] text-xl bg-primary"
+                    className="w-[20rem] mb-4 text-xl bg-primary"
                     type="submit"
                     isValid={isValid}
                   >
                     Logi sisse
                   </Button>
-                  <Link to={definedRoutes.register}>
-                    <p className="mt-5 text-sm font-semibold cursor-pointer text-secondary">
-                      Mul pole veel kasutajat. Registreeri
-                    </p>
-                  </Link>
+
+                  <RegisterModal type="text" title="Mul pole veel kasutajat. Registreeri" />
                 </div>
               </ModalFooterContainer>
             </Form>

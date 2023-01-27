@@ -1,8 +1,6 @@
 import clsx from "clsx";
-import { Link } from "react-router-dom";
 
-import { DefaultPageWrapper, GlowButton } from "components";
-import { definedRoutes } from "routes";
+import { DefaultPageWrapper, LoginModal } from "components";
 
 export const EmailConfirmedPage = () => {
   return (
@@ -14,9 +12,7 @@ export const EmailConfirmedPage = () => {
           </div>
           <div className={clsx("flex items-center flex-col py-2 px-3")}>
             <div className="w-full m-auto mt-3 space-y-2 max-w-fit">
-              <Link to={definedRoutes.login}>
-                <GlowButton className="w-[7rem]">logi sisse</GlowButton>
-              </Link>
+              <LoginModal />
             </div>
           </div>
         </div>
