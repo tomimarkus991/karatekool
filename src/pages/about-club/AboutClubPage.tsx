@@ -114,7 +114,7 @@ export const AboutClubPage = () => {
             </Tab>
           </Tab.List>
           <div className="px-4 py-6 overflow-hidden bg-white rounded-2xl">
-            <Tab.Panels as={ResizablePanel} duration={1}>
+            <Tab.Panels as={ResizablePanel} duration={0.5}>
               <AboutPanel id="visioon">
                 <div>
                   <p className="mb-2 text-xl font-semibold">Visioon</p>

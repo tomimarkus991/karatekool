@@ -7,35 +7,22 @@ interface Props {
 }
 const panelVariants: Variants = {
   hidden: {
-    opacity: 0.3,
+    opacity: 0,
     y: 0,
   },
   active: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
-    },
-  },
-  exit: {
-    opacity: 0,
-    y: -5,
-    transition: {
-      duration: 0.6,
+      duration: 0.4,
+      delay: 0,
     },
   },
 };
 
 export const AboutPanel = ({ children, id }: Props) => {
   return (
-    <Tab.Panel
-      as={motion.div}
-      initial="hidden"
-      animate="active"
-      exit="exit"
-      variants={panelVariants}
-      key={id}
-    >
+    <Tab.Panel as={motion.div} initial="hidden" animate="active" variants={panelVariants} key={id}>
       {children}
     </Tab.Panel>
   );
