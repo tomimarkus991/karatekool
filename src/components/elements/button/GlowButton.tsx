@@ -1,5 +1,6 @@
 import { animations, AnimationWrapper } from "@redlotus/ui";
 import clsx from "clsx";
+import { ReactNode } from "react";
 
 const glowButtonVariants = {
   // regular --> hover --> active --> dark --> focus
@@ -23,9 +24,10 @@ const glowButtonFontSizes = {
 };
 
 export type GlowButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  children: ReactNode;
+  isValid?: boolean;
   variant?: keyof typeof glowButtonVariants;
   size?: keyof typeof glowButtonSizes;
-  children: string | React.ReactNode;
 };
 
 export const GlowButton = ({
@@ -33,6 +35,7 @@ export const GlowButton = ({
   variant = "red",
   size = "md",
   children,
+  isValid = true,
   ...props
 }: GlowButtonProps) => {
   return (
@@ -40,6 +43,7 @@ export const GlowButton = ({
       <button
         className={clsx(
           "m-0 text-center font-medium tracking-wider",
+          !isValid && "cursor-not-allowed opacity-50",
           glowButtonVariants[variant],
           glowButtonSizes[size],
           className
