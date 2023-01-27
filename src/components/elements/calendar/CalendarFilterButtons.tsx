@@ -11,7 +11,7 @@ interface Props {
 export const CalendarFilterButtons = ({ downloadScreenshot }: Props) => {
   const { setLetter } = useCalendarFilters();
   return (
-    <div className="grid justify-center grid-cols-4 gap-2 max-w-[340px] m-auto xs2:flex xs2:justify-start xs:max-w-none xs:m-0 xs:ml-4">
+    <div className="grid justify-center grid-cols-4 gap-2 max-w-[340px] m-auto xs2:flex xs2:justify-start xs2:max-w-none xs2:m-0 xs2:ml-4">
       {groupLetters.map(letter => {
         return (
           <RealButton
