@@ -1,5 +1,5 @@
 import { RealButton } from "@redlotus/ui";
-import { HiCamera } from "react-icons/hi";
+import { HiDownload } from "react-icons/hi";
 
 import { useCalendarFilters } from "context";
 import { buttonVariantMapper, groupLetters } from "utils";
@@ -26,7 +26,7 @@ export const CalendarFilterButtons = ({ downloadScreenshot }: Props) => {
         );
       })}
       <RealButton size="icon" onClick={downloadScreenshot}>
-        <HiCamera className="w-7 h-7" />
+        <HiDownload className="w-5 h-5" />
       </RealButton>
       {/* <RealButton size="sm" onClick={() => setLetter("all")}>
         All
