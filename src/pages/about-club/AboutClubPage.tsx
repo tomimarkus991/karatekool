@@ -15,7 +15,7 @@ const IconText = ({ icon, text }: Props) => {
     <>
       <div className="w-[20%] flex justify-center items-center">{icon}</div>
 
-      <p className="ml-2 w-[80%] text-base font-light md:ml-4 md:text-lg font-catamaran">{text}</p>
+      <p className="ml-2 w-[80%] text-base font-light md:ml-4 md:text-lg">{text}</p>
     </>
   );
 };
@@ -25,14 +25,14 @@ export const AboutClubPage = () => {
     <DefaultPageWrapper>
       <div className="max-w-4xl m-auto">
         <div className="mb-5">
-          <h1 className="mb-3 text-xl font-semibold font-catamaran">Nüke klubist</h1>
-          <p className="mb-2 text-base font-light md:text-lg font-catamaran">
+          <h1 className="mb-3 text-xl font-semibold">Nüke klubist</h1>
+          <p className="mb-2 text-base font-light md:text-lg">
             Nükes õpetatakse Shotokan karated. Õppe-ja treeningtegevus, kus omandatakse karate ja
             spordialaseid põhiväärtusi, on väga mitmekesine, mahutades nii karate kui spordi
             teoreetiline, kehaline, tehniline, taktikaline kui ka eetilis-moraalne ja
             psühholoogiline ettevalmistus.
           </p>
-          <p className="mb-2 text-base font-light md:text-lg font-catamaran">
+          <p className="mb-2 text-base font-light md:text-lg">
             Algperioodil tehakse trenni 3 korda nädalas, hiljem vastavalt õpilase tasemele ja
             soovile treeningute arv kasvab.Soovijatel on võimalus käia ka võistlemas. Klubis
             korraldatakse aastaringselt karatelaagreid, seminare ja võistlusi. Mitmekesine ning
@@ -41,18 +41,16 @@ export const AboutClubPage = () => {
             elama ja harjutama õige elumaneeri kohaselt.
           </p>
         </div>
-        <h1 className="mb-3 text-xl font-semibold font-catamaran">Nüke treener</h1>
+        <h1 className="mb-3 text-xl font-semibold">Nüke treener</h1>
         <div className="flex flex-col md:flex-row">
           {/* <div className="w-[30rem] h-[30rem] bg-stone-200 mr-5">treeneri pilt</div> */}
           <img
             alt="treener-herik"
             src="/general/herik.svg"
-            className="object-cover mr-16 aspect-auto h-80 w-80 rounded-3xl"
+            className="object-cover self-center xs2:self-start md:self-center xs2:mr-16 aspect-[1/1] w-60 h-60 md:w-80 md:h-80"
           />
           <div className="flex flex-col">
-            <h1 className="mt-6 mb-3 text-xl font-semibold md:text-2xl font-catamaran">
-              Herik Tölpt
-            </h1>
+            <h1 className="mt-6 mb-3 text-xl font-semibold md:text-2xl">Herik Tölpt</h1>
             <div className="flex flex-col space-y-5 md:space-y-10">
               <div className="flex flex-row items-center justify-center">
                 <IconText

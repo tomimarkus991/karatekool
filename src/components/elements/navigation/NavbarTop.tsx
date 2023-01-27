@@ -1,4 +1,5 @@
 import { NavbarTopLink, Logo, LoginModal } from "components";
+import { useUser } from "hooks";
 import { definedRoutes } from "routes";
 
 export const NavbarTop = () => {
@@ -9,6 +10,9 @@ export const NavbarTop = () => {
     [definedRoutes.karateka, "karateka"],
     [definedRoutes.contact, "kontakt"],
   ];
+
+  const { data: user } = useUser();
+
   return (
     <div className="max-w-5xl pl-2 pr-4 m-auto mt-4 xl:max-w-6xl 2xl:max-w-7xl">
       <div className="flex justify-between">
@@ -25,12 +29,20 @@ export const NavbarTop = () => {
               {label}
             </NavbarTopLink>
           ))}
-          <div className="z-10 lg:hidden">
-            <LoginModal />
-          </div>
-          <div className="z-10 max-lg:hidden lg:block">
-            <LoginModal />
-          </div>
+          {user ? (
+            <>
+              <img className="h-14 w-14" alt="user" src={`/avatars/${user?.avatar}`} />
+            </>
+          ) : (
+            <>
+              <div className="z-10 lg:hidden">
+                <LoginModal />
+              </div>
+              <div className="z-10 max-lg:hidden lg:block">
+                <LoginModal />
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

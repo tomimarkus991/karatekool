@@ -11,14 +11,14 @@ interface ContactHeadingProps {
 
 export const ContactHeading = ({ children }: ContactHeadingProps) => {
   return (
-    <p className="font-catamaran self-start text-[#393939] text-lg md:text-xl font-semibold md:self-center">
+    <p className="self-start text-[#393939] text-lg md:text-xl font-semibold md:self-center">
       {children}
     </p>
   );
 };
 const ContactAddressHeading = ({ children }: ContactHeadingProps) => {
   return (
-    <p className="font-catamaran self-start text-[#393939] text-lg md:text-2xl lg:text-3xl font-semibold md:self-center">
+    <p className="self-start text-[#393939] text-lg md:text-2xl lg:text-3xl font-semibold md:self-center">
       {children}
     </p>
   );

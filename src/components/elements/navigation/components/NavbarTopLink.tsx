@@ -45,7 +45,7 @@ export const NavbarTopLink = ({ children, to, index, ...props }: Props) => {
               className={clsx(
                 isActive ? "text-primary" : "text-text-primary",
                 "relative z-10 flex",
-                "lg:text-lg items-center py-3 font-catamaran font-semibold",
+                "lg:text-lg items-center py-3 font-semibold",
                 "transition ease-in-out duration-200 delay-150",
                 "group-hover:-translate-y-1 group-hover:scale-110 group-hover:text-primary group-hover:delay-[0ms]",
                 "group-active:translate-y-0 group-active:scale-100"

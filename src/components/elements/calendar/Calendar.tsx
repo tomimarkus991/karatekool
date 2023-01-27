@@ -129,7 +129,7 @@ export const Calendar = () => {
       <div className="relative w-full mx-auto overflow-hidden bg-white select-none max-w-7xl rounded-2xl">
         <div className="pt-8">
           <div className="flex flex-col justify-center text-center rounded">
-            <h1 className="flex justify-start mb-6 ml-4 text-xl font-semibold font-catamaran">
+            <h1 className="flex justify-start mb-6 ml-4 text-xl font-semibold">
               Treeninggraafikud
             </h1>
             <CalendarFilterButtons downloadScreenshot={downloadScreenshot} />
@@ -167,9 +167,9 @@ export const Calendar = () => {
                         <motion.p
                           variants={variantsHeader}
                           custom={direction}
-                          className="min-w-[8rem] absolute inset-0 flex items-center justify-center font-catamaran font-semibold text-lg"
+                          className="min-w-[8rem] absolute inset-0 flex items-center justify-center font-semibold text-lg"
                         >
-                          <p className="">{beautifulCurrentMonth}</p>
+                          <p>{beautifulCurrentMonth}</p>
                         </motion.p>
                         <motion.button
                           variants={removeImmediately}

@@ -1,6 +1,8 @@
-import { Sidebar, useIsMobile } from "@redlotus/ui";
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+import { animations, AnimationWrapper, Sidebar, useIsMobile } from "@redlotus/ui";
 import clsx from "clsx";
 import { useEffect } from "react";
+import { HiLogout } from "react-icons/hi";
 import { useLocation } from "react-router-dom";
 
 import {
@@ -12,6 +14,7 @@ import {
   RegisterModal,
   Footer,
 } from "components";
+import { useSignOut, useUser } from "hooks";
 import { routes, definedRoutes } from "routes";
 
 interface Props {
@@ -21,6 +24,9 @@ interface Props {
 export const DefaultPageWrapper = ({ children }: Props) => {
   const { isMobile } = useIsMobile("sm");
   const { pathname } = useLocation();
+
+  const { data: user } = useUser();
+  const { mutate: signOut } = useSignOut();
 
   useEffect(() => {
     if (pathname === definedRoutes.karateka) {
@@ -49,10 +55,26 @@ export const DefaultPageWrapper = ({ children }: Props) => {
             <MobileSidebarContent
               routes={routes}
               BottomContent={
-                <div className="flex flex-col items-center justify-center flex-1 space-y-3">
-                  <LoginModal type="sidebarButton" />
-                  <RegisterModal type="sidebarButton" />
-                </div>
+                <>
+                  {user ? (
+                    <div className="flex items-center justify-start ml-4">
+                      <AnimationWrapper variants={animations.smallScale}>
+                        <div
+                          onClick={() => signOut()}
+                          className="flex flex-row items-center cursor-pointer"
+                        >
+                          <HiLogout className="w-8 h-8 mr-3 fill-text-primary" />
+                          <p className="text-lg font-semibold">Logi välja</p>
+                        </div>
+                      </AnimationWrapper>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center flex-1 space-y-3">
+                      <LoginModal type="sidebarButton" />
+                      <RegisterModal type="sidebarButton" />
+                    </div>
+                  )}
+                </>
               }
             />
           }
