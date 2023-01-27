@@ -46,7 +46,7 @@ export const AboutClubPage = () => {
           {/* <div className="w-[30rem] h-[30rem] bg-stone-200 mr-5">treeneri pilt</div> */}
           <img
             alt="treener-herik"
-            src="/icons/herik.jpg"
+            src="/general/herik.svg"
             className="object-cover mr-16 aspect-auto h-80 w-80 rounded-3xl"
           />
           <div className="flex flex-col">
