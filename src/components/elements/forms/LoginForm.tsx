@@ -13,9 +13,10 @@ import { definedRoutes } from "routes";
 interface Props {
   isValid: boolean;
   closeModal?: () => void;
+  handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
 }
 
-export const LoginForm = ({ closeModal, isValid }: Props) => {
+export const LoginForm = ({ closeModal, isValid, handleSubmit }: Props) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const title = "Mul pole veel kasutajat. Registreeri";
 
@@ -79,6 +80,7 @@ export const LoginForm = ({ closeModal, isValid }: Props) => {
             className="w-[13rem] mb-4 text-xl bg-primary"
             type="submit"
             isValid={isValid}
+            onClick={handleSubmit as any}
           >
             Logi sisse
           </GlowButton>

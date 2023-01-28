@@ -11,7 +11,11 @@ export const useUser = () => {
   };
 
   const fetchUser = async () => {
+    if (localStorage.getItem("sb-wqdplpmiyvwmetnipmwd-auth-token") === null) {
+      return null;
+    }
     const user = getUserId().then(async id => {
+      if (!id) return null;
       const { data: _data } = await supabase
         .from("profile")
         .select(

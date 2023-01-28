@@ -31,8 +31,8 @@ export const LoginPage = () => {
               setSubmitting(false);
             }}
           >
-            {({ isValid }) => {
-              return <LoginForm isValid={isValid} />;
+            {({ isValid, handleSubmit }) => {
+              return <LoginForm isValid={isValid} handleSubmit={handleSubmit} />;
             }}
           </Formik>
         </div>

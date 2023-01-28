@@ -41,8 +41,8 @@ export const RegisterPage = () => {
               setSubmitting(false);
             }}
           >
-            {({ isValid }) => {
-              return <RegisterForm isValid={isValid} />;
+            {({ isValid, handleSubmit }) => {
+              return <RegisterForm isValid={isValid} handleSubmit={handleSubmit} />;
             }}
           </Formik>
         </div>

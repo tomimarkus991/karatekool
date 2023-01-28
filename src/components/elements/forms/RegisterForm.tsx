@@ -12,10 +12,11 @@ import { definedRoutes } from "routes";
 
 interface Props {
   isValid: boolean;
+  handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
   closeModal?: () => void;
 }
 
-export const RegisterForm = ({ closeModal, isValid }: Props) => {
+export const RegisterForm = ({ closeModal, isValid, handleSubmit }: Props) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
 
@@ -103,6 +104,7 @@ export const RegisterForm = ({ closeModal, isValid }: Props) => {
             className="w-[13rem] mb-4 text-xl bg-primary"
             type="submit"
             isValid={isValid}
+            onClick={handleSubmit as any}
           >
             Registreeri
           </GlowButton>

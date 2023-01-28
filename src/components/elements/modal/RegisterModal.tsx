@@ -84,8 +84,10 @@ export const RegisterModal = ({ title, type = "button" }: Props) => {
           setSubmitting(false);
         }}
       >
-        {({ isValid }) => {
-          return <RegisterForm closeModal={closeModal} isValid={isValid} />;
+        {({ isValid, handleSubmit }) => {
+          return (
+            <RegisterForm closeModal={closeModal} isValid={isValid} handleSubmit={handleSubmit} />
+          );
         }}
       </Formik>
     </Modal>
