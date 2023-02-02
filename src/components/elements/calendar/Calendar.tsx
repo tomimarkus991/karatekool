@@ -124,7 +124,7 @@ export const Calendar = () => {
 
   return (
     <MotionConfig transition={{ ease: "easeInOut", duration: 0.5 }}>
-      <div className="relative w-full mx-auto overflow-hidden bg-white select-none max-w-7xl rounded-2xl">
+      <div className="relative overflow-hidden bg-white select-none rounded-2xl">
         <div className="pt-8">
           <div className="flex flex-col justify-center text-center rounded">
             <h1 className="flex justify-start mb-6 ml-4 text-xl font-semibold">

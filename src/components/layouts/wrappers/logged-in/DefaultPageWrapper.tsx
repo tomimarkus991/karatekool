@@ -89,7 +89,7 @@ export const DefaultPageWrapper = ({ children }: Props) => {
       <div
         className={clsx(
           "w-full pt-12 pb-16 lg:px-8 xl:px-20 px-10",
-          pathname !== definedRoutes.karateka ? "2xl:px-[20%]" : "2xl:px-0"
+          pathname !== definedRoutes.karateka ? "2xl:px-[20%]" : "px-0"
         )}
       >
         {children}
