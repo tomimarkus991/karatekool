@@ -1,3 +1,4 @@
+import { Popover, PopoverContent, PopoverTrigger } from "@redlotus/ui";
 import { clsx } from "clsx";
 import {
   eachDayOfInterval,
@@ -26,24 +27,31 @@ interface ChildProps {
 
 const Child = ({ width, multi_day_event }: ChildProps) => {
   const { title } = multi_day_event;
-
   return (
-    <motion.div
-      initial="enter"
-      animate="middle"
-      exit="exit"
-      variants={{
-        enter: { opacity: 0 },
-        middle: { opacity: 1, transition: { opacity: { duration: 0.5 } } },
-        exit: { opacity: 0 },
-      }}
-      style={{ width }}
-      className={clsx("bg-blue-600 mt-4 ml-2 rounded-md left-0", "absolute")}
-    >
-      <p className="py-2 ml-2 overflow-hidden text-base font-medium text-left text-white whitespace-nowrap overflow-ellipsis">
-        {title}
-      </p>
-    </motion.div>
+    <Popover>
+      <motion.div
+        initial="enter"
+        animate="middle"
+        exit="exit"
+        variants={{
+          enter: { opacity: 0 },
+          middle: { opacity: 1, transition: { opacity: { duration: 0.5 } } },
+          exit: { opacity: 0 },
+        }}
+        style={{ width }}
+        className={clsx(
+          "bg-blue-600 mt-4 ml-2 rounded-md cursor-pointer hover:bg-blue-500 z-10",
+          "relative"
+        )}
+      >
+        <PopoverTrigger style={{ width }} className="relative">
+          <p className="py-2 ml-2 overflow-hidden text-base font-medium text-center text-white whitespace-nowrap overflow-ellipsis">
+            {title}
+          </p>
+        </PopoverTrigger>
+      </motion.div>
+      <PopoverContent className="max-w-xs lg:max-w-sm">{title}</PopoverContent>
+    </Popover>
   );
 };
 

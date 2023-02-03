@@ -42,10 +42,12 @@ export interface SEventTrailer {
   text: string;
 }
 export interface SAllDayEvent {
+  id: number;
   title: string;
   sub_title: string;
 }
 export interface SMultiDayEvent {
+  id: number;
   title: string;
 }
 
