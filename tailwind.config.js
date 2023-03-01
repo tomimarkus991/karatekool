@@ -4,7 +4,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}", "./node_modules/@redlotus/ui/dist/style.css"],
-  // darkMode: "class",
+  darkMode: ["class", '[data-theme="dark"]'],
   theme: {
     screens:{
       minscreen: "340px",

@@ -12,7 +12,10 @@ const Register = object().shape({
     .min(6, "Salasõna on liiga lühike - peab olema vähemalt 6 tähemärki pikk.")
     // .matches(/[a-zA-Z0-9]/, "Salasõna võib sisaldada ainult numbreid ja tähti")
     .required("Vajalik"),
-  passwordConfirmation: string().oneOf([ref("password"), null], "Salasõnad peavad olema samad"),
+  passwordConfirmation: string().oneOf(
+    [ref("password"), undefined],
+    "Salasõnad peavad olema samad"
+  ),
 });
 
 const ForgotPassword = object().shape({
@@ -24,7 +27,10 @@ const ResetPassword = object().shape({
     .min(6, "Salasõna on liiga lühike - peab olema vähemalt 6 tähemärki pikk.")
     // .matches(/[a-zA-Z0-9]/, "Salasõna võib sisaldada ainult numbreid ja tähti")
     .required("Vajalik"),
-  passwordConfirmation: string().oneOf([ref("password"), null], "Salasõnad peavad olema samad"),
+  passwordConfirmation: string().oneOf(
+    [ref("password"), undefined],
+    "Salasõnad peavad olema samad"
+  ),
 });
 
 const ApplyToClub = object().shape({

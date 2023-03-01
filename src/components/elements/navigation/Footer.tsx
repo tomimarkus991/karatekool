@@ -23,9 +23,6 @@ export const Footer = () => {
           <div className="flex flex-col items-center">
             <LogoWhite />
             <p className="mt-2 text-sm text-center text-white">© 2023 nüke karate-do klubi</p>
-            <p className="mt-4 text-lg font-semibold text-center text-white">
-              Made with love by Redlotus
-            </p>
             <Link className="sm:hidden" to={definedRoutes.contact}>
               <p className="mt-3 text-lg text-center text-white">Kontakt</p>
             </Link>
