@@ -17,10 +17,10 @@ import { useState, useEffect, useRef } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { useScreenshot, createFileName } from "use-react-screenshot";
 
-import { days } from "app-constants";
-import { CalendarDate, CalendarFilterButtons, calendarUtils } from "components";
-import { useCalendarFilters } from "context";
-import { useGetCurrentMonthEvents } from "hooks";
+import { days } from "@/app-constants";
+import { CalendarDate, CalendarFilterButtons, calendarUtils } from "@/components";
+import { useCalendarFilters } from "@/context";
+import { useGetCurrentMonthEvents } from "@/hooks";
 
 const variants: Variants = {
   enter: (direction: number) => {

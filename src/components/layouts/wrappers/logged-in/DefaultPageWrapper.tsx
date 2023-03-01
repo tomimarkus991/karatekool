@@ -13,9 +13,9 @@ import {
   LoginModal,
   RegisterModal,
   Footer,
-} from "components";
-import { useSignOut, useUser } from "hooks";
-import { routes, definedRoutes } from "routes";
+} from "@/components";
+import { useSignOut, useUser } from "@/hooks";
+import { routes, definedRoutes } from "@/routes";
 
 interface Props {
   children: React.ReactNode;

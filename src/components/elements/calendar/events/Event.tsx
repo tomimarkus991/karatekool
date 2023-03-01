@@ -1,7 +1,7 @@
 import { RectReadOnly } from "react-use-measure";
 
-import { AllDayEvent, MultiDayEvent, NormalEvent } from "components";
-import { EventData, EventTypes } from "types";
+import { AllDayEvent, MultiDayEvent, NormalEvent } from "@/components";
+import { EventData, EventTypes } from "@/types";
 
 interface Props {
   event: EventData;

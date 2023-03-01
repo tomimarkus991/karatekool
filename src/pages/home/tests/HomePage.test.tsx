@@ -1,7 +1,7 @@
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 
-import { HomePage } from "pages";
+import { HomePage } from "@/pages";
 import { render, screen } from "test/test-utils";
 
 describe("HomePage tests", () => {

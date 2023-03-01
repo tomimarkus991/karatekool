@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { motion, Variants } from "framer-motion";
 import { Fragment } from "react";
 
-import { DirectionsButton } from "components";
+import { DirectionsButton } from "@/components";
 
 interface ContactHeadingProps {
   children: React.ReactNode;

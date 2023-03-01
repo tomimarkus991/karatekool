@@ -1,4 +1,4 @@
-import { DefaultPageWrapper } from "components";
+import { DefaultPageWrapper } from "@/components";
 
 export const HomePage = () => {
   return (

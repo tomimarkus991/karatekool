@@ -1,6 +1,6 @@
 import { realButtonVariants } from "@redlotus/ui";
 
-import { GroupLetters } from "types";
+import { GroupLetters } from "@/types";
 
 export const groupColors = {
   S: "text-casualRed",

@@ -1,5 +1,5 @@
-import { Calendar, DefaultPageWrapper, LoginModal, RegisterModal } from "components";
-import { useUser } from "hooks";
+import { Calendar, DefaultPageWrapper, LoginModal, RegisterModal } from "@/components";
+import { useUser } from "@/hooks";
 
 export const KaratekaPage = () => {
   const { data: user } = useUser();

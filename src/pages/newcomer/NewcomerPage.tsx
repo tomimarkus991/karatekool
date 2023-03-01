@@ -1,6 +1,6 @@
 import { Accordion } from "@redlotus/ui";
 
-import { AccordionContentList, DefaultPageWrapper } from "components";
+import { AccordionContentList, DefaultPageWrapper } from "@/components";
 
 export const NewcomerPage = () => {
   const iconClassName = "h-8 w-8 text-[#E50815]";

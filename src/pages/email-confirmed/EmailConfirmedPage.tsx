@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-import { DefaultPageWrapper, LoginModal } from "components";
+import { DefaultPageWrapper, LoginModal } from "@/components";
 
 export const EmailConfirmedPage = () => {
   return (

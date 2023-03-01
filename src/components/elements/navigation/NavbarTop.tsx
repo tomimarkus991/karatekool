@@ -1,6 +1,6 @@
-import { NavbarTopLink, Logo, LoginModal } from "components";
-import { useUser } from "hooks";
-import { definedRoutes } from "routes";
+import { NavbarTopLink, Logo, LoginModal } from "@/components";
+import { useUser } from "@/hooks";
+import { definedRoutes } from "@/routes";
 
 export const NavbarTop = () => {
   const routes = [

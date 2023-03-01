@@ -5,9 +5,9 @@ import { Formik, Form } from "formik";
 import { useState } from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 
-import { YupSchemas } from "app-constants";
-import { DefaultPageWrapper } from "components";
-import { useResetPassword } from "hooks";
+import { YupSchemas } from "@/app-constants";
+import { DefaultPageWrapper } from "@/components";
+import { useResetPassword } from "@/hooks";
 
 interface FormValues {
   password: string;

@@ -1,9 +1,9 @@
 import { Formik } from "formik";
 import { useState } from "react";
 
-import { YupSchemas } from "app-constants";
-import { DefaultPageWrapper, LoginForm, LoginFormValues } from "components";
-import { useSignIn } from "hooks";
+import { YupSchemas } from "@/app-constants";
+import { DefaultPageWrapper, LoginForm, LoginFormValues } from "@/components";
+import { useSignIn } from "@/hooks";
 
 export const LoginPage = () => {
   const { mutate: signIn } = useSignIn();

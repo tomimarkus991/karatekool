@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { useState } from "react";
 
-import { ContactAddress, ContactDojosTab, ContactGeneralInfo, ContactHeading } from "components";
+import { ContactAddress, ContactDojosTab, ContactGeneralInfo, ContactHeading } from "@/components";
 
 const dojoContentVariants: Variants = {
   hidden: {

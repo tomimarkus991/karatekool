@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { format, parseISO } from "date-fns";
 import { et } from "date-fns/locale";
 
-import { EventData } from "types";
+import { EventData } from "@/types";
 
 interface Props {
   event: EventData;

@@ -1,6 +1,6 @@
 import React, { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
 
-import { GroupFilters } from "types";
+import { GroupFilters } from "@/types";
 
 interface ProviderProps {
   children: React.ReactNode;

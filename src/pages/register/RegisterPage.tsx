@@ -1,9 +1,9 @@
 import { Formik } from "formik";
 import { useState } from "react";
 
-import { YupSchemas } from "app-constants";
-import { DefaultPageWrapper, RegisterForm } from "components";
-import { useSignUp } from "hooks";
+import { YupSchemas } from "@/app-constants";
+import { DefaultPageWrapper, RegisterForm } from "@/components";
+import { useSignUp } from "@/hooks";
 
 export interface RegisterFormValues {
   name: string;

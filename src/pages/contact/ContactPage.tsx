@@ -1,4 +1,4 @@
-import { DefaultPageWrapper, ContactDojos, ContactHeading } from "components";
+import { DefaultPageWrapper, ContactDojos, ContactHeading } from "@/components";
 
 export const ContactPage = () => {
   return (

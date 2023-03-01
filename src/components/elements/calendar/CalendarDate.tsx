@@ -2,8 +2,8 @@ import { clsx } from "clsx";
 import { format, isSameMonth, isToday } from "date-fns";
 import useMeasure from "react-use-measure";
 
-import { Event } from "components";
-import { EventData } from "types";
+import { Event } from "@/components";
+import { EventData } from "@/types";
 
 interface Props {
   events: EventData[];

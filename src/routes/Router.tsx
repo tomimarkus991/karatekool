@@ -1,8 +1,8 @@
 import { useThemeUtils, useRegisterPWA } from "@redlotus/ui";
 import { Route, Routes } from "react-router-dom";
 
-import { ErrorPage } from "pages";
-import { justRoutes, routes } from "routes";
+import { ErrorPage } from "@/pages";
+import { justRoutes, routes } from "@/routes";
 
 export const Router = () => {
   useThemeUtils();

@@ -12,7 +12,7 @@ import {
 import { motion } from "framer-motion";
 import { RectReadOnly } from "react-use-measure";
 
-import { EventData, SMultiDayEvent } from "types";
+import { EventData, SMultiDayEvent } from "@/types";
 
 interface Props {
   event: EventData;

@@ -7,8 +7,8 @@ import { useState } from "react";
 import { HiEye, HiEyeOff, HiX } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
-import { GlowButton, RegisterModal } from "components";
-import { definedRoutes } from "routes";
+import { GlowButton, RegisterModal } from "@/components";
+import { definedRoutes } from "@/routes";
 
 interface Props {
   isValid: boolean;

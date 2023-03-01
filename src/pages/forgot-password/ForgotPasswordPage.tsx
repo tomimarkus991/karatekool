@@ -4,9 +4,9 @@ import { Formik, Form } from "formik";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-import { YupSchemas } from "app-constants";
-import { DefaultPageWrapper } from "components";
-import { useSendPasswordResetEmail } from "hooks";
+import { YupSchemas } from "@/app-constants";
+import { DefaultPageWrapper } from "@/components";
+import { useSendPasswordResetEmail } from "@/hooks";
 
 interface FormValues {
   email: string;

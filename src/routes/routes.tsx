@@ -15,8 +15,8 @@ import {
   ApplyToClubPage,
   EmailConfirmedPage,
   InviteUserPage,
-} from "pages";
-import { JustRouter } from "types";
+} from "@/pages";
+import { JustRouter } from "@/types";
 
 const smallIconCss = "h-8 w-8 fill-inherit";
 const bigIconCss = "mr-3 h-8 w-8 fill-inherit";

@@ -7,7 +7,7 @@ import {
 } from "@redlotus/ui";
 import { HiX } from "react-icons/hi";
 
-import { Logo, SidebarLink } from "components";
+import { Logo, SidebarLink } from "@/components";
 
 interface Props {
   routes: Router[];

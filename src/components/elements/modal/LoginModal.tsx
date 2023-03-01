@@ -4,9 +4,9 @@ import { Modal } from "@redlotus/ui";
 import { Formik } from "formik";
 import { useState } from "react";
 
-import { YupSchemas } from "app-constants";
-import { GlowButton, LoginForm } from "components";
-import { useSignIn } from "hooks";
+import { YupSchemas } from "@/app-constants";
+import { GlowButton, LoginForm } from "@/components";
+import { useSignIn } from "@/hooks";
 
 export interface LoginFormValues {
   email: string;

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
-import { supabase } from "utils";
+import { supabase } from "@/utils";
 
 interface ResetPasswordProps {
   password: string;

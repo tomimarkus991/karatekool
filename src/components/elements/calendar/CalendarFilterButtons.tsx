@@ -1,8 +1,8 @@
 import { RealButton } from "@redlotus/ui";
 import { HiDownload } from "react-icons/hi";
 
-import { useCalendarFilters } from "context";
-import { buttonVariantMapper, groupLetters } from "utils";
+import { useCalendarFilters } from "@/context";
+import { buttonVariantMapper, groupLetters } from "@/utils";
 
 interface Props {
   downloadScreenshot: () => void;

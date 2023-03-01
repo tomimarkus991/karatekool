@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
-import { SGroup, SHighLightedGroup } from "types";
-import { groupColorMapper } from "utils";
+import { SGroup, SHighLightedGroup } from "@/types";
+import { groupColorMapper } from "@/utils";
 
 interface MapGroupLetterProps {
   groups: SGroup[];
