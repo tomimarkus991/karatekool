@@ -1,11 +1,13 @@
-import { AnimationWrapper } from "@redlotus/ui";
 import clsx from "clsx";
 import { AnimatePresence, ForwardRefComponent, HTMLMotionProps, motion } from "framer-motion";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+
+import { AnimationWrapper } from "@/components";
 
 interface SidebarItemProps {
-  to: string;
+  href: string;
   index: number;
   children?: string;
 }
@@ -13,12 +15,13 @@ interface SidebarItemProps {
 type Props = SidebarItemProps &
   Omit<ForwardRefComponent<HTMLDivElement, HTMLMotionProps<"div">>, "$$typeof">;
 
-export const NavbarTopLink = ({ children, to, index, ...props }: Props) => {
+export const NavbarTopLink = ({ children, href, index, ...props }: Props) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const pathname = usePathname();
 
   return (
     <motion.div
-      key={to}
+      key={href}
       onMouseEnter={() => setHoveredIndex(index)}
       onMouseLeave={() => setHoveredIndex(null)}
       className="relative px-4 py-1 -mx-3 cursor-pointer group lg:px-6"
@@ -38,23 +41,22 @@ export const NavbarTopLink = ({ children, to, index, ...props }: Props) => {
           />
         )}
       </AnimatePresence>
-      <AnimationWrapper key={`ntl ${to}`} child>
-        <NavLink to={to} end>
-          {({ isActive }) => (
-            <p
-              className={clsx(
-                isActive ? "text-primary" : "text-text-primary",
-                "relative z-10 flex",
-                "lg:text-lg items-center py-3 font-semibold",
-                "transition ease-in-out duration-200 delay-150",
-                "group-hover:-translate-y-1 group-hover:scale-110 group-hover:text-primary group-hover:delay-[0ms]",
-                "group-active:translate-y-0 group-active:scale-100"
-              )}
-            >
-              {children}
-            </p>
-          )}
-        </NavLink>
+      <AnimationWrapper key={`ntl ${href}`} child>
+        <Link href={href}>
+          <p
+            // @todo :: fix this
+            className={clsx(
+              pathname === href ? "text-primary" : "text-text-primary",
+              "relative z-10 flex",
+              "lg:text-lg items-center py-3 font-semibold",
+              "transition ease-in-out duration-200 delay-150",
+              "group-hover:-translate-y-1 group-hover:scale-110 group-hover:text-primary group-hover:delay-[0ms]",
+              "group-active:translate-y-0 group-active:scale-100"
+            )}
+          >
+            {children}
+          </p>
+        </Link>
       </AnimationWrapper>
     </motion.div>
   );

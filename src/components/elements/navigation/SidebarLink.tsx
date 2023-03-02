@@ -1,13 +1,16 @@
-import { animations, AnimationWrapper, useSidebar } from "@redlotus/ui";
 import clsx from "clsx";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { HTMLProps, ReactNode } from "react";
-import { NavLink } from "react-router-dom";
+
+import { AnimationWrapper, animations } from "@/components";
+import { useSidebar } from "@/context";
 
 interface SidebarItemProps {
   icon: ReactNode;
   children?: string;
-  to?: string;
+  href?: string;
 }
 
 interface ContentProps {
@@ -50,8 +53,9 @@ const Content = ({ children, icon, isActive }: ContentProps) => {
   );
 };
 
-export const SidebarLink = ({ children, to, icon, ...props }: Props) => {
+export const SidebarLink = ({ children, href, icon, ...props }: Props) => {
   const { setSidebarState, sidebarState } = useSidebar();
+  const pathname = usePathname();
   return (
     <div
       role="button"
@@ -63,14 +67,13 @@ export const SidebarLink = ({ children, to, icon, ...props }: Props) => {
       }}
       {...props}
     >
-      {to ? (
-        <NavLink to={to} end>
-          {({ isActive }) => (
-            <Content icon={icon} isActive={isActive}>
-              {children}
-            </Content>
-          )}
-        </NavLink>
+      {href ? (
+        <Link href={href}>
+          {/* @todo :: fix this */}
+          <Content icon={icon} isActive={pathname === href ? true : false}>
+            {children}
+          </Content>
+        </Link>
       ) : (
         <Content icon={icon}>{children}</Content>
       )}

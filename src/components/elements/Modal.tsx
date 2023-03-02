@@ -1,0 +1,126 @@
+import { Dialog } from "@headlessui/react";
+import clsx from "clsx";
+import { AnimatePresence, motion } from "framer-motion";
+import { ReactNode, useRef } from "react";
+import { HiArrowLeft, HiX } from "react-icons/hi";
+
+import { animations, AnimationWrapper } from "@/components";
+
+export const ModalFooterContainer = ({ children }: { children: ReactNode }) => {
+  return (
+    <div className="sticky bottom-0 z-40 flex min-h-[4rem] w-full items-center justify-center rounded-b-xl bg-white py-3 px-6">
+      {children}
+    </div>
+  );
+};
+
+export const ModalTitle = ({ children }: { children: ReactNode }) => {
+  return (
+    <h3 className="text-center text-lg font-medium uppercase leading-6 text-gray-700">
+      {children}
+    </h3>
+  );
+};
+
+export const ModalSubTitle = ({ children }: { children: ReactNode }) => {
+  return <h3 className="mt-4 text-left text-lg font-medium leading-6 text-gray-600">{children}</h3>;
+};
+
+export const ModalHeaderContainer = ({ children }: { children: ReactNode }) => {
+  return <div className="flex w-full flex-row items-center justify-between p-4">{children}</div>;
+};
+
+interface ModalHeaderProps {
+  children: ReactNode;
+  setOpen: (value: React.SetStateAction<boolean>) => void;
+  type: "back" | "close";
+}
+
+export const ModalHeader = ({ children, setOpen, type }: ModalHeaderProps) => {
+  return (
+    <ModalHeaderContainer>
+      {type === "back" ? (
+        <div role="button" tabIndex={0} onClick={() => setOpen(false)}>
+          <AnimationWrapper key="modal-header-left-arrow-icon" variants={animations.rotate360}>
+            <HiArrowLeft className="h-8 w-8 fill-slate-700 hover:fill-slate-800" />
+          </AnimationWrapper>
+        </div>
+      ) : (
+        <HiArrowLeft className="h-8 w-8 opacity-0" />
+      )}
+
+      <ModalTitle>{children}</ModalTitle>
+      {type === "close" ? (
+        <div role="button" tabIndex={0} onClick={() => setOpen(false)}>
+          <AnimationWrapper key="modal-header-x-icon" variants={animations.rotate360}>
+            <HiX className="h-8 w-8 fill-slate-700 hover:fill-slate-800" />
+          </AnimationWrapper>
+        </div>
+      ) : (
+        <HiX className="h-8 w-8 opacity-0" />
+      )}
+    </ModalHeaderContainer>
+  );
+};
+
+const modalMaxWidth = {
+  xs: "sm:w-[20rem]",
+  sm: "sm:w-[24rem]",
+  md: "sm:w-[28rem]",
+  lg: "sm:w-[32rem]",
+  xl: "sm:w-[36rem]",
+};
+
+interface Props {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  modalButton: ReactNode;
+  children?: ReactNode;
+  maxWidth?: keyof typeof modalMaxWidth;
+}
+
+export const Modal = ({ children, modalButton, open, setOpen, maxWidth = "xl" }: Props) => {
+  const initialFocusRef = useRef(null);
+  return (
+    <>
+      {modalButton}
+      <AnimatePresence>
+        {open && (
+          <Dialog
+            static
+            as={motion.div}
+            key="modal-dialog"
+            initialFocus={initialFocusRef}
+            className="fixed inset-0 z-[1300] flex select-none items-center justify-center"
+            open={open}
+            onClose={setOpen}
+          >
+            <button
+              id="button-to-remove-autofocus"
+              ref={initialFocusRef}
+              className="absolute inset-0 hidden"
+            />
+            <AnimationWrapper
+              key="app-modal-children"
+              id="modal-children"
+              variants={animations.modalEffect}
+              className={clsx(
+                "minscreen:min-w-[20rem] rounded-xl bg-white z-[10]",
+                modalMaxWidth[maxWidth]
+              )}
+            >
+              {children}
+            </AnimationWrapper>
+            <AnimationWrapper
+              key="app-modal-overlay"
+              id="overlay"
+              variants={animations.overlay}
+              onClick={() => setOpen(false)}
+              className="absolute inset-0 h-full w-full bg-gray-500 opacity-40"
+            />
+          </Dialog>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};

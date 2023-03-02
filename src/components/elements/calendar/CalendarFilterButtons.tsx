@@ -1,8 +1,8 @@
-import { RealButton } from "@redlotus/ui";
 import { HiDownload } from "react-icons/hi";
 
+import { RealButton } from "@/components";
 import { useCalendarFilters } from "@/context";
-import { buttonVariantMapper, groupLetters } from "@/utils";
+import { buttonVariantMapper, groupLetters } from "@/lib";
 
 interface Props {
   downloadScreenshot: () => void;
@@ -15,6 +15,7 @@ export const CalendarFilterButtons = ({ downloadScreenshot }: Props) => {
       {groupLetters.map(letter => {
         return (
           <RealButton
+            key={letter}
             className="active:translate-y-[0.2rem] active:duration-75"
             variant={buttonVariantMapper(letter)}
             size="oneLetter"
@@ -26,7 +27,7 @@ export const CalendarFilterButtons = ({ downloadScreenshot }: Props) => {
         );
       })}
       <RealButton size="icon" onClick={downloadScreenshot}>
-        <HiDownload className="w-5 h-5" />
+        <HiDownload className="w-5 h-5 text-white" />
       </RealButton>
       {/* <RealButton size="sm" onClick={() => setLetter("all")}>
         All

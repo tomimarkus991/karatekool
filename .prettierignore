@@ -5,3 +5,5 @@
 /*.yaml
 /*env*
 /.*
+/public
+/dist

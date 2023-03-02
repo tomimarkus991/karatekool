@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
 import { EventData } from "@/types";
-import { supabase } from "@/utils";
+import { supabase } from "@/lib";
 // must get events for only current month and long events if they are in both months
 
 export const useGetCurrentMonthEvents = (

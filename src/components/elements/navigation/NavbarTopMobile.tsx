@@ -1,7 +1,7 @@
-import { animations, AnimationWrapper, useSidebar } from "@redlotus/ui";
 import { useTransform, motion, useMotionTemplate } from "framer-motion";
 
-import { MenuIcon, Logo } from "@/components";
+import { MenuIcon, Logo, AnimationWrapper, animations } from "@/components";
+import { useSidebar } from "@/context";
 import { useBoundedScroll } from "@/hooks";
 
 export const NavbarTopMobile = () => {

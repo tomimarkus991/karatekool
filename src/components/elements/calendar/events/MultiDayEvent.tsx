@@ -1,4 +1,3 @@
-import { Popover, PopoverContent, PopoverTrigger } from "@redlotus/ui";
 import { clsx } from "clsx";
 import {
   eachDayOfInterval,
@@ -12,6 +11,7 @@ import {
 import { motion } from "framer-motion";
 import { RectReadOnly } from "react-use-measure";
 
+import { Popover, PopoverContent, PopoverTrigger } from "@/components";
 import { EventData, SMultiDayEvent } from "@/types";
 
 interface Props {

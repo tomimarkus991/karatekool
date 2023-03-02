@@ -1,4 +1,4 @@
-import { animations, AnimationWrapper } from "@redlotus/ui";
+import { animations, AnimationWrapper } from "@/components";
 import { SVGProps } from "react";
 
 export const DirectionsButton = (props: SVGProps<SVGSVGElement>) => {

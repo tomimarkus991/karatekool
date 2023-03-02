@@ -1,9 +1,12 @@
 import { Tab } from "@headlessui/react";
 import clsx from "clsx";
 import { AnimatePresence, motion, Variants } from "framer-motion";
+import Image from "next/image";
 import { useState } from "react";
 
 import { ContactAddress, ContactDojosTab, ContactGeneralInfo, ContactHeading } from "@/components";
+
+import vhkDoorPic from "../../../../public/general/vhk_door_arrow.jpg";
 
 const dojoContentVariants: Variants = {
   hidden: {
@@ -108,11 +111,7 @@ export const ContactDojos = () => {
                 kohe ka võimla. Kollase koolimaja peaukse kaudu trenni ei pääse!
               </p>
 
-              <img
-                alt="vhk-door"
-                src="/general/vhk_door_arrow.jpg"
-                className="object-cover aspect-auto"
-              />
+              <Image src={vhkDoorPic} alt="vhk-door" className="object-cover aspect-auto" />
             </div>
           </Tab.Panel>
 

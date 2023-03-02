@@ -1,2 +1,4 @@
 extends:
-  - eslint-config-redlotus-react/dist/main
+  - eslint-config-redlotus-next/dist/main
+rules:
+  react/function-component-definition: off

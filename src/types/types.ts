@@ -1,3 +1,15 @@
+export interface NavItem {
+  title: string;
+  href?: string;
+  disabled?: boolean;
+  external?: boolean;
+}
+
+export interface SelectOption<T> {
+  id: number;
+  name: T;
+}
+
 /* eslint-disable no-shadow */
 export interface Event {
   id: string;
@@ -73,8 +85,7 @@ export interface EventData {
 }
 
 export interface JustRouter {
-  to: string;
-  element?: JSX.Element;
+  href: string;
 }
 
 export interface UserType {
@@ -82,4 +93,28 @@ export interface UserType {
   email: string;
   username: string;
   avatar: string;
+}
+
+export interface Router {
+  /**
+   * @description Where the route will lead to
+   */
+  href: string;
+  /**
+   * @description Route name displayed on expanded sidebar
+   */
+  routeName: string;
+  /**
+   * @description Icon from react-icons
+   */
+  smallIcon: JSX.Element;
+  /**
+   * @description Icon from react-icons
+   */
+  bigIcon: JSX.Element;
+  /**
+   * @description tooltip should be specified if you want it to be different from routeName
+   * @default tooltip is routeName but smaller case
+   */
+  tooltip?: string;
 }

@@ -1,10 +1,8 @@
-import { animations, AnimationWrapper } from "@redlotus/ui";
 import clsx from "clsx";
+import Link from "next/link";
 import { FaInstagram, FaFacebook } from "react-icons/fa";
-import { Link } from "react-router-dom";
 
-import { LogoWhite, WaveBackground } from "@/components";
-import { definedRoutes } from "@/routes";
+import { AnimationWrapper, animations, LogoWhite, WaveBackground } from "@/components";
 
 export const Footer = () => {
   return (
@@ -23,16 +21,16 @@ export const Footer = () => {
           <div className="flex flex-col items-center">
             <LogoWhite />
             <p className="mt-2 text-sm text-center text-white">© 2023 nüke karate-do klubi</p>
-            <Link className="sm:hidden" to={definedRoutes.contact}>
+            <Link className="sm:hidden" href="/contact">
               <p className="mt-3 text-lg text-center text-white">Kontakt</p>
             </Link>
             <div className="flex flex-row items-center justify-center mt-5 space-x-2">
-              <Link to="https://www.instagram.com/karatekoolnyke/">
+              <Link href="https://www.instagram.com/karatekoolnyke/">
                 <AnimationWrapper variants={animations.smallScale}>
                   <FaInstagram className="w-[32px] h-[32px]" />
                 </AnimationWrapper>
               </Link>
-              <Link to="https://www.facebook.com/karatekool/">
+              <Link href="https://www.facebook.com/karatekool/">
                 <AnimationWrapper variants={animations.smallScale}>
                   <FaFacebook className="w-8 h-8" />
                 </AnimationWrapper>

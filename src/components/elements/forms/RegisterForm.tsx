@@ -1,14 +1,22 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import { animations, AnimationWrapper, FormikInput, ModalFooterContainer } from "@redlotus/ui";
+
 import clsx from "clsx";
 import { Form } from "formik";
+import Link from "next/link";
 import { useState } from "react";
 import { HiEye, HiEyeOff, HiX } from "react-icons/hi";
-import { Link } from "react-router-dom";
 
-import { GlowButton, LoginModal } from "@/components";
-import { definedRoutes } from "@/routes";
+import {
+  AnimationWrapper,
+  FormikInput,
+  GlowButton,
+  LoginModal,
+  ModalFooterContainer,
+  animations,
+} from "@/components";
+
+import { definedRoutes } from "../../../config";
 
 interface Props {
   isValid: boolean;
@@ -41,7 +49,7 @@ export const RegisterForm = ({ closeModal, isValid, handleSubmit }: Props) => {
       <div
         className={clsx("scrollbar-hide", "flex overflow-y-auto items-center flex-col py-2 px-3")}
       >
-        <Link to={definedRoutes.apply}>
+        <Link href={definedRoutes.apply}>
           <AnimationWrapper variants={animations.smallScaleXs}>
             <p className="text-base font-semibold cursor-pointer text-secondary">
               Kui sa pole veel luba taotlenud, vajuta siia
@@ -114,7 +122,7 @@ export const RegisterForm = ({ closeModal, isValid, handleSubmit }: Props) => {
               <LoginModal type="text" title={title} />
             </AnimationWrapper>
           ) : (
-            <Link to={definedRoutes.login}>
+            <Link href="/login">
               <AnimationWrapper variants={animations.smallScaleXs}>
                 <p className="text-sm font-semibold cursor-pointer text-secondary">{title}</p>
               </AnimationWrapper>

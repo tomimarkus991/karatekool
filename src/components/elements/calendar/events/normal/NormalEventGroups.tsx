@@ -1,7 +1,7 @@
 import clsx from "clsx";
 
+import { groupColorMapper } from "@/lib";
 import { SGroup, SHighLightedGroup } from "@/types";
-import { groupColorMapper } from "@/utils";
 
 interface MapGroupLetterProps {
   groups: SGroup[];
@@ -10,7 +10,7 @@ interface MapGroupLetterProps {
 
 const className = () =>
   clsx(
-    "font-quicksand font-semibold",
+    "font-number font-semibold",
     "text-[0.6rem] ml-[0.05rem] xs:ml-[0.1rem] xs:text-xs sm:text-sm md:text-base sm:ml-[0.15rem]"
   );
 // const className = (overflowX: boolean) =>
@@ -54,7 +54,7 @@ export const MapHighLightedGroupLetter = ({
             </p>
             <p
               className={clsx(
-                "text-red-500 ml-[0.06rem] md:text-base xs:text-xs xs:ml-[0.1rem] font-bold font-quicksand text-[0.6rem] sm:text-sm flex justify-center items-center",
+                "text-red-500 ml-[0.06rem] md:text-base xs:text-xs xs:ml-[0.1rem] font-bold font-number text-[0.6rem] sm:text-sm flex justify-center items-center",
                 className
               )}
             >

@@ -1,13 +1,8 @@
-import {
-  AnimationWrapper,
-  animations,
-  useIsMobile,
-  useModifySidebarBasedOnDevice,
-  Router,
-} from "@redlotus/ui";
 import { HiX } from "react-icons/hi";
 
-import { Logo, SidebarLink } from "@/components";
+import { AnimationWrapper, Logo, SidebarLink, animations } from "@/components";
+import { useModifySidebarBasedOnDevice, useIsMobile } from "@/hooks";
+import { Router } from "@/types";
 
 interface Props {
   routes: Router[];
@@ -32,15 +27,15 @@ export const MobileSidebarContent = ({ routes, BottomContent }: Props) => {
           </button>
         </div>
         <div className="h-full mt-8 space-y-4">
-          {routes.map(({ bigIcon, to, routeName }, index) => {
+          {routes.map(({ bigIcon, href, routeName }, index) => {
             return (
               <>
                 {isMobile ? (
-                  <SidebarLink key={`${to} mobile ${index}`} to={to} icon={bigIcon}>
+                  <SidebarLink key={`${href} mobile ${index}`} href={href} icon={bigIcon}>
                     {routeName}
                   </SidebarLink>
                 ) : (
-                  <SidebarLink key={`${to} desktop ${index}`} to={to} icon={bigIcon}>
+                  <SidebarLink key={`${href} desktop ${index}`} href={href} icon={bigIcon}>
                     {routeName}
                   </SidebarLink>
                 )}

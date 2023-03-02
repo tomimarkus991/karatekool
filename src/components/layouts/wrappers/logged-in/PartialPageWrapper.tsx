@@ -1,5 +1,7 @@
-import { useSidebar, useIsMobile } from "@redlotus/ui";
 import clsx from "clsx";
+
+import { useSidebar } from "@/context";
+import { useIsMobile } from "@/hooks";
 
 interface Props {
   /**

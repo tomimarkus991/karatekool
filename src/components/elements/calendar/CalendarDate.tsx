@@ -28,7 +28,7 @@ export const CalendarDate = ({ events, date, month }: Props) => {
         <div className="flex justify-center">
           <time
             className={clsx(
-              "font-varela text-xs sm:text-sm md:text-base",
+              "font-number font-medium text-xs sm:text-sm md:text-base",
               isToday(date)
                 ? // ? "text-white bg-primary h-4 w-4 sm:h-5 sm:w-5 rounded-full text-center"
                   "text-primary"

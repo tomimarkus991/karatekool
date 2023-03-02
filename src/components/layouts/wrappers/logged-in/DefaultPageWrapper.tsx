@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import { animations, AnimationWrapper, Sidebar, useIsMobile } from "@redlotus/ui";
+
 import clsx from "clsx";
-import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { ReactNode, useEffect } from "react";
 import { HiLogout } from "react-icons/hi";
-import { useLocation } from "react-router-dom";
 
 import {
   MobileSidebarContent,
@@ -13,17 +13,16 @@ import {
   LoginModal,
   RegisterModal,
   Footer,
+  AnimationWrapper,
+  animations,
+  Sidebar,
 } from "@/components";
-import { useSignOut, useUser } from "@/hooks";
-import { routes, definedRoutes } from "@/routes";
+import { definedRoutes, routes } from "@/config";
+import { useIsMobile, useSignOut, useUser } from "@/hooks";
 
-interface Props {
-  children: React.ReactNode;
-}
-
-export const DefaultPageWrapper = ({ children }: Props) => {
+export const DefaultPageWrapper = ({ children }: { children: ReactNode }) => {
   const { isMobile } = useIsMobile("sm");
-  const { pathname } = useLocation();
+  const pathname = usePathname();
 
   const { data: user } = useUser();
   const { mutate: signOut } = useSignOut();

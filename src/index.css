@@ -2,7 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 @layer base {
+  html {
+    @apply scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thin scrollbar-thumb-rounded-full;
+  }
+  
   body {
     @apply bg-surface-bg;
   }
@@ -20,12 +46,15 @@
   b {
     @apply text-[#393939];
   }
+  input {
+    @apply font-sans;
+  }
 
   li {
     @apply text-stone-600;
   }
   button {
-    @apply text-[#393939];
+    @apply text-[#393939] font-catamaran;
   }
 }
 
@@ -37,4 +66,26 @@
  .waves-aspect {
   @apply aspect-[1/1] xs:aspect-[8/5] sm:aspect-[10/5] md:aspect-[14/5] lg:aspect-[18/5] xl:aspect-[24/5] max-h-[22rem];
  }
+ 
+  /* IE and Edge */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+  }
+
+  .input-error {
+    @apply border-2 border-red-300 outline-none caret-red-400 focus:border-red-500;
+  }
+
+  .scrollbar-overflow {
+    @apply overflow-scroll scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thin scrollbar-thumb-rounded-full;
+  }
+
+  .scrollbar-styles {
+    /* @apply scrollbar-none no-scrollbar scrollbar-thumb-slate-500 scrollbar-track-gray-100 active:scrollbar-thumb-slate-600; */
+    @apply scrollbar-hide;
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    @apply hidden
+  }
 }

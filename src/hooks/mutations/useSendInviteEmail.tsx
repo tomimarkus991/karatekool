@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
-import { definedRoutes } from "@/routes";
-import { supabase } from "@/utils";
+import { definedRoutes } from "@/config";
+import { supabase } from "@/lib";
 
 interface Props {
   email: string;

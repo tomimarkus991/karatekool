@@ -1,14 +1,20 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import { animations, AnimationWrapper, FormikInput, ModalFooterContainer } from "@redlotus/ui";
+
 import clsx from "clsx";
 import { Form } from "formik";
+import Link from "next/link";
 import { useState } from "react";
 import { HiEye, HiEyeOff, HiX } from "react-icons/hi";
-import { Link } from "react-router-dom";
 
-import { GlowButton, RegisterModal } from "@/components";
-import { definedRoutes } from "@/routes";
+import {
+  AnimationWrapper,
+  FormikInput,
+  GlowButton,
+  ModalFooterContainer,
+  RegisterModal,
+  animations,
+} from "@/components";
 
 interface Props {
   isValid: boolean;
@@ -64,7 +70,7 @@ export const LoginForm = ({ closeModal, isValid, handleSubmit }: Props) => {
               </div>
             }
           />
-          <Link to={definedRoutes.forgotPassword}>
+          <Link href="/forgotPassword">
             <AnimationWrapper variants={animations.smallScaleXs}>
               <p className="mt-4 text-sm font-semibold text-center text-secondary">
                 Unustasid parooli?
@@ -89,7 +95,7 @@ export const LoginForm = ({ closeModal, isValid, handleSubmit }: Props) => {
               <RegisterModal type="text" title={title} />
             </AnimationWrapper>
           ) : (
-            <Link to={definedRoutes.register}>
+            <Link href="/register">
               <AnimationWrapper variants={animations.smallScaleXs}>
                 <p className="text-sm font-semibold cursor-pointer text-secondary">{title}</p>
               </AnimationWrapper>

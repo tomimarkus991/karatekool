@@ -1,7 +1,10 @@
 import clsx from "clsx";
+import Image from "next/image";
 
 export const WaveBackground = () => (
-  <img
+  <Image
+    width="0"
+    height="0"
     alt="waves"
     src="/general/waves.svg"
     className={clsx(

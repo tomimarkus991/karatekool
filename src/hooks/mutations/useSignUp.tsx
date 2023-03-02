@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import Link from "next/link";
 import { toast } from "react-hot-toast";
-import { Link } from "react-router-dom";
 
-import { definedRoutes } from "@/routes";
-import { supabase } from "@/utils";
+import { definedRoutes } from "@/config";
+import { supabase } from "@/lib";
 
 interface SignUpProps {
   username: string;
@@ -32,7 +32,7 @@ export const useSignUp = () => {
               Tundub, et sa pole veel klubi liikmete nimekirjas
             </p>
             <div className="flex flex-row">
-              <Link to={definedRoutes.apply} onClick={() => toast.dismiss("whitelist-toast")}>
+              <Link href={definedRoutes.apply} onClick={() => toast.dismiss("whitelist-toast")}>
                 <p className="text-lg font-semibold text-primary">Vajuta siia,</p>
               </Link>
               <p className="ml-1 text-lg font-semibold">et luba taodelda</p>

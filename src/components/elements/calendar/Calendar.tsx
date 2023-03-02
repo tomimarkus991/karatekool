@@ -1,4 +1,3 @@
-import { animations, AnimationWrapper, ResizablePanel, useIsMobile } from "@redlotus/ui";
 import clsx from "clsx";
 import {
   addMonths,
@@ -18,9 +17,16 @@ import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { useScreenshot, createFileName } from "use-react-screenshot";
 
 import { days } from "@/app-constants";
-import { CalendarDate, CalendarFilterButtons, calendarUtils } from "@/components";
+import {
+  AnimationWrapper,
+  CalendarDate,
+  CalendarFilterButtons,
+  ResizablePanel,
+  animations,
+  calendarUtils,
+} from "@/components";
 import { useCalendarFilters } from "@/context";
-import { useGetCurrentMonthEvents } from "@/hooks";
+import { useGetCurrentMonthEvents, useIsMobile } from "@/hooks";
 
 const variants: Variants = {
   enter: (direction: number) => {

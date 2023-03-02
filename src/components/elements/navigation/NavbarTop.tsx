@@ -1,6 +1,8 @@
+import Image from "next/image";
+
 import { NavbarTopLink, Logo, LoginModal } from "@/components";
+import { definedRoutes } from "@/config";
 import { useUser } from "@/hooks";
-import { definedRoutes } from "@/routes";
 
 export const NavbarTop = () => {
   const routes = [
@@ -24,14 +26,20 @@ export const NavbarTop = () => {
           </div>
         </div>
         <div className="flex flex-row items-center gap-3 font-normal lg:gap-5">
-          {routes.map(([to, label], index) => (
-            <NavbarTopLink to={to} index={index}>
+          {routes.map(([href, label], index) => (
+            <NavbarTopLink key={href} href={href} index={index}>
               {label}
             </NavbarTopLink>
           ))}
           {user ? (
             <>
-              <img className="h-14 w-14" alt="user" src={`/avatars/${user?.avatar}`} />
+              <Image
+                width="0"
+                height="0"
+                className="h-14 w-14"
+                alt="user"
+                src={`/avatars/${user?.avatar}`}
+              />
             </>
           ) : (
             <>

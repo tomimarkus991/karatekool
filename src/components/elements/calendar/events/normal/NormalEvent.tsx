@@ -58,7 +58,7 @@ export const NormalEvent = ({ event, date }: Props) => {
           <MapGroupLetter groups={group} overflowX={overflowX} />
           <MapHighLightedGroupLetter highlightedGroups={highlighted_group} overflowX={overflowX} />
           {event_trailer?.text && (
-            <p className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] font-quicksand font-semibold text-center">
+            <p className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] font-number font-semibold text-center">
               {event_trailer?.text}
             </p>
           )}

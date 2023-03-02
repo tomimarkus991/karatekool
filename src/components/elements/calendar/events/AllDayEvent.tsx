@@ -1,7 +1,7 @@
-import { Popover, PopoverContent, PopoverTrigger } from "@redlotus/ui";
 import { isSameDay, parseISO } from "date-fns";
 import { motion } from "framer-motion";
 
+import { Popover, PopoverTrigger, PopoverContent } from "@/components";
 import { EventData } from "@/types";
 
 interface Props {
