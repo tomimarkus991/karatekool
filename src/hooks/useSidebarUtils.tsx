@@ -6,24 +6,29 @@ import { useIsMobile } from "@/hooks";
 export const useSidebarUtils = () => {
   const { sidebarState, setSidebarState, setPrevSidebarState } = useSidebar();
   const { isMobile } = useIsMobile();
+
   // when sidebar is expanded and click is not on sidebar, close the sidebar
-  const sidebar = document.getElementById("sidebar");
   useEffect(() => {
-    const closeSidebar = (e: MouseEvent) => {
-      e.preventDefault();
+    if (typeof window !== "undefined") {
+      const sidebar = document.getElementById("sidebar");
+      const closeSidebar = (e: MouseEvent) => {
+        e.preventDefault();
 
-      const target = e.target as HTMLElement;
+        const target = e.target as HTMLElement;
 
-      if (sidebarState === "expanded" && target !== sidebar && !sidebar?.contains(target)) {
-        if (!isMobile) {
-          // when sidebar is expanded and click is not on sidebar, close the sidebar to small
-          setPrevSidebarState("expanded");
-          setSidebarState("small");
+        if (sidebarState === "expanded" && target !== sidebar && !sidebar?.contains(target)) {
+          if (!isMobile) {
+            // when sidebar is expanded and click is not on sidebar, close the sidebar to small
+            setPrevSidebarState("expanded");
+            setSidebarState("small");
+          }
         }
-      }
-    };
-    window.addEventListener("click", closeSidebar);
-    return () => window.removeEventListener("click", closeSidebar);
+      };
+      window.addEventListener("click", closeSidebar);
+      return () => window.removeEventListener("click", closeSidebar);
+    }
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sidebarState]);
 };
 

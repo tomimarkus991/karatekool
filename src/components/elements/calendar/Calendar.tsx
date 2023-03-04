@@ -54,6 +54,7 @@ export const Calendar = () => {
   const [direction, setDirection] = useState<number>();
   const { letter } = useCalendarFilters();
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const calendarRef = useRef(null!);
 
   const [, takeScreenShot] = useScreenshot({
@@ -66,13 +67,15 @@ export const Calendar = () => {
   );
 
   const download = (picture: any) => {
-    const a = document.createElement("a");
-    a.href = picture;
-    a.download = createFileName(
-      "png",
-      `kalender-${letter}-${currentMonthString.replaceAll(" ", "-")}`
-    );
-    a.click();
+    if (typeof window !== "undefined") {
+      const a = document.createElement("a");
+      a.href = picture;
+      a.download = createFileName(
+        "png",
+        `kalender-${letter}-${currentMonthString.replaceAll(" ", "-")}`
+      );
+      a.click();
+    }
   };
 
   const downloadScreenshot = async () => {
@@ -122,6 +125,7 @@ export const Calendar = () => {
 
   useEffect(() => {
     fetchEvents();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // splice first letter, make it uppercase and then add the rest of the string

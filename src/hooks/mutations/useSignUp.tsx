@@ -13,14 +13,18 @@ interface SignUpProps {
 
 export const useSignUp = () => {
   const queryClient = useQueryClient();
-  const emailRedirectTo = `${window.location.origin}${definedRoutes.emailConfirmed}`;
+
+  let redirectTo = "";
+  if (typeof window !== "undefined") {
+    redirectTo = `${window.location.origin}${definedRoutes.emailConfirmed}`;
+  }
 
   const signUp = async (user: SignUpProps) => {
     const { email, password, username } = user;
     const { error, data } = await supabase.auth.signUp({
       email,
       password,
-      options: { emailRedirectTo },
+      options: { emailRedirectTo: redirectTo },
     });
 
     if (error) {

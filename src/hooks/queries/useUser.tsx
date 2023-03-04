@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { UserType } from "@/types";
 import { supabase } from "@/lib";
+import { UserType } from "@/types";
 
 export const useUser = () => {
   const getUserId = async () => {

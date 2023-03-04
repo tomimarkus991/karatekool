@@ -17,7 +17,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "C:\\___Code\\__Personal\\karatekool\\.next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

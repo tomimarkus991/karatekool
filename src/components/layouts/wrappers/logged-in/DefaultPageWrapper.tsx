@@ -28,12 +28,13 @@ export const DefaultPageWrapper = ({ children }: { children: ReactNode }) => {
   const { mutate: signOut } = useSignOut();
 
   useEffect(() => {
-    if (pathname === definedRoutes.karateka) {
+    if (pathname === definedRoutes.karateka && typeof window !== "undefined") {
       document.documentElement.classList.add("scrollbar-none");
     }
     return () => {
       document.documentElement.classList.remove("scrollbar-none");
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

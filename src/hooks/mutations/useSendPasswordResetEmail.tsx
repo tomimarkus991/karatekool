@@ -10,7 +10,11 @@ interface SendResetPasswordProps {
 
 export const useSendPasswordResetEmail = () => {
   const queryClient = useQueryClient();
-  const redirectTo = `${window.location.origin}${definedRoutes.resetPassword}`;
+
+  let redirectTo = "";
+  if (typeof window !== "undefined") {
+    redirectTo = `${window.location.origin}${definedRoutes.resetPassword}`;
+  }
 
   const sendPasswordResetEmail = async (user: SendResetPasswordProps) => {
     const { email } = user;

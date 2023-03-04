@@ -1,49 +1,54 @@
 import { Tab } from "@headlessui/react";
 import clsx from "clsx";
 import { AnimatePresence, motion, Variants } from "framer-motion";
+// import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
+import { FaSpinner } from "react-icons/fa";
 
 import { ContactAddress, ContactDojosTab, ContactGeneralInfo, ContactHeading } from "@/components";
 
 import vhkDoorPic from "../../../../public/general/vhk_door_arrow.jpg";
 
-const dojoContentVariants: Variants = {
-  hidden: {
-    opacity: 0.3,
-    y: 0,
-  },
-  active: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
+// const KsgMap = dynamic(() => import("./KsgMap"), { ssr: false });
+// const VhkMap = dynamic(() => import("./VhkMap"), { ssr: false });
+
+const KsgMap = lazy(() => import("./KsgMap"));
+const VhkMap = lazy(() => import("./VhkMap"));
+
+const duration = 0.4;
+
+const dojoContentVariants = (toLeft: boolean) => {
+  const variant: Variants = {
+    hidden: {
+      x: toLeft ? 20 : -20,
     },
-  },
-  exit: {
-    opacity: 0,
-    y: -5,
-    transition: {
-      duration: 0.6,
+    active: {
+      x: 0,
+      transition: {
+        duration,
+      },
     },
-  },
+  };
+  return variant;
 };
 
 export const ContactDojos = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const tabVariant: Variants = {
+
+  const whiteMovingBox: Variants = {
     active: {
       left: "0%",
       transition: {
         ease: "easeOut",
-        duration: 0.6,
+        duration,
       },
     },
     inactive: {
       left: "50%",
       transition: {
         ease: "easeOut",
-        duration: 0.6,
+        duration,
       },
     },
   };
@@ -60,8 +65,9 @@ export const ContactDojos = () => {
         <ContactDojosTab selectedIndex={selectedIndex} index={1}>
           KSG Spordisaal Sikupillis
         </ContactDojosTab>
+        {/* whiteMovingBox */}
         <motion.div
-          variants={tabVariant}
+          variants={whiteMovingBox}
           animate={selectedIndex === 0 ? "active" : "inactive"}
           className="bg-white absolute inset-0 w-[50%] rounded-2xl"
         />
@@ -73,7 +79,7 @@ export const ContactDojos = () => {
             initial="hidden"
             animate="active"
             exit="exit"
-            variants={dojoContentVariants}
+            variants={dojoContentVariants(true)}
             key={"panel 1"}
           >
             <ContactAddress
@@ -99,19 +105,19 @@ export const ContactDojos = () => {
                   palju aega.
                 </p>
               </div>
-              <iframe
-                title="vhk-map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2028.672626802986!2d24.746469916527637!3d59.438534381697195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46929354254d21ff%3A0xaae636211ac67099!2sKarate-DO%20Klubi%20N%C3%9CKE!5e0!3m2!1sen!2see!4v1671877034130!5m2!1sen!2see"
-                height="450"
-                className="w-full"
-                loading="lazy"
-              />
+              <Suspense fallback={<FaSpinner />}>
+                <VhkMap />
+              </Suspense>
               <p className="mt-6 mb-3 text-[0.9rem] md:text-base">
                 Trenni tulija peaks sisenema sellest hooviväravast, kust peale sisenemist paistab
                 kohe ka võimla. Kollase koolimaja peaukse kaudu trenni ei pääse!
               </p>
 
-              <Image src={vhkDoorPic} alt="vhk-door" className="object-cover aspect-auto" />
+              <Image
+                src={vhkDoorPic}
+                alt="vhk-door"
+                className="object-cover rounded-xl aspect-auto"
+              />
             </div>
           </Tab.Panel>
 
@@ -120,7 +126,7 @@ export const ContactDojos = () => {
             initial="hidden"
             animate="active"
             exit="exit"
-            variants={dojoContentVariants}
+            variants={dojoContentVariants(false)}
             key={"panel 2"}
           >
             <ContactAddress
@@ -130,14 +136,9 @@ export const ContactDojos = () => {
             />
             <div className="flex flex-col max-w-4xl m-auto">
               <ContactGeneralInfo />
-
-              <iframe
-                title="ksg-map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d590.3914104429309!2d24.78825216698169!3d59.4278017231875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x469293b833065b57%3A0x191a22794b1c9d1f!2sKSG%20M%C3%A4e%20maja!5e0!3m2!1sen!2see!4v1671876698031!5m2!1sen!2see"
-                className="w-full"
-                height="450"
-                loading="lazy"
-              />
+              <Suspense fallback={<FaSpinner />}>
+                <KsgMap />
+              </Suspense>
             </div>
           </Tab.Panel>
         </AnimatePresence>

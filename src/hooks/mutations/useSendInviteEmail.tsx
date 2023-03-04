@@ -10,7 +10,10 @@ interface Props {
 
 export const useSendInviteEmail = () => {
   const queryClient = useQueryClient();
-  const redirectTo = `${window.location.origin}${definedRoutes.login}`;
+  let redirectTo = "";
+  if (typeof window !== "undefined") {
+    redirectTo = `${window.location.origin}${definedRoutes.login}`;
+  }
 
   const sendInviteEmail = async (user: Props) => {
     const { email } = user;

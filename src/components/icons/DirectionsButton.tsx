@@ -1,5 +1,6 @@
-import { animations, AnimationWrapper } from "@/components";
 import { SVGProps } from "react";
+
+import { animations, AnimationWrapper } from "@/components";
 
 export const DirectionsButton = (props: SVGProps<SVGSVGElement>) => {
   return (
