@@ -1,17 +1,15 @@
 import { HiX } from "react-icons/hi";
 
 import { AnimationWrapper, Logo, SidebarLink, animations } from "@/components";
-import { useModifySidebarBasedOnDevice, useIsMobile } from "@/hooks";
-import { Router } from "@/types";
+import { routes } from "@/config";
+import { useModifySidebarBasedOnDevice } from "@/hooks";
 
 interface Props {
-  routes: Router[];
   BottomContent?: React.ReactNode;
 }
 
-export const MobileSidebarContent = ({ routes, BottomContent }: Props) => {
+export const MobileSidebarContent = ({ BottomContent }: Props) => {
   const { modifyOnClick } = useModifySidebarBasedOnDevice();
-  const { isMobile } = useIsMobile();
 
   return (
     <>
@@ -27,21 +25,11 @@ export const MobileSidebarContent = ({ routes, BottomContent }: Props) => {
           </button>
         </div>
         <div className="h-full mt-8 space-y-4">
-          {routes.map(({ bigIcon, href, routeName }, index) => {
-            return (
-              <>
-                {isMobile ? (
-                  <SidebarLink key={`${href} mobile ${index}`} href={href} icon={bigIcon}>
-                    {routeName}
-                  </SidebarLink>
-                ) : (
-                  <SidebarLink key={`${href} desktop ${index}`} href={href} icon={bigIcon}>
-                    {routeName}
-                  </SidebarLink>
-                )}
-              </>
-            );
-          })}
+          {routes.map(({ bigIcon, href, routeName }, index) => (
+            <SidebarLink key={`${href} mobile ${index}`} href={href} icon={bigIcon}>
+              {routeName}
+            </SidebarLink>
+          ))}
         </div>
       </div>
 

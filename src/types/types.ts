@@ -107,10 +107,6 @@ export interface Router {
   /**
    * @description Icon from react-icons
    */
-  smallIcon: JSX.Element;
-  /**
-   * @description Icon from react-icons
-   */
   bigIcon: JSX.Element;
   /**
    * @description tooltip should be specified if you want it to be different from routeName

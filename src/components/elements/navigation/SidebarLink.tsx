@@ -26,28 +26,22 @@ const Content = ({ children, icon, isActive }: ContentProps) => {
     <motion.div
       whileHover="whileHover"
       whileTap="whileTap"
-      className={clsx(
-        isActive ? "bg-red-600 hover:bg-red-700" : "hover:bg-red-600",
-        "group flex cursor-pointer items-center rounded-md py-3 px-5"
-      )}
+      className={clsx("group flex cursor-pointer rounded-md py-3 px-5")}
     >
       <AnimationWrapper
         variants={animations.smallScale}
         key="sidebar-link"
         child
-        className={clsx(
-          isActive ? "fill-white" : "fill-text-primary group-hover:fill-white",
-          "flex items-center"
-        )}
+        className={clsx("fill-text-primary flex justify-between flex-1")}
       >
-        {icon}
-        <div className="flex flex-row items-center">
-          <p
-            className={clsx("text-xl font-medium group-hover:text-white", isActive && "text-white")}
-          >
-            {children}
-          </p>
+        <div className="flex items-center">
+          {icon}
+          <div className="flex flex-row items-center text-center justify-center">
+            <p className={clsx("text-xl font-medium")}>{children}</p>
+          </div>
         </div>
+
+        {isActive && <div className="w-3 h-3 bg-primary rounded-full" />}
       </AnimationWrapper>
     </motion.div>
   );

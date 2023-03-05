@@ -4,6 +4,8 @@ import { FaInstagram, FaFacebook } from "react-icons/fa";
 
 import { AnimationWrapper, animations, LogoWhite, WaveBackground } from "@/components";
 
+import { definedRoutes, socialMedia } from "../../../config";
+
 export const Footer = () => {
   return (
     <div className="relative mt-12 waves-aspect">
@@ -21,16 +23,16 @@ export const Footer = () => {
           <div className="flex flex-col items-center">
             <LogoWhite />
             <p className="mt-2 text-sm text-center text-white">© 2023 nüke karate-do klubi</p>
-            <Link className="sm:hidden" href="/contact">
+            <Link className="sm:hidden" href={definedRoutes.contact}>
               <p className="mt-3 text-lg text-center text-white">Kontakt</p>
             </Link>
             <div className="flex flex-row items-center justify-center mt-5 space-x-2">
-              <Link href="https://www.instagram.com/karatekoolnyke/">
+              <Link href={socialMedia.instagram}>
                 <AnimationWrapper variants={animations.smallScale}>
                   <FaInstagram className="w-[32px] h-[32px]" />
                 </AnimationWrapper>
               </Link>
-              <Link href="https://www.facebook.com/karatekool/">
+              <Link href={socialMedia.facebook}>
                 <AnimationWrapper variants={animations.smallScale}>
                   <FaFacebook className="w-8 h-8" />
                 </AnimationWrapper>

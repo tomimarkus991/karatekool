@@ -122,7 +122,7 @@ export const RegisterForm = ({ closeModal, isValid, handleSubmit }: Props) => {
               <LoginModal type="text" title={title} />
             </AnimationWrapper>
           ) : (
-            <Link href="/login">
+            <Link href={definedRoutes.login}>
               <AnimationWrapper variants={animations.smallScaleXs}>
                 <p className="text-sm font-semibold cursor-pointer text-secondary">{title}</p>
               </AnimationWrapper>

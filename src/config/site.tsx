@@ -1,7 +1,8 @@
 import clsx from "clsx";
-import { HiArchive, HiHome } from "react-icons/hi";
 
 import { JustRouter, NavItem, Router } from "@/types";
+
+import { Icons } from "../components/icons/Icons";
 
 interface SiteConfig {
   name: string;
@@ -29,8 +30,7 @@ export const siteConfig: SiteConfig = {
     docs: "https://ui.shadcn.com",
   },
 };
-const smallIconCss = "h-8 w-8 fill-inherit";
-const bigIconCss = "mr-3 h-8 w-8 fill-inherit";
+const bigIconCss = "mr-2 h-10 w-10 fill-inherit";
 
 export const definedRoutes = {
   apply: "/apply-to-club",
@@ -47,36 +47,36 @@ export const definedRoutes = {
   home: "/",
 };
 
+export const socialMedia = {
+  facebook: "https://www.facebook.com/karatekool/",
+  instagram: "https://www.instagram.com/karatekoolnyke/",
+};
+
 export const routes: Router[] = [
   {
     href: definedRoutes.home,
     routeName: "Kodu",
-    smallIcon: <HiHome className={clsx(smallIconCss)} />,
-    bigIcon: <HiHome className={clsx(bigIconCss)} />,
+    bigIcon: <Icons.home className={clsx(bigIconCss)} />,
   },
   {
     href: definedRoutes.newcomer,
     routeName: "Uustulnukale",
-    smallIcon: <HiArchive className={clsx(smallIconCss)} />,
-    bigIcon: <HiArchive className={clsx(bigIconCss)} />,
+    bigIcon: <Icons.newcomer className={clsx(bigIconCss)} />,
   },
   {
     href: definedRoutes.aboutClub,
     routeName: "Klubist",
-    smallIcon: <HiArchive className={clsx(smallIconCss)} />,
-    bigIcon: <HiArchive className={clsx(bigIconCss)} />,
+    bigIcon: <Icons.aboutClub className={clsx(bigIconCss)} />,
   },
   {
     href: definedRoutes.karateka,
     routeName: "Karateka",
-    smallIcon: <HiArchive className={clsx(smallIconCss)} />,
-    bigIcon: <HiArchive className={clsx(bigIconCss)} />,
+    bigIcon: <Icons.karateka className={clsx(bigIconCss)} />,
   },
   {
     href: definedRoutes.contact,
     routeName: "Kontakt",
-    smallIcon: <HiArchive className={clsx(smallIconCss)} />,
-    bigIcon: <HiArchive className={clsx(bigIconCss)} />,
+    bigIcon: <Icons.contact className={clsx(bigIconCss)} />,
   },
 ];
 

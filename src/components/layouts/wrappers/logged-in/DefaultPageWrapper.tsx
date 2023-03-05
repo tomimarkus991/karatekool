@@ -17,7 +17,7 @@ import {
   animations,
   Sidebar,
 } from "@/components";
-import { definedRoutes, routes } from "@/config";
+import { definedRoutes } from "@/config";
 import { useIsMobile, useSignOut, useUser } from "@/hooks";
 
 export const DefaultPageWrapper = ({ children }: { children: ReactNode }) => {
@@ -53,7 +53,6 @@ export const DefaultPageWrapper = ({ children }: { children: ReactNode }) => {
         <Sidebar
           ExpandedSidebarContent={
             <MobileSidebarContent
-              routes={routes}
               BottomContent={
                 <>
                   {user ? (
