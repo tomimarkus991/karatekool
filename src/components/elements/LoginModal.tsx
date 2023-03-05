@@ -5,7 +5,7 @@ import { Formik } from "formik";
 import { useState } from "react";
 
 import { YupSchemas } from "@/app-constants";
-import { GlowButton, LoginForm, Modal } from "@/components";
+import { GlowButton, LoginForm, Modal, RealButton } from "@/components";
 import { useSignIn } from "@/hooks";
 
 export interface LoginFormValues {
@@ -45,9 +45,9 @@ export const LoginModal = ({ title, type = "button" }: Props) => {
     }
     if (type === "sidebarButton") {
       return (
-        <GlowButton className="w-[13rem]" onClick={openModal}>
+        <RealButton variant="red" className="px-9" onClick={openModal}>
           logi sisse
-        </GlowButton>
+        </RealButton>
       );
     }
     return <GlowButton onClick={openModal}>logi sisse</GlowButton>;

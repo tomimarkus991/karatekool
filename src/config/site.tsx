@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import clsx from "clsx";
 
 import { Icons } from "@/components/icons/Icons";
@@ -55,7 +56,8 @@ export const routes: Router[] = [
   {
     href: definedRoutes.home,
     routeName: "Kodu",
-    bigIcon: <Icons.home className={clsx(bigIconCss)} />,
+    // bigIcon: <Icons.home className={clsx(bigIconCss)} />,
+    bigIcon: <img alt="house" className={clsx(bigIconCss)} src="/icons/house.png" />,
   },
   {
     href: definedRoutes.newcomer,
@@ -65,7 +67,7 @@ export const routes: Router[] = [
   {
     href: definedRoutes.aboutClub,
     routeName: "Klubist",
-    bigIcon: <Icons.aboutClub className={clsx(bigIconCss)} />,
+    bigIcon: <Icons.belt className={clsx(bigIconCss)} />,
   },
   {
     href: definedRoutes.karateka,
@@ -75,7 +77,7 @@ export const routes: Router[] = [
   {
     href: definedRoutes.contact,
     routeName: "Kontakt",
-    bigIcon: <Icons.contact className={clsx(bigIconCss)} />,
+    bigIcon: <Icons.notebook className={clsx(bigIconCss)} />,
   },
 ];
 

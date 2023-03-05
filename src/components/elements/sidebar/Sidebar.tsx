@@ -53,9 +53,7 @@ export const Sidebar = ({ SmallSidebarContent, ExpandedSidebarContent }: Props) 
               placement === "right" ? "right-0" : "left-0"
             )}
           >
-            <div className="flex flex-col justify-between h-full px-3 py-6">
-              {ExpandedSidebarContent}
-            </div>
+            <div className="flex flex-col h-full px-3 py-6">{ExpandedSidebarContent}</div>
           </AnimationWrapper>
 
           <AnimationWrapper
