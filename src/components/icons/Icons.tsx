@@ -1,4 +1,7 @@
 import { LucideProps, type Icon as LucideIcon } from "lucide-react";
+import { SVGProps } from "react";
+
+import { AnimationWrapper, animations } from "@/components";
 
 export type Icon = LucideIcon;
 
@@ -746,6 +749,209 @@ export const Icons = {
         fill="#AB300B"
         d="M26 16A4 4 0 1 0 26 24 4 4 0 1 0 26 16zM33 30c0 0-1.9-4-7-4-5.1 0-7 4-7 4v2h14V30z"
       />
+    </svg>
+  ),
+  belt: (props: LucideProps) => (
+    <svg
+      width="43"
+      height="25"
+      viewBox="0 0 43 25"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <rect x="0.640625" y="5.77246" width="42" height="7.1309" rx="3.52717" fill="#999999" />
+      <rect x="2.56641" y="6.35156" width="38.4783" height="5.77174" rx="2.88587" fill="#A7A7A7" />
+      <rect x="5.44141" y="5.77246" width="32.4" height="7.1309" fill="#4C4C4C" />
+      <rect
+        width="18.738"
+        height="4.99679"
+        rx="2.49839"
+        transform="matrix(0.67925 -0.733907 0.67925 0.733907 4.19922 20.8828)"
+        fill="#4C4C4C"
+      />
+      <rect
+        width="18.3368"
+        height="2.69912"
+        rx="1.34956"
+        transform="matrix(0.67925 -0.733907 0.67925 0.733907 6.87109 21.376)"
+        fill="#3F3F3F"
+      />
+      <rect
+        width="18.738"
+        height="4.99679"
+        rx="2.49839"
+        transform="matrix(-0.67925 -0.733907 -0.67925 0.733907 37.8008 20.8828)"
+        fill="#3F3F3F"
+      />
+      <rect
+        width="18.3368"
+        height="2.81384"
+        rx="1.40692"
+        transform="matrix(0.67925 0.733907 -0.67925 0.733907 22.832 7.91797)"
+        fill="#4C4C4C"
+      />
+      <path
+        d="M18.0301 4.98678C18.5861 4.09364 19.5028 3.52181 20.4967 3.4481L22.1807 3.32321L23.8415 3.37511C24.8446 3.40645 25.7555 3.95009 26.2871 4.83473L27.1577 6.28343L27.8836 7.82238C28.3269 8.76215 28.3072 9.88625 27.8308 10.8405L27.042 12.4205L26.0999 13.9337C25.5438 14.8269 24.6272 15.3987 23.6332 15.4724L21.9492 15.5973L20.2885 15.5454C19.2853 15.514 18.3745 14.9704 17.8428 14.0858L16.9722 12.6371L16.2463 11.0981C15.8031 10.1583 15.8227 9.03424 16.2992 8.07996L17.088 6.50003L18.0301 4.98678Z"
+        fill="#3F3F3F"
+      />
+      <path
+        d="M18.4511 5.56901C18.9363 4.80212 19.7259 4.30956 20.5832 4.23903L22.1305 4.11174L23.6145 4.14455C24.5026 4.16418 25.3116 4.64147 25.7828 5.42378L26.541 6.68279L27.1711 8.02179C27.5625 8.85381 27.5406 9.84942 27.1123 10.6902L26.3966 12.0952L25.5209 13.4794C25.0357 14.2462 24.2461 14.7388 23.3888 14.8093L21.8415 14.9366L20.3575 14.9038C19.4694 14.8842 18.6604 14.4069 18.1892 13.6246L17.431 12.3656L16.8009 11.0266C16.4095 10.1946 16.4314 9.19895 16.8597 8.35814L17.5754 6.95314L18.4511 5.56901Z"
+        fill="#4C4C4C"
+      />
+    </svg>
+  ),
+  directionsButton: (props: SVGProps<SVGSVGElement>) => (
+    <AnimationWrapper variants={animations.smallScale} key="directions-button">
+      <svg
+        className="scale-[0.6] md:scale-75 cursor-pointer"
+        width="50"
+        height="50"
+        viewBox="0 0 50 50"
+        fill="none"
+        {...props}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g clipPath="url(#clip0_221_849)">
+          <circle cx="25" cy="25" r="25" fill="#E58D08" />
+          <path
+            d="M27.3056 15.955L34.045 22.6944C35.3183 23.9677 35.3183 26.0322 34.045 27.3055L27.3056 34.045C26.0323 35.3183 23.9678 35.3183 22.6944 34.045L15.955 27.3055C14.6817 26.0322 14.6817 23.9677 15.955 22.6944L22.6944 15.955C23.9678 14.6817 26.0323 14.6817 27.3056 15.955ZM26.5962 20.2047L26.5118 20.1319C26.25 19.9376 25.8906 19.9352 25.6263 20.1247L25.532 20.2047L25.4592 20.2891C25.2649 20.551 25.2626 20.9103 25.452 21.1746L25.532 21.2689L26.2531 21.9899L24.7492 21.9902L24.5812 21.9952C23.1934 22.0786 22.0823 23.1876 21.9957 24.5745L21.9902 24.7491V28.0097L21.9971 28.1118C22.0469 28.4791 22.3617 28.7621 22.7427 28.7621C23.1236 28.7621 23.4384 28.4791 23.4882 28.1118L23.4951 28.0097V24.7491L23.5015 24.6209C23.5615 24.0307 24.0308 23.5615 24.621 23.5016L24.7492 23.495L26.2541 23.4947L25.532 24.2178L25.4592 24.3022C25.2406 24.5967 25.2649 25.0148 25.532 25.2818C25.7992 25.549 26.2172 25.5733 26.5118 25.3547L26.5962 25.2818L28.6027 23.2753L28.6756 23.191C28.8698 22.9291 28.8722 22.5698 28.6828 22.3055L28.6027 22.2113L26.5962 20.2047L26.5118 20.1319L26.5962 20.2047Z"
+            fill="#FCFDFF"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_221_849">
+            <rect width="50" height="50" fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
+    </AnimationWrapper>
+  ),
+  logo: (props: SVGProps<SVGSVGElement>) => (
+    <svg width={80} height={80} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <circle cx={11.322} cy={22.893} r={5.702} fill="#0B0B0B" />
+      <circle cx={68.512} cy={22.893} r={5.702} fill="#0B0B0B" />
+      <circle cx={40.083} cy={73.471} r={5.702} fill="#0B0B0B" />
+      <circle cx={40} cy={40} r={38} stroke="#0B0B0B" strokeWidth={4} />
+      <g className="origin-center animate-spin-slow">
+        <path
+          d="M61.847 27.73c6.434 10.75-.033 26.77-9.956 33.162-.236.153-.494-.123-.346-.364 5.642-9.143 4.84-14.345 3.156-18.38a10.222 10.222 0 0 1-6.74-.802c-5.114-2.502-7.236-8.693-4.74-13.827 2.496-5.133 8.666-7.267 13.78-4.764a10.274 10.274 0 0 1 4.846 4.976Z"
+          fill="url(#a)"
+        />
+        <path
+          d="M48.065 45.526c-3.58-3.212-9.035-3.59-13.044-.631a10.22 10.22 0 0 0-3.823 5.608c-4.356-.37-9.341-2.06-14.846-11.286a.311.311 0 0 0-.03-.042c-.159-.188-.477-.082-.453.18.953 10.284 9.664 21.625 20.206 23.801 1.506.311 3.049.435 4.612.342a10.274 10.274 0 0 0 6.651-2c4.582-3.381 5.538-9.84 2.137-14.424a10.42 10.42 0 0 0-1.41-1.548Z"
+          fill="url(#b)"
+        />
+        <path
+          d="M19.316 26.927c6.093-10.948 23.2-13.356 33.697-7.96.25.129.14.49-.143.482a46.416 46.416 0 0 0-1.937-.017c-9.309.116-13.071 3.216-15.558 6.475a10.226 10.226 0 0 1 2.675 6.237c.39 5.68-3.91 10.614-9.604 11.019-5.694.405-10.627-3.871-11.017-9.552a10.274 10.274 0 0 1 1.887-6.684Z"
+          fill="url(#c)"
+        />
+      </g>
+      <defs>
+        <radialGradient
+          id="a"
+          cx={0}
+          cy={0}
+          r={1}
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="matrix(10.66077 12.1665 -10.9174 9.56625 53.025 39.312)"
+        >
+          <stop offset={0.052} stopColor="#F12324" />
+          <stop offset={0.302} stopColor="#FF0001" />
+          <stop offset={1} stopColor="#C72425" />
+        </radialGradient>
+        <radialGradient
+          id="b"
+          cx={0}
+          cy={0}
+          r={1}
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="matrix(17.07805 7.58233 -5.0909 11.46647 33.25 50.052)"
+        >
+          <stop offset={0.052} stopColor="#F12324" />
+          <stop offset={0.302} stopColor="#FF0001" />
+          <stop offset={1} stopColor="#C72425" />
+        </radialGradient>
+        <radialGradient
+          id="c"
+          cx={0}
+          cy={0}
+          r={1}
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="matrix(17.12754 8.3709 -5.97846 12.2324 34.837 28.311)"
+        >
+          <stop offset={0.052} stopColor="#F12324" />
+          <stop offset={0.302} stopColor="#FF0001" />
+          <stop offset={1} stopColor="#C72425" />
+        </radialGradient>
+      </defs>
+    </svg>
+  ),
+  logoWhite: (props: SVGProps<SVGSVGElement>) => (
+    <svg width={80} height={80} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <circle cx={11.322} cy={22.893} r={5.702} fill="#E9E9E9" />
+      <circle cx={68.512} cy={22.893} r={5.702} fill="#E9E9E9" />
+      <circle cx={40.083} cy={73.471} r={5.702} fill="#E9E9E9" />
+      <circle cx={40} cy={40} r={38} stroke="#E9E9E9" strokeWidth={4} />
+      <g className="origin-center animate-spin-slow">
+        <path
+          d="M61.847 27.73c6.434 10.75-.033 26.77-9.956 33.162-.236.153-.494-.123-.346-.364 5.642-9.143 4.84-14.345 3.156-18.38a10.222 10.222 0 0 1-6.74-.802c-5.114-2.502-7.236-8.693-4.74-13.827 2.496-5.133 8.666-7.267 13.78-4.764a10.274 10.274 0 0 1 4.846 4.976Z"
+          fill="url(#a)"
+        />
+        <path
+          d="M48.065 45.526c-3.58-3.212-9.035-3.59-13.044-.631a10.22 10.22 0 0 0-3.823 5.608c-4.356-.37-9.341-2.06-14.846-11.286a.311.311 0 0 0-.03-.042c-.159-.188-.477-.082-.453.18.953 10.284 9.664 21.625 20.206 23.801 1.506.311 3.049.435 4.612.342a10.274 10.274 0 0 0 6.651-2c4.582-3.381 5.538-9.84 2.137-14.424a10.42 10.42 0 0 0-1.41-1.548Z"
+          fill="url(#b)"
+        />
+        <path
+          d="M19.316 26.927c6.093-10.948 23.2-13.356 33.697-7.96.25.129.14.49-.143.482a46.416 46.416 0 0 0-1.937-.017c-9.309.116-13.071 3.216-15.558 6.475a10.226 10.226 0 0 1 2.675 6.237c.39 5.68-3.91 10.614-9.604 11.019-5.694.405-10.627-3.871-11.017-9.552a10.274 10.274 0 0 1 1.887-6.684Z"
+          fill="url(#c)"
+        />
+      </g>
+      <defs>
+        <radialGradient
+          id="a"
+          cx={0}
+          cy={0}
+          r={1}
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="matrix(10.66077 12.1665 -10.9174 9.56625 53.025 39.312)"
+        >
+          <stop offset={0.052} stopColor="#F12324" />
+          <stop offset={0.302} stopColor="#FF0001" />
+          <stop offset={1} stopColor="#C72425" />
+        </radialGradient>
+        <radialGradient
+          id="b"
+          cx={0}
+          cy={0}
+          r={1}
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="matrix(17.07805 7.58233 -5.0909 11.46647 33.25 50.052)"
+        >
+          <stop offset={0.052} stopColor="#F12324" />
+          <stop offset={0.302} stopColor="#FF0001" />
+          <stop offset={1} stopColor="#C72425" />
+        </radialGradient>
+        <radialGradient
+          id="c"
+          cx={0}
+          cy={0}
+          r={1}
+          gradientUnits="userSpaceOnUse"
+          gradientTransform="matrix(17.12754 8.3709 -5.97846 12.2324 34.837 28.311)"
+        >
+          <stop offset={0.052} stopColor="#F12324" />
+          <stop offset={0.302} stopColor="#FF0001" />
+          <stop offset={1} stopColor="#C72425" />
+        </radialGradient>
+      </defs>
+    </svg>
+  ),
+  menuIcon: (props: SVGProps<SVGSVGElement>) => (
+    <svg width={44} height={32} fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <line x1="3" y1="3" x2="41" y2="3" stroke="#393939" strokeWidth="6" strokeLinecap="round" />
+      <line x1="3" y1="16" x2="41" y2="16" stroke="#393939" strokeWidth="6" strokeLinecap="round" />
+      <line x1="3" y1="29" x2="41" y2="29" stroke="#393939" strokeWidth="6" strokeLinecap="round" />
     </svg>
   ),
 };

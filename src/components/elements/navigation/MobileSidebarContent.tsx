@@ -1,6 +1,7 @@
 import { HiX } from "react-icons/hi";
 
-import { AnimationWrapper, Logo, SidebarLink, animations } from "@/components";
+import { AnimationWrapper, SidebarLink, animations } from "@/components";
+import { Icons } from "@/components/icons/Icons";
 import { routes } from "@/config";
 import { useModifySidebarBasedOnDevice } from "@/hooks";
 
@@ -16,7 +17,7 @@ export const MobileSidebarContent = ({ BottomContent }: Props) => {
       <div className="flex flex-col">
         <div className="flex flex-row justify-between px-3">
           <div className="scale-[.8]">
-            <Logo />
+            <Icons.logo />
           </div>
           <button onClick={modifyOnClick}>
             <AnimationWrapper key="expanded-sidebar-x-icon" variants={animations.scaleAndRotation}>

@@ -7,6 +7,7 @@ export const WaveBackground = () => (
     height="0"
     alt="waves"
     src="/general/waves.svg"
+    // src="./waves.svg"
     className={clsx(
       "w-full absolute bottom-0 left-0 bg-center bg-no-repeat bg-cover bg-waves",
       "waves-aspect"

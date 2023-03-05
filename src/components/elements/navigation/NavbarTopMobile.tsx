@@ -1,6 +1,7 @@
 import { useTransform, motion, useMotionTemplate } from "framer-motion";
 
-import { MenuIcon, Logo, AnimationWrapper, animations } from "@/components";
+import { AnimationWrapper, animations } from "@/components";
+import { Icons } from "@/components/icons/Icons";
 import { useSidebar } from "@/context";
 import { useBoundedScroll } from "@/hooks";
 
@@ -35,7 +36,7 @@ export const NavbarTopMobile = () => {
         <div className="flex flex-row items-center justify-start flex-1">
           <div className="scale-[.80]">
             <div role="button" tabIndex={0} className="flex flex-row items-center cursor-pointer">
-              <Logo />
+              <Icons.logo />
             </div>
           </div>
           <div className="flex flex-col font-semibold">
@@ -44,7 +45,7 @@ export const NavbarTopMobile = () => {
           </div>
         </div>
         <AnimationWrapper variants={animations.smallScale} key="ntm-club-icon">
-          <MenuIcon
+          <Icons.menuIcon
             id="sidebar-button"
             className="scale-[.70] sm:scale-[.80] cursor-pointer"
             onClick={() => {

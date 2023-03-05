@@ -1,8 +1,7 @@
 import clsx from "clsx";
 
+import { Icons } from "@/components/icons/Icons";
 import { JustRouter, NavItem, Router } from "@/types";
-
-import { Icons } from "../components/icons/Icons";
 
 interface SiteConfig {
   name: string;

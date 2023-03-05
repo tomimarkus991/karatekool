@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { motion, Variants } from "framer-motion";
 import { Fragment } from "react";
 
-import { DirectionsButton } from "@/components";
+import { Icons } from "@/components/icons/Icons";
 
 interface ContactHeadingProps {
   children: React.ReactNode;
@@ -81,12 +81,12 @@ export const ContactAddress = ({ title, address, directionsLink }: ContactAddres
             <ContactAddressHeading>{title}</ContactAddressHeading>
             <p className="text-[0.9rem] self-start">{address}</p>
           </div>
-          <DirectionsButton onClick={() => window.open(directionsLink, "_blank")} />
+          <Icons.directionsButton onClick={() => window.open(directionsLink, "_blank")} />
         </div>
         <div className="hidden md:block">
           <div className="flex flex-row items-center justify-center space-x-4">
             <ContactAddressHeading>{title}</ContactAddressHeading>
-            <DirectionsButton onClick={() => window.open(directionsLink, "_blank")} />
+            <Icons.directionsButton onClick={() => window.open(directionsLink, "_blank")} />
           </div>
           <p className="text-lg leading-[0.5rem]">{address}</p>
         </div>
