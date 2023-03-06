@@ -112,6 +112,9 @@ export const realButtonVariants = cva(
       focus: {
         true: `focus:outline-[3.5px] focus:outline focus:-translate-y-[0.2rem]`,
       },
+      isValid: {
+        false: "cursor-not-allowed opacity-50",
+      },
     },
     defaultVariants: { variant: "dark", size: "md", focus: false },
   }
@@ -122,10 +125,10 @@ export interface RealButtonProps
     VariantProps<typeof realButtonVariants> {}
 
 export const RealButton = forwardRef<HTMLButtonElement, RealButtonProps>(
-  ({ className, variant, size, focus, ...props }, ref) => {
+  ({ className, variant, size, isValid, focus, ...props }, ref) => {
     return (
       <button
-        className={cn(realButtonVariants({ variant, size, className, focus }))}
+        className={cn(realButtonVariants({ variant, size, focus, isValid, className }))}
         ref={ref}
         {...props}
       />

@@ -5,7 +5,7 @@ import { Formik } from "formik";
 import { useState } from "react";
 
 import { YupSchemas } from "@/app-constants";
-import { GlowButton, Modal, RealButton, RegisterForm } from "@/components";
+import { Modal, RealButton, RegisterForm } from "@/components";
 import { useSignUp } from "@/hooks";
 
 export interface RegisterFormValues {
@@ -56,9 +56,9 @@ export const RegisterModal = ({ title, type = "button" }: Props) => {
       );
     }
     return (
-      <GlowButton variant="orange" onClick={openModal}>
+      <RealButton variant="orange" className="px-5" onClick={openModal}>
         loo kasutaja
-      </GlowButton>
+      </RealButton>
     );
   };
 

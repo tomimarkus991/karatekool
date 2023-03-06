@@ -38,12 +38,7 @@ export const PartialPageWrapper = ({ children, RightSide, Sidebar, MobileContent
         </>
       ) : (
         <div id="main-content" className="flex w-full min-h-screen">
-          <div
-            className={clsx(
-              "w-full flex flex-col py-0 justify-between relative",
-              (sidebarState === "expanded" || sidebarState === "small") && "ml-[6.5rem]"
-            )}
-          >
+          <div className={clsx("w-full flex flex-col py-0 justify-between relative")}>
             {children}
           </div>
           {RightSide && <>{RightSide}</>}

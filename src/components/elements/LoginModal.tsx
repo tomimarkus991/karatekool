@@ -5,7 +5,7 @@ import { Formik } from "formik";
 import { useState } from "react";
 
 import { YupSchemas } from "@/app-constants";
-import { GlowButton, LoginForm, Modal, RealButton } from "@/components";
+import { LoginForm, Modal, RealButton } from "@/components";
 import { useSignIn } from "@/hooks";
 
 export interface LoginFormValues {
@@ -50,7 +50,11 @@ export const LoginModal = ({ title, type = "button" }: Props) => {
         </RealButton>
       );
     }
-    return <GlowButton onClick={openModal}>logi sisse</GlowButton>;
+    return (
+      <RealButton variant="red" className="px-6" onClick={openModal}>
+        logi sisse
+      </RealButton>
+    );
   };
 
   return (

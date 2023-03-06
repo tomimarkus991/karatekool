@@ -10,7 +10,7 @@ import { HiEye, HiEyeOff, HiX } from "react-icons/hi";
 import {
   AnimationWrapper,
   FormikInput,
-  GlowButton,
+  RealButton,
   ModalFooterContainer,
   RegisterModal,
   animations,
@@ -83,15 +83,15 @@ export const LoginForm = ({ closeModal, isValid, handleSubmit }: Props) => {
       </div>
       <ModalFooterContainer>
         <div className="flex flex-col items-center justify-center">
-          <GlowButton
+          <RealButton
             variant="red"
-            className="w-[13rem] mb-4 text-xl bg-primary"
+            className="mb-4"
             type="submit"
             isValid={isValid}
             onClick={handleSubmit as any}
           >
             Logi sisse
-          </GlowButton>
+          </RealButton>
           {closeModal ? (
             <AnimationWrapper variants={animations.smallScaleXs}>
               <RegisterModal type="text" title={title} />

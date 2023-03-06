@@ -21,7 +21,7 @@ export const NavbarTopMobile = () => {
   return (
     <motion.div
       style={{
-        height: useTransform(scrollYBoundedProgress, [0, 1], [80, 80]),
+        height: useTransform(scrollYBoundedProgress, [0, 1], [100, 80]),
         backgroundColor: useMotionTemplate`rgba(255, 255, 255, ${useTransform(
           scrollYBoundedProgressThrottled,
           [0, 1],

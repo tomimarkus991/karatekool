@@ -2,15 +2,14 @@ import clsx from "clsx";
 import Image from "next/image";
 
 export const WaveBackground = () => (
-  <Image
-    width="0"
-    height="0"
-    alt="waves"
-    src="/general/waves.svg"
-    // src="./waves.svg"
-    className={clsx(
-      "w-full absolute bottom-0 left-0 bg-center bg-no-repeat bg-cover bg-waves",
-      "waves-aspect"
-    )}
-  />
+  <div className="absolute bottom-0 left-0 w-full bg-center bg-no-repeat bg-cover bg-waves">
+    <Image
+      width={50000}
+      height={5000}
+      alt="waves"
+      src="/general/waves.svg"
+      // src="./waves.svg"
+      className={clsx("waves-aspect")}
+    />
+  </div>
 );
