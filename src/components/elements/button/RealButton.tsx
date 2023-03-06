@@ -94,7 +94,7 @@ export const realButtonVariantColors = {
 
 export const realButtonVariants = cva(
   [
-    "m-0 border-b-[6px] text-center font-medium tracking-wider max-h-fit font-sans",
+    "m-0 border-b-[6px] text-center font-medium tracking-wider max-h-fit font-sans whitespace-nowrap",
     "transition-all duration-300 hover:-translate-y-[0.15rem]",
     "active:translate-y-[0.2rem] active:duration-75",
   ],
@@ -105,7 +105,7 @@ export const realButtonVariants = cva(
       size: {
         icon: `py-2 px-3 rounded-lg max-w-fit`,
         sm: `py-2 px-10 text-sm rounded-2xl`,
-        md: `py-2 px-14 text-md rounded-2xl`,
+        md: `py-2 px-14 text-sm lg:text-md rounded-2xl`,
         lg: `py-3 px-18 text-lg rounded-2xl`,
         oneLetter: `py-3 px-5 text-md rounded-lg uppercase max-w-fit`,
       },

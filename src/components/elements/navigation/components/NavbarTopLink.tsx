@@ -24,7 +24,7 @@ export const NavbarTopLink = ({ children, href, index, ...props }: Props) => {
       key={href}
       onMouseEnter={() => setHoveredIndex(index)}
       onMouseLeave={() => setHoveredIndex(null)}
-      className="relative px-4 py-1 -mx-3 cursor-pointer group lg:px-6"
+      className="relative px-4 py-1 -mx-3 cursor-pointer group xl:px-6"
       {...props}
     >
       <AnimatePresence>
