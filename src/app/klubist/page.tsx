@@ -7,8 +7,6 @@ import { Fragment } from "react";
 
 import { DefaultPageWrapper, RealDiamondButton, ResizablePanel, AboutPanel } from "@/components";
 
-import trainerHerikPic from "../../../public/general/treener-herik.png";
-
 export default function Page() {
   interface Props {
     icon: React.ReactNode;
@@ -46,13 +44,15 @@ export default function Page() {
           </p>
         </div>
         <h1 className="mb-3 text-xl font-semibold">Nüke treener</h1>
-        <div className="flex flex-col md:flex-row">
-          {/* <div className="w-[30rem] h-[30rem] bg-stone-200 mr-5">treeneri pilt</div> */}
-          <Image
-            alt="treener-herik"
-            src={trainerHerikPic}
-            className="object-cover self-center xs2:self-start md:self-center xs2:mr-16 aspect-[1/1] w-60 h-60 md:w-80 md:h-80"
-          />
+        <div className="flex flex-col items-center justify-center md:flex-row">
+          <div className="relative aspect-[1/1] w-60 h-60 md:w-80 md:h-80 object-cover">
+            <Image
+              fill
+              alt="treener-herik"
+              src="/general/treener-herik.png"
+              className="self-center xs2:self-start md:self-center xs2:mr-16"
+            />
+          </div>
           <div className="flex flex-col">
             <h1 className="mt-6 mb-3 text-xl font-semibold md:text-2xl">Herik Tölpt</h1>
             <div className="flex flex-col space-y-5 md:space-y-10">
@@ -62,8 +62,8 @@ export default function Page() {
                   atesteeritud)."
                   icon={
                     <Image
-                      width="0"
-                      height="0"
+                      width={0}
+                      height={0}
                       alt="belt"
                       className="w-[3.5rem] sm:w-[4rem]"
                       src="/icons/belt.svg"

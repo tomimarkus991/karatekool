@@ -8,8 +8,6 @@ import { FaSpinner } from "react-icons/fa";
 
 import { ContactAddress, ContactDojosTab, ContactGeneralInfo, ContactHeading } from "@/components";
 
-import vhkDoorPic from "../../../../public/general/vhk_door_arrow.jpg";
-
 // const KsgMap = dynamic(() => import("./KsgMap"), { ssr: false });
 // const VhkMap = dynamic(() => import("./VhkMap"), { ssr: false });
 
@@ -113,11 +111,15 @@ export const ContactDojos = () => {
                 kohe ka võimla. Kollase koolimaja peaukse kaudu trenni ei pääse!
               </p>
 
-              <Image
-                src={vhkDoorPic}
-                alt="vhk-door"
-                className="object-cover rounded-xl aspect-auto"
-              />
+              <div className="relative object-cover aspect-auto">
+                <Image
+                  width={2000}
+                  height={2000}
+                  src="/general/vhk_door_arrow.jpg"
+                  alt="vhk-door"
+                  className="rounded-xl"
+                />
+              </div>
             </div>
           </Tab.Panel>
 

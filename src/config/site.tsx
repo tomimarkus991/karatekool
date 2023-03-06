@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import clsx from "clsx";
+import Image from "next/image";
 
 import { Icons } from "@/components/icons/Icons";
 import { JustRouter, NavItem, Router } from "@/types";
@@ -57,7 +58,11 @@ export const routes: Router[] = [
     href: definedRoutes.home,
     routeName: "Kodu",
     // bigIcon: <Icons.home className={clsx(bigIconCss)} />,
-    bigIcon: <img alt="house" className={clsx(bigIconCss)} src="/icons/house.png" />,
+    bigIcon: (
+      <div className={clsx(bigIconCss, "relative")}>
+        <Image fill alt="house" src="/icons/house.png" />
+      </div>
+    ),
   },
   {
     href: definedRoutes.newcomer,
