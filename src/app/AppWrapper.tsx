@@ -15,6 +15,13 @@ interface Props {
 setDefaultOptions({ locale: et });
 
 export const AppWrapper = ({ children }: Props) => {
+  if (typeof window !== "undefined") {
+    navigator.serviceWorker.getRegistrations().then(function (registrations) {
+      for (const registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
   return (
     <QueryClientProvider client={queryClient}>
       <SidebarProvider>
