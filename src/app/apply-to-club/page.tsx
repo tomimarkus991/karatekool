@@ -5,7 +5,7 @@ import { Formik, Form } from "formik";
 import { useState } from "react";
 
 import { YupSchemas } from "@/app-constants";
-import { DefaultPageWrapper, FormikInput, GlowButton } from "@/components";
+import { DefaultPageWrapper, FormikInput, RealButton } from "@/components";
 
 interface FormValues {
   name: string;
@@ -59,15 +59,14 @@ export default function Page() {
                   </div>
 
                   <div className="flex flex-col items-center justify-center">
-                    <GlowButton
+                    <RealButton
                       variant="red"
-                      className="w-[13rem] text-xl bg-primary"
                       type="submit"
                       onClick={handleSubmit as any}
                       isValid={isValid}
                     >
                       Saada taotlus
-                    </GlowButton>
+                    </RealButton>
                   </div>
                 </Form>
               );

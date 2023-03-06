@@ -6,7 +6,7 @@ import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 import { YupSchemas } from "@/app-constants";
-import { Button, DefaultPageWrapper, FormikInput, ResizablePanel } from "@/components";
+import { RealButton, DefaultPageWrapper, FormikInput, ResizablePanel } from "@/components";
 import { useSendPasswordResetEmail } from "@/hooks";
 
 interface FormValues {
@@ -166,9 +166,8 @@ export default function Page() {
                           </div>
 
                           <div className="flex flex-col items-center justify-center">
-                            <Button
+                            <RealButton
                               variant="red"
-                              className="text-xl bg-primary"
                               type="submit"
                               onClick={handleSubmit as any}
                               isValid={isValid}
@@ -176,7 +175,7 @@ export default function Page() {
                               <>
                                 {status === "loading" ? <Spinner className="w-6 h-6" /> : "Saada"}
                               </>
-                            </Button>
+                            </RealButton>
                           </div>
                         </motion.div>
                       ) : (

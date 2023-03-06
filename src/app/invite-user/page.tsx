@@ -5,7 +5,7 @@ import { Formik, Form } from "formik";
 import { useState } from "react";
 
 import { YupSchemas } from "@/app-constants";
-import { Button, DefaultPageWrapper, FormikInput } from "@/components";
+import { DefaultPageWrapper, FormikInput, RealButton } from "@/components";
 import { useSendInviteEmail } from "@/hooks";
 
 interface FormValues {
@@ -49,15 +49,14 @@ export default function Page() {
                   </div>
 
                   <div className="flex flex-col items-center justify-center">
-                    <Button
+                    <RealButton
                       variant="red"
-                      className="w-[20rem] text-xl bg-primary"
                       type="submit"
                       onClick={handleSubmit as any}
                       isValid={isValid}
                     >
                       Saada
-                    </Button>
+                    </RealButton>
                   </div>
                 </Form>
               );
