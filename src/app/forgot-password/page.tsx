@@ -125,6 +125,7 @@ export default function Page() {
 
   return (
     <DefaultPageWrapper>
+      {/* gives all children same config */}
       <MotionConfig transition={transition}>
         <div className="max-w-[25rem] mx-auto overflow-hidden relative p-6 bg-white rounded-xl">
           <ResizablePanel duration={transition.duration}>

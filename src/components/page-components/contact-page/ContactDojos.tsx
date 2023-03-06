@@ -20,9 +20,11 @@ const dojoContentVariants = (toLeft: boolean) => {
   const variant: Variants = {
     hidden: {
       x: toLeft ? 20 : -20,
+      opacity: 0,
     },
     active: {
       x: 0,
+      opacity: 1,
       transition: {
         duration,
       },

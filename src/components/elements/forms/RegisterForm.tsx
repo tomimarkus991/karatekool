@@ -15,8 +15,7 @@ import {
   RealButton,
   animations,
 } from "@/components";
-
-import { definedRoutes } from "../../../config";
+import { definedRoutes } from "@/config";
 
 interface Props {
   isValid: boolean;
@@ -57,11 +56,13 @@ export const RegisterForm = ({ closeModal, isValid, handleSubmit }: Props) => {
           </AnimationWrapper>
         </Link>
         <div className="w-full mt-3 space-y-2">
-          <FormikInput className="w-full" placeholder="Nimi" name="name" />
-          <FormikInput className="w-full" placeholder="Email" name="email" />
+          <FormikInput label="Nimi" required className="w-full" placeholder="Nimi" name="name" />
+          <FormikInput label="Email" required className="w-full" placeholder="Email" name="email" />
           <FormikInput
+            label="Salasõna"
+            required
             className="w-full"
-            placeholder="Salasõna"
+            placeholder="******"
             name="password"
             type={isPasswordVisible ? "text" : "password"}
             inputAfterfix={
@@ -82,8 +83,10 @@ export const RegisterForm = ({ closeModal, isValid, handleSubmit }: Props) => {
             }
           />
           <FormikInput
+            label="Korda salasõna"
+            required
             className="w-full"
-            placeholder="Korda salasõna"
+            placeholder="******"
             name="passwordConfirmation"
             type={isConfirmPasswordVisible ? "text" : "password"}
             inputAfterfix={

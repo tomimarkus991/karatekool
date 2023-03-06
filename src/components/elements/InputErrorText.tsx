@@ -1,8 +1,17 @@
+import { cn } from "../../lib";
+
 interface Props {
   touched: boolean;
   error: string | undefined;
+  className?: string;
 }
 
-export const InputErrorText = ({ touched, error }: Props) => {
-  return <>{touched && error && <p className="text-sm font-medium text-red-500">{error}</p>}</>;
+export const InputErrorText = ({ touched, error, className }: Props) => {
+  return (
+    <>
+      {touched && error && (
+        <p className={cn("text-sm font-medium text-red-500", className)}>{error}</p>
+      )}
+    </>
+  );
 };

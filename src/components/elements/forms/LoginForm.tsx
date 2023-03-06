@@ -49,10 +49,18 @@ export const LoginForm = ({ closeModal, isValid, handleSubmit }: Props) => {
         className={clsx("scrollbar-hide", "flex overflow-y-auto items-center flex-col pt-2 px-3")}
       >
         <div className="w-full m-auto mt-3 space-y-2">
-          <FormikInput className="w-full" placeholder="Email" name="email" />
           <FormikInput
+            label="Email"
+            required
             className="w-full"
-            placeholder="Salasõna"
+            placeholder="info@karatekool.ee"
+            name="email"
+          />
+          <FormikInput
+            required
+            label="Salasõna"
+            className="w-full"
+            placeholder="******"
             name="password"
             type={isPasswordVisible ? "text" : "password"}
             inputAfterfix={

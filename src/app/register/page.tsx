@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import { useState } from "react";
 
 import { YupSchemas } from "@/app-constants";
-import { DefaultPageWrapper, RegisterForm } from "@/components";
+import { DefaultPageWrapper, RegisterForm, ResizablePanel } from "@/components";
 import { useSignUp } from "@/hooks";
 
 export interface RegisterFormValues {
@@ -26,8 +26,8 @@ export default function Page() {
 
   return (
     <DefaultPageWrapper>
-      <div className="max-w-[25rem] m-auto">
-        <div className="p-6 bg-white rounded-xl">
+      <div className="p-6 bg-white rounded-xl overflow-hidden max-w-[25rem] m-auto">
+        <ResizablePanel duration={1}>
           <Formik
             initialValues={initialValues}
             validationSchema={YupSchemas.Register}
@@ -47,7 +47,7 @@ export default function Page() {
               return <RegisterForm isValid={isValid} handleSubmit={handleSubmit} />;
             }}
           </Formik>
-        </div>
+        </ResizablePanel>
       </div>
     </DefaultPageWrapper>
   );

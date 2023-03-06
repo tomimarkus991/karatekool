@@ -16,18 +16,18 @@ export const ModalFooterContainer = ({ children }: { children: ReactNode }) => {
 
 export const ModalTitle = ({ children }: { children: ReactNode }) => {
   return (
-    <h3 className="text-center text-lg font-medium uppercase leading-6 text-gray-700">
+    <h3 className="text-lg font-medium leading-6 text-center text-gray-700 uppercase">
       {children}
     </h3>
   );
 };
 
 export const ModalSubTitle = ({ children }: { children: ReactNode }) => {
-  return <h3 className="mt-4 text-left text-lg font-medium leading-6 text-gray-600">{children}</h3>;
+  return <h3 className="mt-4 text-lg font-medium leading-6 text-left text-gray-600">{children}</h3>;
 };
 
 export const ModalHeaderContainer = ({ children }: { children: ReactNode }) => {
-  return <div className="flex w-full flex-row items-center justify-between p-4">{children}</div>;
+  return <div className="flex flex-row items-center justify-between w-full p-4">{children}</div>;
 };
 
 interface ModalHeaderProps {
@@ -42,22 +42,22 @@ export const ModalHeader = ({ children, setOpen, type }: ModalHeaderProps) => {
       {type === "back" ? (
         <div role="button" tabIndex={0} onClick={() => setOpen(false)}>
           <AnimationWrapper key="modal-header-left-arrow-icon" variants={animations.rotate360}>
-            <HiArrowLeft className="h-8 w-8 fill-slate-700 hover:fill-slate-800" />
+            <HiArrowLeft className="w-8 h-8 fill-slate-700 hover:fill-slate-800" />
           </AnimationWrapper>
         </div>
       ) : (
-        <HiArrowLeft className="h-8 w-8 opacity-0" />
+        <HiArrowLeft className="w-8 h-8 opacity-0" />
       )}
 
       <ModalTitle>{children}</ModalTitle>
       {type === "close" ? (
         <div role="button" tabIndex={0} onClick={() => setOpen(false)}>
           <AnimationWrapper key="modal-header-x-icon" variants={animations.rotate360}>
-            <HiX className="h-8 w-8 fill-slate-700 hover:fill-slate-800" />
+            <HiX className="w-8 h-8 fill-slate-700 hover:fill-slate-800" />
           </AnimationWrapper>
         </div>
       ) : (
-        <HiX className="h-8 w-8 opacity-0" />
+        <HiX className="w-8 h-8 opacity-0" />
       )}
     </ModalHeaderContainer>
   );
@@ -116,7 +116,7 @@ export const Modal = ({ children, modalButton, open, setOpen, maxWidth = "xl" }:
               id="overlay"
               variants={animations.overlay}
               onClick={() => setOpen(false)}
-              className="absolute inset-0 h-full w-full bg-gray-500 opacity-40"
+              className="absolute inset-0 w-full h-full bg-gray-500 opacity-40"
             />
           </Dialog>
         )}

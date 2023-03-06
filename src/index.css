@@ -72,10 +72,6 @@ input[type="number"] {
     -ms-overflow-style: none;
   }
 
-  .input-error {
-    @apply border-2 border-red-300 outline-none caret-red-400 focus:border-red-500;
-  }
-
   .scrollbar-overflow {
     @apply overflow-scroll scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thin scrollbar-thumb-rounded-full;
   }
