@@ -51,7 +51,7 @@ export const RegisterModal = ({ title, type = "button" }: Props) => {
     if (type === "sidebarButton") {
       return (
         <RealButton variant="orange" className="px-6" onClick={openModal}>
-          loo kasutaja
+          Loo kasutaja
         </RealButton>
       );
     }

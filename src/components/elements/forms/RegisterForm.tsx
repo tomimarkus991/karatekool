@@ -117,7 +117,7 @@ export const RegisterForm = ({ closeModal, isValid, handleSubmit }: Props) => {
             isValid={isValid}
             onClick={handleSubmit as any}
           >
-            loo kasutaja
+            Loo kasutaja
           </RealButton>
 
           {closeModal ? (
