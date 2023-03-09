@@ -105,7 +105,7 @@ export default function Page() {
         <Tab.Group>
           <Tab.List
             className={clsx(
-              "relative w-full h-[16rem] sm:h-[20rem] md:h-[30rem] md:mt-16 mb-12 overflow-hidden"
+              "relative m-auto max-w-[38rem] h-[17rem] sm:h-[20rem] md:h-[25rem] mb-3 overflow-hidden lg:mt-12"
             )}
           >
             <Tab as={Fragment}>
@@ -119,14 +119,14 @@ export default function Page() {
               </div>
             </Tab>
             <Tab as={Fragment}>
-              <div className="remove-ring absolute top-[50%] sm:top-[40%] left-[45%]">
+              <div className="remove-ring absolute top-[50%] sm:top-[40%] left-[45%] md:top-[45%]">
                 <RealDiamondButton size="xl" textSize="xl" variant="casualSkyBlue">
                   Eesmärgid
                 </RealDiamondButton>
               </div>
             </Tab>
             <Tab as={Fragment}>
-              <div className="remove-ring absolute bottom-[50%] md:bottom-[50%] sm:bottom-[45%] left-[70%] md:left-[75%]">
+              <div className="remove-ring absolute bottom-[50%] md:bottom-[50%] sm:bottom-[45%] left-[70%] md:left-[74%] lg:left-[72%]">
                 <RealDiamondButton variant="casualSlateBlue">Ajaloost</RealDiamondButton>
               </div>
             </Tab>

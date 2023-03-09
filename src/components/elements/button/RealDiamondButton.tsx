@@ -1,13 +1,19 @@
 import { VariantProps, cva } from "class-variance-authority";
+import clsx from "clsx";
 import { forwardRef } from "react";
 
 import { cn } from "@/lib";
+
+const ButtonSizes = {
+  md: "w-[5.5rem] h-[5.5rem] sm:w-[7rem] sm:h-[7rem] md:w-[7.5rem] md:h-[7.5rem]",
+  xl: "w-[7.3rem] h-[7.3rem] sm:w-[9rem] sm:h-[9rem] md:w-[10rem] md:h-[10rem]",
+};
 
 const realDiamondButtonVariants = cva(
   [
     "border-r-25rem m-0 border-b-[6px] border-r-[6px] text-center font-medium tracking-wider",
     "transition-all duration-300 hover:-translate-y-[0.15rem]",
-    "active:translate-y-[0.2rem] active:duration-75",
+    "active:translate-y-[0.2rem] active:duration-75 rotate-45",
   ],
   {
     // regular --> hover --> active --> dark --> focus
@@ -84,8 +90,8 @@ const realDiamondButtonVariants = cva(
         ],
       },
       size: {
-        md: "w-[5rem] h-[5rem] sm:w-[7rem] sm:h-[7rem] md:w-[10rem] md:h-[10rem] rotate-45 rounded-[1.5rem]",
-        xl: "w-[7rem] h-[7rem] sm:w-[9rem] sm:h-[9rem] md:w-[15rem] md:h-[15rem] rotate-45 rounded-[2rem]",
+        md: clsx(ButtonSizes.md, "rounded-[1.5rem]"),
+        xl: clsx(ButtonSizes.xl, "rounded-[2rem]"),
       },
     },
     defaultVariants: { variant: "dark", size: "md" },
@@ -96,8 +102,8 @@ const textVariants = cva(["align-middle table-cell -rotate-45"], {
   // regular --> hover --> active --> dark --> focus
   variants: {
     textSize: {
-      md: "w-[5rem] h-[5rem] sm:w-[7rem] sm:h-[7rem] md:w-[10rem] md:h-[10rem] text-sm md:text-xl",
-      xl: "w-[7rem] h-[7rem] sm:w-[9rem] sm:h-[9rem] md:w-[15rem] md:h-[15rem] text-base md:text-3xl",
+      md: clsx(ButtonSizes.md, "sm:text-lg md:text-xl"),
+      xl: clsx(ButtonSizes.xl, "text-lg sm:text-xl md:text-2xl"),
     },
   },
   defaultVariants: { textSize: "md" },
