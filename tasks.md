@@ -16,3 +16,13 @@ animations
 
 Failed login is in english, must be in estonian
 Required input should have * and go red if fail
+
+
+what nextAuth has to do
+- email whitelist
+- forgot password
+- has to work with supabase
+- roles
+
+would be cool to
+- send invites to user emails
