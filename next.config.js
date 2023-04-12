@@ -4,12 +4,6 @@ module.exports = {
   experimental: {
     appDir: true,
     typedRoutes: true,
-    fontLoaders: [
-      {
-        loader: "@next/font/google",
-        options: { subsets: ["latin"] },
-      },
-    ],
   },
   typescript: {
     // !! WARN !!

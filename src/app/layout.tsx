@@ -23,12 +23,15 @@ export const metadata: Metadata = {
 
 const catamaran = Catamaran({
   variable: "--main-font",
+  subsets: ["latin"],
 });
 const rubik = Rubik({
   variable: "--rubik-font",
+  subsets: ["latin"],
 });
 const quicksand = Quicksand({
   variable: "--quicksand-font",
+  subsets: ["latin"],
 });
 
 export default function RootLayout({ children }: Props) {
