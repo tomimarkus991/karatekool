@@ -52,7 +52,7 @@ export const LoginModal = ({ title, type = "button" }: Props) => {
     }
     return (
       <RealButton variant="red" className="px-6" onClick={openModal}>
-        logi sisse
+        Logi sisse
       </RealButton>
     );
   };

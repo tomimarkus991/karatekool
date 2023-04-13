@@ -26,3 +26,10 @@ what nextAuth has to do
 
 would be cool to
 - send invites to user emails
+
+
+mis on vaja et v1 välja saada
+
+domain
+front page
+pictures

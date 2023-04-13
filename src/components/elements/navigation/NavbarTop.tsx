@@ -22,14 +22,15 @@ export const NavbarTop = () => {
         <div className="flex flex-row items-center space-x-1 lg:space-x-3">
           <Icons.logo className="scale-[0.8] lg:scale-[0.9]" />
           <div className="font-semibold">
-            <p className="md:text-2xl lg:text-2xl md:hidden lg:block">nüke</p>
+            <p className="md:text-2xl lg:text-2xl md:hidden lg:block">Nüke</p>
             <p className="md:text-base lg:text-lg md:hidden lg:block">karate-do klubi</p>
           </div>
         </div>
         <div className="flex flex-row items-center gap-3 font-normal lg:gap-5">
           {routes.map(([href, label], index) => (
             <NavbarTopLink key={href} href={href} index={index}>
-              {label}
+              {/* make first letter uppercase */}
+              {label.charAt(0).toUpperCase() + label.slice(1)}
             </NavbarTopLink>
           ))}
           {user ? (

@@ -57,7 +57,7 @@ export const RegisterModal = ({ title, type = "button" }: Props) => {
     }
     return (
       <RealButton variant="orange" className="px-5" onClick={openModal}>
-        loo kasutaja
+        Loo kasutaja
       </RealButton>
     );
   };
