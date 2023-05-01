@@ -2,19 +2,10 @@ import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import { ReactNode, useEffect } from "react";
 
-import {
-  Footer,
-  MobileSidebarContent,
-  NavbarTop,
-  NavbarTopMobile,
-  PartialPageWrapper,
-  Sidebar,
-} from "@/components";
+import { Footer, MobileSidebarContent, NavbarTop, PartialPageWrapper, Sidebar } from "@/components";
 import { definedRoutes } from "@/config";
-import { useIsMobile } from "@/hooks";
 
 export const DefaultPageWrapper = ({ children }: { children: ReactNode }) => {
-  const { isMobile } = useIsMobile("sm");
   const pathname = usePathname();
 
   useEffect(() => {
@@ -31,8 +22,7 @@ export const DefaultPageWrapper = ({ children }: { children: ReactNode }) => {
     <PartialPageWrapper
       MobileContent={
         <>
-          {/* make isMobile true only until sm screen */}
-          {isMobile ? <NavbarTopMobile /> : <NavbarTop />}
+          <NavbarTop />
           <div className={clsx(pathname !== definedRoutes.karateka ? "px-4" : "px-0")}>
             {children}
           </div>

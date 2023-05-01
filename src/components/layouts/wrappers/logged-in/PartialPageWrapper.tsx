@@ -1,7 +1,6 @@
 import clsx from "clsx";
 
 import { useSidebar } from "@/context";
-import { useIsMobile } from "@/hooks";
 
 interface Props {
   /**
@@ -17,33 +16,30 @@ interface Props {
 }
 
 export const PartialPageWrapper = ({ children, RightSide, Sidebar, MobileContent }: Props) => {
-  const { isMobile } = useIsMobile();
   const { sidebarState } = useSidebar();
 
   return (
     <>
-      {isMobile ? (
-        <>
-          <div
-            id="main-content"
-            className={clsx(
-              "flex min-h-screen min-w-full justify-center",
-              sidebarState === "mobile" && "h-full overflow-hidden",
-              "pt-28"
-            )}
-          >
-            <div className="flex flex-col justify-between w-full">{MobileContent}</div>
-          </div>
-          {Sidebar}
-        </>
-      ) : (
+      <div className="hidden md:block">
         <div id="main-content" className="flex w-full min-h-screen">
           <div className={clsx("w-full flex flex-col py-0 justify-between relative")}>
             {children}
           </div>
           {RightSide && <>{RightSide}</>}
         </div>
-      )}
+      </div>
+      <div className="md:hidden">
+        <div
+          id="main-content"
+          className={clsx(
+            "flex min-h-screen min-w-full justify-center",
+            sidebarState === "mobile" && "h-full overflow-hidden"
+          )}
+        >
+          <div className="flex flex-col justify-between w-full">{MobileContent}</div>
+        </div>
+        {Sidebar}
+      </div>
     </>
   );
 };

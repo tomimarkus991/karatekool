@@ -33,7 +33,7 @@ export const Sidebar = ({ SmallSidebarContent, ExpandedSidebarContent }: Props) 
 
   const { sidebarState, placement, setSidebarState } = useSidebar();
   const { isMobile } = useIsMobile();
-  const { modifyBasedOnDevice, modifyOnClick } = useModifySidebarBasedOnDevice();
+  const { modifyBasedOnDevice } = useModifySidebarBasedOnDevice();
 
   useEffect(() => {
     modifyBasedOnDevice();
@@ -71,64 +71,42 @@ export const Sidebar = ({ SmallSidebarContent, ExpandedSidebarContent }: Props) 
         </>
       )}
 
-      {(sidebarState === "expanded" || sidebarState === "small") && (
-        <>
+      {sidebarState === "expanded" && (
+        <AnimationWrapper
+          id="sidebar"
+          key="app-sidebar-expanded-small-wrapper"
+          className={clsx(
+            "top-8 flex h-[94vh] before:rounded-xl bg-white rounded-xl shadow-lg flex-col ml-2 z-[1200] fixed"
+          )}
+          animate={{
+            transition: {
+              duration: 0.4,
+              ease: "easeInOut",
+              // delay: 0.7,
+            },
+            width: sidebarState === "expanded" ? "18rem" : "6rem",
+          }}
+        >
           <AnimatePresence mode="wait" initial={false}>
-            {sidebarState === "small" && (
+            {sidebarState === "expanded" ? (
               <AnimationWrapper
-                key="small-sidebar-chevron-icon-wrapper"
-                className={clsx(
-                  "shadow-notLeft rounded-r-xl p-2 z-[1201] cursor-pointer bg-white hover:bg-slate-100 fixed top-[4rem] left-[6.5rem]"
-                )}
-                onClick={modifyOnClick}
-                variants={animations.sidebar.sideButton}
+                className="flex flex-col justify-between h-full px-3 py-6"
+                key="extended-app-sidebar-content"
+                variants={animations.sidebar.content}
               >
-                <AnimationWrapper
-                  child
-                  key="small-sidebar-chevron-icon"
-                  variants={animations.smallScale}
-                >
-                  <HiChevronDoubleRight className="h-7 w-7 fill-slate-700 hover:fill-slate-800" />
-                </AnimationWrapper>
+                {ExpandedSidebarContent}
+              </AnimationWrapper>
+            ) : (
+              <AnimationWrapper
+                key="small-app-sidebar-content"
+                className="flex flex-col items-start justify-between h-full py-6 pl-5 pr-3"
+                variants={animations.sidebar.content}
+              >
+                {SmallSidebarContent}
               </AnimationWrapper>
             )}
           </AnimatePresence>
-          <AnimationWrapper
-            id="sidebar"
-            key="app-sidebar-expanded-small-wrapper"
-            className={clsx(
-              "top-8 flex h-[94vh] before:rounded-xl bg-white rounded-xl shadow-lg flex-col ml-2 z-[1200] fixed"
-            )}
-            animate={{
-              transition: {
-                duration: 0.4,
-                ease: "easeInOut",
-                // delay: 0.7,
-              },
-              width: sidebarState === "expanded" ? "18rem" : "6rem",
-            }}
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              {sidebarState === "expanded" ? (
-                <AnimationWrapper
-                  className="flex flex-col justify-between h-full px-3 py-6"
-                  key="extended-app-sidebar-content"
-                  variants={animations.sidebar.content}
-                >
-                  {ExpandedSidebarContent}
-                </AnimationWrapper>
-              ) : (
-                <AnimationWrapper
-                  key="small-app-sidebar-content"
-                  className="flex flex-col items-start justify-between h-full py-6 pl-5 pr-3"
-                  variants={animations.sidebar.content}
-                >
-                  {SmallSidebarContent}
-                </AnimationWrapper>
-              )}
-            </AnimatePresence>
-          </AnimationWrapper>
-        </>
+        </AnimationWrapper>
       )}
     </AnimatePresence>
   );
