@@ -15,7 +15,6 @@ import {
   RealButton,
   animations,
 } from "@/components";
-import { definedRoutes } from "@/config";
 
 interface Props {
   isValid: boolean;
@@ -48,7 +47,7 @@ export const RegisterForm = ({ closeModal, isValid, handleSubmit }: Props) => {
       <div
         className={clsx("scrollbar-hide", "flex overflow-y-auto items-center flex-col py-2 px-3")}
       >
-        <Link href={definedRoutes.apply}>
+        <Link href="/apply-to-club">
           <AnimationWrapper variants={animations.smallScaleXs}>
             <p className="text-base font-semibold cursor-pointer text-secondary">
               Kui sa pole veel luba taotlenud, vajuta siia
@@ -125,7 +124,7 @@ export const RegisterForm = ({ closeModal, isValid, handleSubmit }: Props) => {
               <LoginModal type="text" title={title} />
             </AnimationWrapper>
           ) : (
-            <Link href={definedRoutes.login}>
+            <Link href="/login">
               <AnimationWrapper variants={animations.smallScaleXs}>
                 <p className="text-sm font-semibold cursor-pointer text-secondary">{title}</p>
               </AnimationWrapper>

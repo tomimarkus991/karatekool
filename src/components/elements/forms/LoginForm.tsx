@@ -16,8 +16,6 @@ import {
   animations,
 } from "@/components";
 
-import { definedRoutes } from "../../../config";
-
 interface Props {
   isValid: boolean;
   closeModal?: () => void;
@@ -80,7 +78,7 @@ export const LoginForm = ({ closeModal, isValid, handleSubmit }: Props) => {
               </div>
             }
           />
-          <Link href={definedRoutes.forgotPassword}>
+          <Link href="/forgot-password">
             <AnimationWrapper variants={animations.smallScaleXs}>
               <p className="mt-4 text-sm font-semibold text-center text-secondary">
                 Unustasid parooli?
@@ -105,7 +103,7 @@ export const LoginForm = ({ closeModal, isValid, handleSubmit }: Props) => {
               <RegisterModal type="text" title={title} />
             </AnimationWrapper>
           ) : (
-            <Link href={definedRoutes.register}>
+            <Link href="/register">
               <AnimationWrapper variants={animations.smallScaleXs}>
                 <p className="text-sm font-semibold cursor-pointer text-secondary">{title}</p>
               </AnimationWrapper>

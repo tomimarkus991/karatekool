@@ -36,7 +36,7 @@ export const useSignUp = () => {
               Tundub, et sa pole veel klubi liikmete nimekirjas
             </p>
             <div className="flex flex-row">
-              <Link href={definedRoutes.apply} onClick={() => toast.dismiss("whitelist-toast")}>
+              <Link href="/apply-to-club" onClick={() => toast.dismiss("whitelist-toast")}>
                 <p className="text-lg font-semibold text-primary">Vajuta siia,</p>
               </Link>
               <p className="ml-1 text-lg font-semibold">et luba taodelda</p>

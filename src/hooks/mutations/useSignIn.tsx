@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
-import { definedRoutes } from "@/config";
 import { supabase } from "@/lib";
 
 interface SignInProps {
@@ -33,7 +32,7 @@ export const useSignIn = () => {
         window.location.reload();
       }
       queryClient.removeQueries();
-      push(definedRoutes.karateka);
+      push("/karateka");
     },
   });
 };

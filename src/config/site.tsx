@@ -49,8 +49,8 @@ export const definedRoutes = {
 };
 
 export const socialMedia = {
-  facebook: "https://www.facebook.com/karatekool/",
-  instagram: "https://www.instagram.com/karatekoolnyke/",
+  facebook: "https://www.facebook.com/karatekool/" as any,
+  instagram: "https://www.instagram.com/karatekoolnyke/" as any,
 };
 
 export const routes: Router[] = [

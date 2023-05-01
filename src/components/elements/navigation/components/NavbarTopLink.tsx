@@ -7,7 +7,7 @@ import { useState } from "react";
 import { AnimationWrapper } from "@/components";
 
 interface SidebarItemProps {
-  href: string;
+  href: any;
   index: number;
   children?: string;
 }

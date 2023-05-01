@@ -4,7 +4,7 @@ import { FaInstagram, FaFacebook } from "react-icons/fa";
 
 import { AnimationWrapper, animations, WaveBackground } from "@/components";
 import { Icons } from "@/components/icons/Icons";
-import { definedRoutes, socialMedia } from "@/config";
+import { socialMedia } from "@/config";
 
 export const Footer = () => {
   return (
@@ -23,7 +23,7 @@ export const Footer = () => {
           <div className="flex flex-col items-center">
             <Icons.logoWhite />
             <p className="mt-2 text-sm text-center text-white">© 2023 nüke karate-do klubi</p>
-            <Link className="sm:hidden" href={definedRoutes.contact}>
+            <Link className="sm:hidden" href="/kontakt">
               <p className="mt-3 text-lg text-center text-white">Kontakt</p>
             </Link>
             <div className="flex flex-row items-center justify-center mt-5 space-x-2">

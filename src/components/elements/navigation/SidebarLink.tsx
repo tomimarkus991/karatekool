@@ -10,7 +10,7 @@ import { useSidebar } from "@/context";
 interface SidebarItemProps {
   icon: ReactNode;
   children?: string;
-  href?: string;
+  href?: any;
 }
 
 interface ContentProps {
@@ -36,12 +36,12 @@ const Content = ({ children, icon, isActive }: ContentProps) => {
       >
         <div className="flex items-center">
           {icon}
-          <div className="flex flex-row items-center text-center justify-center">
+          <div className="flex flex-row items-center justify-center text-center">
             <p className={clsx("text-xl font-medium", isActive && "text-white")}>{children}</p>
           </div>
         </div>
 
-        {/* {isActive && <div className="w-3 h-3 bg-primary rounded-full" />} */}
+        {/* {isActive && <div className="w-3 h-3 rounded-full bg-primary" />} */}
       </AnimationWrapper>
     </motion.div>
   );
