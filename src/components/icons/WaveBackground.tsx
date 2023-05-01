@@ -8,7 +8,7 @@ export const WaveBackground = () => (
       height={5000}
       alt="waves"
       src="/general/waves.svg"
-      // src="./waves.svg"
+      priority
       className={clsx("waves-aspect")}
     />
   </div>
