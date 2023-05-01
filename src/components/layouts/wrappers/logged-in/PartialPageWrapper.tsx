@@ -1,6 +1,7 @@
 import clsx from "clsx";
 
 import { useSidebar } from "@/context";
+import { cn } from "@/lib";
 
 interface Props {
   /**
@@ -20,7 +21,7 @@ export const PartialPageWrapper = ({ children, RightSide, Sidebar, MobileContent
 
   return (
     <>
-      <div className="hidden md:block">
+      <div className="hidden sm2:block">
         <div id="main-content" className="flex w-full min-h-screen">
           <div className={clsx("w-full flex flex-col py-0 justify-between relative")}>
             {children}
@@ -28,12 +29,14 @@ export const PartialPageWrapper = ({ children, RightSide, Sidebar, MobileContent
           {RightSide && <>{RightSide}</>}
         </div>
       </div>
-      <div className="md:hidden">
+      {/* mobile */}
+      <div className="sm2:hidden">
         <div
           id="main-content"
-          className={clsx(
+          className={cn(
             "flex min-h-screen min-w-full justify-center",
-            sidebarState === "mobile" && "h-full overflow-hidden"
+            sidebarState === "mobile" && "h-full overflow-hidden",
+            "pt-28"
           )}
         >
           <div className="flex flex-col justify-between w-full">{MobileContent}</div>

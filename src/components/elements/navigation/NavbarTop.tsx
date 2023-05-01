@@ -33,7 +33,7 @@ export const NavbarTop = () => {
 
   return (
     <div>
-      <div className="hidden sm:block">
+      <div className="hidden sm2:block">
         <div className="max-w-2xl pl-2 pr-4 m-auto mt-4 lg:max-w-4xl xl:max-w-6xl 2xl:max-w-6xl">
           <div className="flex justify-between">
             <div className="flex flex-row items-center space-x-1 lg:space-x-3">
@@ -74,7 +74,7 @@ export const NavbarTop = () => {
           </div>
         </div>
       </div>
-      <div className="sm:hidden">
+      <div className="sm2:hidden">
         <motion.div
           style={{
             height: useTransform(scrollYBoundedProgress, [0, 1], [90, 80]),
