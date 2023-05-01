@@ -34,7 +34,7 @@ export const NavbarTop = () => {
   return (
     <div>
       <div className="hidden sm2:block">
-        <div className="max-w-2xl pl-2 pr-4 m-auto mt-4 lg:max-w-4xl xl:max-w-6xl 2xl:max-w-6xl">
+        <div className="max-w-2xl pl-2 pr-4 m-auto mt-4 lg:max-w-4xl xl:max-w-6xl 2xl:max-w-5xl">
           <div className="flex justify-between">
             <div className="flex flex-row items-center space-x-1 lg:space-x-3">
               <Icons.logo className="scale-[1] lg:scale-[1.2]" />
