@@ -34,13 +34,11 @@ export default function Page() {
           initialValues={initialValues}
           validationSchema={YupSchemas.ResetPassword}
           validateOnChange={true}
-          onSubmit={(values, { setSubmitting, resetForm }) => {
+          onSubmit={(values, { setSubmitting }) => {
             setSubmitting(true);
 
             const { password, passwordConfirmation } = values;
             resetPassword({ password, passwordConfirmation });
-
-            resetForm();
 
             setSubmitting(false);
           }}

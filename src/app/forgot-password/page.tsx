@@ -133,13 +133,11 @@ export default function Page() {
               initialValues={initialValues}
               validationSchema={YupSchemas.ForgotPassword}
               validateOnChange={true}
-              onSubmit={(values, { setSubmitting, resetForm }) => {
+              onSubmit={(values, { setSubmitting }) => {
                 setSubmitting(true);
 
                 const { email } = values;
                 sendPasswordResetEmail({ email });
-
-                resetForm();
 
                 setSubmitting(false);
               }}

@@ -73,13 +73,11 @@ export const RegisterModal = ({ title, type = "button" }: Props) => {
         initialValues={initialValues}
         validationSchema={YupSchemas.Register}
         validateOnChange={true}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
+        onSubmit={(values, { setSubmitting }) => {
           setSubmitting(true);
 
           const { email, name, password } = values;
           signUp({ email, password, username: name });
-
-          resetForm();
 
           setSubmitting(false);
         }}

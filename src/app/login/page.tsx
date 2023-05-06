@@ -21,14 +21,13 @@ export default function Page() {
           initialValues={initialValues}
           validationSchema={YupSchemas.Login}
           validateOnChange={true}
-          onSubmit={async (values, { setSubmitting, resetForm }) => {
+          onSubmit={async (values, { setSubmitting }) => {
             setSubmitting(true);
 
             const { email, password } = values;
 
             signIn({ email, password });
 
-            resetForm();
             setSubmitting(false);
           }}
         >

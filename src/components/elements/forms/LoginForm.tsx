@@ -12,7 +12,6 @@ import {
   FormikInput,
   RealButton,
   ModalFooterContainer,
-  RegisterModal,
   animations,
 } from "@/components";
 
@@ -98,17 +97,11 @@ export const LoginForm = ({ closeModal, isValid, handleSubmit }: Props) => {
           >
             Logi sisse
           </RealButton>
-          {closeModal ? (
+          <Link onClick={closeModal} href="/register">
             <AnimationWrapper variants={animations.smallScaleXs}>
-              <RegisterModal type="text" title={title} />
+              <p className="text-sm font-semibold cursor-pointer text-secondary">{title}</p>
             </AnimationWrapper>
-          ) : (
-            <Link href="/register">
-              <AnimationWrapper variants={animations.smallScaleXs}>
-                <p className="text-sm font-semibold cursor-pointer text-secondary">{title}</p>
-              </AnimationWrapper>
-            </Link>
-          )}
+          </Link>
         </div>
       </ModalFooterContainer>
     </Form>

@@ -68,14 +68,12 @@ export const LoginModal = ({ title, type = "button" }: Props) => {
         initialValues={initialValues}
         validationSchema={YupSchemas.Login}
         validateOnChange={true}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
+        onSubmit={(values, { setSubmitting }) => {
           setSubmitting(true);
 
           const { email, password } = values;
 
           signIn({ email, password });
-
-          resetForm();
 
           setSubmitting(false);
         }}

@@ -29,15 +29,13 @@ export default function Page() {
           initialValues={initialValues}
           validationSchema={YupSchemas.ApplyToClub}
           validateOnChange={true}
-          onSubmit={async (_, { setSubmitting, resetForm }) => {
+          onSubmit={async (_, { setSubmitting }) => {
             setSubmitting(true);
 
             // he sends to Nüke
             // const sentFrom = new Sender(email, name);
 
             // const recipients = [new Recipient("tomimarkusalber@gmail.com", "Nüke")];
-
-            resetForm();
 
             setSubmitting(false);
           }}
