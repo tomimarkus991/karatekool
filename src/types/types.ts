@@ -114,3 +114,7 @@ export interface Router {
    */
   tooltip?: string;
 }
+
+export type NextLayoutProps = {
+  children: React.ReactNode;
+};
