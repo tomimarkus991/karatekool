@@ -77,7 +77,7 @@ export const LoginForm = ({ closeModal, isValid, handleSubmit }: Props) => {
               </div>
             }
           />
-          <Link href="/forgot-password">
+          <Link onClick={closeModal} href="/forgot-password">
             <AnimationWrapper variants={animations.smallScaleXs}>
               <p className="mt-4 text-sm font-semibold text-center text-secondary">
                 Unustasid parooli?

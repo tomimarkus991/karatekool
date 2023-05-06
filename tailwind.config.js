@@ -87,10 +87,14 @@ module.exports = {
       },
       animation: {
         "spin-slow": "spin-backwards 40s linear infinite",
+        spinner: "spin-forwards 1s linear infinite",
       },
       keyframes: {
         "spin-backwards": {
           to: { transform: "rotate(-360deg)" },
+        },
+        "spin-forwards": {
+          to: { transform: "rotate(360deg)" },
         },
         "accordion-down": {
           from: { height: 0 },

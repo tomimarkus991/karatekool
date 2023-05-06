@@ -11,7 +11,7 @@ interface ResetPasswordProps {
 export const useResetPassword = () => {
   const queryClient = useQueryClient();
 
-  const sendPasswordResetEmail = async (user: ResetPasswordProps) => {
+  const query = async (user: ResetPasswordProps) => {
     const { password, passwordConfirmation } = user;
 
     if (password !== passwordConfirmation) {
@@ -26,10 +26,9 @@ export const useResetPassword = () => {
     }
   };
 
-  return useMutation((user: ResetPasswordProps) => sendPasswordResetEmail(user), {
+  return useMutation((user: ResetPasswordProps) => query(user), {
     onSuccess: () => {
       queryClient.removeQueries();
-      // resize box and have a link to login page
     },
   });
 };
