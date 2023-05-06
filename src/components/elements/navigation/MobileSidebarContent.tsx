@@ -1,15 +1,21 @@
+"use client";
+
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { HiLogout, HiX } from "react-icons/hi";
 
-import { AnimationWrapper, SidebarLink, animations, LoginModal, RegisterModal } from "@/components";
+import { AnimationWrapper, animations, LoginModal, RegisterModal } from "@/components";
 import { Icons } from "@/components/icons/Icons";
 import { routes } from "@/config";
-import { useModifySidebarBasedOnDevice, useSignOut, useUser } from "@/hooks";
+import { useSignOut, useUser } from "@/hooks";
+
+import { useSidebar } from "../../../context";
+
+import { SidebarLink } from "./SidebarLink";
 
 export const MobileSidebarContent = () => {
-  const { modifyOnClick } = useModifySidebarBasedOnDevice();
   const { data: user } = useUser();
   const { mutate: signOut } = useSignOut();
+  const { setSidebarState } = useSidebar();
 
   return (
     <>
@@ -18,7 +24,7 @@ export const MobileSidebarContent = () => {
           <div className="scale-[.8]">
             <Icons.logo />
           </div>
-          <button onClick={modifyOnClick}>
+          <button onClick={() => setSidebarState("closed")}>
             <AnimationWrapper key="expanded-sidebar-x-icon" variants={animations.scaleAndRotation}>
               <HiX className="w-12 h-12 fill-text-primary hover:fill-gray-800" />
             </AnimationWrapper>

@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import { useState } from "react";
 
 import { YupSchemas } from "@/app-constants";
-import { DefaultPageWrapper, LoginForm, LoginFormValues } from "@/components";
+import { LoginForm, LoginFormValues } from "@/components";
 import { useSignIn } from "@/hooks";
 
 export default function Page() {
@@ -15,30 +15,28 @@ export default function Page() {
     password: "",
   });
   return (
-    <DefaultPageWrapper>
-      <div className="max-w-[25rem] m-auto">
-        <div className="p-6 bg-white rounded-xl">
-          <Formik
-            initialValues={initialValues}
-            validationSchema={YupSchemas.Login}
-            validateOnChange={true}
-            onSubmit={async (values, { setSubmitting, resetForm }) => {
-              setSubmitting(true);
+    <div className="max-w-[25rem] m-auto">
+      <div className="p-6 bg-white rounded-xl">
+        <Formik
+          initialValues={initialValues}
+          validationSchema={YupSchemas.Login}
+          validateOnChange={true}
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
+            setSubmitting(true);
 
-              const { email, password } = values;
+            const { email, password } = values;
 
-              signIn({ email, password });
+            signIn({ email, password });
 
-              resetForm();
-              setSubmitting(false);
-            }}
-          >
-            {({ isValid, handleSubmit }) => {
-              return <LoginForm isValid={isValid} handleSubmit={handleSubmit} />;
-            }}
-          </Formik>
-        </div>
+            resetForm();
+            setSubmitting(false);
+          }}
+        >
+          {({ isValid, handleSubmit }) => {
+            return <LoginForm isValid={isValid} handleSubmit={handleSubmit} />;
+          }}
+        </Formik>
       </div>
-    </DefaultPageWrapper>
+    </div>
   );
 }

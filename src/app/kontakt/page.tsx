@@ -1,10 +1,10 @@
 "use client";
 
-import { DefaultPageWrapper, ContactDojos, ContactHeading } from "@/components";
+import { ContactDojos, ContactHeading } from "@/components";
 
 export default function Page() {
   return (
-    <DefaultPageWrapper>
+    <>
       <div className="mb-4 md:hidden">
         <ContactHeading>Kontakt</ContactHeading>
         <div className="space-y-2 text-[0.9rem]">
@@ -15,6 +15,6 @@ export default function Page() {
         </div>
       </div>
       <ContactDojos />
-    </DefaultPageWrapper>
+    </>
   );
 }

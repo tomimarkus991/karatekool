@@ -21,14 +21,6 @@ export const PartialPageWrapper = ({ children, RightSide, Sidebar, MobileContent
 
   return (
     <>
-      <div className="hidden sm2:block">
-        <div id="main-content" className="flex w-full min-h-screen">
-          <div className={clsx("w-full flex flex-col py-0 justify-between relative")}>
-            {children}
-          </div>
-          {RightSide && <>{RightSide}</>}
-        </div>
-      </div>
       {/* mobile */}
       <div className="sm2:hidden">
         <div
@@ -42,6 +34,10 @@ export const PartialPageWrapper = ({ children, RightSide, Sidebar, MobileContent
           <div className="flex flex-col justify-between w-full">{MobileContent}</div>
         </div>
         {Sidebar}
+      </div>
+      <div id="main-content" className="hidden w-full min-h-screen sm2:flex">
+        <div className={clsx("w-full flex flex-col py-0 justify-between relative")}>{children}</div>
+        {RightSide && <>{RightSide}</>}
       </div>
     </>
   );

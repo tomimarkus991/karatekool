@@ -6,7 +6,7 @@ import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 import { YupSchemas } from "@/app-constants";
-import { RealButton, DefaultPageWrapper, FormikInput, ResizablePanel } from "@/components";
+import { RealButton, FormikInput, ResizablePanel } from "@/components";
 import { useSendPasswordResetEmail } from "@/hooks";
 
 interface FormValues {
@@ -124,7 +124,7 @@ export default function Page() {
   }, [isError, isSuccess, isLoading]);
 
   return (
-    <DefaultPageWrapper>
+    <>
       {/* gives all children same config */}
       <MotionConfig transition={transition}>
         <div className="max-w-[25rem] mx-auto overflow-hidden relative p-6 bg-white rounded-xl">
@@ -201,6 +201,6 @@ export default function Page() {
           </ResizablePanel>
         </div>
       </MotionConfig>
-    </DefaultPageWrapper>
+    </>
   );
 }

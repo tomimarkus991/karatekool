@@ -1,18 +1,14 @@
 import { Tab } from "@headlessui/react";
 import clsx from "clsx";
 import { AnimatePresence, motion, Variants } from "framer-motion";
-// import dynamic from "next/dynamic";
 import Image from "next/image";
-import { lazy, Suspense, useState } from "react";
+import { Suspense, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
 import { ContactAddress, ContactDojosTab, ContactGeneralInfo, ContactHeading } from "@/components";
 
-// const KsgMap = dynamic(() => import("./KsgMap"), { ssr: false });
-// const VhkMap = dynamic(() => import("./VhkMap"), { ssr: false });
-
-const KsgMap = lazy(() => import("./KsgMap"));
-const VhkMap = lazy(() => import("./VhkMap"));
+import KsgMap from "./KsgMap";
+import VhkMap from "./VhkMap";
 
 const duration = 0.4;
 

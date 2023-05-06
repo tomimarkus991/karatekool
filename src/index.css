@@ -25,13 +25,8 @@ input[type="number"] {
 }
 
 @layer base {
-  html {
-    @apply scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thin scrollbar-thumb-rounded-full;
-  }
+
   
-  body {
-    @apply bg-surface-bg;
-  }
   p {
     @apply text-[#393939] font-catamaran;
   }
@@ -83,5 +78,16 @@ input[type="number"] {
 
   .scrollbar-hidden::-webkit-scrollbar {
     @apply hidden
+  }
+
+  /* For Webkit-based browsers (Chrome, Safari and Opera) */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* For IE, Edge and Firefox */
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
   }
 }
