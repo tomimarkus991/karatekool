@@ -26,7 +26,7 @@ const Content = ({ children, icon, isActive }: ContentProps) => {
     <motion.div
       whileHover="whileHover"
       whileTap="whileTap"
-      className={clsx("group flex cursor-pointer rounded-md py-3 px-5", isActive && "bg-primary")}
+      className={clsx("group flex cursor-pointer rounded-md py-1 px-5", isActive && "bg-primary")}
     >
       <AnimationWrapper
         variants={animations.smallScale}

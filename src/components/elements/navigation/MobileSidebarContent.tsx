@@ -19,7 +19,7 @@ export const MobileSidebarContent = () => {
 
   return (
     <>
-      <div className="flex flex-col mb-12">
+      <div className="flex flex-col mb-8">
         <div className="flex flex-row justify-between px-3">
           <div className="scale-[.8]">
             <Icons.logo />
@@ -39,9 +39,9 @@ export const MobileSidebarContent = () => {
         </div>
       </div>
 
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col">
         {user ? (
-          <div className="flex items-center justify-start ml-4">
+          <div className="flex items-center justify-start ml-4 space-y-4">
             <AnimationWrapper variants={animations.smallScale}>
               <div onClick={() => signOut()} className="flex flex-row items-center cursor-pointer">
                 <HiLogout className="w-8 h-8 mr-3 fill-text-primary" />
@@ -50,7 +50,7 @@ export const MobileSidebarContent = () => {
             </AnimationWrapper>
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center flex-1 space-y-3">
+          <div className="flex flex-col items-center justify-center flex-1 space-y-2">
             <LoginModal type="sidebarButton" />
             <RegisterModal type="sidebarButton" />
           </div>
