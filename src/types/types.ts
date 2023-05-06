@@ -84,6 +84,10 @@ export interface EventData {
   event_type: EventTypes;
 }
 
+export interface EmailWhitelist {
+  email: string;
+}
+
 export interface JustRouter {
   href: string;
 }

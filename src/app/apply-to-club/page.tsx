@@ -2,10 +2,20 @@
 
 import clsx from "clsx";
 import { Formik, Form } from "formik";
+import { CheckCircle2 } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 import { YupSchemas } from "@/app-constants";
-import { FormikInput, RealButton } from "@/components";
+import {
+  AnimationWrapper,
+  FormikInput,
+  RealButton,
+  ResizablePanel,
+  animations,
+} from "@/components";
+
+import { useGetEmailWhitelist } from "../../hooks";
 
 interface FormValues {
   name: string;
@@ -22,15 +32,27 @@ export default function Page() {
     reason: "",
   });
 
+  const { refetch: fetchEmails } = useGetEmailWhitelist();
+
+  const [isEmailWhitelisted, setIsEmailWhitelisted] = useState(false);
+
   return (
-    <div className="max-w-[25rem] m-auto">
-      <div className="p-6 bg-white rounded-xl">
+    <div className="max-w-[25rem] m-auto p-6 bg-white rounded-xl overflow-hidden">
+      <ResizablePanel duration={1}>
         <Formik
           initialValues={initialValues}
           validationSchema={YupSchemas.ApplyToClub}
           validateOnChange={true}
-          onSubmit={async (_, { setSubmitting }) => {
+          onSubmit={async (formData, { setSubmitting }) => {
             setSubmitting(true);
+
+            const { data: whitlistedEmails } = await fetchEmails();
+
+            for (const whitlistedEmail of whitlistedEmails || []) {
+              if (whitlistedEmail.email === formData.email) {
+                setIsEmailWhitelisted(true);
+              }
+            }
 
             // he sends to Nüke
             // const sentFrom = new Sender(email, name);
@@ -42,34 +64,78 @@ export default function Page() {
         >
           {({ isValid, handleSubmit }) => {
             return (
-              <Form className={clsx("flex flex-col")}>
-                <div className="flex flex-row items-center justify-between pl-3">
-                  <p className="text-xl font-bold">Taotle luba</p>
-                </div>
-                <div className={clsx("flex items-center flex-col py-2 mb-5 px-3")}>
-                  <div className="w-full mt-3 space-y-2">
-                    <FormikInput className="w-full" placeholder="Nimi" name="name" />
-                    <FormikInput className="w-full" placeholder="Grupp" name="group" />
-                    <FormikInput className="w-full" placeholder="Email" name="email" />
-                    <FormikInput className="w-full" placeholder="Miks taotled?" name="reason" />
+              <>
+                {isEmailWhitelisted ? (
+                  <div className="flex flex-col items-center justify-center">
+                    <CheckCircle2 size={42} className="mb-3 text-green-600" />
+                    <div className="flex items-center justify-center">
+                      <p className="text-lg font-semibold">
+                        Sul on juba luba olemas, et registreerida
+                      </p>
+                    </div>
+                    <Link href="/register">
+                      <AnimationWrapper variants={animations.smallScaleXs}>
+                        <p className="mt-4 text-lg font-semibold cursor-pointer text-secondary">
+                          Registreeri
+                        </p>
+                      </AnimationWrapper>
+                    </Link>
                   </div>
-                </div>
+                ) : (
+                  <Form className={clsx("flex flex-col")}>
+                    <div className="flex flex-row items-center justify-between pl-3">
+                      <p className="text-xl font-bold">Taotle luba</p>
+                    </div>
+                    <div className={clsx("flex items-center flex-col py-2 mb-5 px-3")}>
+                      <div className="w-full mt-3 space-y-2">
+                        <FormikInput
+                          required
+                          className="w-full"
+                          label="Nimi"
+                          placeholder="Nimi"
+                          name="name"
+                        />
+                        <FormikInput
+                          required
+                          className="w-full"
+                          label="Grupp"
+                          placeholder="Grupp"
+                          name="group"
+                        />
+                        <FormikInput
+                          required
+                          className="w-full"
+                          label="Email"
+                          placeholder="Email"
+                          name="email"
+                        />
+                        <FormikInput
+                          required
+                          className="w-full"
+                          label="Miks taotled?"
+                          placeholder="Miks taotled?"
+                          name="reason"
+                        />
+                      </div>
+                    </div>
 
-                <div className="flex flex-col items-center justify-center">
-                  <RealButton
-                    variant="red"
-                    type="submit"
-                    onClick={handleSubmit as any}
-                    isValid={isValid}
-                  >
-                    Saada taotlus
-                  </RealButton>
-                </div>
-              </Form>
+                    <div className="flex flex-col items-center justify-center">
+                      <RealButton
+                        variant="red"
+                        type="submit"
+                        onClick={handleSubmit as any}
+                        isValid={isValid}
+                      >
+                        Saada taotlus
+                      </RealButton>
+                    </div>
+                  </Form>
+                )}
+              </>
             );
           }}
         </Formik>
-      </div>
+      </ResizablePanel>
     </div>
   );
 }
