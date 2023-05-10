@@ -94,7 +94,7 @@ export const NavbarTop = () => {
               </NavbarTopLink>
             ))}
             {user ? (
-              <Link href="/profile">
+              <Link href="/profiil">
                 <AnimationWrapper variants={animations.smallScale} key="ntm-user-icon">
                   <Image
                     width="0"
