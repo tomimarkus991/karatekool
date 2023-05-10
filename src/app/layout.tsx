@@ -1,3 +1,5 @@
+import "server-only";
+
 /* eslint-disable import/no-duplicates */
 /* eslint-disable import/order */
 import "@/index.css";
@@ -9,12 +11,13 @@ import { Metadata } from "next";
 import { Catamaran, Quicksand, Rubik } from "next/font/google";
 import { NextLayoutProps } from "@/types";
 
-import { cn, createServerClient } from "@/lib";
+import { cn } from "@/lib";
 import { Footer } from "../components/elements/navigation/Footer";
 import { NavbarTop } from "../components/elements/navigation/NavbarTop";
 import { Sidebar } from "../components/elements/sidebar/Sidebar";
 import SupabaseListener from "../components/supabase/supabaseListener";
 import { SupabaseProvider } from "@/context/SupabaseContext";
+import { createServerClient } from "../lib/supabaseServer";
 
 export const metadata: Metadata = {
   title: "Karateklubi Nüke",
