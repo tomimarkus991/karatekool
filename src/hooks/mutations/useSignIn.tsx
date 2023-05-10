@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
-import { supabase } from "@/lib";
+import { useSupabase } from "@/context";
 
 interface SignInProps {
   email: string;
@@ -12,6 +12,7 @@ interface SignInProps {
 export const useSignIn = () => {
   const { push } = useRouter();
   const queryClient = useQueryClient();
+  const { supabase } = useSupabase();
 
   const signIn = async (user: SignInProps) => {
     const { email, password } = user;

@@ -1,6 +1,5 @@
 "use client";
 
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { HiLogout, HiX } from "react-icons/hi";
 
 import { AnimationWrapper, animations, LoginModal, RegisterModal } from "@/components";
@@ -43,10 +42,13 @@ export const MobileSidebarContent = () => {
         {user ? (
           <div className="flex items-center justify-start ml-4 space-y-4">
             <AnimationWrapper variants={animations.smallScale}>
-              <div onClick={() => signOut()} className="flex flex-row items-center cursor-pointer">
+              <button
+                onClick={() => signOut()}
+                className="flex flex-row items-center cursor-pointer"
+              >
                 <HiLogout className="w-8 h-8 mr-3 fill-text-primary" />
                 <p className="text-lg font-semibold">Logi välja</p>
-              </div>
+              </button>
             </AnimationWrapper>
           </div>
         ) : (

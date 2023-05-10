@@ -9,10 +9,12 @@ import { Metadata } from "next";
 import { Catamaran, Quicksand, Rubik } from "next/font/google";
 import { NextLayoutProps } from "@/types";
 
-import { cn } from "@/lib";
+import { cn, createServerClient } from "@/lib";
 import { Footer } from "../components/elements/navigation/Footer";
 import { NavbarTop } from "../components/elements/navigation/NavbarTop";
 import { Sidebar } from "../components/elements/sidebar/Sidebar";
+import SupabaseListener from "../components/supabase/supabaseListener";
+import { SupabaseProvider } from "@/context/SupabaseContext";
 
 export const metadata: Metadata = {
   title: "Karateklubi Nüke",
@@ -32,7 +34,13 @@ const quicksand = Quicksand({
   subsets: ["latin"],
 });
 
-export default function RootLayout({ children }: NextLayoutProps) {
+export default async function RootLayout({ children }: NextLayoutProps) {
+  const supabase = createServerClient();
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
   return (
     <html
       className="scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thin scrollbar-thumb-rounded-full"
@@ -49,14 +57,17 @@ export default function RootLayout({ children }: NextLayoutProps) {
           quicksand.variable
         )}
       >
-        <AppWrapper>
-          <div className="flex flex-col justify-between min-h-screen">
-            <NavbarTop />
-            <div className="px-4 pt-36 sm2:pt-8">{children}</div>
-            <Sidebar />
-            <Footer />
-          </div>
-        </AppWrapper>
+        <SupabaseProvider session={session}>
+          <SupabaseListener serverAccessToken={session?.access_token} />
+          <AppWrapper>
+            <div className="flex flex-col justify-between min-h-screen">
+              <NavbarTop />
+              <div className="px-4 pt-36 sm2:pt-8">{children}</div>
+              <Sidebar />
+              <Footer />
+            </div>
+          </AppWrapper>
+        </SupabaseProvider>
       </body>
     </html>
   );

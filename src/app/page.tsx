@@ -6,7 +6,7 @@ import { Metadata } from "next";
 // import { Sidebar } from "../components/elements/sidebar/Sidebar";
 
 export const metadata: Metadata = {
-  title: "aa",
+  title: "Nüke Kodu",
   description: "Tere tulemast nüke kodulehele!",
 };
 

@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
-import { supabase } from "@/lib";
+import { useSupabase } from "@/context";
 import { EmailWhitelist } from "@/types";
 
 export const useGetEmailWhitelist = () => {
+  const { supabase } = useSupabase();
   const getQuery = async () => {
     const { data, error } = await supabase.from("email_whitelist").select(
       `

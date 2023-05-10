@@ -1,14 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
-import { supabase } from "@/lib";
+import { useSupabase } from "@/context";
 import { EventData } from "@/types";
-// must get events for only current month and long events if they are in both months
 
+// must get events for only current month and long events if they are in both months
 export const useGetCurrentMonthEvents = (
   firstDayOfCurrentMonth: string,
   lastDayOfCurrentMonth: string
 ) => {
+  const { supabase } = useSupabase();
+
   const getEvents = async () => {
     const { data, error } = await supabase
       .from("event")

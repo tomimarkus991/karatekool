@@ -3,7 +3,7 @@ import Link from "next/link";
 import { toast } from "react-hot-toast";
 
 import { definedRoutes } from "@/config";
-import { supabase } from "@/lib";
+import { useSupabase } from "@/context";
 
 interface SignUpProps {
   username: string;
@@ -13,6 +13,8 @@ interface SignUpProps {
 
 export const useSignUp = () => {
   const queryClient = useQueryClient();
+
+  const { supabase } = useSupabase();
 
   let redirectTo = "";
   if (typeof window !== "undefined") {
@@ -52,7 +54,7 @@ export const useSignUp = () => {
 
     const { error: insertError } = await supabase
       .from("profile")
-      .insert({ id: data.user?.id, username });
+      .insert({ id: (data.user as any)?.id, username });
 
     if (insertError) {
       toast.error(insertError.message);

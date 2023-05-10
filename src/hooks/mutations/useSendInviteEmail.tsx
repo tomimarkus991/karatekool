@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
 import { definedRoutes } from "@/config";
-import { supabase } from "@/lib";
+import { useSupabase } from "@/context";
 
 interface Props {
   email: string;
@@ -11,6 +11,7 @@ interface Props {
 export const useSendInviteEmail = () => {
   const queryClient = useQueryClient();
   let redirectTo = "";
+  const { supabase } = useSupabase();
   if (typeof window !== "undefined") {
     redirectTo = `${window.location.origin}${definedRoutes.login}`;
   }

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
-import { supabase } from "@/lib";
+import { useSupabase } from "@/context";
 
 interface ResetPasswordProps {
   password: string;
@@ -10,6 +10,7 @@ interface ResetPasswordProps {
 
 export const useResetPassword = () => {
   const queryClient = useQueryClient();
+  const { supabase } = useSupabase();
 
   const query = async (user: ResetPasswordProps) => {
     const { password, passwordConfirmation } = user;
