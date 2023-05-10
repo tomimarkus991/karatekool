@@ -1,3 +1,4 @@
+"use client";
 import React, { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
 
 import { GroupFilters } from "@/types";

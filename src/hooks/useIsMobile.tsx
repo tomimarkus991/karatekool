@@ -1,3 +1,5 @@
+"use client";
+
 import { useWindowWidth } from "@react-hook/window-size";
 import { useEffect, useState } from "react";
 

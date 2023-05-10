@@ -1,3 +1,5 @@
+"use client";
+
 import { Dialog } from "@headlessui/react";
 import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
