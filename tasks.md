@@ -1,9 +1,9 @@
 ## Tasks
 
 
-Roles
+Roles DONE
+auth DONE
 homepage
-auth
 better calendar
     redo calendar
     add tags (võistlejad)
@@ -14,7 +14,7 @@ animations
 sending invites
 get all emails (ask Kristel)
 
-Failed login is in english, must be in estonian
+<!-- Failed login is in english, must be in estonian -->
 Required input should have * and go red if fail
 
 
