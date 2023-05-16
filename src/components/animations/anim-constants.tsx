@@ -211,6 +211,16 @@ const button: Variants = {
     },
   },
 };
+const buttonMobile: Variants = {
+  whileTap: {
+    translateY: 3,
+    scale: 0.6,
+    transition: {
+      duration: 0.2,
+      ease: "easeIn",
+    },
+  },
+};
 
 const buttonGhost: Variants = {
   whileHover: {
@@ -320,6 +330,7 @@ export const animations = {
   smallScale,
   smallScaleXs,
   button,
+  buttonMobile,
   buttonGhost,
   sidebar,
   accordionHeader,
