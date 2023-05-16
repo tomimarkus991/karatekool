@@ -212,6 +212,23 @@ const button: Variants = {
   },
 };
 
+const buttonGhost: Variants = {
+  whileHover: {
+    scale: [1, 1.05],
+    transition: {
+      duration: 0.2,
+      ease: "easeIn",
+    },
+  },
+  whileTap: {
+    scale: 1,
+    transition: {
+      duration: 0.1,
+      ease: "easeIn",
+    },
+  },
+};
+
 const content: Variants = {
   initial: { opacity: 0.8 },
   animate: {
@@ -303,6 +320,7 @@ export const animations = {
   smallScale,
   smallScaleXs,
   button,
+  buttonGhost,
   sidebar,
   accordionHeader,
 };

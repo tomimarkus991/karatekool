@@ -1,8 +1,6 @@
 "use client";
 
 import { useTransform, motion, useMotionTemplate } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
 
 import { AnimationWrapper, animations } from "@/components";
 import { definedRoutes } from "@/config";
@@ -12,6 +10,7 @@ import { cn } from "@/lib";
 
 import { Icons } from "../../icons/Icons";
 import { LoginModal } from "../user/LoginModal";
+import { UserProfile } from "../user/UserProfile";
 
 import { NavbarTopLink } from "./components";
 
@@ -94,17 +93,11 @@ export const NavbarTop = () => {
               </NavbarTopLink>
             ))}
             {user ? (
-              <Link href="/profiil">
-                <AnimationWrapper variants={animations.smallScale} key="ntm-user-icon">
-                  <Image
-                    width="0"
-                    height="0"
-                    className="h-14 w-14 ml-6"
-                    alt="user"
-                    src={`/avatars/${user?.avatar}`}
-                  />
-                </AnimationWrapper>
-              </Link>
+              <UserProfile
+                avatar={user?.avatar || "avatar.svg"}
+                username={user?.username || ""}
+                role={user?.role || "user"}
+              />
             ) : (
               <>
                 <div className="z-10 lg:hidden">
