@@ -5,7 +5,7 @@ import { ReactNode, forwardRef } from "react";
 
 import { InputErrorText } from "@/components";
 
-import { cn } from "../../lib";
+import { cn } from "../../../lib";
 
 const formikInputVariants = cva(["placeholder:text-stone-500 relative placeholder:text-base"], {
   // regular --> hover --> active --> dark --> focus

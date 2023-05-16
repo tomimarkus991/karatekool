@@ -11,7 +11,7 @@ import { useBoundedScroll, useUser } from "@/hooks";
 import { cn } from "@/lib";
 
 import { Icons } from "../../icons/Icons";
-import { LoginModal } from "../LoginModal";
+import { LoginModal } from "../user/LoginModal";
 
 import { NavbarTopLink } from "./components";
 
