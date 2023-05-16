@@ -5,7 +5,9 @@ import clsx from "clsx";
 import Image from "next/image";
 import { Fragment } from "react";
 
-import { RealDiamondButton, ResizablePanel, AboutPanel } from "@/components";
+import { RealDiamondButton, ResizablePanel } from "@/components";
+
+import { AboutPanel } from "./AboutPanel";
 
 export default function Page() {
   interface Props {

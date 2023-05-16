@@ -1,6 +1,7 @@
 "use client";
 
-import { ContactDojos, ContactHeading } from "@/components";
+import { ContactDojos } from "./ContactDojos";
+import { ContactHeading } from "./ContactUtils";
 
 export default function Page() {
   return (

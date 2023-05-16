@@ -7,8 +7,12 @@ import Image from "next/image";
 import { Suspense, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
-import { ContactAddress, ContactDojosTab, ContactGeneralInfo, ContactHeading } from "@/components";
-
+import {
+  ContactDojosTab,
+  ContactAddress,
+  ContactGeneralInfo,
+  ContactHeading,
+} from "./ContactUtils";
 import KsgMap from "./KsgMap";
 import VhkMap from "./VhkMap";
 
