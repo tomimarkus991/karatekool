@@ -1,0 +1,31 @@
+name: CI
+
+on: [push, pull_request]
+
+env:
+  NEXT_PUBLIC_SUPABASE_URL: "https://fake.com"
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: "fake"
+  NEXT_PUBLIC_MAILSEND_API_KEY: "fake"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Typecheck
+        run: yarn typecheck
+
+      - name: Lint fix
+        run: yarn lint:fix
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Print Environment Variable
+        run: echo $NEXT_PUBLIC_SUPABASE_URL $NEXT_PUBLIC_SUPABASE_ANON_KEY $NEXT_PUBLIC_MAILSEND_API_KEY
