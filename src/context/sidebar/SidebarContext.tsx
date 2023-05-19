@@ -13,12 +13,14 @@ type InitialContextType = {
   sidebarState: SidebarStateType;
   setSidebarState: Dispatch<SetStateAction<SidebarStateType>>;
   placement: SidebarPlacementType;
+  closeSidebarIfMobile: () => void;
 };
 
 const initContextData: InitialContextType = {
   placement: "right",
   sidebarState: "closed",
   setSidebarState: () => {},
+  closeSidebarIfMobile: () => {},
 };
 
 const SidebarContext = createContext(initContextData);
@@ -29,10 +31,18 @@ export const SidebarProvider = ({ children }: ProviderProps) => {
   const [sidebarState, setSidebarState] = useState<SidebarStateType>("closed");
 
   const { isMobile } = useIsMobile();
+
+  const closeSidebarIfMobile = () => {
+    if (isMobile && sidebarState === "mobile") {
+      setSidebarState("closed");
+    }
+  };
   const placement: SidebarPlacementType = isMobile ? "right" : "left";
 
   return (
-    <SidebarContext.Provider value={{ sidebarState, setSidebarState, placement }}>
+    <SidebarContext.Provider
+      value={{ sidebarState, setSidebarState, placement, closeSidebarIfMobile }}
+    >
       {children}
     </SidebarContext.Provider>
   );
