@@ -31,8 +31,10 @@ export default function Page() {
             setSubmitting(false);
           }}
         >
-          {({ isValid, handleSubmit }) => {
-            return <LoginForm isValid={isValid} handleSubmit={handleSubmit} />;
+          {({ isValid, handleSubmit, isSubmitting }) => {
+            return (
+              <LoginForm isValid={isValid} isLoggingIn={isSubmitting} handleSubmit={handleSubmit} />
+            );
           }}
         </Formik>
       </div>

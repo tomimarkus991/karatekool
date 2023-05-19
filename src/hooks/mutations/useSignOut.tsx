@@ -6,7 +6,7 @@ import { toast } from "react-hot-toast";
 import { useSupabase } from "@/context";
 
 export const useSignOut = () => {
-  const { refresh, push } = useRouter();
+  const { push } = useRouter();
   const queryClient = useQueryClient();
   const { supabase } = useSupabase();
 
@@ -23,7 +23,6 @@ export const useSignOut = () => {
     onSuccess: () => {
       queryClient.removeQueries();
       push("/");
-      refresh();
     },
   });
 };

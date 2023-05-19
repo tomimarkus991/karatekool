@@ -80,9 +80,14 @@ export const LoginModal = ({ title, type = "button" }: Props) => {
           setSubmitting(false);
         }}
       >
-        {({ isValid, handleSubmit }) => {
+        {({ isValid, handleSubmit, isSubmitting }) => {
           return (
-            <LoginForm closeModal={closeModal} isValid={isValid} handleSubmit={handleSubmit} />
+            <LoginForm
+              closeModal={closeModal}
+              isLoggingIn={isSubmitting}
+              isValid={isValid}
+              handleSubmit={handleSubmit}
+            />
           );
         }}
       </Formik>

@@ -17,15 +17,19 @@ import {
   animations,
 } from "@/components";
 
+import { LoadingSpinner } from "../LoadingSpinner";
+
 interface Props {
   isValid: boolean;
-  closeModal?: () => void;
+  isLoggingIn: boolean;
   handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
+  closeModal?: () => void;
 }
 
-export const LoginForm = ({ closeModal, isValid, handleSubmit }: Props) => {
+export const LoginForm = ({ closeModal, isValid, isLoggingIn, handleSubmit }: Props) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const title = "Mul pole veel kasutajat. Registreeri";
+  console.log("is1234", isLoggingIn);
 
   return (
     <Form className={clsx("flex flex-col")}>
@@ -97,7 +101,7 @@ export const LoginForm = ({ closeModal, isValid, handleSubmit }: Props) => {
             isValid={isValid}
             onClick={handleSubmit as any}
           >
-            Logi sisse
+            {isLoggingIn ? <LoadingSpinner size={20} /> : "Logi sisse"}
           </RealButton>
           <Link onClick={closeModal} href="/register">
             <AnimationWrapper variants={animations.smallScaleXs}>
