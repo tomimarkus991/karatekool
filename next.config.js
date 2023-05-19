@@ -3,7 +3,7 @@ module.exports = {
   reactStrictMode: true,
   experimental: {
     appDir: true,
-    // typedRoutes: true,
+    typedRoutes: true,
   },
   typescript: {
     ignoreBuildErrors: true,
