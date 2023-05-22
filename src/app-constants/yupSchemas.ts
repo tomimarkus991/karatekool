@@ -39,10 +39,16 @@ const ApplyToClub = object().shape({
   reason: string().required("Vajalik"),
 });
 
+const UpdateProfile = object().shape({
+  name: string().min(3),
+  avatar: string(),
+});
+
 export const YupSchemas = {
   Login,
   Register,
   ForgotPassword,
   ResetPassword,
   ApplyToClub,
+  UpdateProfile,
 };

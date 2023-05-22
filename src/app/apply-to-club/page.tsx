@@ -46,10 +46,10 @@ export default function Page() {
           onSubmit={async (formData, { setSubmitting }) => {
             setSubmitting(true);
 
-            const { data: whitlistedEmails } = await fetchEmails();
+            const { data: whitelistedEmails } = await fetchEmails();
 
-            for (const whitlistedEmail of whitlistedEmails || []) {
-              if (whitlistedEmail.email === formData.email) {
+            for (const whitelistedEmail of whitelistedEmails || []) {
+              if (whitelistedEmail.email === formData.email) {
                 setIsEmailWhitelisted(true);
               }
             }

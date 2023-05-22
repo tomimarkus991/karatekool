@@ -37,5 +37,5 @@ export const useUser = () => {
     return data;
   };
 
-  return useQuery(["user"], () => fetchUser(), { retry: false });
+  return useQuery(["user"], () => fetchUser());
 };

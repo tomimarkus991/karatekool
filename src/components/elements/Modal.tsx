@@ -17,11 +17,7 @@ export const ModalFooterContainer = ({ children }: { children: ReactNode }) => {
 };
 
 export const ModalTitle = ({ children }: { children: ReactNode }) => {
-  return (
-    <h3 className="text-lg font-medium leading-6 text-center text-gray-700 uppercase">
-      {children}
-    </h3>
-  );
+  return <h3 className="text-xl font-semibold leading-6 text-center text-gray-700">{children}</h3>;
 };
 
 export const ModalSubTitle = ({ children }: { children: ReactNode }) => {
