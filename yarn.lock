@@ -1510,10 +1510,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.11.tgz#b3b790f09cb1696cffcec605de025b088fa4225f"
   integrity sha512-E5Kwq2n4SbMzQOn6wnmBjuK9ouqlURrcZDVfbo9ftDDTFt3nk7ZKK4GMOzoYgnpQJKcxwQw+lGaBvvlMo0qN/Q==
 
-"@types/node@20.2.1":
-  version "20.2.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.2.1.tgz#de559d4b33be9a808fd43372ccee822c70f39704"
-  integrity sha512-DqJociPbZP1lbZ5SQPk4oag6W7AyaGMO6gSfRwq3PWl4PXTwJpRQJhDq4W0kzrg3w6tJ1SwlvGZ5uKFHY13LIg==
+"@types/node@20.2.3":
+  version "20.2.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.2.3.tgz#b31eb300610c3835ac008d690de6f87e28f9b878"
+  integrity sha512-pg9d0yC4rVNWQzX8U7xb4olIOFuuVL9za3bzMT2pu2SU0SNEi66i2qrvhE2qt0HvkhuCaWJu7pLNOt/Pj8BIrw==
 
 "@types/node@^12.7.1":
   version "12.20.55"
@@ -5796,10 +5796,10 @@ sucrase@^3.32.0:
     pirates "^4.0.1"
     ts-interface-checker "^0.1.9"
 
-supabase@>=1.62.3:
-  version "1.62.3"
-  resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.62.3.tgz#8c3d9031b931ee5e46fed7fbb08bad26f2d9be90"
-  integrity sha512-uHW8rGp+mNIoTmELJD2A66iekokp/2iEt5PKpOK+hzqfY8ohgLe2OFxP/d5exAw0rCllxmAfnf1PSt3fVuf/6A==
+supabase@>=1.62.4:
+  version "1.62.4"
+  resolved "https://registry.yarnpkg.com/supabase/-/supabase-1.62.4.tgz#31d16132107d19104000f5fd9fe8057c3d9b9fd8"
+  integrity sha512-Be7nIOQoFiI0qYjYhKS+9/UUA4QKq7kdqmv4KBvOJ5mgOuohE3EuOHJxlDSklhtqInFkKdQUuj/wsmA9xBWg8w==
   dependencies:
     bin-links "^4.0.1"
     node-fetch "^3.2.10"
