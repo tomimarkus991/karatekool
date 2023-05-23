@@ -20,11 +20,7 @@ export const ModalTitle = ({ children }: { children: ReactNode }) => {
   return <h3 className="text-xl font-semibold leading-6 text-center text-gray-700">{children}</h3>;
 };
 
-export const ModalSubTitle = ({ children }: { children: ReactNode }) => {
-  return <h3 className="mt-4 text-lg font-medium leading-6 text-left text-gray-600">{children}</h3>;
-};
-
-export const ModalHeaderContainer = ({ children }: { children: ReactNode }) => {
+const ModalHeaderContainer = ({ children }: { children: ReactNode }) => {
   return <div className="flex flex-row items-center justify-between w-full p-4">{children}</div>;
 };
 
@@ -51,7 +47,7 @@ export const ModalHeader = ({ children, setOpen, type }: ModalHeaderProps) => {
       {type === "close" ? (
         <div role="button" tabIndex={0} onClick={() => setOpen(false)}>
           <AnimationWrapper key="modal-header-x-icon" variants={animations.rotate360}>
-            <HiX className="w-8 h-8 fill-slate-700 hover:fill-slate-800" />
+            <HiX className="w-8 h-8 fill-stone-700 hover:fill-stone-800" />
           </AnimationWrapper>
         </div>
       ) : (

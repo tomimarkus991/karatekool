@@ -1,16 +1,24 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { useState } from "react";
 import { HiLogout, HiX } from "react-icons/hi";
 
-import { AnimationWrapper, animations, LoginModal, RegisterModal } from "@/components";
+import {
+  AnimationWrapper,
+  animations,
+  LoginModal,
+  RegisterModal,
+  Modal,
+  ModalHeader,
+} from "@/components";
 import { Icons } from "@/components/icons/Icons";
 import { routes } from "@/config";
 import { useSidebar } from "@/context";
 import { useSignOut, useUser } from "@/hooks";
 
 import { LoadingSpinner } from "../LoadingSpinner";
+import { UpdateProfileForm } from "../user/UpdateProfile";
 
 import { SidebarLink } from ".";
 
@@ -18,6 +26,7 @@ export const MobileSidebarContent = () => {
   const { data: user } = useUser();
   const { mutate: signOut, isLoading: isSigningOut } = useSignOut();
   const { setSidebarState } = useSidebar();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
@@ -44,25 +53,42 @@ export const MobileSidebarContent = () => {
       <div className="flex flex-col">
         {user ? (
           <div className="flex flex-col mt-4">
-            <Link href="/profiil" onClick={() => setSidebarState("closed")}>
-              <AnimationWrapper variants={animations.buttonMobile} animateOnMobile>
-                <div className="flex flex-row mb-5 ml-4">
-                  <Image
-                    width="0"
-                    height="0"
-                    className="w-12 h-12 mr-4"
-                    alt="user"
-                    src={`/avatars/${user?.avatar}`}
-                  />
-                  <div className="flex flex-col justify-center">
-                    <p className="font-semibold mb-0 text-lg text-[#636363]">{user?.username}</p>
-                    {user?.role === "admin" && (
-                      <p className="text-sm text-[#b4b4b4]">Roll: {user?.role}</p>
-                    )}
+            <Modal
+              open={isModalOpen}
+              setOpen={setIsModalOpen}
+              maxWidth="sm"
+              modalButton={
+                <AnimationWrapper
+                  variants={animations.buttonMobile}
+                  animateOnMobile
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  <div className="flex flex-row mb-5 ml-4">
+                    <Image
+                      width="0"
+                      height="0"
+                      className="w-12 h-12 mr-4"
+                      alt="user"
+                      src={`/avatars/${user?.avatar}`}
+                    />
+                    <div className="flex flex-col justify-center">
+                      <p className="font-semibold mb-0 text-lg text-[#636363]">{user?.username}</p>
+                      {user?.role === "admin" && (
+                        <p className="text-sm text-[#b4b4b4]">Roll: {user?.role}</p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </AnimationWrapper>
-            </Link>
+                </AnimationWrapper>
+              }
+            >
+              <ModalHeader setOpen={setIsModalOpen} type="close">
+                Muuda profiili
+              </ModalHeader>
+              <div className="py-6">
+                <UpdateProfileForm />
+              </div>
+            </Modal>
+
             {isSigningOut ? (
               <div className="flex items-center justify-center">
                 <LoadingSpinner />
