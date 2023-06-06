@@ -77,9 +77,13 @@ export const UserProfile = ({ avatar, username, role }: Props) => {
             </div>
           </Modal>
 
-          <AnimationWrapper variants={animations.buttonGhost} className="cursor-pointer">
+          <AnimationWrapper
+            variants={animations.buttonGhost}
+            className="cursor-pointer"
+            onClick={() => signOut()}
+          >
             <div className="flex items-center justify-start py-2 pl-4 rounded-lg hover:bg-gray-100">
-              <button onClick={() => signOut()} className="flex flex-row items-center">
+              <button className="flex flex-row items-center">
                 <HiLogout className="w-4 h-4 ml-4 mr-8 fill-[#b4b4b4]" />
                 <p className="text-sm text-semibold text-[#818181]">Logi välja</p>
               </button>
