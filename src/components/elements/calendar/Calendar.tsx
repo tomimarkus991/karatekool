@@ -14,6 +14,7 @@ import {
   subMonths,
 } from "date-fns";
 import { motion, AnimatePresence, MotionConfig, Variants } from "framer-motion";
+import Link from "next/link";
 import { useState, useEffect, useRef, Dispatch, SetStateAction } from "react";
 import { HiChevronLeft, HiChevronRight, HiDotsVertical } from "react-icons/hi";
 import { IconType } from "react-icons/lib";
@@ -25,12 +26,13 @@ import {
   AnimationWrapper,
   CalendarDate,
   CalendarFilterButtons,
+  RealButton,
   ResizablePanel,
   animations,
   calendarUtils,
 } from "@/components";
 import { useCalendarFilters } from "@/context";
-import { useGetCurrentMonthEvents, useIsMobile } from "@/hooks";
+import { useGetCurrentMonthEvents, useIsMobile, useUser } from "@/hooks";
 
 import { LetterDecryptor } from "../LetterDecryptor";
 import { Popover, PopoverContent, PopoverTrigger } from "../Popover";
@@ -172,6 +174,7 @@ export const Calendar = () => {
   const [currentMonthString, setCurrentMonthString] = useState(
     format(new Date(), currentMonthType)
   );
+  const { data: user } = useUser();
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const calendarRef = useRef(null!);
@@ -231,37 +234,53 @@ export const Calendar = () => {
       <div className="relative overflow-hidden bg-white select-none rounded-2xl">
         <div className="pt-8">
           <div className="flex flex-col justify-center text-center rounded">
-            <div className="flex justify-between mx-4 mb-6">
-              <h1 className="flex justify-start text-xl font-semibold">
-                <LetterDecryptor>Treeninggraafikud</LetterDecryptor>
-              </h1>
-              <Popover>
-                <PopoverTrigger>
-                  <AnimationWrapper variants={animations.smallScale}>
-                    <HiDotsVertical className="w-6 h-6 fill-[#b4b4b4] cursor-pointer" />
-                  </AnimationWrapper>
-                </PopoverTrigger>
-                <PopoverContent>
-                  <div className="flex flex-col w-40">
-                    <CalendarView
-                      onClick={() => setCalendarType("Day")}
-                      type="Day"
-                      Icon={MdOutlineViewDay}
-                    />
-                    <CalendarView
-                      onClick={() => setCalendarType("Week")}
-                      type="Week"
-                      Icon={MdOutlineViewWeek}
-                    />
-                    <CalendarView
-                      onClick={() => setCalendarType("Month")}
-                      type="Month"
-                      Icon={MdOutlineCalendarViewMonth}
-                    />
-                  </div>
-                </PopoverContent>
-              </Popover>
+            <div className="flex items-center justify-between mx-4 mb-2 xs2:mb-6">
+              <h1 className="flex justify-start text-xl font-semibold">Treeninggraafikud</h1>
+              <div className="flex">
+                {user?.role === "admin" && (
+                  <Link href="/loo-trenn" className="hidden mr-4 xs2:block">
+                    <RealButton className="px-6" variant="orange">
+                      Loo trenn
+                    </RealButton>
+                  </Link>
+                )}
+                <Popover>
+                  <PopoverTrigger>
+                    <AnimationWrapper variants={animations.smallScale}>
+                      <HiDotsVertical className="w-6 h-6 fill-[#b4b4b4] cursor-pointer" />
+                    </AnimationWrapper>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <div className="flex flex-col w-40">
+                      <CalendarView
+                        onClick={() => setCalendarType("Day")}
+                        type="Day"
+                        Icon={MdOutlineViewDay}
+                      />
+                      <CalendarView
+                        onClick={() => setCalendarType("Week")}
+                        type="Week"
+                        Icon={MdOutlineViewWeek}
+                      />
+                      <CalendarView
+                        onClick={() => setCalendarType("Month")}
+                        type="Month"
+                        Icon={MdOutlineCalendarViewMonth}
+                      />
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
             </div>
+
+            {user?.role === "admin" && (
+              <Link href="/loo-trenn" className="mb-3 xs2:hidden">
+                <RealButton className="px-6" variant="orange">
+                  Loo trenn
+                </RealButton>
+              </Link>
+            )}
+
             <CalendarFilterButtons downloadScreenshot={downloadScreenshot} />
             <div ref={calendarRef}>
               <ResizablePanel>
