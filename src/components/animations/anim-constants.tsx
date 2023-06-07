@@ -310,6 +310,31 @@ const mobile = (placement: SidebarPlacementType) => {
   } as Variants;
 };
 
+const header: Variants = {
+  enter: (direction: number) => {
+    return { x: `${30 * direction}%`, opacity: 0 };
+  },
+  middle: { x: "0%", opacity: 1 },
+  exit: (direction: number) => {
+    return { x: `${-30 * direction}%`, opacity: 0 };
+  },
+};
+
+const view: Variants = {
+  enter: (direction: number) => {
+    return { x: `${10 * direction}%`, opacity: 0, transition: { opacity: { duration: 0.5 } } };
+  },
+  middle: { x: "0%", opacity: 1 },
+  exit: (direction: number) => {
+    return { x: `${-10 * direction}%`, opacity: 0 };
+  },
+};
+
+const calendar = {
+  header,
+  view,
+};
+
 const sidebar = {
   content,
   mobile,
@@ -334,4 +359,5 @@ export const animations = {
   buttonGhost,
   sidebar,
   accordionHeader,
+  calendar,
 };

@@ -1,30 +1,16 @@
 "use client";
 
-import clsx from "clsx";
-import {
-  addMonths,
-  eachDayOfInterval,
-  eachWeekOfInterval,
-  endOfMonth,
-  endOfWeek,
-  format,
-  formatISO9075,
-  parse,
-  startOfWeek,
-  subMonths,
-} from "date-fns";
-import { motion, AnimatePresence, MotionConfig, Variants } from "framer-motion";
+import { endOfMonth, endOfWeek, format, formatISO9075, parse, startOfWeek } from "date-fns";
+import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import Link from "next/link";
-import { useState, useEffect, useRef, Dispatch, SetStateAction } from "react";
-import { HiChevronLeft, HiChevronRight, HiDotsVertical } from "react-icons/hi";
+import { useEffect, useRef, useState } from "react";
+import { HiDotsVertical } from "react-icons/hi";
 import { IconType } from "react-icons/lib";
-import { MdOutlineViewDay, MdOutlineCalendarViewMonth, MdOutlineViewWeek } from "react-icons/md";
-import { useScreenshot, createFileName } from "use-react-screenshot";
+import { MdOutlineCalendarViewMonth, MdOutlineViewDay, MdOutlineViewWeek } from "react-icons/md";
+import { createFileName, useScreenshot } from "use-react-screenshot";
 
-import { days } from "@/app-constants";
 import {
   AnimationWrapper,
-  CalendarDate,
   CalendarFilterButtons,
   RealButton,
   ResizablePanel,
@@ -36,6 +22,9 @@ import { useGetCurrentMonthEvents, useIsMobile, useUser } from "@/hooks";
 
 import { LetterDecryptor } from "../LetterDecryptor";
 import { Popover, PopoverContent, PopoverTrigger } from "../Popover";
+
+import { CalendarDayView, CalendarMonthView, CalendarWeekView } from "./calendar-views";
+
 interface CalendarViewProps {
   type: "Day" | "Week" | "Month";
   onClick: () => void;
@@ -59,113 +48,8 @@ const CalendarView = ({ type, onClick, Icon }: CalendarViewProps) => {
   );
 };
 
-const variantsHeader: Variants = {
-  enter: (direction: number) => {
-    return { x: `${30 * direction}%`, opacity: 0 };
-  },
-  middle: { x: "0%", opacity: 1 },
-  exit: (direction: number) => {
-    return { x: `${-30 * direction}%`, opacity: 0 };
-  },
-};
-
-interface CalendarMonthPickerProps {
-  setDirection: Dispatch<SetStateAction<number | undefined>>;
-  setCurrentMonthString: Dispatch<SetStateAction<string>>;
-  setIsAnimating: Dispatch<SetStateAction<boolean>>;
-  isAnimating: boolean;
-  currentMonthString: string;
-  firstDayOfCurrentMonth: Date;
-  direction: number | undefined;
-}
-
-const CalendarMonthPicker = ({
-  setCurrentMonthString,
-  setDirection,
-  setIsAnimating,
-  isAnimating,
-  currentMonthString,
-  firstDayOfCurrentMonth,
-  direction,
-}: CalendarMonthPickerProps) => {
-  const { currentMonthType, removeImmediately } = calendarUtils;
-
-  const previousMonth = () => {
-    if (isAnimating) return;
-
-    setDirection(-1);
-    setIsAnimating(true);
-
-    const previous = subMonths(firstDayOfCurrentMonth, 1);
-    setCurrentMonthString(format(previous, currentMonthType));
-  };
-
-  const nextMonth = () => {
-    if (isAnimating) return;
-
-    setDirection(1);
-    setIsAnimating(true);
-
-    const next = addMonths(firstDayOfCurrentMonth, 1);
-    setCurrentMonthString(format(next, currentMonthType));
-  };
-
-  // splice first letter, make it uppercase and then add the rest of the string
-  const beautifulCurrentMonth =
-    currentMonthString.slice(0, 1).toUpperCase() + currentMonthString.slice(1);
-
-  return (
-    <div className="flex items-center justify-center">
-      <header className="relative my-6 flex justify-between items-center max-w-fit min-w-[18rem]">
-        <motion.button
-          variants={removeImmediately}
-          className={clsx("z-10 rounded-full cursor-pointer")}
-          onClick={previousMonth}
-        >
-          <AnimationWrapper variants={animations.smallScale}>
-            <HiChevronLeft className="w-6 h-6 text-gray-600" />
-          </AnimationWrapper>
-        </motion.button>
-        <motion.p
-          variants={variantsHeader}
-          custom={direction}
-          className="min-w-[8rem] absolute inset-0 flex items-center justify-center font-semibold text-lg"
-        >
-          <p>{beautifulCurrentMonth}</p>
-        </motion.p>
-        <motion.button
-          variants={removeImmediately}
-          className={clsx("z-10 rounded-full cursor-pointer")}
-          onClick={nextMonth}
-        >
-          <AnimationWrapper variants={animations.smallScale}>
-            <HiChevronRight className="w-6 h-6 text-gray-600" />
-          </AnimationWrapper>
-        </motion.button>
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, white 20%, transparent 30%, transparent 70%, white 80%)",
-          }}
-        />
-      </header>
-    </div>
-  );
-};
-
-const variants: Variants = {
-  enter: (direction: number) => {
-    return { x: `${10 * direction}%`, opacity: 0, transition: { opacity: { duration: 0.5 } } };
-  },
-  middle: { x: "0%", opacity: 1 },
-  exit: (direction: number) => {
-    return { x: `${-10 * direction}%`, opacity: 0 };
-  },
-};
-
 export const Calendar = () => {
-  const { currentMonthType, removeImmediately } = calendarUtils;
+  const { currentMonthType } = calendarUtils;
   const { isMobile } = useIsMobile();
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState<number>();
@@ -201,8 +85,6 @@ export const Calendar = () => {
     return download(data);
   };
 
-  const month = parse(currentMonthString, currentMonthType, new Date());
-
   const firstDayOfCurrentMonth = parse(currentMonthString, currentMonthType, new Date());
   const firstDayOfCalendarMonth = startOfWeek(firstDayOfCurrentMonth);
   const lastDayOfCalendarMonth = endOfWeek(endOfMonth(firstDayOfCurrentMonth));
@@ -215,11 +97,6 @@ export const Calendar = () => {
     formatISO9075(firstDayOfCalendarMonth),
     formatISO9075(lastDayOfCalendarMonth)
   );
-
-  const weeks = eachWeekOfInterval({
-    start: firstDayOfCalendarMonth,
-    end: lastDayOfCalendarMonth,
-  });
 
   useEffect(() => {
     fetchEvents();
@@ -235,7 +112,9 @@ export const Calendar = () => {
         <div className="pt-8">
           <div className="flex flex-col justify-center text-center rounded">
             <div className="flex items-center justify-between mx-4 mb-2 xs2:mb-6">
-              <h1 className="flex justify-start text-xl font-semibold">Treeninggraafikud</h1>
+              <h1 className="flex justify-start text-xl font-semibold">
+                <LetterDecryptor>Treeninggraafikud</LetterDecryptor>
+              </h1>
               <div className="flex">
                 {user?.role === "admin" && (
                   <Link href="/loo-trenn" className="hidden mr-4 xs2:block">
@@ -302,80 +181,22 @@ export const Calendar = () => {
                     animate="middle"
                     exit="exit"
                   >
-                    {calendarType === "Day" && (
-                      <div className="py-5">
-                        <p>päev</p>
-                      </div>
-                    )}
-                    {calendarType === "Week" && (
-                      <div className="py-5">
-                        <p>nädal</p>
-                      </div>
-                    )}
+                    {calendarType === "Day" && <CalendarDayView />}
+                    {calendarType === "Week" && <CalendarWeekView />}
                     {calendarType === "Month" && (
-                      <>
-                        <CalendarMonthPicker
-                          setCurrentMonthString={setCurrentMonthString}
-                          setDirection={setDirection}
-                          setIsAnimating={setIsAnimating}
-                          isAnimating={isAnimating}
-                          direction={direction}
-                          currentMonthString={currentMonthString}
-                          firstDayOfCurrentMonth={firstDayOfCurrentMonth}
-                        />
-                        <motion.div
-                          variants={removeImmediately}
-                          className="grid grid-cols-7 font-semibold font-catamaran"
-                        >
-                          {isMobile ? (
-                            <>
-                              {days.short.map(day => (
-                                <div key={day} className="flex justify-center">
-                                  <p className="text-stone-500">{day}</p>
-                                </div>
-                              ))}
-                            </>
-                          ) : (
-                            <>
-                              {days.long.map(day => (
-                                <div key={day} className="flex justify-center">
-                                  <p className="text-stone-500">{day}</p>
-                                </div>
-                              ))}
-                            </>
-                          )}
-                        </motion.div>
-                        <motion.div variants={variants} custom={direction}>
-                          <div className="grid grid-rows-5">
-                            {weeks.map(week => {
-                              const daysForWeek = eachDayOfInterval({
-                                start: startOfWeek(week),
-                                end: endOfWeek(week),
-                              });
-                              return (
-                                <div
-                                  id="week"
-                                  key={week.toISOString()}
-                                  className="grid h-32 grid-cols-7 border-t first:border-t-0 last:border-b-0 border-stone-100"
-                                >
-                                  {daysForWeek.map(day => {
-                                    return (
-                                      <CalendarDate
-                                        key={day.toISOString()}
-                                        events={events}
-                                        date={day}
-                                        month={month}
-                                        isFetched={isFetched}
-                                        isAnimating={isAnimating}
-                                      />
-                                    );
-                                  })}
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </motion.div>
-                      </>
+                      <CalendarMonthView
+                        setCurrentMonthString={setCurrentMonthString}
+                        setDirection={setDirection}
+                        setIsAnimating={setIsAnimating}
+                        isAnimating={isAnimating}
+                        direction={direction}
+                        currentMonthString={currentMonthString}
+                        firstDayOfCurrentMonth={firstDayOfCurrentMonth}
+                        isFetched={isFetched}
+                        firstDayOfCalendarMonth={firstDayOfCalendarMonth}
+                        lastDayOfCalendarMonth={lastDayOfCalendarMonth}
+                        events={events}
+                      />
                     )}
                   </motion.div>
                 </AnimatePresence>
