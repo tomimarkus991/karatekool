@@ -181,7 +181,16 @@ export const Calendar = () => {
                     animate="middle"
                     exit="exit"
                   >
-                    {calendarType === "Day" && <CalendarDayView />}
+                    {calendarType === "Day" && (
+                      <CalendarDayView
+                        setCurrentMonthString={setCurrentMonthString}
+                        setDirection={setDirection}
+                        setIsAnimating={setIsAnimating}
+                        isAnimating={isAnimating}
+                        direction={direction}
+                        currentMonthString={currentMonthString}
+                      />
+                    )}
                     {calendarType === "Week" && <CalendarWeekView />}
                     {calendarType === "Month" && (
                       <CalendarMonthView
