@@ -5,8 +5,10 @@ import { Fragment } from "react";
 
 import { Icons } from "@/components/icons/Icons";
 
+import { LetterDecryptor } from "../../components/elements/LetterDecryptor";
+
 interface ContactHeadingProps {
-  children: React.ReactNode;
+  children: string;
 }
 
 export const ContactHeading = ({ children }: ContactHeadingProps) => {
@@ -19,7 +21,7 @@ export const ContactHeading = ({ children }: ContactHeadingProps) => {
 const ContactAddressHeading = ({ children }: ContactHeadingProps) => {
   return (
     <p className="self-start text-[#393939] text-lg md:text-2xl lg:text-3xl font-semibold md:self-center">
-      {children}
+      <LetterDecryptor time={400}>{children}</LetterDecryptor>
     </p>
   );
 };

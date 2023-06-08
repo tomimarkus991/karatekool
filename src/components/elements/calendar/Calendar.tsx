@@ -30,6 +30,8 @@ import {
 import { useCalendarFilters } from "@/context";
 import { useGetCurrentMonthEvents, useIsMobile } from "@/hooks";
 
+import { LetterDecryptor } from "../LetterDecryptor";
+
 const variants: Variants = {
   enter: (direction: number) => {
     return { x: `${10 * direction}%`, opacity: 0, transition: { opacity: { duration: 0.5 } } };
@@ -140,7 +142,7 @@ export const Calendar = () => {
         <div className="pt-8">
           <div className="flex flex-col justify-center text-center rounded">
             <h1 className="flex justify-start mb-6 ml-4 text-xl font-semibold">
-              Treeninggraafikud
+              <LetterDecryptor>Treeninggraafikud</LetterDecryptor>
             </h1>
             <CalendarFilterButtons downloadScreenshot={downloadScreenshot} />
             <div ref={calendarRef}>
