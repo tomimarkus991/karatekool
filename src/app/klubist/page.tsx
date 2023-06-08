@@ -7,6 +7,8 @@ import { Fragment } from "react";
 
 import { RealDiamondButton, ResizablePanel } from "@/components";
 
+import { LetterDecryptor } from "../../components/elements/LetterDecryptor";
+
 import { AboutPanel } from "./AboutPanel";
 
 export default function Page() {
@@ -24,11 +26,14 @@ export default function Page() {
       </>
     );
   };
+  const time = 400;
 
   return (
     <div className="max-w-4xl m-auto">
       <div className="mb-5">
-        <h1 className="mb-3 text-xl font-semibold">Nüke klubist</h1>
+        <h1 className="mb-3 text-xl font-semibold">
+          <LetterDecryptor>Nüke klubist</LetterDecryptor>
+        </h1>
         <p className="mb-2 text-base font-light md:text-lg">
           Nükes õpetatakse Shotokan karated. Õppe-ja treeningtegevus, kus omandatakse karate ja
           spordialaseid põhiväärtusi, on väga mitmekesine, mahutades nii karate kui spordi
@@ -44,7 +49,9 @@ export default function Page() {
           elumaneeri kohaselt.
         </p>
       </div>
-      <h1 className="mb-3 text-xl font-semibold">Nüke treener</h1>
+      <h1 className="mb-3 text-xl font-semibold">
+        <LetterDecryptor>Nüke treener</LetterDecryptor>
+      </h1>
       <div className="flex flex-col items-center justify-center md:flex-row">
         <div className="relative aspect-[1/1] w-60 h-60 md:w-80 md:h-80 object-cover">
           <Image
@@ -136,7 +143,9 @@ export default function Page() {
           <Tab.Panels as={ResizablePanel} duration={0.5}>
             <AboutPanel id="visioon">
               <div>
-                <p className="mb-2 text-xl font-semibold">Visioon</p>
+                <p className="mb-2 text-xl font-semibold">
+                  <LetterDecryptor time={time}>Visioon</LetterDecryptor>
+                </p>
                 <p>
                   Karate-do klubi Nüke visiooniks on karate-do kui spordi-, iseloomu- ja
                   väärtuspõhise kasvatussüsteemi propageerimine ja õpetamine.
@@ -145,7 +154,9 @@ export default function Page() {
             </AboutPanel>
             <AboutPanel id="missioon">
               <div>
-                <p className="mb-2 text-xl font-semibold">Missioon</p>
+                <p className="mb-2 text-xl font-semibold">
+                  <LetterDecryptor time={time}>Missioon</LetterDecryptor>
+                </p>
                 <p>
                   Karate-do klubi Nüke missioon on targa, heasoovliku, tugeva tahte ja iseloomuga
                   ning aktiivse ja sportliku eluhoiakuga inimese kasvatamine karate-do ja laiemalt
@@ -155,7 +166,9 @@ export default function Page() {
             </AboutPanel>
             <AboutPanel id="eesmargid">
               <div>
-                <p className="mb-2 text-xl font-semibold">Eesmärgid</p>
+                <p className="mb-2 text-xl font-semibold">
+                  <LetterDecryptor time={time}>Eesmärgid</LetterDecryptor>
+                </p>
                 <ul className="ml-8 list-disc">
                   <li>
                     luua tingimused süvendatud karate- ja spordialaseks eneseteostamiseks ja õppeks
@@ -176,7 +189,9 @@ export default function Page() {
             </AboutPanel>
             <AboutPanel id="ajaloost">
               <div>
-                <p className="mb-2 text-xl font-semibold">Ajaloost</p>
+                <p className="mb-2 text-xl font-semibold">
+                  <LetterDecryptor time={time}>Ajaloost</LetterDecryptor>
+                </p>
                 <p>
                   Karate-do klubi Nüke on Eesti kõige pikema traditsiooniga karateklubi. Nüke loodi
                   1978. aastal.
