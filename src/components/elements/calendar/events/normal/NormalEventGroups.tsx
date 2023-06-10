@@ -1,27 +1,33 @@
 import clsx from "clsx";
 
-import { groupColorMapper } from "@/lib";
+import { cn, groupColorMapper } from "@/lib";
 import { SGroup, SHighLightedGroup } from "@/types";
 
 interface MapGroupLetterProps {
   groups: SGroup[];
   overflowX: boolean;
+  dayView?: boolean;
 }
 
-const className = () =>
-  clsx(
+const className = (dayView: boolean) =>
+  cn(
     "font-number font-semibold",
-    "text-[0.6rem] ml-[0.05rem] xs:ml-[0.1rem] xs:text-xs sm:text-sm md:text-base sm:ml-[0.15rem]"
+    dayView
+      ? "text-lg"
+      : "text-[0.6rem] ml-[0.05rem] xs:ml-[0.1rem] xs:text-xs sm:text-sm md:text-base sm:ml-[0.15rem]"
   );
 // const className = (overflowX: boolean) =>
 //   clsx("font-quicksand font-semibold", overflowX ? "text-base ml-[0.1rem]" : "text-lg ml-1");
 
-export const MapGroupLetter = ({ groups }: MapGroupLetterProps) => {
+export const MapGroupLetter = ({ groups, dayView = false }: MapGroupLetterProps) => {
   return (
     <>
       {groups.map(group => {
         return (
-          <p className={clsx(groupColorMapper(group?.letter), className())} key={group?.letter}>
+          <p
+            className={clsx(groupColorMapper(group?.letter), className(dayView))}
+            key={group?.letter}
+          >
             {group?.letter}
           </p>
         );
@@ -33,10 +39,12 @@ export const MapGroupLetter = ({ groups }: MapGroupLetterProps) => {
 interface MapHighlightedGroupLetterProps {
   highlightedGroups: SHighLightedGroup[];
   overflowX: boolean;
+  dayView?: boolean;
 }
 
 export const MapHighLightedGroupLetter = ({
   highlightedGroups,
+  dayView = false,
 }: MapHighlightedGroupLetterProps) => {
   return (
     <>
@@ -47,7 +55,7 @@ export const MapHighLightedGroupLetter = ({
               className={clsx(
                 "underline decoration-red-500",
                 groupColorMapper(highlightedGroup?.letter),
-                className()
+                className(dayView)
               )}
             >
               {highlightedGroup?.letter}

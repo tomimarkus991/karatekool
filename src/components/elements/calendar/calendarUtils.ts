@@ -4,8 +4,10 @@ const removeImmediately: Variants = {
   exit: { visibility: "hidden" },
 };
 const currentMonthType = "MMMM yyyy";
+const currentDayType = "MMMM d";
 
 export const calendarUtils = {
   removeImmediately,
   currentMonthType,
+  currentDayType,
 };

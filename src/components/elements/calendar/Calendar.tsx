@@ -47,7 +47,7 @@ const CalendarView = ({ type, onClick, Icon }: CalendarViewProps) => {
 };
 
 export const Calendar = () => {
-  const { currentMonthType } = calendarUtils;
+  const { currentMonthType, currentDayType } = calendarUtils;
   const { isMobile } = useIsMobile();
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState<number>();
@@ -56,12 +56,15 @@ export const Calendar = () => {
   const [currentMonthString, setCurrentMonthString] = useState(
     format(new Date(), currentMonthType)
   );
+  const [currentDayString, setCurrentDayString] = useState(format(new Date(), currentDayType));
   const { data: user } = useUser();
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const calendarRef = useRef(null!);
 
   const firstDayOfCurrentMonth = parse(currentMonthString, currentMonthType, new Date());
+  const currentDay = parse(currentDayString, currentDayType, new Date());
+
   const firstDayOfCalendarMonth = startOfWeek(firstDayOfCurrentMonth);
   const lastDayOfCalendarMonth = endOfWeek(endOfMonth(firstDayOfCurrentMonth));
 
@@ -150,39 +153,59 @@ export const Calendar = () => {
                     setIsAnimating(false);
                     // setTimeout(() => {
                     // }, 100);
-                    fetchEvents();
+                    // only fetch events if the current month is different from the previous one
+
+                    if (
+                      currentMonthString.split(" ")[0] !==
+                      format(new Date(), currentMonthType).split(" ")[0]
+                    ) {
+                      fetchEvents();
+                    }
                   }}
                 >
                   <motion.div
-                    id="calendar"
-                    key={currentMonthString}
+                    id="calendarDay"
+                    key={currentDayString}
                     initial="enter"
                     animate="middle"
                     exit="exit"
                   >
                     {calendarType === "Day" && (
                       <CalendarDayView
-                        setCurrentMonthString={setCurrentMonthString}
-                        setDirection={setDirection}
-                        setIsAnimating={setIsAnimating}
-                        isAnimating={isAnimating}
-                        direction={direction}
+                        currentDayString={currentDayString}
+                        setCurrentDayString={setCurrentDayString}
+                        currentDay={currentDay}
                         currentMonthString={currentMonthString}
+                        setCurrentMonthString={setCurrentMonthString}
+                        direction={direction}
+                        setDirection={setDirection}
+                        isAnimating={isAnimating}
+                        setIsAnimating={setIsAnimating}
+                        events={events}
+                        fetchEvents={fetchEvents}
                       />
                     )}
-                    {calendarType === "Week" && <CalendarWeekView />}
+                  </motion.div>
+                  {calendarType === "Week" && <CalendarWeekView />}
+                  <motion.div
+                    id="calendarMonth"
+                    key={currentMonthString}
+                    initial="enter"
+                    animate="middle"
+                    exit="exit"
+                  >
                     {calendarType === "Month" && (
                       <CalendarMonthView
-                        setCurrentMonthString={setCurrentMonthString}
-                        setDirection={setDirection}
-                        setIsAnimating={setIsAnimating}
-                        isAnimating={isAnimating}
-                        direction={direction}
                         currentMonthString={currentMonthString}
+                        setCurrentMonthString={setCurrentMonthString}
+                        direction={direction}
+                        setDirection={setDirection}
+                        isAnimating={isAnimating}
+                        setIsAnimating={setIsAnimating}
                         firstDayOfCurrentMonth={firstDayOfCurrentMonth}
-                        isFetched={isFetched}
                         firstDayOfCalendarMonth={firstDayOfCalendarMonth}
                         lastDayOfCalendarMonth={lastDayOfCalendarMonth}
+                        isFetched={isFetched}
                         events={events}
                       />
                     )}
