@@ -1,22 +1,28 @@
-import { HiDownload } from "react-icons/hi";
+import { MutableRefObject } from "react";
+import { TbBoxMultiple8 } from "react-icons/tb";
 
 import { RealButton } from "@/components";
 import { useCalendarFilters } from "@/context";
 import { buttonVariantMapper, groupLetters } from "@/lib";
 
+import { useUser } from "../../../hooks";
+
+import { DownloadCalendar } from "./DownloadCalendar";
+
 interface Props {
-  downloadScreenshot: () => void;
+  currentMonthString: string;
+  calendarRef: MutableRefObject<never>;
 }
 
-export const CalendarFilterButtons = ({ downloadScreenshot }: Props) => {
+export const CalendarFilterButtons = ({ currentMonthString, calendarRef }: Props) => {
   const { setLetter } = useCalendarFilters();
+  const { data: user } = useUser();
   return (
-    <div className="grid justify-center grid-cols-4 gap-2 max-w-[340px] m-auto xs2:flex xs2:justify-start xs2:max-w-none xs2:m-0 xs2:ml-4">
+    <div className="grid justify-center grid-cols-5 gap-2 max-w-[14rem] m-auto sm:flex sm:justify-start sm:max-w-none sm:m-0 sm:ml-4">
       {groupLetters.map(letter => {
         return (
           <RealButton
             key={letter}
-            className="active:translate-y-[0.2rem] active:duration-75"
             variant={buttonVariantMapper(letter)}
             size="oneLetter"
             focus={true}
@@ -26,9 +32,19 @@ export const CalendarFilterButtons = ({ downloadScreenshot }: Props) => {
           </RealButton>
         );
       })}
-      <RealButton size="icon" onClick={downloadScreenshot}>
-        <HiDownload className="w-5 h-5 text-white" />
-      </RealButton>
+
+      <DownloadCalendar calendarRef={calendarRef} currentMonthString={currentMonthString} />
+
+      {user && (
+        <RealButton
+          onClick={() => setLetter("all")}
+          size="icon"
+          className="px-0 sm:px-3"
+          variant="light"
+        >
+          <TbBoxMultiple8 className="w-6 h-6 text-stone-800" />
+        </RealButton>
+      )}
       {/* <RealButton size="sm" onClick={() => setLetter("all")}>
         All
       </RealButton>

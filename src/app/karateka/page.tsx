@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-
 import { Calendar, LoginModal, RegisterModal } from "@/components";
 import { useUser } from "@/hooks";
 
@@ -26,11 +24,7 @@ export default function Page() {
           </div>
         )}
       </div>
-      {user?.role === "admin" && (
-        <Link href="loo-trenn">
-          <p className="text-lg font-semibold">Loo trenn</p>
-        </Link>
-      )}
+
       <Calendar />
     </div>
   );
