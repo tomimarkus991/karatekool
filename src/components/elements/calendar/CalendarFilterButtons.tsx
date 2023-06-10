@@ -1,4 +1,4 @@
-import { HiDownload } from "react-icons/hi";
+import { MutableRefObject } from "react";
 import { TbBoxMultiple8 } from "react-icons/tb";
 
 import { RealButton } from "@/components";
@@ -7,11 +7,14 @@ import { buttonVariantMapper, groupLetters } from "@/lib";
 
 import { useUser } from "../../../hooks";
 
+import { DownloadCalendar } from "./DownloadCalendar";
+
 interface Props {
-  downloadScreenshot: () => void;
+  currentMonthString: string;
+  calendarRef: MutableRefObject<never>;
 }
 
-export const CalendarFilterButtons = ({ downloadScreenshot }: Props) => {
+export const CalendarFilterButtons = ({ currentMonthString, calendarRef }: Props) => {
   const { setLetter } = useCalendarFilters();
   const { data: user } = useUser();
   return (
@@ -29,9 +32,9 @@ export const CalendarFilterButtons = ({ downloadScreenshot }: Props) => {
           </RealButton>
         );
       })}
-      <RealButton size="icon" className="px-0 sm:px-3" onClick={downloadScreenshot}>
-        <HiDownload className="w-6 h-6 text-white" />
-      </RealButton>
+
+      <DownloadCalendar calendarRef={calendarRef} currentMonthString={currentMonthString} />
+
       {user && (
         <RealButton
           onClick={() => setLetter("all")}

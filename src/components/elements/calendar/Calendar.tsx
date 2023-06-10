@@ -7,7 +7,6 @@ import { useEffect, useRef, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { IconType } from "react-icons/lib";
 import { MdOutlineCalendarViewMonth, MdOutlineViewDay, MdOutlineViewWeek } from "react-icons/md";
-import { createFileName, useScreenshot } from "use-react-screenshot";
 
 import {
   AnimationWrapper,
@@ -17,7 +16,6 @@ import {
   animations,
   calendarUtils,
 } from "@/components";
-import { useCalendarFilters } from "@/context";
 import { useGetCurrentMonthEvents, useIsMobile, useUser } from "@/hooks";
 
 import { LetterDecryptor } from "../LetterDecryptor";
@@ -53,7 +51,7 @@ export const Calendar = () => {
   const { isMobile } = useIsMobile();
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState<number>();
-  const { letter } = useCalendarFilters();
+
   const [calendarType, setCalendarType] = useState<"Day" | "Week" | "Month">("Month");
   const [currentMonthString, setCurrentMonthString] = useState(
     format(new Date(), currentMonthType)
@@ -62,28 +60,6 @@ export const Calendar = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const calendarRef = useRef(null!);
-
-  const [, takeScreenShot] = useScreenshot({
-    type: "image/png",
-    quality: 1.0,
-  });
-
-  const download = (picture: any) => {
-    if (typeof window !== "undefined") {
-      const a = document.createElement("a");
-      a.href = picture;
-      a.download = createFileName(
-        "png",
-        `kalender-${letter}-${currentMonthString.replaceAll(" ", "-")}`
-      );
-      a.click();
-    }
-  };
-
-  const downloadScreenshot = async () => {
-    const data = await takeScreenShot(calendarRef.current);
-    return download(data);
-  };
 
   const firstDayOfCurrentMonth = parse(currentMonthString, currentMonthType, new Date());
   const firstDayOfCalendarMonth = startOfWeek(firstDayOfCurrentMonth);
@@ -160,7 +136,10 @@ export const Calendar = () => {
               </Link>
             )}
 
-            <CalendarFilterButtons downloadScreenshot={downloadScreenshot} />
+            <CalendarFilterButtons
+              calendarRef={calendarRef}
+              currentMonthString={currentMonthString}
+            />
             <div ref={calendarRef}>
               <ResizablePanel>
                 <AnimatePresence
