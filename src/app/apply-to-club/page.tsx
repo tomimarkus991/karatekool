@@ -52,10 +52,14 @@ export default function Page() {
               }
             }
 
-            // he sends to Nüke
-            // const sentFrom = new Sender(email, name);
-
-            // const recipients = [new Recipient("tomimarkusalber@gmail.com", "Nüke")];
+            const data1 = await fetch("/api/send-application", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formData),
+            });
+            console.log(data1);
 
             setSubmitting(false);
           }}
