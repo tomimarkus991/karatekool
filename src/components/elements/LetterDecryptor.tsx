@@ -79,7 +79,7 @@ const kanjis = [
   "下", // (shita) - down, below
 ];
 
-export const LetterDecryptor = ({ children, time = 600 }: Props) => {
+export const LetterDecryptor = ({ children, time = 1000 }: Props) => {
   const [decryptedLetters, setDecryptedLetters] = useState(children.split(""));
 
   const originalLetters = children.split("");
