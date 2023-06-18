@@ -4,7 +4,6 @@ import {
   eachDayOfInterval,
   eachWeekOfInterval,
   endOfWeek,
-  format,
   parse,
   startOfWeek,
   subMonths,
@@ -17,6 +16,8 @@ import { days } from "@/app-constants";
 import { CalendarDate, animations, calendarUtils, AnimationWrapper } from "@/components";
 import { useIsMobile } from "@/hooks";
 import { EventData } from "@/types";
+
+import { nextTimeFrame, previousTimeFrame } from "./utils";
 
 interface Props {
   setDirection: Dispatch<SetStateAction<number | undefined>>;
@@ -53,27 +54,27 @@ export const CalendarMonthView = ({
   const month = parse(currentMonthString, currentMonthType, new Date());
   const { isMobile } = useIsMobile();
 
-  const previousMonth = () => {
-    if (isAnimating) return;
+  const previousMonth = () =>
+    previousTimeFrame({
+      current: firstDayOfCurrentMonth,
+      currentType: currentMonthType,
+      setCurrentString: setCurrentMonthString,
+      setDirection,
+      isAnimating,
+      setIsAnimating,
+      subFunction: subMonths,
+    });
 
-    setDirection(-1);
-    setIsAnimating(true);
-
-    const previous = subMonths(firstDayOfCurrentMonth, 1);
-
-    setCurrentMonthString(format(previous, currentMonthType));
-  };
-
-  const nextMonth = () => {
-    if (isAnimating) return;
-
-    setDirection(1);
-    setIsAnimating(true);
-
-    const next = addMonths(firstDayOfCurrentMonth, 1);
-
-    setCurrentMonthString(format(next, currentMonthType));
-  };
+  const nextMonth = () =>
+    nextTimeFrame({
+      current: firstDayOfCurrentMonth,
+      currentType: currentMonthType,
+      setCurrentString: setCurrentMonthString,
+      setDirection,
+      isAnimating,
+      setIsAnimating,
+      addFunction: addMonths,
+    });
 
   // splice first letter, make it uppercase and then add the rest of the string
   const beautifulCurrentMonth =

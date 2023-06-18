@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { getHours, getMinutes, addDays, format, subDays } from "date-fns";
+import { getHours, getMinutes, addDays, subDays } from "date-fns";
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
@@ -12,6 +12,8 @@ import { EventData } from "@/types";
 
 import { calendarUtils } from "../calendarUtils";
 import { DayViewEvent } from "../events/day-view";
+
+import { nextTimeFrame, previousTimeFrame } from "./utils";
 
 interface Props {
   currentMonthString: string;
@@ -43,38 +45,31 @@ export const CalendarDayView = ({
 
   const { currentDayType, removeImmediately } = calendarUtils;
 
-  const previousDay = () => {
-    if (isAnimating) return;
+  const previousDay = () =>
+    previousTimeFrame({
+      current: currentDay,
+      currentType: currentDayType,
+      setCurrentString: setCurrentDayString,
+      setDirection,
+      isAnimating,
+      setIsAnimating,
+      subFunction: subDays,
+      fetchEvents,
+      fetchEventsOnlyWhenMonthChanges: true,
+    });
 
-    setDirection(-1);
-    setIsAnimating(true);
-
-    const previous = subDays(currentDay, 1);
-    const prevMonth = currentDay.getMonth();
-    const newMonth = previous.getMonth();
-
-    if (prevMonth !== newMonth) {
-      fetchEvents();
-    }
-
-    setCurrentDayString(format(previous, currentDayType));
-  };
-
-  const nextDay = () => {
-    if (isAnimating) return;
-
-    setDirection(1);
-    setIsAnimating(true);
-
-    const next = addDays(currentDay, 1);
-    const prevMonth = currentDay.getMonth();
-    const newMonth = next.getMonth();
-
-    if (prevMonth !== newMonth) {
-      fetchEvents();
-    }
-    setCurrentDayString(format(next, currentDayType));
-  };
+  const nextDay = () =>
+    nextTimeFrame({
+      current: currentDay,
+      currentType: currentDayType,
+      setCurrentString: setCurrentDayString,
+      setDirection,
+      isAnimating,
+      setIsAnimating,
+      addFunction: addDays,
+      fetchEvents,
+      fetchEventsOnlyWhenMonthChanges: true,
+    });
 
   const arrayOfHours = [
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
