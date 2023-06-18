@@ -32,7 +32,7 @@ export default function Page() {
     reason: "",
   });
 
-  const { refetch: fetchEmails } = useGetEmailWhitelist();
+  const { data: whitelistedEmails } = useGetEmailWhitelist();
 
   const [isEmailWhitelisted, setIsEmailWhitelisted] = useState(false);
 
@@ -45,8 +45,6 @@ export default function Page() {
           validateOnChange={true}
           onSubmit={async (formData, { setSubmitting }) => {
             setSubmitting(true);
-
-            const { data: whitelistedEmails } = await fetchEmails();
 
             for (const whitelistedEmail of whitelistedEmails || []) {
               if (whitelistedEmail.email === formData.email) {
@@ -62,7 +60,14 @@ export default function Page() {
             setSubmitting(false);
           }}
         >
-          {({ isValid, handleSubmit }) => {
+          {({ isValid, handleSubmit, values, resetForm }) => {
+            for (const whitelistedEmail of whitelistedEmails || []) {
+              if (whitelistedEmail.email === values.email) {
+                setIsEmailWhitelisted(true);
+                resetForm();
+              }
+            }
+
             return (
               <>
                 {isEmailWhitelisted ? (
@@ -80,6 +85,17 @@ export default function Page() {
                         </p>
                       </AnimationWrapper>
                     </Link>
+
+                    <AnimationWrapper
+                      variants={animations.smallScaleXs}
+                      onClick={() => {
+                        setIsEmailWhitelisted(false);
+                      }}
+                    >
+                      <p className="mt-4 font-semibold cursor-pointer text-secondary">
+                        Taotle ikka
+                      </p>
+                    </AnimationWrapper>
                   </div>
                 ) : (
                   <Form className={clsx("flex flex-col")}>
@@ -88,6 +104,13 @@ export default function Page() {
                     </div>
                     <div className={clsx("flex items-center flex-col py-2 mb-5 px-3")}>
                       <div className="w-full mt-3 space-y-2">
+                        <FormikInput
+                          required
+                          className="w-full"
+                          label="Email"
+                          placeholder="Email"
+                          name="email"
+                        />
                         <FormikInput
                           required
                           className="w-full"
@@ -101,13 +124,6 @@ export default function Page() {
                           label="Grupp"
                           placeholder="Grupp"
                           name="group"
-                        />
-                        <FormikInput
-                          required
-                          className="w-full"
-                          label="Email"
-                          placeholder="Email"
-                          name="email"
                         />
                         <FormikInput
                           required

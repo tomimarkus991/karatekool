@@ -23,7 +23,5 @@ export const useGetEmailWhitelist = () => {
     return _eventData || [];
   };
 
-  return useQuery(["email"], async () => getQuery(), {
-    enabled: false,
-  });
+  return useQuery(["get_email_whitelist"], async () => getQuery());
 };
