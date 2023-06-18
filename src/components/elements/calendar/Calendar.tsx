@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { IconType } from "react-icons/lib";
-import { MdOutlineCalendarViewMonth, MdOutlineViewDay, MdOutlineViewWeek } from "react-icons/md";
+import { MdOutlineCalendarViewMonth, MdOutlineViewDay } from "react-icons/md";
 
 import {
   AnimationWrapper,
@@ -21,15 +21,20 @@ import { useGetCurrentMonthEvents, useIsMobile, useUser } from "@/hooks";
 import { LetterDecryptor } from "../LetterDecryptor";
 import { Popover, PopoverContent, PopoverTrigger } from "../Popover";
 
-import { CalendarDayView, CalendarMonthView, CalendarWeekView } from "./calendar-views";
+import { CalendarDayView, CalendarMonthView } from "./calendar-views";
+
+type CalendarViewType = "Day" | "Month";
 
 interface CalendarViewProps {
-  type: "Day" | "Week" | "Month";
+  type: CalendarViewType;
   onClick: () => void;
   Icon: IconType;
 }
 
 const CalendarView = ({ type, onClick, Icon }: CalendarViewProps) => {
+  let translatedType;
+  if (type === "Day") translatedType = "Päev";
+  else if (type === "Month") translatedType = "Kuu";
   return (
     <AnimationWrapper
       variants={animations.buttonGhost}
@@ -39,7 +44,7 @@ const CalendarView = ({ type, onClick, Icon }: CalendarViewProps) => {
       <div className="flex items-center justify-start py-2 rounded-lg hover:bg-gray-100">
         <button className="flex flex-row items-center">
           <Icon className="w-4 h-4 ml-2 fill-[#b4b4b4]" />
-          <p className="text-sm text-semibold ml-4 text-[#818181]">{type}</p>
+          <p className="text-sm text-semibold ml-4 text-[#818181]">{translatedType}</p>
         </button>
       </div>
     </AnimationWrapper>
@@ -52,7 +57,7 @@ export const Calendar = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState<number>();
 
-  const [calendarType, setCalendarType] = useState<"Day" | "Week" | "Month">("Month");
+  const [calendarType, setCalendarType] = useState<CalendarViewType>("Month");
   const [currentMonthString, setCurrentMonthString] = useState(
     format(new Date(), currentMonthType)
   );
@@ -115,11 +120,11 @@ export const Calendar = () => {
                         type="Day"
                         Icon={MdOutlineViewDay}
                       />
-                      <CalendarView
+                      {/* <CalendarView
                         onClick={() => setCalendarType("Week")}
                         type="Week"
                         Icon={MdOutlineViewWeek}
-                      />
+                      /> */}
                       <CalendarView
                         onClick={() => setCalendarType("Month")}
                         type="Month"
@@ -186,7 +191,7 @@ export const Calendar = () => {
                       />
                     )}
                   </motion.div>
-                  {calendarType === "Week" && <CalendarWeekView />}
+                  {/* {calendarType === "Week" && <CalendarWeekView />} */}
                   <motion.div
                     id="calendarMonth"
                     key={currentMonthString}
