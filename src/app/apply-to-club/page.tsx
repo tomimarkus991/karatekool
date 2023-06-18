@@ -1,11 +1,11 @@
 "use client";
 
 import clsx from "clsx";
-import { Formik, Form } from "formik";
+import { Formik, Form, useFormikContext } from "formik";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { YupSchemas } from "@/app-constants";
 import {
@@ -25,6 +25,26 @@ interface FormValues {
   reason: string;
 }
 
+interface FormObserverProps {
+  whitelistedEmails: string[];
+  setIsEmailWhitelisted: (isEmailWhitelisted: boolean) => void;
+}
+
+const FormObserver = ({ whitelistedEmails, setIsEmailWhitelisted }: FormObserverProps) => {
+  const { values, resetForm } = useFormikContext();
+  const typedValues = values as FormValues;
+  useEffect(() => {
+    if (whitelistedEmails.includes(typedValues.email)) {
+      setIsEmailWhitelisted(true);
+      resetForm();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [typedValues.email]);
+
+  return null;
+};
+
 const transition = { type: "ease", ease: "easeInOut", duration: 1 };
 
 export default function Page() {
@@ -35,7 +55,7 @@ export default function Page() {
     reason: "",
   });
 
-  const { data: whitelistedEmails } = useGetEmailWhitelist();
+  const { data: whitelistedEmails = [] } = useGetEmailWhitelist();
 
   const [isEmailWhitelisted, setIsEmailWhitelisted] = useState(false);
   const [requestSuccess, setRequestSuccess] = useState(false);
@@ -51,10 +71,8 @@ export default function Page() {
             onSubmit={async (formData, { setSubmitting }) => {
               setSubmitting(true);
 
-              for (const whitelistedEmail of whitelistedEmails || []) {
-                if (whitelistedEmail.email === formData.email) {
-                  setIsEmailWhitelisted(true);
-                }
+              if (whitelistedEmails.includes(formData.email) && formData.email !== "") {
+                setIsEmailWhitelisted(true);
               }
 
               const applicationSent = await fetch("/api/send-application", {
@@ -71,16 +89,13 @@ export default function Page() {
               setSubmitting(false);
             }}
           >
-            {({ isValid, handleSubmit, values, resetForm }) => {
-              for (const whitelistedEmail of whitelistedEmails || []) {
-                if (whitelistedEmail.email === values.email) {
-                  setIsEmailWhitelisted(true);
-                  resetForm();
-                }
-              }
-
+            {({ isValid, handleSubmit }) => {
               return (
-                <>
+                <Form>
+                  <FormObserver
+                    whitelistedEmails={whitelistedEmails}
+                    setIsEmailWhitelisted={setIsEmailWhitelisted}
+                  />
                   <AnimatePresence mode="popLayout">
                     {!requestSuccess ? (
                       <motion.div
@@ -187,7 +202,7 @@ export default function Page() {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </>
+                </Form>
               );
             }}
           </Formik>

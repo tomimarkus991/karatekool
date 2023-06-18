@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
 import { useSupabase } from "@/context";
-import { EmailWhitelist } from "@/types";
 
 export const useGetEmailWhitelist = () => {
   const { supabase } = useSupabase();
@@ -18,9 +17,9 @@ export const useGetEmailWhitelist = () => {
       throw new Error(error.message);
     }
 
-    const _eventData = data as unknown as EmailWhitelist[];
+    const arrayOfEmails = data.map(values => values.email || "123123");
 
-    return _eventData || [];
+    return arrayOfEmails || [];
   };
 
   return useQuery(["get_email_whitelist"], async () => getQuery());
