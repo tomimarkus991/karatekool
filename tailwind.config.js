@@ -88,6 +88,8 @@ module.exports = {
       animation: {
         "spin-slow": "spin-backwards 40s linear infinite",
         spinner: "spin-forwards 1s linear infinite",
+        "scrollwheel-move-down": "animate-scrollwheel-move-down 2500ms ease infinite",
+        "mobile-move-down": "animate-mobile-move-down 2s ease infinite",
       },
       keyframes: {
         "spin-backwards": {
@@ -105,8 +107,33 @@ module.exports = {
           to: { height: 0 },
         },
         "animate-spin": {
-          "0%": { transform: "rotate(0deg)" },
-          "100%": { transform: "rotate(360deg)" },
+          from: { transform: "rotate(0deg)" },
+          to: { transform: "rotate(360deg)" },
+        },
+        "animate-scrollwheel-move-down": {
+          "0%": {
+            transform: "translateY(0)",
+            opacity: 0,
+          },
+          "20%": {
+            transform: "translateY(0)",
+            opacity: 1,
+          },
+          "100%": {
+            transform: "translateY(10px)",
+            opacity: 0,
+          },
+        },
+        "animate-mobile-move-down": {
+          "0%": {
+            transform: "translateY(0)",
+          },
+          "50%": {
+            transform: "translateY(-10px)",
+          },
+          "100%": {
+            transform: "translateY(0)",
+          },
         },
       },
     },
