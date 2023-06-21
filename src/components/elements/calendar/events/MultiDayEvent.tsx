@@ -41,7 +41,7 @@ const Child = ({ width, multi_day_event }: ChildProps) => {
         }}
         style={{ width }}
         className={clsx(
-          "bg-blue-600 mt-4 ml-2 rounded-md cursor-pointer hover:bg-blue-500 z-10",
+          "bg-blue-600 mt-2 ml-2 rounded-md cursor-pointer hover:bg-blue-500 z-10",
           "relative"
         )}
       >

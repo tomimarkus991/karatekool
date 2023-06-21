@@ -9,14 +9,9 @@ import { CheckCircle2, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 
-import { YupSchemas } from "@/app-constants";
+import { ResetPasswordFormValues, YupSchemas } from "@/app-constants";
 import { FormikInput, RealButton, ResizablePanel } from "@/components";
 import { useResetPassword } from "@/hooks";
-
-interface FormValues {
-  password: string;
-  passwordConfirmation: string;
-}
 
 const transition = { type: "ease", ease: "easeInOut", duration: 1 };
 
@@ -27,7 +22,7 @@ export default function Page() {
 
   const { mutate: resetPassword, isLoading, isError, isSuccess } = useResetPassword();
 
-  const [initialValues] = useState<FormValues>({
+  const [initialValues] = useState<ResetPasswordFormValues>({
     password: "",
     passwordConfirmation: "",
   });

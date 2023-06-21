@@ -118,10 +118,7 @@ export const CalendarMonthView = ({
         </header>
       </div>
 
-      <motion.div
-        variants={removeImmediately}
-        className="grid grid-cols-7 font-semibold font-catamaran"
-      >
+      <motion.div variants={removeImmediately} className="grid grid-cols-7 font-semibold">
         {isMobile ? (
           <>
             {days.short.map(day => (
@@ -151,7 +148,7 @@ export const CalendarMonthView = ({
               <div
                 id="week"
                 key={week.toISOString()}
-                className="grid h-32 grid-cols-7 border-t first:border-t-0 last:border-b-0 border-stone-100"
+                className="grid grid-cols-7 border-t h-52 first:border-t-0 last:border-b-0 border-stone-100"
               >
                 {daysForWeek.map(day => {
                   return (

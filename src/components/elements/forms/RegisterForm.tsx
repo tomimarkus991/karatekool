@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { HiEye, HiEyeOff, HiX } from "react-icons/hi";
 
-import { YupSchemas } from "@/app-constants";
+import { RegisterFormValues, YupSchemas } from "@/app-constants";
 import {
   AnimationWrapper,
   FormikInput,
@@ -25,13 +25,6 @@ import { cn } from "@/lib";
 
 interface Props {
   closeModal?: () => void;
-}
-
-interface RegisterFormValues {
-  name: string;
-  email: string;
-  password: string;
-  passwordConfirmation: string;
 }
 
 interface FormObserverProps {

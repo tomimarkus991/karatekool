@@ -6,13 +6,9 @@ import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { useState } from "react";
 
-import { YupSchemas } from "@/app-constants";
+import { ForgotPasswordFormValues, YupSchemas } from "@/app-constants";
 import { RealButton, FormikInput, ResizablePanel } from "@/components";
 import { useSendPasswordResetEmail } from "@/hooks";
-
-interface FormValues {
-  email: string;
-}
 
 const transition = { type: "ease", ease: "easeInOut", duration: 1 };
 
@@ -24,7 +20,7 @@ export default function Page() {
     isSuccess,
   } = useSendPasswordResetEmail();
 
-  const [initialValues] = useState<FormValues>({
+  const [initialValues] = useState<ForgotPasswordFormValues>({
     email: "",
   });
 

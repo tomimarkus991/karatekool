@@ -7,7 +7,7 @@ import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { YupSchemas } from "@/app-constants";
+import { ApplyToClubFormValues, YupSchemas } from "@/app-constants";
 import {
   AnimationWrapper,
   FormikInput,
@@ -18,13 +18,6 @@ import {
 
 import { useGetEmailWhitelist } from "../../hooks";
 
-interface FormValues {
-  name: string;
-  group: string;
-  email: string;
-  reason: string;
-}
-
 interface FormObserverProps {
   whitelistedEmails: string[];
   setIsEmailWhitelisted: (isEmailWhitelisted: boolean) => void;
@@ -32,7 +25,7 @@ interface FormObserverProps {
 
 const FormObserver = ({ whitelistedEmails, setIsEmailWhitelisted }: FormObserverProps) => {
   const { values, resetForm } = useFormikContext();
-  const typedValues = values as FormValues;
+  const typedValues = values as ApplyToClubFormValues;
   useEffect(() => {
     if (whitelistedEmails.includes(typedValues.email)) {
       setIsEmailWhitelisted(true);
@@ -48,7 +41,7 @@ const FormObserver = ({ whitelistedEmails, setIsEmailWhitelisted }: FormObserver
 const transition = { type: "ease", ease: "easeInOut", duration: 1 };
 
 export default function Page() {
-  const [initialValues] = useState<FormValues>({
+  const [initialValues] = useState<ApplyToClubFormValues>({
     name: "",
     group: "",
     email: "",
@@ -63,7 +56,7 @@ export default function Page() {
   return (
     <MotionConfig transition={transition}>
       <div className="max-w-[25rem] m-auto p-6 bg-white rounded-xl overflow-hidden relative">
-        <ResizablePanel duration={1}>
+        <ResizablePanel duration={transition.duration}>
           <Formik
             initialValues={initialValues}
             validationSchema={YupSchemas.ApplyToClub}

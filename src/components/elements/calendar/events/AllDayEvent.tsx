@@ -10,6 +10,21 @@ interface Props {
   date: Date;
 }
 
+interface AllDayEventCalendarDisplayProps {
+  title: string;
+  sub_title: string;
+}
+
+export const AllDayEventCalendarDisplay = ({
+  title,
+  sub_title,
+}: AllDayEventCalendarDisplayProps) => (
+  <>
+    <p className="mb-3 text-xs text-blue-600 sm:text-base sm:mb-1 xs:text-sm md:text-lg">{title}</p>
+    <p className="text-xs2 xs:text-xs sm:text-sm">{sub_title}</p>
+  </>
+);
+
 export const AllDayEvent = ({ event, date }: Props) => {
   const { all_day_event } = event;
   const start = parseISO(event.start);
@@ -33,10 +48,10 @@ export const AllDayEvent = ({ event, date }: Props) => {
         className="flex flex-col justify-center flex-grow text-center"
       >
         <PopoverTrigger>
-          <p className="mb-3 text-xs text-blue-600 sm:text-base sm:mb-1 xs:text-sm md:text-lg">
-            {title}
-          </p>
-          <p className="text-xs2 xs:text-xs sm:text-sm">{sub_title}</p>
+          <AllDayEventCalendarDisplay
+            title={event.all_day_event?.title || ""}
+            sub_title={event.all_day_event?.sub_title || ""}
+          />
         </PopoverTrigger>
       </motion.div>
       <PopoverContent className="max-w-xs lg:max-w-sm">

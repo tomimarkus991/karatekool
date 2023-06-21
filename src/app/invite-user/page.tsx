@@ -4,17 +4,14 @@ import clsx from "clsx";
 import { Formik, Form } from "formik";
 import { useState } from "react";
 
-import { YupSchemas } from "@/app-constants";
+import { ForgotPasswordFormValues, YupSchemas } from "@/app-constants";
 import { FormikInput, RealButton } from "@/components";
 import { useSendInviteEmail } from "@/hooks";
 
-interface FormValues {
-  email: string;
-}
 export default function Page() {
   const { mutate: sendInviteEmail } = useSendInviteEmail();
 
-  const [initialValues] = useState<FormValues>({
+  const [initialValues] = useState<ForgotPasswordFormValues>({
     email: "",
   });
   return (

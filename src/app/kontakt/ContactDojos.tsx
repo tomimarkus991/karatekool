@@ -35,9 +35,11 @@ const dojoContentVariants = (toLeft: boolean) => {
   return variant;
 };
 
-export const ContactDojos = () => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+interface WhiteMovingBoxProps {
+  selectedIndex: number;
+}
 
+export const WhiteMovingBox = ({ selectedIndex }: WhiteMovingBoxProps) => {
   const whiteMovingBox: Variants = {
     active: {
       left: "0%",
@@ -55,6 +57,18 @@ export const ContactDojos = () => {
     },
   };
   return (
+    <motion.div
+      variants={whiteMovingBox}
+      animate={selectedIndex === 0 ? "active" : "inactive"}
+      className="bg-white absolute inset-0 w-[50%] rounded-2xl"
+    />
+  );
+};
+
+export const ContactDojos = () => {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  return (
     <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
       <Tab.List
         className={clsx(
@@ -67,12 +81,7 @@ export const ContactDojos = () => {
         <ContactDojosTab selectedIndex={selectedIndex} index={1}>
           KSG Spordisaal Sikupillis
         </ContactDojosTab>
-        {/* whiteMovingBox */}
-        <motion.div
-          variants={whiteMovingBox}
-          animate={selectedIndex === 0 ? "active" : "inactive"}
-          className="bg-white absolute inset-0 w-[50%] rounded-2xl"
-        />
+        <WhiteMovingBox selectedIndex={selectedIndex} />
       </Tab.List>
       <Tab.Panels>
         <AnimatePresence>

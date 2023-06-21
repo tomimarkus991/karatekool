@@ -6,14 +6,9 @@
 import { Formik } from "formik";
 import { useState } from "react";
 
-import { YupSchemas } from "@/app-constants";
+import { YupSchemas, LoginFormValues } from "@/app-constants";
 import { LoginForm, Modal, RealButton } from "@/components";
 import { useSignIn } from "@/hooks";
-
-export interface LoginFormValues {
-  email: string;
-  password: string;
-}
 
 interface Props {
   title?: string;
