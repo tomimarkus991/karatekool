@@ -26,6 +26,7 @@ import {
   FormikInput,
   ResizablePanel,
   AllDayEventCalendarDisplay,
+  ThreeElementMovingBox,
 } from "@/components";
 import { useUser } from "@/hooks";
 import { cn } from "@/lib";
@@ -39,44 +40,7 @@ interface Props {
   isAnimating: boolean;
 }
 
-interface WhiteMovingBoxProps {
-  selectedIndex: number;
-}
-
 const duration = 0.4;
-
-const WhiteMovingBox2 = ({ selectedIndex }: WhiteMovingBoxProps) => {
-  const whiteMovingBox: Variants = {
-    active0: {
-      left: "0%",
-      transition: {
-        ease: "easeOut",
-        duration,
-      },
-    },
-    active1: {
-      left: "33.33%",
-      transition: {
-        ease: "easeOut",
-        duration,
-      },
-    },
-    active2: {
-      left: "66.67%",
-      transition: {
-        ease: "easeOut",
-        duration,
-      },
-    },
-  };
-  return (
-    <motion.div
-      variants={whiteMovingBox}
-      animate={selectedIndex === 0 ? "active0" : selectedIndex === 1 ? "active1" : "active2"}
-      className="bg-white absolute inset-0 w-[33.33%] rounded-xl"
-    />
-  );
-};
 
 const eventContentVariants = (toLeft: boolean) => {
   const variant: Variants = {
@@ -244,7 +208,7 @@ export const CalendarDate = ({ events, date, month }: Props) => {
                     <CalendarEventTab selectedIndex={selectedIndex} index={2}>
                       Mitme päevane sündmus
                     </CalendarEventTab>
-                    <WhiteMovingBox2 selectedIndex={selectedIndex} />
+                    <ThreeElementMovingBox selectedIndex={selectedIndex} />
                   </Tab.List>
                   <Tab.Panels>
                     <div className="p-3">
