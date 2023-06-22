@@ -144,12 +144,12 @@ export const EventCreationTabs = () => {
                                 <AllDayEventInput
                                   name="title"
                                   placeholder="Pealkiri"
-                                  className="mb-3 text-xs text-blue-600 sm:text-base sm:mb-1 xs:text-sm md:text-lg"
+                                  className="mb-3 text-lg text-blue-600"
                                 />
                                 <AllDayEventInput
                                   name="subTitle"
                                   placeholder="Ala pealkiri"
-                                  className="text-xs2 xs:text-xs sm:text-sm"
+                                  className="text-sm"
                                 />
                               </div>
                             </div>
