@@ -193,6 +193,19 @@ const smallScaleXs: Variants = {
   whileTap: { scale: 0.9 },
 };
 
+const subtleScale: Variants = {
+  whileHover: {
+    scale: [1, 1.05],
+    // translateX: 10,
+    transition: {
+      duration: 0.5,
+      ease: "easeInOut",
+      // times: [0, 1],
+    },
+  },
+  whileTap: { scale: 0.9 },
+};
+
 const button: Variants = {
   whileHover: {
     scale: [1, 1.05],
@@ -341,11 +354,27 @@ const sidebar = {
   sideButton,
 };
 
+const tabSwitch: Variants = {
+  hidden: {
+    opacity: 0,
+  },
+  active: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 1,
+    },
+  },
+};
+
+const calendarEventCreation = { tabSwitch };
+
 export const animations = {
   scaleAndRotation,
   scaleAndFullRotation,
   realButtonEffect,
   popoverEffect,
+  subtleScale,
   rotate360,
   rotateInFromLeft,
   springInFromTop,
@@ -360,4 +389,5 @@ export const animations = {
   sidebar,
   accordionHeader,
   calendar,
+  calendarEventCreation,
 };
