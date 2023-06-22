@@ -5,7 +5,7 @@ import { et } from "date-fns/locale";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DayPicker, DateFormatter } from "react-day-picker";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib";
 
 import { datePickerCalendarButtonVariants } from "./DatePickerCalendarButton";
 
@@ -44,6 +44,7 @@ const DatePickerCalendar = ({
   showOutsideDays = true,
   ...props
 }: DatePickerCalendarProps) => {
+  console.log("className2", className);
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}

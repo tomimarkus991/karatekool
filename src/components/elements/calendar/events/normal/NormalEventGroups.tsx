@@ -25,6 +25,7 @@ export const MapGroupLetter = ({ groups, dayView = false }: MapGroupLetterProps)
       {groups.map(group => {
         return (
           <p
+            id="normal-event"
             className={clsx(groupColorMapper(group?.letter), className(dayView))}
             key={group?.letter}
           >
@@ -50,8 +51,9 @@ export const MapHighLightedGroupLetter = ({
     <>
       {highlightedGroups.map(highlightedGroup => {
         return (
-          <div className={clsx("flex flex-row")} key={highlightedGroup?.letter}>
+          <div id="normal-event" className={clsx("flex flex-row")} key={highlightedGroup?.letter}>
             <p
+              id="normal-event"
               className={clsx(
                 "underline decoration-red-500",
                 groupColorMapper(highlightedGroup?.letter),
@@ -61,6 +63,7 @@ export const MapHighLightedGroupLetter = ({
               {highlightedGroup?.letter}
             </p>
             <p
+              id="normal-event"
               className={clsx(
                 "text-red-500 ml-[0.06rem] md:text-base xs:text-xs xs:ml-[0.1rem] font-bold font-number text-[0.6rem] sm:text-sm flex justify-center items-center",
                 className

@@ -46,7 +46,10 @@ const Child = ({ width, multi_day_event }: ChildProps) => {
         )}
       >
         <PopoverTrigger style={{ width }} className="relative">
-          <p className="py-2 ml-2 overflow-hidden text-base font-medium text-center text-white whitespace-nowrap overflow-ellipsis">
+          <p
+            id="multi-day-event"
+            className="py-2 ml-2 overflow-hidden text-base font-medium text-center text-white whitespace-nowrap overflow-ellipsis"
+          >
             {title}
           </p>
         </PopoverTrigger>

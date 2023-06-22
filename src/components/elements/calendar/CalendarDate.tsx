@@ -11,6 +11,8 @@ import { AnimationWrapper, Event, Modal, ResizablePanel, animations } from "@/co
 import { useUser } from "@/hooks";
 import { EventData } from "@/types";
 
+import { cn } from "../../../lib";
+
 import { EventCreationTabs } from ".";
 
 interface Props {
@@ -45,18 +47,31 @@ export const CalendarDate = ({ events, date, month }: Props) => {
       modalButton={
         <button
           ref={ref}
-          className={clsx(
+          className={cn(
             "w-full h-full m-auto box-border p-[0.1rem] sm:p-1",
-            "border-stone-100 border-r first:border-l"
+            "border-stone-100 border-r first:border-l",
+            "hover:border-secondary hover:border"
           )}
-          onClick={() => {
+          onClick={(e: any) => {
             if (user?.role === "admin") {
-              openModal();
+              if (
+                e.target.id !== "multi-day-event" &&
+                e.target.id !== "all-day-event" &&
+                e.target.id !== "normal-event"
+              ) {
+                openModal();
+              }
             }
           }}
         >
           <div className="flex flex-col h-full">
-            <div className="flex justify-center">
+            <AnimationWrapper
+              className={cn(
+                "flex justify-center",
+                user?.role === "admin" && "hover:bg-stone-50 rounded-2xl"
+              )}
+              variants={user?.role === "admin" ? animations.smallScale : undefined}
+            >
               <time
                 className={clsx(
                   "font-number font-medium text-xs sm:text-sm md:text-base",
@@ -69,9 +84,9 @@ export const CalendarDate = ({ events, date, month }: Props) => {
               >
                 {date.getDate()}
               </time>
-            </div>
+            </AnimationWrapper>
 
-            <div className={clsx("h-full flex-col relative flex")}>
+            <div className="relative flex flex-col h-full">
               {events.map(event => {
                 return <Event key={event.id} event={event} date={date} bounds={bounds} />;
               })}

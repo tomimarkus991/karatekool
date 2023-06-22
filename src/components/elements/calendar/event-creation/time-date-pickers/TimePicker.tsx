@@ -29,17 +29,16 @@ const customTheme = createTheme({
   },
 });
 
-interface TextFieldPickerProps {
-  props: any;
-}
-const TextFieldPicker = ({ props }: TextFieldPickerProps) => {
+const TextFieldPicker = ({ ...props }) => {
+  const propsValue = props.props.value;
+
   const value =
-    props.value === null ? "Vali kellaaeg" : `${getHours(props.value)}:${getMinutes(props.value)}`;
+    propsValue === null ? "Vali kellaaeg" : `${getHours(propsValue)}:${getMinutes(propsValue)}`;
 
   return (
     <TextField
-      id="time"
       {...props}
+      id="time"
       className="text-xl w-24 !font-number text-stone-800"
       InputProps={{ disableUnderline: true }}
       variant="standard"

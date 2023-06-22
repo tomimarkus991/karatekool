@@ -14,17 +14,17 @@ import {
   YupSchemas,
 } from "@/app-constants";
 import {
-  AllDayEventCalendarDisplay,
   DatePicker,
   DatePickerWithRange,
   FormikInput,
+  RealButton,
   ThreeElementMovingBox,
   TimePicker,
   animations,
 } from "@/components";
 import { cn } from "@/lib";
 
-import { CalendarEventTab } from ".";
+import { AllDayEventInput, CalendarEventTab } from ".";
 
 export const EventCreationTabs = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -67,6 +67,9 @@ export const EventCreationTabs = () => {
         <div className="p-3">
           <AnimatePresence>
             {/* normal */}
+            {/* user chooses groups, time, trailers, title */}
+            {/* add pick for multiple days */}
+            {/* add presets */}
             <Tab.Panel
               as={motion.div}
               initial="hidden"
@@ -84,9 +87,7 @@ export const EventCreationTabs = () => {
                   setSubmitting(false);
                 }}
               >
-                {({ values }) => {
-                  console.log("11111", values);
-
+                {() => {
                   return (
                     <Form>
                       <div className="flex flex-col items-start justify-start">
@@ -97,13 +98,10 @@ export const EventCreationTabs = () => {
                   );
                 }}
               </Formik>
-
-              {/* user chooses groups, time, trailers, title */}
-              {/* add presets */}
-              {/* add pick for multiple days */}
             </Tab.Panel>
 
             {/* all day */}
+            {/* add presets */}
             <Tab.Panel
               as={motion.div}
               initial="hidden"
@@ -117,60 +115,59 @@ export const EventCreationTabs = () => {
                 validationSchema={YupSchemas.Events.AllDayEvent}
                 onSubmit={(values, { setSubmitting }) => {
                   setSubmitting(true);
+                  console.log("All day form submitted", values);
 
                   setSubmitting(false);
                 }}
               >
-                {({ values }) => {
-                  console.log("allday values", values);
-
+                {({ values, submitForm }) => {
                   return (
                     <Form>
-                      <DatePicker name="start" />
-                      <FormikInput
-                        required
-                        className="w-full"
-                        label="Pealkiri"
-                        placeholder="Pealkiri"
-                        name="title"
-                      />
-                      <FormikInput
-                        required
-                        className="w-full"
-                        label="Ala pealkiri"
-                        placeholder="Ala pealkiri"
-                        name="subTitle"
-                      />
-
-                      <div
-                        className={cn(
-                          "h-52 w-36 border-1 mt-2 border-stone-100 border-t-0 flex flex-col"
-                        )}
-                      >
-                        <p className="self-center font-semibold justify-self-center text-stone-500">
-                          {values.start ? format(values.start, "EEEE") : "Esmaspäev"}
-                        </p>
-                        <div className="flex flex-col items-center justify-center">
-                          <div className="text-xs font-medium font-number sm:text-sm md:text-base text-text-primary">
-                            {values.start ? format(values.start, "dd") : "1"}
+                      <div className="flex flex-col items-center justify-center">
+                        <div className="flex flex-row items-center justify-center">
+                          <div className="mr-6">
+                            <DatePicker name="start" />
+                          </div>
+                          <div className="flex flex-col justify-center">
+                            <p className="self-center font-semibold justify-self-center text-stone-500">
+                              {values.start ? format(values.start, "EEEE") : "Esmaspäev"}
+                            </p>
+                            <div
+                              className={cn(
+                                "h-52 w-36 border mt-2 border-stone-100 border-t-0 flex flex-col"
+                              )}
+                            >
+                              <div className="flex flex-col items-center justify-center">
+                                <div className="text-xs font-medium font-number sm:text-sm md:text-base text-text-primary">
+                                  {values.start ? format(values.start, "dd") : "1"}
+                                </div>
+                              </div>
+                              <div className="flex flex-col justify-center flex-grow text-center">
+                                <AllDayEventInput
+                                  name="title"
+                                  placeholder="Pealkiri"
+                                  className="mb-3 text-xs text-blue-600 sm:text-base sm:mb-1 xs:text-sm md:text-lg"
+                                />
+                                <AllDayEventInput
+                                  name="subTitle"
+                                  placeholder="Ala pealkiri"
+                                  className="text-xs2 xs:text-xs sm:text-sm"
+                                />
+                              </div>
+                            </div>
                           </div>
                         </div>
-                        <div className="flex flex-col justify-center flex-grow text-center">
-                          <AllDayEventCalendarDisplay
-                            title={values.title}
-                            sub_title={values.subTitle}
-                          />
-                        </div>
+                        <RealButton className="mt-8" onClick={submitForm} variant="orange">
+                          Loo
+                        </RealButton>
                       </div>
                     </Form>
                   );
                 }}
               </Formik>
-
-              {/* title and subtitle */}
-              {/* add presets */}
             </Tab.Panel>
             {/* multi day */}
+            {/* add presets */}
             <Tab.Panel
               as={motion.div}
               initial="hidden"
@@ -188,24 +185,26 @@ export const EventCreationTabs = () => {
                   setSubmitting(false);
                 }}
               >
-                {() => {
+                {({ submitForm }) => {
                   return (
                     <Form>
-                      <FormikInput
-                        required
-                        className="w-full"
-                        label="Pealkiri"
-                        placeholder="Pealkiri"
-                        name="title"
-                      />
-                      <DatePickerWithRange name="dateRange" />
+                      <div className="flex flex-col items-center justify-center">
+                        <DatePickerWithRange name="dateRange" />
+                        <FormikInput
+                          required
+                          className="w-full"
+                          label="Pealkiri"
+                          placeholder="Pealkiri"
+                          name="title"
+                        />
+                        <RealButton className="mt-8" onClick={submitForm} variant="orange">
+                          Loo
+                        </RealButton>
+                      </div>
                     </Form>
                   );
                 }}
               </Formik>
-
-              {/* title */}
-              {/* add presets */}
             </Tab.Panel>
           </AnimatePresence>
         </div>

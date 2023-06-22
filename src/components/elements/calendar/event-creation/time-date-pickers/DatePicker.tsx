@@ -8,12 +8,12 @@ import { AllDayEventFormik } from "@/app-constants";
 import { AnimationWrapper, animations } from "@/components";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/elements/Popover";
 
-import { DatePickerCalendar, DatePickerCalendarButton } from ".";
-interface Props {
+import { DatePickerCalendar, DatePickerCalendarButton, DatePickerCalendarProps } from ".";
+
+type Props = DatePickerCalendarProps & {
   name: string;
-}
-export const DatePicker = ({ name }: Props) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+};
+export const DatePicker = ({ name, className, ...props }: Props) => {
   const [field, { value }, { setValue }] = useField<AllDayEventFormik>(name);
 
   return (
@@ -29,7 +29,9 @@ export const DatePicker = ({ name }: Props) => {
       <PopoverContent className="w-auto p-0 z-[5001]">
         <DatePickerCalendar
           {...field}
+          {...props}
           mode="single"
+          className={className}
           selected={value}
           onSelect={date => {
             setValue(date);
