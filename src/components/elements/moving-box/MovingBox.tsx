@@ -59,7 +59,7 @@ export const ThreeElementMovingBox = ({
       },
     },
     active2: {
-      left: "66.67%",
+      left: "66.7%",
       transition: {
         ease: "easeOut",
         duration,

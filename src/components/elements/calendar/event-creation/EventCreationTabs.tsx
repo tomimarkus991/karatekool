@@ -47,7 +47,7 @@ export const EventCreationTabs = () => {
     <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
       <Tab.List
         className={clsx(
-          "flex flex-row relative px-1 w-full flex-1 mb-6 bg-stone-100 rounded-xl max-w-md m-auto md:mb-12"
+          "flex flex-row relative px-1 w-full flex-1 mb-6 bg-stone-100 rounded-xl m-auto md:mb-12"
         )}
       >
         <CalendarEventTab selectedIndex={selectedIndex} index={0}>
