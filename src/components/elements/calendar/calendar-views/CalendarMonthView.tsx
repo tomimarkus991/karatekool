@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import {
   addMonths,
   eachDayOfInterval,
@@ -15,6 +14,7 @@ import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { days } from "@/app-constants";
 import { CalendarDate, animations, calendarUtils, AnimationWrapper } from "@/components";
 import { useIsMobile } from "@/hooks";
+import { cn } from "@/lib";
 import { EventData } from "@/types";
 
 import { nextTimeFrame, previousTimeFrame } from "./utils";
@@ -85,7 +85,7 @@ export const CalendarMonthView = ({
         <header className="relative my-6 flex justify-between items-center max-w-fit min-w-[18rem]">
           <motion.button
             variants={removeImmediately}
-            className={clsx("z-10 rounded-full cursor-pointer")}
+            className={cn("z-10 rounded-full cursor-pointer")}
             onClick={previousMonth}
           >
             <AnimationWrapper variants={animations.smallScale}>
@@ -101,7 +101,7 @@ export const CalendarMonthView = ({
           </motion.p>
           <motion.button
             variants={removeImmediately}
-            className={clsx("z-10 rounded-full cursor-pointer")}
+            className={cn("z-10 rounded-full cursor-pointer")}
             onClick={nextMonth}
           >
             <AnimationWrapper variants={animations.smallScale}>

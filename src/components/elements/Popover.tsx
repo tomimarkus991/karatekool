@@ -1,8 +1,9 @@
 "use client";
 
 import * as PopoverPrimitive from "@radix-ui/react-popover";
-import clsx from "clsx";
 import React from "react";
+
+import { cn } from "@/lib";
 
 export const popoverSizes = {
   sm: "w-32",
@@ -23,7 +24,7 @@ export const PopoverContent = React.forwardRef<
       ref={ref}
       align={align}
       sideOffset={sideOffset}
-      className={clsx(
+      className={cn(
         "z-50 rounded-lg",
         "bg-white",
         "p-3 shadow-lg outline-none overflow-hidden",

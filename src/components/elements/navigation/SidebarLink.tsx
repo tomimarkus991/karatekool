@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -6,6 +5,7 @@ import { HTMLProps, ReactNode } from "react";
 
 import { AnimationWrapper, animations } from "@/components";
 import { useSidebar } from "@/context";
+import { cn } from "@/lib";
 
 interface SidebarItemProps {
   icon: ReactNode;
@@ -26,18 +26,18 @@ const Content = ({ children, icon, isActive }: ContentProps) => {
     <motion.div
       whileHover="whileHover"
       whileTap="whileTap"
-      className={clsx("group flex cursor-pointer rounded-md py-1 px-5", isActive && "bg-primary")}
+      className={cn("group flex cursor-pointer rounded-md py-1 px-5", isActive && "bg-primary")}
     >
       <AnimationWrapper
         variants={animations.smallScale}
         key="sidebar-link"
         child
-        className={clsx("fill-text-primary flex justify-between flex-1")}
+        className={cn("fill-text-primary flex justify-between flex-1")}
       >
         <div className="flex items-center">
           {icon}
           <div className="flex flex-row items-center justify-center text-center">
-            <p className={clsx("text-xl font-medium", isActive && "text-white")}>{children}</p>
+            <p className={cn("text-xl font-medium", isActive && "text-white")}>{children}</p>
           </div>
         </div>
 

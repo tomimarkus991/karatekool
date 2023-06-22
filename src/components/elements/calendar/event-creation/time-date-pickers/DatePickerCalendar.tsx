@@ -44,7 +44,6 @@ const DatePickerCalendar = ({
   showOutsideDays = true,
   ...props
 }: DatePickerCalendarProps) => {
-  console.log("className2", className);
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}

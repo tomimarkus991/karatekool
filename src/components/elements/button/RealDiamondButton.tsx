@@ -1,5 +1,4 @@
 import { VariantProps, cva } from "class-variance-authority";
-import clsx from "clsx";
 import { forwardRef } from "react";
 
 import { cn } from "@/lib";
@@ -90,8 +89,8 @@ const realDiamondButtonVariants = cva(
         ],
       },
       size: {
-        md: clsx(ButtonSizes.md, "rounded-[1.5rem]"),
-        xl: clsx(ButtonSizes.xl, "rounded-[2rem]"),
+        md: cn(ButtonSizes.md, "rounded-[1.5rem]"),
+        xl: cn(ButtonSizes.xl, "rounded-[2rem]"),
       },
     },
     defaultVariants: { variant: "dark", size: "md" },
@@ -102,8 +101,8 @@ const textVariants = cva(["align-middle table-cell -rotate-45"], {
   // regular --> hover --> active --> dark --> focus
   variants: {
     textSize: {
-      md: clsx(ButtonSizes.md, "sm:text-lg md:text-xl"),
-      xl: clsx(ButtonSizes.xl, "text-lg sm:text-xl md:text-2xl"),
+      md: cn(ButtonSizes.md, "sm:text-lg md:text-xl"),
+      xl: cn(ButtonSizes.xl, "text-lg sm:text-xl md:text-2xl"),
     },
   },
   defaultVariants: { textSize: "md" },

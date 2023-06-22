@@ -1,8 +1,7 @@
 "use client";
 
-import clsx from "clsx";
-
 import { LoginModal } from "@/components";
+import { cn } from "@/lib";
 
 export default function Page() {
   return (
@@ -11,7 +10,7 @@ export default function Page() {
         <div className="pl-3">
           <p className="text-xl font-bold text-center">Email on kinnitatud</p>
         </div>
-        <div className={clsx("flex items-center flex-col py-2 px-3")}>
+        <div className={cn("flex items-center flex-col py-2 px-3")}>
           <div className="w-full m-auto mt-3 space-y-2 max-w-fit">
             <LoginModal />
           </div>

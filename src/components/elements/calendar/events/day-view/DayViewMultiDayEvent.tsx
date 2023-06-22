@@ -1,7 +1,7 @@
-import { clsx } from "clsx";
 import { parseISO, isWithinInterval } from "date-fns";
 import { motion } from "framer-motion";
 
+import { cn } from "@/lib";
 import { EventData, EventTypes } from "@/types";
 
 interface Props {
@@ -35,7 +35,7 @@ export const DayViewMultiDayEvent = ({ event, date }: Props) => {
         middle: { opacity: 1, transition: { opacity: { duration: 0.5 } } },
         exit: { opacity: 0 },
       }}
-      className={clsx(
+      className={cn(
         "bg-blue-600 mt-4 mx-4 rounded-md cursor-pointer hover:bg-blue-500 z-10",
         "relative"
       )}

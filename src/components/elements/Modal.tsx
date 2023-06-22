@@ -1,12 +1,12 @@
 "use client";
 
 import { Dialog } from "@headlessui/react";
-import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import { ReactNode, useRef } from "react";
 import { HiArrowLeft, HiX } from "react-icons/hi";
 
 import { animations, AnimationWrapper } from "@/components";
+import { cn } from "@/lib";
 
 export const ModalFooterContainer = ({ children }: { children: ReactNode }) => {
   return (
@@ -107,7 +107,7 @@ export const Modal = ({
               key="app-modal-children"
               id="modal-children"
               variants={animations.modalEffect}
-              className={clsx(
+              className={cn(
                 "minscreen:min-w-[20rem] rounded-xl bg-white z-[10]",
                 modalMaxWidth[maxWidth]
               )}

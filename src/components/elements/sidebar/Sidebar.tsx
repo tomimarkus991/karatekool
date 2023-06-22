@@ -1,9 +1,10 @@
 "use client";
-import clsx from "clsx";
+
 import { AnimatePresence } from "framer-motion";
 
 import { animations, AnimationWrapper } from "@/components";
 import { useSidebar } from "@/context";
+import { cn } from "@/lib";
 
 import { MobileSidebarContent } from "../navigation";
 
@@ -18,7 +19,7 @@ export const Sidebar = () => {
             id="sidebar"
             key="mobile-app-sidebar-wrapper"
             variants={animations.sidebar.mobile(placement)}
-            className={clsx(
+            className={cn(
               "fixed z-[1205] flex h-[96vh] w-64 flex-col bg-white top-4 mr-4 rounded-xl",
               placement === "right" ? "right-0" : "left-0"
             )}

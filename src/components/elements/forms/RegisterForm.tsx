@@ -3,7 +3,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
-import clsx from "clsx";
 import { Form, Formik, useFormikContext } from "formik";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -120,7 +119,7 @@ export const RegisterForm = ({ closeModal }: Props) => {
                 </div>
               )}
               <div
-                className={clsx(
+                className={cn(
                   "scrollbar-hide",
                   "flex overflow-y-auto items-center flex-col py-2 px-3"
                 )}

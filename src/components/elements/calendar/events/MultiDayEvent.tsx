@@ -1,4 +1,3 @@
-import { clsx } from "clsx";
 import {
   eachDayOfInterval,
   eachWeekOfInterval,
@@ -11,6 +10,7 @@ import {
 import { motion } from "framer-motion";
 import { RectReadOnly } from "react-use-measure";
 
+import { cn } from "@/lib";
 import { EventData, SMultiDayEvent } from "@/types";
 
 import { Popover, PopoverContent, PopoverTrigger } from "../../Popover";
@@ -40,7 +40,7 @@ const Child = ({ width, multi_day_event }: ChildProps) => {
           exit: { opacity: 0 },
         }}
         style={{ width }}
-        className={clsx(
+        className={cn(
           "bg-blue-600 mt-2 ml-2 rounded-md cursor-pointer hover:bg-blue-500 z-10",
           "relative"
         )}

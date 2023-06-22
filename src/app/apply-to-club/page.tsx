@@ -1,6 +1,5 @@
 "use client";
 
-import clsx from "clsx";
 import { Formik, Form, useFormikContext } from "formik";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
@@ -15,8 +14,8 @@ import {
   ResizablePanel,
   animations,
 } from "@/components";
-
-import { useGetEmailWhitelist } from "../../hooks";
+import { useGetEmailWhitelist } from "@/hooks";
+import { cn } from "@/lib";
 
 interface FormObserverProps {
   whitelistedEmails: string[];
@@ -127,11 +126,11 @@ export default function Page() {
                             </AnimationWrapper>
                           </div>
                         ) : (
-                          <Form className={clsx("flex flex-col")}>
+                          <Form className={cn("flex flex-col")}>
                             <div className="flex flex-row items-center justify-between pl-3">
                               <p className="text-xl font-bold">Taotle luba</p>
                             </div>
-                            <div className={clsx("flex items-center flex-col py-2 mb-5 px-3")}>
+                            <div className={cn("flex items-center flex-col py-2 mb-5 px-3")}>
                               <div className="w-full mt-3 space-y-2">
                                 <FormikInput
                                   required

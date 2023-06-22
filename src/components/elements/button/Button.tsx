@@ -1,7 +1,7 @@
-import clsx from "clsx";
 import React, { ReactNode } from "react";
 
 import { animations, AnimationWrapper } from "@/components";
+import { cn } from "@/lib";
 
 const sizes = {
   xs: "py-1 px-3 text-sm",
@@ -54,7 +54,7 @@ export const Button = ({
     <AnimationWrapper key="regular-button" className="max-w-fit" variants={animations.button}>
       <button
         type={type}
-        className={clsx(
+        className={cn(
           `m-0 select-none rounded-2xl text-center font-medium tracking-wider`,
           variants[variant],
           sizes[size],
@@ -65,7 +65,7 @@ export const Button = ({
         {...props}
       >
         <p
-          className={clsx(
+          className={cn(
             variant !== "light" && "text-white",
             customColors?.includes("white") && "text-gray-700"
           )}

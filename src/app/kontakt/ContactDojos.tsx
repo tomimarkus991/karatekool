@@ -1,13 +1,13 @@
 "use client";
 
 import { Tab } from "@headlessui/react";
-import clsx from "clsx";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import Image from "next/image";
 import { Suspense, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 
 import { TwoElementMovingBox } from "@/components";
+import { cn } from "@/lib";
 
 import {
   ContactDojosTab,
@@ -43,7 +43,7 @@ export const ContactDojos = () => {
   return (
     <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
       <Tab.List
-        className={clsx(
+        className={cn(
           "flex flex-row relative px-1 w-full flex-1 mb-6 bg-stone-100 rounded-2xl max-w-md m-auto md:mb-12"
         )}
       >

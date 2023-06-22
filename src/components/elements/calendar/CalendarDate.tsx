@@ -1,6 +1,5 @@
 "use client";
 
-import { clsx } from "clsx";
 import { format, isSameMonth, isToday } from "date-fns";
 import { MotionConfig } from "framer-motion";
 import { useState } from "react";
@@ -9,9 +8,8 @@ import useMeasure from "react-use-measure";
 
 import { AnimationWrapper, Event, Modal, ResizablePanel, animations } from "@/components";
 import { useUser } from "@/hooks";
+import { cn } from "@/lib";
 import { EventData } from "@/types";
-
-import { cn } from "../../../lib";
 
 import { EventCreationTabs } from ".";
 
@@ -73,7 +71,7 @@ export const CalendarDate = ({ events, date, month }: Props) => {
               variants={user?.role === "admin" ? animations.smallScale : undefined}
             >
               <time
-                className={clsx(
+                className={cn(
                   "font-number font-medium text-xs sm:text-sm md:text-base",
                   isToday(date)
                     ? // ? "text-white bg-primary h-4 w-4 sm:h-5 sm:w-5 rounded-full text-center"

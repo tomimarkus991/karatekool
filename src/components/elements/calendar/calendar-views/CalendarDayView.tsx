@@ -1,6 +1,5 @@
 "use client";
 
-import clsx from "clsx";
 import { getHours, getMinutes, addDays, subDays } from "date-fns";
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction } from "react";
@@ -81,7 +80,7 @@ export const CalendarDayView = ({
         <header className="relative my-6 flex justify-between items-center max-w-fit min-w-[18rem]">
           <motion.button
             variants={removeImmediately}
-            className={clsx("z-10 rounded-full cursor-pointer")}
+            className={cn("z-10 rounded-full cursor-pointer")}
             onClick={previousDay}
           >
             <AnimationWrapper variants={animations.smallScale}>
@@ -97,7 +96,7 @@ export const CalendarDayView = ({
           </motion.p>
           <motion.button
             variants={removeImmediately}
-            className={clsx("z-10 rounded-full cursor-pointer")}
+            className={cn("z-10 rounded-full cursor-pointer")}
             onClick={nextDay}
           >
             <AnimationWrapper variants={animations.smallScale}>

@@ -1,7 +1,6 @@
 "use client";
 
 import { Tab } from "@headlessui/react";
-import { clsx } from "clsx";
 import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import { AnimatePresence, motion } from "framer-motion";
@@ -48,7 +47,7 @@ export const EventCreationTabs = () => {
   return (
     <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
       <Tab.List
-        className={clsx(
+        className={cn(
           "flex flex-row relative px-1 w-full flex-1 mb-6 bg-stone-100 rounded-xl m-auto md:mb-12"
         )}
       >
@@ -115,7 +114,6 @@ export const EventCreationTabs = () => {
                 validationSchema={YupSchemas.Events.AllDayEvent}
                 onSubmit={(values, { setSubmitting }) => {
                   setSubmitting(true);
-                  console.log("All day form submitted", values);
 
                   setSubmitting(false);
                 }}
