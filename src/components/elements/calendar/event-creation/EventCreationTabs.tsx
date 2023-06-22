@@ -2,7 +2,7 @@
 
 import { Tab } from "@headlessui/react";
 import { clsx } from "clsx";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
@@ -29,20 +29,22 @@ import { CalendarEventTab } from ".";
 export const EventCreationTabs = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [normalEventInitialValues] = useState<NormalEventFormValues>({
-    start: "",
+    startTime: undefined,
+    startDate: undefined,
   });
   const [allDayEventInitialValues] = useState<AllDayEventFormValues>({
     title: "",
     subTitle: "Treeninguid ei toimu",
-    start: "",
+    start: undefined,
   });
   const [multiDayEventInitialValues] = useState<MultiDayEventFormValues>({
     title: "",
-    start: "",
-    end: "",
+    dateRange: {
+      from: undefined,
+      to: undefined,
+    },
   });
 
-  const [time, setTime] = useState<Date>(new Date());
   return (
     <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
       <Tab.List
@@ -76,18 +78,21 @@ export const EventCreationTabs = () => {
               <Formik
                 initialValues={normalEventInitialValues}
                 validationSchema={YupSchemas.Events.NormalEvent}
-                validateOnChange={true}
                 onSubmit={(values, { setSubmitting }) => {
                   setSubmitting(true);
 
                   setSubmitting(false);
                 }}
               >
-                {() => {
+                {({ values }) => {
+                  console.log("11111", values);
+
                   return (
                     <Form>
-                      <TimePicker time={time} onChange={setTime} />
-                      <DatePicker />
+                      <div className="flex flex-col items-start justify-start">
+                        <TimePicker name="startTime" />
+                        <DatePicker name="startDate" />
+                      </div>
                     </Form>
                   );
                 }}
@@ -110,7 +115,6 @@ export const EventCreationTabs = () => {
               <Formik
                 initialValues={allDayEventInitialValues}
                 validationSchema={YupSchemas.Events.AllDayEvent}
-                validateOnChange={true}
                 onSubmit={(values, { setSubmitting }) => {
                   setSubmitting(true);
 
@@ -118,9 +122,11 @@ export const EventCreationTabs = () => {
                 }}
               >
                 {({ values }) => {
+                  console.log("allday values", values);
+
                   return (
                     <Form>
-                      <DatePicker />
+                      <DatePicker name="start" />
                       <FormikInput
                         required
                         className="w-full"
@@ -142,13 +148,11 @@ export const EventCreationTabs = () => {
                         )}
                       >
                         <p className="self-center font-semibold justify-self-center text-stone-500">
-                          {values.start !== ""
-                            ? format(parseISO(values.start), "EEEE")
-                            : "Esmaspäev"}
+                          {values.start ? format(values.start, "EEEE") : "Esmaspäev"}
                         </p>
                         <div className="flex flex-col items-center justify-center">
                           <div className="text-xs font-medium font-number sm:text-sm md:text-base text-text-primary">
-                            {values.start !== "" ? parseISO(values.start).getDay() : "1"}
+                            {values.start ? format(values.start, "dd") : "1"}
                           </div>
                         </div>
                         <div className="flex flex-col justify-center flex-grow text-center">
@@ -178,7 +182,6 @@ export const EventCreationTabs = () => {
               <Formik
                 initialValues={multiDayEventInitialValues}
                 validationSchema={YupSchemas.Events.MultiDayEvent}
-                validateOnChange={true}
                 onSubmit={(values, { setSubmitting }) => {
                   setSubmitting(true);
 
@@ -195,7 +198,7 @@ export const EventCreationTabs = () => {
                         placeholder="Pealkiri"
                         name="title"
                       />
-                      <DatePickerWithRange />
+                      <DatePickerWithRange name="dateRange" />
                     </Form>
                   );
                 }}

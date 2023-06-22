@@ -1,17 +1,21 @@
 "use client";
 
 import { format } from "date-fns";
-import { useState } from "react";
+import { useField } from "formik";
 import { DateRange } from "react-day-picker";
 import { HiOutlineCalendar } from "react-icons/hi";
 
+import { MultiDayEventFormik } from "@/app-constants";
 import { AnimationWrapper, animations } from "@/components";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/elements/Popover";
 
 import { DatePickerCalendar, DatePickerCalendarButton } from ".";
 
-export const DatePickerWithRange = () => {
-  const [date, setDate] = useState<DateRange>();
+interface Props {
+  name: string;
+}
+export const DatePickerWithRange = ({ name }: Props) => {
+  const [field, { value }, { setValue }] = useField<MultiDayEventFormik>(name);
 
   return (
     <Popover>
@@ -23,13 +27,13 @@ export const DatePickerWithRange = () => {
             className="items-center justify-center text-left group"
           >
             <HiOutlineCalendar className="w-6 h-6 mr-2 text-stone-700 group-hover:text-stone-800" />
-            {date?.from ? (
-              date.to ? (
+            {value?.from ? (
+              value?.to ? (
                 <>
-                  {format(date.from, "LLL dd, y")} - {format(date.to, "LLL dd, y")}
+                  {format(value.from, "LLL dd, y")} - {format(value.to, "LLL dd, y")}
                 </>
               ) : (
-                format(date.from, "LLL dd, y")
+                format(value.from, "LLL dd, y")
               )
             ) : (
               <p>Vali kuupäev</p>
@@ -39,11 +43,14 @@ export const DatePickerWithRange = () => {
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0 z-[5001]" align="start">
         <DatePickerCalendar
+          {...field}
           initialFocus
           mode="range"
-          defaultMonth={date?.from}
-          selected={date}
-          onSelect={setDate}
+          // it wants it to be dateRange but yup doesn't allow that so i cast it to DateRange
+          selected={value as DateRange}
+          onSelect={dateRange => {
+            setValue({ from: dateRange?.from, to: dateRange?.to });
+          }}
           numberOfMonths={2}
         />
       </PopoverContent>

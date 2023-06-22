@@ -1,4 +1,4 @@
-import { ref, string, object, number, boolean, array, InferType } from "yup";
+import { ref, string, object, number, boolean, array, InferType, date } from "yup";
 
 const Login = object().shape({
   email: string().email("Email peab olema päris").required("Vajalik"),
@@ -58,7 +58,8 @@ export type UpdateProfileFormValues = InferType<typeof UpdateProfile>;
 // create normal event
 const NormalEvent = object()
   .shape({
-    start: string().required("Vajalik"),
+    startTime: string().default(undefined),
+    startDate: date().default(undefined),
     groupIds: array().of(number()),
     highlightedGroupIds: array().of(number()),
     isHighlighted: boolean(),
@@ -84,19 +85,28 @@ export type NormalEventFormValues = InferType<typeof NormalEvent>;
 const AllDayEvent = object().shape({
   title: string().required("Vajalik"),
   subTitle: string().required("Vajalik"),
-  start: string().required("Vajalik"),
+  start: date().default(undefined),
 });
 
 export type AllDayEventFormValues = InferType<typeof AllDayEvent>;
 
+export type AllDayEventFormik = Pick<AllDayEventFormValues, "start">["start"];
+
 // create multi day event
 const MultiDayEvent = object().shape({
   title: string().required("Vajalik"),
-  start: string().required("Vajalik"),
-  end: string().required("Vajalik"),
+  dateRange: object()
+    .shape({
+      from: date(),
+      to: date(),
+    })
+    .default(undefined)
+    .required("Palun täida kuupäevad"),
 });
 
 export type MultiDayEventFormValues = InferType<typeof MultiDayEvent>;
+
+export type MultiDayEventFormik = Pick<MultiDayEventFormValues, "dateRange">["dateRange"];
 
 const Events = {
   NormalEvent,
