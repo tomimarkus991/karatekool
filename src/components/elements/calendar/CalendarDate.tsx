@@ -5,7 +5,7 @@ import { clsx } from "clsx";
 import { format, isSameMonth, isToday, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
 import { AnimatePresence, MotionConfig, Variants, motion } from "framer-motion";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { HiX } from "react-icons/hi";
 import useMeasure from "react-use-measure";
 
@@ -32,6 +32,8 @@ import { useUser } from "@/hooks";
 import { cn } from "@/lib";
 import { EventData } from "@/types";
 
+import { CalendarEventTab } from ".";
+
 interface Props {
   events: EventData[];
   date: Date;
@@ -57,51 +59,6 @@ const eventContentVariants = (toLeft: boolean) => {
     },
   };
   return variant;
-};
-
-interface CalendarEventTabProps {
-  children: React.ReactNode;
-  selectedIndex: number;
-  index: number;
-}
-
-export const CalendarEventTab = ({ children, selectedIndex, index }: CalendarEventTabProps) => {
-  const tabVariant: Variants = {
-    active: {
-      color: "#E50815",
-      transition: {
-        ease: "easeOut",
-        duration: 0.6,
-      },
-    },
-    inactive: {
-      transition: {
-        ease: "easeOut",
-        duration: 0.6,
-      },
-    },
-  };
-
-  return (
-    <Tab as={Fragment}>
-      {() => (
-        <AnimationWrapper
-          className={cn(
-            "rounded-xl z-10 text-[0.8rem] md:text-base font-semibold px-1 py-3 w-full cursor-pointer flex justify-center items-center",
-            "focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none"
-          )}
-          variants={animations.smallScale}
-        >
-          <motion.button
-            variants={tabVariant}
-            animate={selectedIndex === index ? "active" : "inactive"}
-          >
-            {children}
-          </motion.button>
-        </AnimationWrapper>
-      )}
-    </Tab>
-  );
 };
 
 const transition = { type: "ease", ease: "easeInOut", duration: 1 };
