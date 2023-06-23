@@ -1,8 +1,10 @@
 "use client";
-import clsx from "clsx";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, ReactNode } from "react";
 import { HiMinus, HiPlus } from "react-icons/hi";
+
+import { cn } from "@/lib";
 
 const accordionMaxWidth = {
   xs: "max-w-xs",
@@ -35,7 +37,7 @@ export const Accordion = ({
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
-      className={clsx(
+      className={cn(
         "w-full rounded-2xl bg-white px-2 py-3 flex flex-col",
         accordionMaxWidth[maxWidth]
       )}
@@ -44,9 +46,9 @@ export const Accordion = ({
       <button
         aria-controls={title}
         aria-expanded={isOpen}
-        className={clsx("flex justify-between items-center w-full space-x-4 px-4")}
+        className={cn("flex justify-between items-center w-full space-x-4 px-4")}
       >
-        <p className={clsx("text-lg sm:text-xl font-medium text-start", titleClassname)}>{title}</p>
+        <p className={cn("text-lg sm:text-xl font-medium text-start", titleClassname)}>{title}</p>
         <AnimatePresence initial={false} mode="wait">
           <motion.div
             key={isOpen ? "minus" : "plus"}
@@ -71,9 +73,9 @@ export const Accordion = ({
             }}
           >
             {isOpen ? (
-              <HiMinus className={clsx("", iconClassName)} />
+              <HiMinus className={cn("", iconClassName)} />
             ) : (
-              <HiPlus className={clsx("", iconClassName)} />
+              <HiPlus className={cn("", iconClassName)} />
             )}
           </motion.div>
         </AnimatePresence>
@@ -113,7 +115,7 @@ export const Accordion = ({
                 },
               }
         }
-        className={clsx("px-4 overflow-hidden")}
+        className={cn("px-4 overflow-hidden")}
       >
         <div className="pt-4">{body}</div>
       </motion.div>

@@ -1,9 +1,9 @@
 import { Tab } from "@headlessui/react";
-import clsx from "clsx";
 import { motion, Variants } from "framer-motion";
 import { Fragment } from "react";
 
 import { Icons } from "@/components/icons/Icons";
+import { cn } from "@/lib";
 
 import { LetterDecryptor } from "../../components/elements/LetterDecryptor";
 
@@ -55,7 +55,7 @@ export const ContactDojosTab = ({ children, selectedIndex, index }: ContactDojos
         <motion.button
           variants={tabVariant}
           animate={selectedIndex === index ? "active" : "inactive"}
-          className={clsx(
+          className={cn(
             "rounded-xl z-10 mx-[0.2rem] text-[0.8rem] md:text-base font-catamaran font-semibold px-1 py-3 w-full",
             selected ? "" : " hover:bg-stone-200",
             "focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none"

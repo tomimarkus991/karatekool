@@ -1,10 +1,10 @@
-import clsx from "clsx";
 import { AnimatePresence, ForwardRefComponent, HTMLMotionProps, motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import { AnimationWrapper } from "@/components";
+import { cn } from "@/lib";
 
 interface SidebarItemProps {
   href: any;
@@ -45,7 +45,7 @@ export const NavbarTopLink = ({ children, href, index, ...props }: Props) => {
         <Link href={href}>
           <p
             // @todo :: fix this
-            className={clsx(
+            className={cn(
               pathname === href ? "text-primary" : "text-text-primary",
               "relative z-10 flex",
               "lg:text-lg items-center py-3 font-semibold",

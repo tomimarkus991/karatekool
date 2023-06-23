@@ -1,11 +1,11 @@
 "use client";
 
 import { Tab } from "@headlessui/react";
-import clsx from "clsx";
 import Image from "next/image";
 import { Fragment } from "react";
 
 import { RealDiamondButton, ResizablePanel } from "@/components";
+import { cn } from "@/lib";
 
 import { LetterDecryptor } from "../../components/elements/LetterDecryptor";
 
@@ -112,7 +112,7 @@ export default function Page() {
       </div>
       <Tab.Group>
         <Tab.List
-          className={clsx(
+          className={cn(
             "relative m-auto max-w-[38rem] h-[17rem] sm:h-[20rem] md:h-[25rem] mb-3 overflow-hidden lg:mt-12"
           )}
         >

@@ -1,10 +1,10 @@
-import clsx from "clsx";
 import { isSameDay, parseISO } from "date-fns";
 import { motion } from "framer-motion";
 import { useDetectOverflow } from "use-detect-overflow";
 
 import { NormalEventTime, MapGroupLetter, MapHighLightedGroupLetter } from "@/components";
 import { useCalendarFilters } from "@/context";
+import { cn } from "@/lib";
 import { EventData } from "@/types";
 
 interface Props {
@@ -42,6 +42,7 @@ export const NormalEvent = ({ event, date }: Props) => {
 
   return (
     <motion.div
+      id="normal-event"
       initial="enter"
       animate="middle"
       exit="exit"
@@ -50,15 +51,18 @@ export const NormalEvent = ({ event, date }: Props) => {
         middle: { opacity: 1, transition: { opacity: { duration: 0.2 } } },
         exit: { opacity: 0, x: 300, transition: { duration: 1 } },
       }}
-      className={clsx("flex flex-col justify-start")}
+      className={cn("flex flex-col justify-start hover:bg-stone-50 rounded-lg")}
     >
-      <div className="flex flex-row items-center justify-start" ref={ref}>
+      <div id="normal-event" className="flex flex-row items-center justify-start" ref={ref}>
         <NormalEventTime event={event} />
-        <div className={clsx("flex justify-center items-center")}>
+        <div id="normal-event" className={cn("flex justify-center items-center")}>
           <MapGroupLetter groups={group} overflowX={overflowX} />
           <MapHighLightedGroupLetter highlightedGroups={highlighted_group} overflowX={overflowX} />
           {event_trailer?.text && (
-            <p className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] font-number font-semibold text-center">
+            <p
+              id="normal-event"
+              className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] font-number font-semibold text-center"
+            >
               {event_trailer?.text}
             </p>
           )}

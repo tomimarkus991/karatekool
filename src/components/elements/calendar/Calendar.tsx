@@ -2,7 +2,6 @@
 
 import { endOfMonth, endOfWeek, format, formatISO9075, parse, startOfWeek } from "date-fns";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { IconType } from "react-icons/lib";
@@ -10,6 +9,7 @@ import { MdOutlineCalendarViewMonth, MdOutlineViewDay } from "react-icons/md";
 
 import {
   AnimationWrapper,
+  CalendarEventCreationModal,
   CalendarFilterButtons,
   RealButton,
   ResizablePanel,
@@ -56,6 +56,8 @@ export const Calendar = () => {
   const { isMobile } = useIsMobile();
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState<number>();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
 
   const [calendarType, setCalendarType] = useState<CalendarViewType>("Month");
   const [currentMonthString, setCurrentMonthString] = useState(
@@ -101,11 +103,19 @@ export const Calendar = () => {
               </h1>
               <div className="flex">
                 {user?.role === "admin" && (
-                  <Link href="/loo-trenn" className="hidden mr-4 xs2:block">
-                    <RealButton className="px-6" variant="orange">
-                      Loo trenn
-                    </RealButton>
-                  </Link>
+                  <CalendarEventCreationModal
+                    isModalOpen={isModalOpen}
+                    setIsModalOpen={setIsModalOpen}
+                    button={
+                      <RealButton
+                        onClick={() => setIsModalOpen(true)}
+                        className="hidden px-6 mr-4 xs2:block"
+                        variant="orange"
+                      >
+                        Loo trenn
+                      </RealButton>
+                    }
+                  />
                 )}
                 <Popover>
                   <PopoverTrigger>
@@ -137,11 +147,20 @@ export const Calendar = () => {
             </div>
 
             {user?.role === "admin" && (
-              <Link href="/loo-trenn" className="mb-3 xs2:hidden">
-                <RealButton className="px-6" variant="orange">
-                  Loo trenn
-                </RealButton>
-              </Link>
+              <CalendarEventCreationModal
+                isModalOpen={isMobileModalOpen}
+                setIsModalOpen={setIsMobileModalOpen}
+                button={
+                  <RealButton
+                    onClick={() => setIsMobileModalOpen(true)}
+                    className="px-6 m-auto mt-3 mb-5 xs2:hidden w-fit"
+                    size="sm"
+                    variant="orange"
+                  >
+                    Loo trenn
+                  </RealButton>
+                }
+              />
             )}
 
             <CalendarFilterButtons

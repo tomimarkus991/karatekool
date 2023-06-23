@@ -3,7 +3,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
-import clsx from "clsx";
 import { Form } from "formik";
 import Link from "next/link";
 import { useState } from "react";
@@ -17,8 +16,9 @@ import {
   animations,
   ResizablePanel,
 } from "@/components";
+import { useSidebar } from "@/context";
+import { cn } from "@/lib";
 
-import { useSidebar } from "../../../context";
 import { LoadingSpinner } from "../LoadingSpinner";
 
 interface Props {
@@ -34,7 +34,7 @@ export const LoginForm = ({ closeModal, isValid, isLoggingIn, handleSubmit }: Pr
   const { closeSidebarIfMobile } = useSidebar();
 
   return (
-    <Form className={clsx("flex flex-col relative")}>
+    <Form className={cn("flex flex-col relative")}>
       <ResizablePanel duration={1}>
         {closeModal ? (
           <div className="flex flex-row items-center justify-between pt-6 px-7">
@@ -52,7 +52,7 @@ export const LoginForm = ({ closeModal, isValid, isLoggingIn, handleSubmit }: Pr
         )}
 
         <div
-          className={clsx("scrollbar-hide", "flex overflow-y-auto items-center flex-col pt-2 px-3")}
+          className={cn("scrollbar-hide", "flex overflow-y-auto items-center flex-col pt-2 px-3")}
         >
           <div className="w-full m-auto mt-3 space-y-2">
             <FormikInput

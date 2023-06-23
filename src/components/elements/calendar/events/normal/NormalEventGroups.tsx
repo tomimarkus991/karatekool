@@ -1,5 +1,3 @@
-import clsx from "clsx";
-
 import { cn, groupColorMapper } from "@/lib";
 import { SGroup, SHighLightedGroup } from "@/types";
 
@@ -17,7 +15,7 @@ const className = (dayView: boolean) =>
       : "text-[0.6rem] ml-[0.05rem] xs:ml-[0.1rem] xs:text-xs sm:text-sm md:text-base sm:ml-[0.15rem]"
   );
 // const className = (overflowX: boolean) =>
-//   clsx("font-quicksand font-semibold", overflowX ? "text-base ml-[0.1rem]" : "text-lg ml-1");
+//   cn("font-quicksand font-semibold", overflowX ? "text-base ml-[0.1rem]" : "text-lg ml-1");
 
 export const MapGroupLetter = ({ groups, dayView = false }: MapGroupLetterProps) => {
   return (
@@ -25,7 +23,8 @@ export const MapGroupLetter = ({ groups, dayView = false }: MapGroupLetterProps)
       {groups.map(group => {
         return (
           <p
-            className={clsx(groupColorMapper(group?.letter), className(dayView))}
+            id="normal-event"
+            className={cn(groupColorMapper(group?.letter), className(dayView))}
             key={group?.letter}
           >
             {group?.letter}
@@ -50,9 +49,10 @@ export const MapHighLightedGroupLetter = ({
     <>
       {highlightedGroups.map(highlightedGroup => {
         return (
-          <div className={clsx("flex flex-row")} key={highlightedGroup?.letter}>
+          <div id="normal-event" className={cn("flex flex-row")} key={highlightedGroup?.letter}>
             <p
-              className={clsx(
+              id="normal-event"
+              className={cn(
                 "underline decoration-red-500",
                 groupColorMapper(highlightedGroup?.letter),
                 className(dayView)
@@ -61,7 +61,8 @@ export const MapHighLightedGroupLetter = ({
               {highlightedGroup?.letter}
             </p>
             <p
-              className={clsx(
+              id="normal-event"
+              className={cn(
                 "text-red-500 ml-[0.06rem] md:text-base xs:text-xs xs:ml-[0.1rem] font-bold font-number text-[0.6rem] sm:text-sm flex justify-center items-center",
                 className
               )}

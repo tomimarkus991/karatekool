@@ -18,6 +18,7 @@ export const NormalEventTime = ({ event, dayView = false }: Props) => {
   return (
     <>
       <p
+        id="normal-event"
         className={cn(
           "font-number whitespace-nowrap",
           dayView

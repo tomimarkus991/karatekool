@@ -1,5 +1,6 @@
-import clsx from "clsx";
 import Image from "next/image";
+
+import { cn } from "@/lib";
 
 export const WaveBackground = () => (
   <div className="absolute bottom-0 left-0 w-full bg-center bg-no-repeat bg-cover bg-waves">
@@ -9,7 +10,7 @@ export const WaveBackground = () => (
       alt="waves"
       src="/general/waves.svg"
       priority
-      className={clsx("waves-aspect")}
+      className={cn("waves-aspect")}
     />
   </div>
 );

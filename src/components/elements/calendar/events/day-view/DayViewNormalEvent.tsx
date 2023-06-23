@@ -1,10 +1,10 @@
-import clsx from "clsx";
 import { isSameDay, parseISO } from "date-fns";
 import { motion } from "framer-motion";
 import { useDetectOverflow } from "use-detect-overflow";
 
 import { NormalEventTime, MapGroupLetter, MapHighLightedGroupLetter } from "@/components";
 import { useCalendarFilters } from "@/context";
+import { cn } from "@/lib";
 import { EventData, EventTypes } from "@/types";
 
 interface Props {
@@ -62,7 +62,7 @@ export const DayViewNormalEvent = ({ event, date }: Props) => {
     >
       <div className="flex flex-row items-center justify-start" ref={ref}>
         <NormalEventTime event={event} dayView />
-        <div className={clsx("flex justify-center items-center")}>
+        <div className={cn("flex justify-center items-center")}>
           <MapGroupLetter groups={group} overflowX={overflowX} dayView />
           <MapHighLightedGroupLetter
             highlightedGroups={highlighted_group}

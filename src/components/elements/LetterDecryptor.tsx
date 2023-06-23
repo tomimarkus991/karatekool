@@ -115,6 +115,7 @@ export const LetterDecryptor = ({ children, time = 1000 }: Props) => {
       clearInterval(interval1);
       setDecryptedLetters(originalLetters);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <div>{decryptedLetters.join("")}</div>;

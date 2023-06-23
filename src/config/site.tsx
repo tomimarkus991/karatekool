@@ -1,8 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import clsx from "clsx";
+
 import Image from "next/image";
 
 import { Icons } from "@/components/icons/Icons";
+import { cn } from "@/lib";
 import { JustRouter, NavItem, Router } from "@/types";
 
 interface SiteConfig {
@@ -57,9 +58,9 @@ export const routes: Router[] = [
   {
     href: definedRoutes.home,
     routeName: "Kodu",
-    // bigIcon: <Icons.home className={clsx(bigIconCss)} />,
+    // bigIcon: <Icons.home className={cn(bigIconCss)} />,
     bigIcon: (
-      <div className={clsx(bigIconCss, "relative")}>
+      <div className={cn(bigIconCss, "relative")}>
         <Image fill alt="house" src="/icons/house.png" />
       </div>
     ),
@@ -67,22 +68,22 @@ export const routes: Router[] = [
   {
     href: definedRoutes.newcomer,
     routeName: "Uustulnukale",
-    bigIcon: <Icons.newcomer className={clsx(bigIconCss)} />,
+    bigIcon: <Icons.newcomer className={cn(bigIconCss)} />,
   },
   {
     href: definedRoutes.aboutClub,
     routeName: "Klubist",
-    bigIcon: <Icons.belt className={clsx(bigIconCss)} />,
+    bigIcon: <Icons.belt className={cn(bigIconCss)} />,
   },
   {
     href: definedRoutes.karateka,
     routeName: "Karateka",
-    bigIcon: <Icons.karateka className={clsx(bigIconCss)} />,
+    bigIcon: <Icons.karateka className={cn(bigIconCss)} />,
   },
   {
     href: definedRoutes.contact,
     routeName: "Kontakt",
-    bigIcon: <Icons.notebook className={clsx(bigIconCss)} />,
+    bigIcon: <Icons.notebook className={cn(bigIconCss)} />,
   },
 ];
 

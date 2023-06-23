@@ -3,7 +3,7 @@ import { Formik, Form } from "formik";
 import Image from "next/image";
 import { useState } from "react";
 
-import { YupSchemas, avatars } from "@/app-constants";
+import { UpdateProfileFormValues, YupSchemas, avatars } from "@/app-constants";
 import {
   AnimationWrapper,
   FormikInput,
@@ -15,11 +15,6 @@ import {
 } from "@/components";
 import { useUpdateProfile, useUser } from "@/hooks";
 import { cn } from "@/lib";
-
-interface FormValues {
-  name: string;
-  avatar: string;
-}
 
 interface AvatarPickerProps {
   avatar: string;
@@ -110,7 +105,7 @@ export const UpdateProfileForm = () => {
   const { mutate: updateProfile } = useUpdateProfile();
   const { data: user } = useUser();
 
-  const [initialValues] = useState<FormValues>({
+  const [initialValues] = useState<UpdateProfileFormValues>({
     name: "",
     avatar: "",
   });
@@ -123,8 +118,8 @@ export const UpdateProfileForm = () => {
         setSubmitting(true);
 
         updateProfile({
-          name,
-          avatar,
+          name: name as string,
+          avatar: avatar as string,
         });
 
         resetForm();
@@ -138,7 +133,7 @@ export const UpdateProfileForm = () => {
         return (
           <Form className="flex flex-col items-center justify-center">
             <AvatarPicker
-              avatar={avatar}
+              avatar={avatar as string}
               setFieldValue={setFieldValue}
               userAvatar={user?.avatar || ""}
               submitForm={submitForm}

@@ -1,23 +1,23 @@
 "use client";
 
-import clsx from "clsx";
 import Link from "next/link";
 import { FaInstagram, FaFacebook } from "react-icons/fa";
 
 import { AnimationWrapper, animations, WaveBackground } from "@/components";
 import { Icons } from "@/components/icons/Icons";
 import { socialMedia } from "@/config";
+import { cn } from "@/lib";
 
 export const Footer = () => {
   return (
     <div className="relative mt-12 waves-aspect">
       <div
-        className={clsx(
+        className={cn(
           "absolute z-10 flex bottom-0 left-0 w-full h-full justify-center items-center"
         )}
       >
         <div
-          className={clsx(
+          className={cn(
             "grow flex flex-row items-center justify-center sm:justify-between space-x-4 text-white xs:px-10 mt-8",
             "max-w-3xl xl:max-w-6xl 2xl:max-w-7xl px-2 xs3:px-4"
           )}

@@ -2,21 +2,16 @@
 
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
-import clsx from "clsx";
 import { Formik, Form } from "formik";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 
-import { YupSchemas } from "@/app-constants";
+import { ResetPasswordFormValues, YupSchemas } from "@/app-constants";
 import { FormikInput, RealButton, ResizablePanel } from "@/components";
 import { useResetPassword } from "@/hooks";
-
-interface FormValues {
-  password: string;
-  passwordConfirmation: string;
-}
+import { cn } from "@/lib";
 
 const transition = { type: "ease", ease: "easeInOut", duration: 1 };
 
@@ -27,7 +22,7 @@ export default function Page() {
 
   const { mutate: resetPassword, isLoading, isError, isSuccess } = useResetPassword();
 
-  const [initialValues] = useState<FormValues>({
+  const [initialValues] = useState<ResetPasswordFormValues>({
     password: "",
     passwordConfirmation: "",
   });
@@ -62,11 +57,11 @@ export default function Page() {
                         }}
                         key="form"
                       >
-                        <Form className={clsx("flex flex-col")}>
+                        <Form className={cn("flex flex-col")}>
                           <div className="flex flex-row items-center justify-between pl-3">
                             <p className="text-xl font-bold">Uuenda salasõna</p>
                           </div>
-                          <div className={clsx("flex items-center flex-col py-2 mb-5 px-3")}>
+                          <div className={cn("flex items-center flex-col py-2 mb-5 px-3")}>
                             <div className="w-full mt-3 space-y-2">
                               <FormikInput
                                 className="w-full"

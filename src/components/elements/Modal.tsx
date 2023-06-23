@@ -1,12 +1,12 @@
 "use client";
 
 import { Dialog } from "@headlessui/react";
-import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import { ReactNode, useRef } from "react";
 import { HiArrowLeft, HiX } from "react-icons/hi";
 
 import { animations, AnimationWrapper } from "@/components";
+import { cn } from "@/lib";
 
 export const ModalFooterContainer = ({ children }: { children: ReactNode }) => {
   return (
@@ -63,17 +63,26 @@ const modalMaxWidth = {
   md: "sm:w-[28rem]",
   lg: "sm:w-[32rem]",
   xl: "sm:w-[36rem]",
+  "2xl": "sm:w-[42rem]",
 };
 
 interface Props {
   open: boolean;
   setOpen: (open: boolean) => void;
   modalButton: ReactNode;
+  closeOnOverlayClick?: boolean;
   children?: ReactNode;
   maxWidth?: keyof typeof modalMaxWidth;
 }
 
-export const Modal = ({ children, modalButton, open, setOpen, maxWidth = "xl" }: Props) => {
+export const Modal = ({
+  children,
+  modalButton,
+  open,
+  closeOnOverlayClick = true,
+  setOpen,
+  maxWidth = "xl",
+}: Props) => {
   const initialFocusRef = useRef(null);
   return (
     <>
@@ -98,7 +107,7 @@ export const Modal = ({ children, modalButton, open, setOpen, maxWidth = "xl" }:
               key="app-modal-children"
               id="modal-children"
               variants={animations.modalEffect}
-              className={clsx(
+              className={cn(
                 "minscreen:min-w-[20rem] rounded-xl bg-white z-[10]",
                 modalMaxWidth[maxWidth]
               )}
@@ -109,7 +118,7 @@ export const Modal = ({ children, modalButton, open, setOpen, maxWidth = "xl" }:
               key="app-modal-overlay"
               id="overlay"
               variants={animations.overlay}
-              onClick={() => setOpen(false)}
+              onClick={() => setOpen(!closeOnOverlayClick)}
               className="absolute inset-0 w-full h-full bg-gray-500 opacity-40"
             />
           </Dialog>

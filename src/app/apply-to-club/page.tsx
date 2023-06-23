@@ -1,13 +1,12 @@
 "use client";
 
-import clsx from "clsx";
 import { Formik, Form, useFormikContext } from "formik";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { YupSchemas } from "@/app-constants";
+import { ApplyToClubFormValues, YupSchemas } from "@/app-constants";
 import {
   AnimationWrapper,
   FormikInput,
@@ -15,15 +14,8 @@ import {
   ResizablePanel,
   animations,
 } from "@/components";
-
-import { useGetEmailWhitelist } from "../../hooks";
-
-interface FormValues {
-  name: string;
-  group: string;
-  email: string;
-  reason: string;
-}
+import { useGetEmailWhitelist } from "@/hooks";
+import { cn } from "@/lib";
 
 interface FormObserverProps {
   whitelistedEmails: string[];
@@ -32,7 +24,7 @@ interface FormObserverProps {
 
 const FormObserver = ({ whitelistedEmails, setIsEmailWhitelisted }: FormObserverProps) => {
   const { values, resetForm } = useFormikContext();
-  const typedValues = values as FormValues;
+  const typedValues = values as ApplyToClubFormValues;
   useEffect(() => {
     if (whitelistedEmails.includes(typedValues.email)) {
       setIsEmailWhitelisted(true);
@@ -48,7 +40,7 @@ const FormObserver = ({ whitelistedEmails, setIsEmailWhitelisted }: FormObserver
 const transition = { type: "ease", ease: "easeInOut", duration: 1 };
 
 export default function Page() {
-  const [initialValues] = useState<FormValues>({
+  const [initialValues] = useState<ApplyToClubFormValues>({
     name: "",
     group: "",
     email: "",
@@ -63,7 +55,7 @@ export default function Page() {
   return (
     <MotionConfig transition={transition}>
       <div className="max-w-[25rem] m-auto p-6 bg-white rounded-xl overflow-hidden relative">
-        <ResizablePanel duration={1}>
+        <ResizablePanel duration={transition.duration}>
           <Formik
             initialValues={initialValues}
             validationSchema={YupSchemas.ApplyToClub}
@@ -134,11 +126,11 @@ export default function Page() {
                             </AnimationWrapper>
                           </div>
                         ) : (
-                          <Form className={clsx("flex flex-col")}>
+                          <Form className={cn("flex flex-col")}>
                             <div className="flex flex-row items-center justify-between pl-3">
                               <p className="text-xl font-bold">Taotle luba</p>
                             </div>
-                            <div className={clsx("flex items-center flex-col py-2 mb-5 px-3")}>
+                            <div className={cn("flex items-center flex-col py-2 mb-5 px-3")}>
                               <div className="w-full mt-3 space-y-2">
                                 <FormikInput
                                   required

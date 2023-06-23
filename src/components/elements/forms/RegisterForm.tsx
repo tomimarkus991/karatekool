@@ -3,14 +3,13 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
-import clsx from "clsx";
 import { Form, Formik, useFormikContext } from "formik";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { HiEye, HiEyeOff, HiX } from "react-icons/hi";
 
-import { YupSchemas } from "@/app-constants";
+import { RegisterFormValues, YupSchemas } from "@/app-constants";
 import {
   AnimationWrapper,
   FormikInput,
@@ -25,13 +24,6 @@ import { cn } from "@/lib";
 
 interface Props {
   closeModal?: () => void;
-}
-
-interface RegisterFormValues {
-  name: string;
-  email: string;
-  password: string;
-  passwordConfirmation: string;
 }
 
 interface FormObserverProps {
@@ -52,6 +44,9 @@ const FormObserver = ({ whitelistedEmails, setIsAllowedToRegister }: FormObserve
         if (!whitelistedEmails.includes(typedValues.email) && typedValues.email !== "") {
           setIsAllowedToRegister(false);
           toast.error("Teil ei ole lubatud registreerida. Palun taotle luba");
+          clearInterval(interval1);
+        } else if (typedValues.email === "") {
+          setIsAllowedToRegister(false);
           clearInterval(interval1);
         } else {
           setIsAllowedToRegister(true);
@@ -127,7 +122,7 @@ export const RegisterForm = ({ closeModal }: Props) => {
                 </div>
               )}
               <div
-                className={clsx(
+                className={cn(
                   "scrollbar-hide",
                   "flex overflow-y-auto items-center flex-col py-2 px-3"
                 )}

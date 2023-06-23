@@ -1,11 +1,13 @@
 "use client";
 
 import { Tab } from "@headlessui/react";
-import clsx from "clsx";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import Image from "next/image";
 import { Suspense, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
+
+import { TwoElementMovingBox } from "@/components";
+import { cn } from "@/lib";
 
 import {
   ContactDojosTab,
@@ -38,26 +40,10 @@ const dojoContentVariants = (toLeft: boolean) => {
 export const ContactDojos = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const whiteMovingBox: Variants = {
-    active: {
-      left: "0%",
-      transition: {
-        ease: "easeOut",
-        duration,
-      },
-    },
-    inactive: {
-      left: "50%",
-      transition: {
-        ease: "easeOut",
-        duration,
-      },
-    },
-  };
   return (
     <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
       <Tab.List
-        className={clsx(
+        className={cn(
           "flex flex-row relative px-1 w-full flex-1 mb-6 bg-stone-100 rounded-2xl max-w-md m-auto md:mb-12"
         )}
       >
@@ -67,12 +53,7 @@ export const ContactDojos = () => {
         <ContactDojosTab selectedIndex={selectedIndex} index={1}>
           KSG Spordisaal Sikupillis
         </ContactDojosTab>
-        {/* whiteMovingBox */}
-        <motion.div
-          variants={whiteMovingBox}
-          animate={selectedIndex === 0 ? "active" : "inactive"}
-          className="bg-white absolute inset-0 w-[50%] rounded-2xl"
-        />
+        <TwoElementMovingBox selectedIndex={selectedIndex} />
       </Tab.List>
       <Tab.Panels>
         <AnimatePresence>
