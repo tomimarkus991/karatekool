@@ -53,6 +53,7 @@ module.exports = {
         "tab-bg": "#F6F6F8",
         primary: "#E50815",
         secondary: "#E58D08",
+        "secondary-light": "#eaa439",
         casualRed: "#FF695A",
         casualOrange: "#FFA033",
         casualGreen: "#42D68C",
