@@ -45,6 +45,9 @@ const FormObserver = ({ whitelistedEmails, setIsAllowedToRegister }: FormObserve
           setIsAllowedToRegister(false);
           toast.error("Teil ei ole lubatud registreerida. Palun taotle luba");
           clearInterval(interval1);
+        } else if (typedValues.email === "") {
+          setIsAllowedToRegister(false);
+          clearInterval(interval1);
         } else {
           setIsAllowedToRegister(true);
           toast.success("Te saate registreerida");
