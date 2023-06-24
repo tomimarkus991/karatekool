@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-// takes in a string and for each letter adds japanese kanji and starts switching those for each letter
-// and at the same time starts decrypting the string from left to right
 interface Props {
   children: string;
   /**
@@ -118,5 +116,5 @@ export const LetterDecryptor = ({ children, time = 1000 }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <div>{decryptedLetters.join("")}</div>;
+  return <>{decryptedLetters.join("")}</>;
 };

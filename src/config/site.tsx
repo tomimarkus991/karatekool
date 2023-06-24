@@ -61,7 +61,7 @@ export const routes: Router[] = [
     // bigIcon: <Icons.home className={cn(bigIconCss)} />,
     bigIcon: (
       <div className={cn(bigIconCss, "relative")}>
-        <Image fill alt="house" src="/icons/house.png" />
+        <Image fill priority alt="house" src="/icons/house.png" />
       </div>
     ),
   },
