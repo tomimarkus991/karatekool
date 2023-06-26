@@ -37,7 +37,7 @@ const TextFieldPicker = ({ ...props }) => {
 
   return (
     <TextField
-      {...props}
+      {...props.props}
       id="time"
       className="text-xl w-24 !font-number text-stone-800"
       InputProps={{ disableUnderline: true }}
