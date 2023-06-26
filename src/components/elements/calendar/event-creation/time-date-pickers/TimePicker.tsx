@@ -1,8 +1,13 @@
+"use client";
+
 import { TextField, ThemeProvider, createTheme } from "@mui/material";
 import { LocalizationProvider, MobileTimePicker as MTimePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { getHours, getMinutes } from "date-fns";
 import { useField } from "formik";
+import { HiOutlineClock } from "react-icons/hi";
+
+import { AnimationWrapper, animations } from "../../../../animations";
 
 interface Props {
   name: string;
@@ -36,14 +41,17 @@ const TextFieldPicker = ({ ...props }) => {
     propsValue === null ? "Vali kellaaeg" : `${getHours(propsValue)}:${getMinutes(propsValue)}`;
 
   return (
-    <TextField
-      {...props.props}
-      id="time"
-      className="text-xl w-24 !font-number text-stone-800"
-      InputProps={{ disableUnderline: true }}
-      variant="standard"
-      value={value}
-    />
+    <AnimationWrapper className="flex flex-row cursor-default" variants={animations.subtleScale}>
+      <HiOutlineClock className="w-6 h-6 mr-2 text-stone-700 group-hover:text-stone-800" />
+      <TextField
+        {...props.props}
+        id="time"
+        className="!text-lg w-24 !text-[#393939] !font-semibold !font-catamaran !cursor-pointer"
+        InputProps={{ disableUnderline: true }}
+        variant="standard"
+        value={value}
+      />
+    </AnimationWrapper>
   );
 };
 

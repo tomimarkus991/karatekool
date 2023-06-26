@@ -22,7 +22,7 @@ export const DatePicker = ({ name, className, ...props }: Props) => {
         <AnimationWrapper variants={animations.subtleScale}>
           <DatePickerCalendarButton variant="ghost" className="pl-0 ml-0 text-left group">
             <HiOutlineCalendar className="w-6 h-6 mr-2 text-stone-700 group-hover:text-stone-800" />
-            {value ? format(value, "PPP") : <p>Vali kuupäev</p>}
+            {value ? format(value, "PPP") : <p className="text-lg">Vali kuupäev</p>}
           </DatePickerCalendarButton>
         </AnimationWrapper>
       </PopoverTrigger>

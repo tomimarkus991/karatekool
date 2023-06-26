@@ -36,7 +36,7 @@ export const DatePickerWithRange = ({ name }: Props) => {
                 format(value.from, "LLL dd, y")
               )
             ) : (
-              <p>Vali kuupäev</p>
+              <p className="text-lg">Vali kuupäev</p>
             )}
           </DatePickerCalendarButton>
         </AnimationWrapper>
