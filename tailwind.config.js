@@ -90,7 +90,7 @@ module.exports = {
         "spin-slow": "spin-backwards 40s linear infinite",
         spinner: "spin-forwards 1s linear infinite",
         "scrollwheel-move-down": "animate-scrollwheel-move-down 2500ms ease infinite",
-        "mobile-move-down": "animate-mobile-move-down 2s ease infinite",
+        "mobile-move-down": "animate-mobile-move-down 2500ms ease infinite",
       },
       keyframes: {
         "spin-backwards": {

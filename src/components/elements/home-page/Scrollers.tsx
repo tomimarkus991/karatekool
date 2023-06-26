@@ -67,7 +67,12 @@ export const MobileScroller = ({ scroll }: Props) => {
             animate={control}
             variants={animations.mouseFadeInFromBottom}
           >
-            <BsChevronCompactDown className="w-20 h-20 cursor-pointer fill-stone-700 rounded-2xl" />
+            <BsChevronCompactDown
+              className={cn(
+                "w-20 h-20 cursor-pointer fill-stone-700 rounded-2xl",
+                "delay-1000 animate-mobile-move-down"
+              )}
+            />
           </AnimationWrapper>
         </div>
       )}
