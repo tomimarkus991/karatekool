@@ -1,4 +1,5 @@
 import { HTMLMotionProps, motion } from "framer-motion";
+import { forwardRef } from "react";
 
 import { useIsMobile } from "@/hooks";
 
@@ -14,34 +15,33 @@ interface Props {
 
 type IProps = Props & HTMLMotionProps<"div">;
 
-export const AnimationWrapper = ({
-  children,
-  animateOnMobile = true,
-  variants,
-  child = false,
-  ...props
-}: IProps) => {
-  const { isMobile } = useIsMobile();
+export const AnimationWrapper = forwardRef<HTMLDivElement, IProps>(
+  ({ children, animateOnMobile = true, variants, child = false, ...props }, ref) => {
+    const { isMobile } = useIsMobile();
 
-  // when user is on mobile and you dont want to animate on mobile
-  // return regular div
-  if (!animateOnMobile && isMobile) {
-    <motion.div variants={{}} {...props}>
-      {children}
-    </motion.div>;
+    // when user is on mobile and you dont want to animate on mobile
+    // return regular div
+    if (!animateOnMobile && isMobile) {
+      <motion.div ref={ref} variants={{}} {...props}>
+        {children}
+      </motion.div>;
+    }
+
+    return (
+      <motion.div
+        ref={ref}
+        initial={child ? undefined : "initial"}
+        animate={child ? undefined : "animate"}
+        exit={child ? undefined : "exit"}
+        whileHover={child ? undefined : "whileHover"}
+        whileTap={child ? undefined : "whileTap"}
+        variants={variants}
+        {...props}
+      >
+        {children}
+      </motion.div>
+    );
   }
+);
 
-  return (
-    <motion.div
-      initial={child ? undefined : "initial"}
-      animate={child ? undefined : "animate"}
-      exit={child ? undefined : "exit"}
-      whileHover={child ? undefined : "whileHover"}
-      whileTap={child ? undefined : "whileTap"}
-      variants={variants}
-      {...props}
-    >
-      {children}
-    </motion.div>
-  );
-};
+AnimationWrapper.displayName = "AnimationWrapper";

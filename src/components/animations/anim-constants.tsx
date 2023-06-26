@@ -2,31 +2,37 @@ import { Variants } from "framer-motion";
 
 import { SidebarPlacementType } from "@/context";
 
-const flyInFromTop: Variants = {
+const fadeInFromTop: Variants = {
   initial: { opacity: 0, y: -100 },
   animate: { opacity: 1, y: 0, transition: { delay: 0.2, duration: 0.5, ease: "easeInOut" } },
 };
 
-const flyInFromBottom: Variants = {
+const fadeInFromBottom: Variants = {
   initial: { opacity: 0, y: 100 },
   animate: { opacity: 1, y: 0, transition: { delay: 0.2, duration: 0.5, ease: "easeInOut" } },
 };
 
-const flyInFromRight: Variants = {
+const fadeInFromRight: Variants = {
   initial: { opacity: 0, x: 100 },
   animate: { opacity: 1, x: 0, transition: { delay: 0.2, duration: 0.5, ease: "easeInOut" } },
 };
 
-const flyInFromLeft: Variants = {
+const fadeInFromLeft: Variants = {
   initial: { opacity: 0, x: -100 },
   animate: { opacity: 1, x: 0, transition: { delay: 0.2, duration: 0.5, ease: "easeInOut" } },
 };
 
-export const flyIn = {
-  flyInFromTop,
-  flyInFromBottom,
-  flyInFromLeft,
-  flyInFromRight,
+const pageItems = {
+  fadeInFromTop,
+  fadeInFromBottom,
+  fadeInFromLeft,
+  fadeInFromRight,
+};
+
+const mouseFadeInFromBottom: Variants = {
+  initial: { opacity: 0, y: 100 },
+  animate: { opacity: 1, y: 0, transition: { delay: 0.2, duration: 0.5, ease: "easeInOut" } },
+  exit: { opacity: 0, y: 80, transition: { duration: 0.4, ease: "easeInOut" } },
 };
 
 const scaleAndRotation: Variants = {
@@ -390,4 +396,6 @@ export const animations = {
   accordionHeader,
   calendar,
   calendarEventCreation,
+  pageItems,
+  mouseFadeInFromBottom,
 };
