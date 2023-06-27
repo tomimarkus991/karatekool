@@ -59,7 +59,7 @@ export const MobileScroller = ({ scroll }: Props) => {
   return (
     <AnimatePresence>
       {currentScroll <= 0 && (
-        <div className="fixed z-50 transform -translate-x-1/2 -translate-y-1/2 md:hidden top-[80%] left-1/2">
+        <div className="fixed z-50 transform -translate-x-1/2 -translate-y-1/2 md:hidden top-[85%] left-1/2">
           <AnimationWrapper
             id="mouse-mobile-scroller"
             ref={ref}
