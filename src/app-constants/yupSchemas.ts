@@ -62,10 +62,10 @@ const NormalEvent = object()
     startDate: date().default(undefined),
     groupIds: array().of(number()),
     highlightedGroupIds: array().of(number()),
-    isHighlighted: boolean(),
-    trailerId: number(),
-    description: string(),
-    end: string(),
+    isHighlighted: boolean().required("Vajalik"),
+    trailerId: number().default(undefined),
+    description: string().default(undefined),
+    endTime: string().default(undefined),
   })
   .test(
     "eitherGroupIdsOrHighlightedGroupIds",

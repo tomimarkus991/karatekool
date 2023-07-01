@@ -1,6 +1,5 @@
 import { isSameDay, parseISO } from "date-fns";
 import { motion } from "framer-motion";
-import { useDetectOverflow } from "use-detect-overflow";
 
 import { NormalEventTime, MapGroupLetter, MapHighLightedGroupLetter } from "@/components";
 import { useCalendarFilters } from "@/context";
@@ -13,10 +12,9 @@ interface Props {
 }
 
 export const NormalEvent = ({ event, date }: Props) => {
-  const { group, event_trailer, highlighted_group, description } = event;
+  const { group: groups, event_trailer, highlighted_group, description } = event;
   const start = parseISO(event.start);
   const { letter } = useCalendarFilters();
-  const [ref, { overflowX }] = useDetectOverflow();
 
   // show event if it is the same day as the date
   if (!isSameDay(start, date)) {
@@ -31,7 +29,7 @@ export const NormalEvent = ({ event, date }: Props) => {
   // if filter is all show all groups
   if (
     letter !== "all" &&
-    !(group.filter(_group => _group?.letter === letter).length > 0) &&
+    !(groups.filter(group => group?.letter === letter).length > 0) &&
     !(
       highlighted_group.filter(_highlighted_group => _highlighted_group?.letter === letter).length >
       0
@@ -51,13 +49,13 @@ export const NormalEvent = ({ event, date }: Props) => {
         middle: { opacity: 1, transition: { opacity: { duration: 0.2 } } },
         exit: { opacity: 0, x: 300, transition: { duration: 1 } },
       }}
-      className={cn("flex flex-col justify-start hover:bg-stone-50 rounded-lg")}
+      className="flex flex-col justify-start rounded-lg hover:bg-stone-50"
     >
-      <div id="normal-event" className="flex flex-row items-center justify-start" ref={ref}>
+      <div id="normal-event" className="flex flex-row items-center justify-start">
         <NormalEventTime event={event} />
         <div id="normal-event" className={cn("flex justify-center items-center")}>
-          <MapGroupLetter groups={group} overflowX={overflowX} />
-          <MapHighLightedGroupLetter highlightedGroups={highlighted_group} overflowX={overflowX} />
+          <MapGroupLetter groups={groups} />
+          <MapHighLightedGroupLetter highlightedGroups={highlighted_group} />
           {event_trailer?.text && (
             <p
               id="normal-event"

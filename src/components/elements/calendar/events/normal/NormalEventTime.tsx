@@ -7,7 +7,7 @@ import { cn } from "@/lib";
 import { EventData } from "@/types";
 
 interface Props {
-  event: EventData;
+  event: Pick<EventData, "start" | "is_highlighted">;
   dayView?: boolean;
 }
 

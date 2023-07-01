@@ -16,12 +16,20 @@ import {
   DatePicker,
   DatePickerWithRange,
   FormikInput,
+  MapGroupLetter,
+  MapHighLightedGroupLetter,
+  NormalEventTime,
   RealButton,
   ThreeElementMovingBox,
   TimePicker,
   animations,
 } from "@/components";
 import { cn } from "@/lib";
+
+import { Checkbox } from "../../Checkbox";
+
+import { GroupPicker } from "./GroupPicker";
+import { TrailerPicker } from "./TrailerPicker";
 
 import { AllDayEventInput, CalendarEventTab } from ".";
 
@@ -30,6 +38,12 @@ export const EventCreationTabs = () => {
   const [normalEventInitialValues] = useState<NormalEventFormValues>({
     startTime: undefined,
     startDate: undefined,
+    groupIds: [],
+    highlightedGroupIds: [],
+    trailerId: undefined,
+    description: "",
+    isHighlighted: false,
+    endTime: undefined,
   });
   const [allDayEventInitialValues] = useState<AllDayEventFormValues>({
     title: "",
@@ -86,12 +100,86 @@ export const EventCreationTabs = () => {
                   setSubmitting(false);
                 }}
               >
-                {() => {
+                {/* normal */}
+                {({ values }) => {
                   return (
                     <Form>
-                      <div className="flex flex-col items-start justify-start">
-                        <TimePicker name="startTime" />
-                        <DatePicker name="startDate" />
+                      <div className="flex flex-row justify-between pb-4">
+                        <div className="flex flex-col items-start justify-start">
+                          <div className="flex flex-col">
+                            <p className="text-sm text-stone-600">Vali millal trenn algab</p>
+                            <TimePicker name="startTime" />
+                          </div>
+                          <div className="flex flex-col">
+                            <p className="text-sm text-stone-600">
+                              Võid valida millal trenn lõppeb
+                            </p>
+                            <TimePicker name="endTime" />
+                          </div>
+                          <FormikInput
+                            className="w-full"
+                            label="Info"
+                            placeholder="karate seminar"
+                            name="description"
+                          />
+                          <div className="flex">
+                            <p>Highlight group?</p>
+                            <Checkbox name="isHighlighted" />
+                          </div>
+                          <GroupPicker />
+                          <TrailerPicker />
+                          <DatePicker name="startDate" />
+                        </div>
+
+                        <div className="flex flex-col justify-center">
+                          <p className="self-center font-semibold justify-self-center text-stone-500">
+                            {values.startDate ? format(values.startDate, "EEEE") : "Esmaspäev"}
+                          </p>
+                          <div className="flex flex-col mt-2 border border-t-0 h-52 w-36 border-stone-100">
+                            <div className="flex flex-col items-center justify-center">
+                              <div className="text-xs font-medium font-number sm:text-sm md:text-base text-text-primary">
+                                {values.startDate ? format(values.startDate, "dd") : "1"}
+                              </div>
+                            </div>
+                            <div className="flex flex-col justify-center flex-grow ml-2 text-center">
+                              <div className="flex flex-col justify-start rounded-lg">
+                                <div
+                                  id="normal-event"
+                                  className="flex flex-row items-center justify-start"
+                                >
+                                  <NormalEventTime
+                                    event={{
+                                      is_highlighted: values.isHighlighted,
+                                      start: new Date().toISOString(),
+                                    }}
+                                  />
+                                  <div
+                                    id="normal-event"
+                                    className={cn("flex justify-center items-center")}
+                                  >
+                                    <MapGroupLetter groups={[{ letter: "S" }, { letter: "K" }]} />
+                                    <MapHighLightedGroupLetter
+                                      highlightedGroups={[{ letter: "N" }]}
+                                    />
+                                    {values.trailerId && (
+                                      <p
+                                        id="normal-event"
+                                        className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] font-number font-semibold text-center"
+                                      >
+                                        {values.trailerId}
+                                      </p>
+                                    )}
+                                  </div>
+                                </div>
+                                {values.description && (
+                                  <p className="text-[0.4rem] xs:text-[0.6rem] sm:text-[0.71rem] font-semibold text-left -mt-[0.2rem]">
+                                    {values.description}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </Form>
                   );
@@ -130,11 +218,7 @@ export const EventCreationTabs = () => {
                             <p className="self-center font-semibold justify-self-center text-stone-500">
                               {values.start ? format(values.start, "EEEE") : "Esmaspäev"}
                             </p>
-                            <div
-                              className={cn(
-                                "h-52 w-36 border mt-2 border-stone-100 border-t-0 flex flex-col"
-                              )}
-                            >
+                            <div className="flex flex-col mt-2 border border-t-0 h-52 w-36 border-stone-100">
                               <div className="flex flex-col items-center justify-center">
                                 <div className="text-xs font-medium font-number sm:text-sm md:text-base text-text-primary">
                                   {values.start ? format(values.start, "dd") : "1"}
@@ -190,7 +274,7 @@ export const EventCreationTabs = () => {
                         <DatePickerWithRange name="dateRange" />
                         <FormikInput
                           required
-                          className="w-full"
+                          className="sm:w-[38rem] lg:w-[40rem]"
                           label="Pealkiri"
                           placeholder="Pealkiri"
                           name="title"

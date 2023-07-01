@@ -3,7 +3,6 @@ import { SGroup, SHighLightedGroup } from "@/types";
 
 interface MapGroupLetterProps {
   groups: SGroup[];
-  overflowX: boolean;
   dayView?: boolean;
 }
 
@@ -37,7 +36,6 @@ export const MapGroupLetter = ({ groups, dayView = false }: MapGroupLetterProps)
 
 interface MapHighlightedGroupLetterProps {
   highlightedGroups: SHighLightedGroup[];
-  overflowX: boolean;
   dayView?: boolean;
 }
 
