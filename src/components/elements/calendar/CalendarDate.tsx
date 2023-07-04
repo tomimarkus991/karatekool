@@ -38,7 +38,7 @@ export const CalendarDate = ({ events, date, month }: Props) => {
           className={cn(
             "w-full h-full m-auto box-border p-[0.1rem] sm:p-1",
             "border-stone-100 border-r first:border-l",
-            "hover:border-secondary hover:border"
+            user?.role === "admin" && "hover:border-secondary hover:border"
           )}
           onClick={(e: any) => {
             if (user?.role === "admin") {
