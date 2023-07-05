@@ -113,18 +113,26 @@ export const EventCreationTabs = () => {
                             <TimePicker name="startTime" />
                           </div>
 
-                          <div className="flex flex-col">
-                            <p className="text-sm text-stone-600">Esile tõstetud grupid</p>
+                          <div className="flex flex-col w-32">
+                            {/* <p className="text-sm text-stone-600">Esile tõstetud grupid</p> */}
+
                             <Toggle
                               pressed={highlightGroupPressed}
+                              tooltip={
+                                highlightGroupPressed
+                                  ? "Näita tavalisi gruppe"
+                                  : "Tõsta grupid esile"
+                              }
                               setPressed={setHighlightGroupPressed}
                             />
+
                             <GroupPicker pressed={highlightGroupPressed} />
                           </div>
                           <DatePicker name="startDate" />
                           <div className="flex flex-col">
-                            <p className="text-sm text-stone-600">Lisa veel parameetreid</p>
+                            {/* <p className="text-sm text-stone-600">Lisa veel parameetreid</p> */}
                             <Toggle
+                              tooltip={advancedOptionsPressed ? "Sulge" : "Lisa veel parameetreid"}
                               pressed={advancedOptionsPressed}
                               setPressed={setAdvancedOptionsPressed}
                             />

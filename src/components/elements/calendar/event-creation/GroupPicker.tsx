@@ -3,8 +3,9 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 
 import { IHighlightedAndGroup, useGetGroups } from "@/hooks";
-import { cn } from "@/lib";
+import { cn, groupColorMapper } from "@/lib";
 
+import { GroupLetters } from "../../../../types";
 import { ResizablePanel } from "../../ResizablePanel";
 
 interface Props {
@@ -53,14 +54,15 @@ export const GroupPicker = ({ pressed }: Props) => {
                       return (
                         <div
                           className={cn(
-                            "flex flex-row justify-self-center border rounded-lg p-1",
+                            "flex flex-row justify-self-center border rounded-lg p-1 select-none cursor-pointer font-semibold",
                             selected ? "border-secondary" : "border-transparent"
                           )}
                           key={highlightedGroup.id}
                         >
                           <p
                             className={cn(
-                              "cursor-pointer select-none underline decoration-red-500"
+                              "underline decoration-red-500",
+                              groupColorMapper(highlightedGroup?.letter as GroupLetters)
                             )}
                           >
                             {highlightedGroup.letter}
@@ -84,12 +86,19 @@ export const GroupPicker = ({ pressed }: Props) => {
                       return (
                         <div
                           className={cn(
-                            "flex flex-row justify-self-center border rounded-lg p-1",
+                            "flex flex-row justify-self-center border rounded-lg p-1 font-semibold",
                             selected ? "border-secondary" : "border-transparent"
                           )}
                           key={group.id}
                         >
-                          <p className={cn("cursor-pointer select-none")}>{group.letter}</p>
+                          <p
+                            className={cn(
+                              "cursor-pointer select-none",
+                              groupColorMapper(group?.letter as GroupLetters)
+                            )}
+                          >
+                            {group.letter}
+                          </p>
                         </div>
                       );
                     }}
