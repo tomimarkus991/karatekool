@@ -7,6 +7,7 @@ import { createFileName, useScreenshot } from "use-react-screenshot";
 import { useCalendarFilters } from "@/context";
 
 import { RealButton } from "../button";
+import { Tooltip } from "../Tooltip";
 
 interface Props {
   currentMonthString: string;
@@ -38,7 +39,21 @@ export const DownloadCalendar = ({ currentMonthString, calendarRef }: Props) => 
     return download(data);
   };
   return (
-    <RealButton size="icon" className="px-0 sm:px-3" onClick={downloadScreenshot}>
+    <RealButton
+      size="icon"
+      disabled={letter === "none"}
+      className="px-0 sm:px-3 disabled:opacity-75 disabled:cursor-not-allowed group"
+      onClick={downloadScreenshot}
+    >
+      <Tooltip
+        tooltip={
+          letter === "all"
+            ? `Lae kõikide gruppide kalender alla`
+            : letter === "none"
+            ? "Vali grupp, mille kalender alla laadida"
+            : `Lae ${letter.toUpperCase()} grupi kalender alla`
+        }
+      />
       <HiDownload className="w-6 h-6 text-white" />
     </RealButton>
   );
