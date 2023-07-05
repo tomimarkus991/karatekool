@@ -22,11 +22,10 @@ import {
   RealButton,
   ThreeElementMovingBox,
   TimePicker,
+  Toggle,
   animations,
 } from "@/components";
 import { cn } from "@/lib";
-
-import { Checkbox } from "../../Checkbox";
 
 import { GroupPicker } from "./GroupPicker";
 import { TrailerPicker } from "./TrailerPicker";
@@ -57,6 +56,9 @@ export const EventCreationTabs = () => {
       to: undefined,
     },
   });
+
+  const [advancedOptionsPressed, setAdvancedOptionsPressed] = useState(false);
+  const [highlightGroupPressed, setHighlightGroupPressed] = useState(false);
 
   return (
     <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
@@ -110,27 +112,41 @@ export const EventCreationTabs = () => {
                             <p className="text-sm text-stone-600">Vali millal trenn algab</p>
                             <TimePicker name="startTime" />
                           </div>
-                          <div className="flex flex-col">
-                            <p className="text-sm text-stone-600">
-                              Võid valida millal trenn lõppeb
-                            </p>
-                            <TimePicker name="endTime" />
-                          </div>
-                          <FormikInput
-                            className="w-full"
-                            label="Info"
-                            placeholder="karate seminar"
-                            name="description"
-                          />
-                          <div className="flex">
-                            <p>Highlight group?</p>
-                            <Checkbox name="isHighlighted" />
-                          </div>
-                          <GroupPicker />
-                          <TrailerPicker />
-                          <DatePicker name="startDate" />
-                        </div>
 
+                          <div className="flex flex-col">
+                            <p className="text-sm text-stone-600">Esile tõstetud grupid</p>
+                            <Toggle
+                              pressed={highlightGroupPressed}
+                              setPressed={setHighlightGroupPressed}
+                            />
+                            <GroupPicker pressed={highlightGroupPressed} />
+                          </div>
+                          <DatePicker name="startDate" />
+                          <div className="flex flex-col">
+                            <p className="text-sm text-stone-600">Lisa veel parameetreid</p>
+                            <Toggle
+                              pressed={advancedOptionsPressed}
+                              setPressed={setAdvancedOptionsPressed}
+                            />
+                            {advancedOptionsPressed && (
+                              <>
+                                <div className="flex flex-col">
+                                  <p className="text-sm text-stone-600">
+                                    Võid valida millal trenn lõppeb
+                                  </p>
+                                  <TimePicker name="endTime" />
+                                </div>
+                                <FormikInput
+                                  className="w-full"
+                                  label="Info"
+                                  placeholder="karate seminar"
+                                  name="description"
+                                />
+                                <TrailerPicker />
+                              </>
+                            )}
+                          </div>
+                        </div>
                         <div className="flex flex-col justify-center">
                           <p className="self-center font-semibold justify-self-center text-stone-500">
                             {values.startDate ? format(values.startDate, "EEEE") : "Esmaspäev"}

@@ -3,16 +3,22 @@ import { toast } from "react-hot-toast";
 
 import { useSupabase } from "@/context";
 
+export interface IHighlightedAndGroup {
+  id: number;
+  letter: string;
+  highlighted: boolean;
+}
+
 export const useGetGroups = () => {
   const { supabase } = useSupabase();
   const getQuery = async () => {
     const { data: groups, error: groupError } = await supabase
       .from("group")
-      .select("letter")
+      .select("id,letter")
       .order("letter", { ascending: true });
     const { data: highlightedGroups, error: highlightedGroupError } = await supabase
       .from("highlighted_group")
-      .select("letter")
+      .select("id,letter")
       .order("letter", { ascending: true });
 
     if (groupError) {
@@ -25,8 +31,14 @@ export const useGetGroups = () => {
     }
 
     return {
-      groups: groups.map(({ letter }) => letter || "") || [],
-      highlightedGroups: highlightedGroups.map(({ letter }) => letter || "") || [],
+      groups:
+        (groups.map(group => {
+          return { ...group, highlighted: false };
+        }) as IHighlightedAndGroup[]) || [],
+      highlightedGroups:
+        (highlightedGroups.map(group => {
+          return { ...group, highlighted: true };
+        }) as IHighlightedAndGroup[]) || [],
     };
   };
 

@@ -6,6 +6,10 @@ interface Props {
   duration?: number;
 }
 
+/**
+ * add relative to parent component
+ * @param duration @default = 2 seconds
+ */
 export const ResizablePanel = ({ children, duration = 2 }: Props) => {
   const [ref, bounds] = useMeasure();
 
