@@ -1,21 +1,20 @@
 import { Listbox } from "@headlessui/react";
-import { useState } from "react";
-import { toast } from "react-hot-toast";
+import { useField } from "formik";
 
-import { IHighlightedAndGroup, useGetGroups } from "@/hooks";
+import { NormalEventSelectedGroupsFormValues } from "@/app-constants";
+import { useGetGroups } from "@/hooks";
 import { cn, groupColorMapper } from "@/lib";
+import { GroupLetters } from "@/types";
 
-import { GroupLetters } from "../../../../types";
 import { ResizablePanel } from "../../ResizablePanel";
 
 interface Props {
+  name: string;
   pressed: boolean;
 }
 
-export const GroupPicker = ({ pressed }: Props) => {
-  const [selectedGroup, setSelectedGroup] = useState<IHighlightedAndGroup[]>();
-  // used to check if user is trying to add the same group twice
-  const [selectedGroupMemory, setSelectedGroupMemory] = useState<IHighlightedAndGroup[]>();
+export const GroupPicker = ({ name, pressed }: Props) => {
+  const [field, { value }, { setValue }] = useField<NormalEventSelectedGroupsFormValues>(name);
 
   const { data } = useGetGroups();
 
@@ -23,26 +22,9 @@ export const GroupPicker = ({ pressed }: Props) => {
 
   const { groups, highlightedGroups } = data;
 
-  const handleChange = (changedGroups: IHighlightedAndGroup[]) => {
-    const lastAddedGroup = changedGroups.slice(-1)[0];
-    setSelectedGroupMemory(changedGroups);
-
-    if (changedGroups.length === 0) {
-      // remove the last item from the array
-      setSelectedGroup(changedGroups.slice(0, -1));
-      return;
-    }
-    // check if array already contains a group with that letter if it does alert user
-    if (selectedGroupMemory?.some(group => group.letter === lastAddedGroup.letter)) {
-      toast.error("Sa ei saa lisada sama gruppi mitu korda!");
-      return;
-    }
-    setSelectedGroup(changedGroups);
-  };
-
   return (
     <>
-      <Listbox multiple value={selectedGroup} onChange={handleChange}>
+      <Listbox {...field} multiple value={value} onChange={setValue}>
         <Listbox.Options
           static
           className="relative py-1 mt-2 text-base bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
@@ -50,66 +32,82 @@ export const GroupPicker = ({ pressed }: Props) => {
           <ResizablePanel>
             {pressed ? (
               <div className="grid items-center justify-center grid-cols-4 grid-rows-2">
-                {highlightedGroups.map(highlightedGroup => (
-                  <Listbox.Option
-                    className={cn("flex flex-row justify-self-center")}
-                    key={highlightedGroup.id}
-                    value={highlightedGroup}
-                  >
-                    {({ selected }) => {
-                      return (
-                        <div
-                          className={cn(
-                            "flex flex-row justify-self-center border rounded-lg p-1 select-none cursor-pointer font-semibold",
-                            selected ? "border-secondary" : "border-transparent"
-                          )}
-                          key={highlightedGroup.id}
-                        >
-                          <p
+                {highlightedGroups.map(highlightedGroup => {
+                  const isGroupDisabled = value?.some(
+                    selectedGroup =>
+                      selectedGroup.letter === highlightedGroup.letter &&
+                      selectedGroup.highlighted === false
+                  );
+                  return (
+                    <Listbox.Option
+                      className={cn(
+                        "flex flex-row justify-self-center",
+                        "!disabled:cursor-not-allowed !disabled:opacity-80"
+                      )}
+                      key={highlightedGroup.id}
+                      value={highlightedGroup}
+                      disabled={isGroupDisabled}
+                    >
+                      {({ selected }) => {
+                        return (
+                          <div
                             className={cn(
-                              "underline decoration-red-500",
-                              groupColorMapper(highlightedGroup?.letter as GroupLetters)
+                              "flex flex-row justify-self-center border rounded-lg p-1 select-none cursor-pointer font-semibold",
+                              selected ? "border-secondary" : "border-transparent",
+                              isGroupDisabled && "group opacity-80 cursor-not-allowed"
                             )}
+                            key={highlightedGroup.id}
                           >
-                            {highlightedGroup.letter}
-                          </p>
-                          <p className="text-red-500 ml-[0.06rem]">!</p>
-                        </div>
-                      );
-                    }}
-                  </Listbox.Option>
-                ))}
+                            <p
+                              className={cn(
+                                "underline decoration-red-500",
+                                groupColorMapper(highlightedGroup?.letter as GroupLetters)
+                              )}
+                            >
+                              {highlightedGroup.letter}
+                            </p>
+                            <p className="text-red-500 ml-[0.06rem]">!</p>
+                          </div>
+                        );
+                      }}
+                    </Listbox.Option>
+                  );
+                })}
               </div>
             ) : (
               <div className="grid items-center justify-center grid-cols-4 grid-rows-2">
-                {groups.map(group => (
-                  <Listbox.Option
-                    className={cn("flex flex-row justify-self-center")}
-                    key={group.id}
-                    value={group}
-                  >
-                    {({ selected }) => {
-                      return (
-                        <div
-                          className={cn(
-                            "flex flex-row justify-self-center border rounded-lg p-1 font-semibold",
-                            selected ? "border-secondary" : "border-transparent"
-                          )}
-                          key={group.id}
-                        >
-                          <p
+                {groups.map(group => {
+                  const isGroupDisabled = value?.some(
+                    selectedGroup =>
+                      selectedGroup.letter === group.letter && selectedGroup.highlighted === true
+                  );
+
+                  return (
+                    <Listbox.Option
+                      className={cn("flex flex-row justify-self-center")}
+                      key={group.id}
+                      value={group}
+                      disabled={isGroupDisabled}
+                    >
+                      {({ selected }) => {
+                        return (
+                          <div
                             className={cn(
-                              "cursor-pointer select-none",
-                              groupColorMapper(group?.letter as GroupLetters)
+                              "flex flex-row justify-self-center border rounded-lg p-1 font-semibold select-none",
+                              selected ? "border-secondary" : "border-transparent",
+                              isGroupDisabled && "group cursor-not-allowed opacity-80"
                             )}
+                            key={group.id}
                           >
-                            {group.letter}
-                          </p>
-                        </div>
-                      );
-                    }}
-                  </Listbox.Option>
-                ))}
+                            <p className={cn(groupColorMapper(group?.letter as GroupLetters))}>
+                              {group.letter}
+                            </p>
+                          </div>
+                        );
+                      }}
+                    </Listbox.Option>
+                  );
+                })}
               </div>
             )}
           </ResizablePanel>

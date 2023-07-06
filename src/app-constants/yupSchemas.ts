@@ -60,8 +60,9 @@ const NormalEvent = object()
   .shape({
     startTime: string().default(undefined),
     startDate: date().default(undefined),
-    groupIds: array().of(number()),
-    highlightedGroupIds: array().of(number()),
+    selectedGroups: array().of(
+      object().shape({ id: number(), letter: string(), highlighted: boolean() })
+    ),
     isHighlighted: boolean().required("Vajalik"),
     trailerId: number().default(undefined),
     description: string().default(undefined),
@@ -71,15 +72,18 @@ const NormalEvent = object()
     "eitherGroupIdsOrHighlightedGroupIds",
     "Vali vähemalt üks grupp või üks esiletõstetud grupp",
     function (obj) {
-      const { groupIds, highlightedGroupIds } = obj;
-      const hasGroupIds = groupIds && groupIds.length > 0;
-      const hasHighlightedGroupIds = highlightedGroupIds && highlightedGroupIds.length > 0;
+      const { selectedGroups } = obj;
+      const hasGroupIds = selectedGroups && selectedGroups.length > 0;
 
-      return hasGroupIds || hasHighlightedGroupIds;
+      return hasGroupIds;
     }
   );
 
 export type NormalEventFormValues = InferType<typeof NormalEvent>;
+export type NormalEventSelectedGroupsFormValues = Pick<
+  NormalEventFormValues,
+  "selectedGroups"
+>["selectedGroups"];
 
 // create all day event
 const AllDayEvent = object().shape({

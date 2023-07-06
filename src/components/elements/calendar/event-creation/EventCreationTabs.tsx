@@ -37,8 +37,7 @@ export const EventCreationTabs = () => {
   const [normalEventInitialValues] = useState<NormalEventFormValues>({
     startTime: undefined,
     startDate: undefined,
-    groupIds: [],
-    highlightedGroupIds: [],
+    selectedGroups: [],
     trailerId: undefined,
     description: "",
     isHighlighted: false,
@@ -104,6 +103,8 @@ export const EventCreationTabs = () => {
               >
                 {/* normal */}
                 {({ values }) => {
+                  console.log("12344 values", values);
+
                   return (
                     <Form>
                       <div className="flex flex-row justify-between pb-4">
@@ -126,7 +127,7 @@ export const EventCreationTabs = () => {
                               setPressed={setHighlightGroupPressed}
                             />
 
-                            <GroupPicker pressed={highlightGroupPressed} />
+                            <GroupPicker name="selectedGroups" pressed={highlightGroupPressed} />
                           </div>
                           <DatePicker name="startDate" />
                           <div className="flex flex-col">
