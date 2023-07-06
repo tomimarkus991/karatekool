@@ -47,11 +47,15 @@ export const DownloadCalendar = ({ currentMonthString, calendarRef }: Props) => 
     >
       <Tooltip
         tooltip={
-          letter === "all"
-            ? `Lae kõikide gruppide kalender alla`
-            : letter === "none"
-            ? "Vali grupp, mille kalender alla laadida"
-            : `Lae ${letter.toUpperCase()} grupi kalender alla`
+          letter === "all" ? (
+            `Lae kõikide gruppide kalender alla`
+          ) : letter === "none" ? (
+            "Vali grupp, mille kalender alla laadida"
+          ) : (
+            <div className="whitespace-nowrap">
+              Lae <span className="!uppercase text-white">{letter}</span> grupi kalender alla
+            </div>
+          )
         }
       />
       <HiDownload className="w-6 h-6 text-white" />

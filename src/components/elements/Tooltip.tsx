@@ -1,7 +1,8 @@
 import clsx from "clsx";
+import { ReactNode } from "react";
 
 interface Props {
-  tooltip: string;
+  tooltip: ReactNode;
 }
 
 export const Tooltip = ({ tooltip }: Props) => {
