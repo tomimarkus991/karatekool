@@ -26,6 +26,12 @@ export const GroupPicker = ({ pressed }: Props) => {
   const handleChange = (changedGroups: IHighlightedAndGroup[]) => {
     const lastAddedGroup = changedGroups.slice(-1)[0];
     setSelectedGroupMemory(changedGroups);
+
+    if (changedGroups.length === 0) {
+      // remove the last item from the array
+      setSelectedGroup(changedGroups.slice(0, -1));
+      return;
+    }
     // check if array already contains a group with that letter if it does alert user
     if (selectedGroupMemory?.some(group => group.letter === lastAddedGroup.letter)) {
       toast.error("Sa ei saa lisada sama gruppi mitu korda!");
