@@ -92,6 +92,10 @@ module.exports = {
         "scrollwheel-move-down": "animate-scrollwheel-move-down 2500ms ease infinite",
         "mobile-move-down": "animate-mobile-move-down 2500ms ease infinite",
       },
+      gridTemplateColumns: {
+        "auto-fit": "repeat(auto-fit, minmax(100%, 1fr))",
+        // grid-template-columns: repeat(auto-fit, minmax(9%, 1fr));
+      },
       keyframes: {
         "spin-backwards": {
           to: { transform: "rotate(-360deg)" },

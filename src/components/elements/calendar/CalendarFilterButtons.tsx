@@ -1,7 +1,7 @@
 import { MutableRefObject } from "react";
 import { TbBoxMultiple8 } from "react-icons/tb";
 
-import { RealButton } from "@/components";
+import { RealButton, Tooltip } from "@/components";
 import { useCalendarFilters } from "@/context";
 import { buttonVariantMapper, groupLetters } from "@/lib";
 
@@ -23,11 +23,13 @@ export const CalendarFilterButtons = ({ currentMonthString, calendarRef }: Props
         return (
           <RealButton
             key={letter}
+            className="relative group"
             variant={buttonVariantMapper(letter)}
             size="oneLetter"
             focus={true}
             onClick={() => setLetter(letter)}
           >
+            <Tooltip tooltip={`Näita ${letter} grupi trenne`} />
             {letter}
           </RealButton>
         );
@@ -39,9 +41,10 @@ export const CalendarFilterButtons = ({ currentMonthString, calendarRef }: Props
         <RealButton
           onClick={() => setLetter("all")}
           size="icon"
-          className="px-0 sm:px-3"
+          className="relative px-0 sm:px-3 group"
           variant="light"
         >
+          <Tooltip tooltip="Näita kõikide gruppide trenne" />
           <TbBoxMultiple8 className="w-6 h-6 text-stone-800" />
         </RealButton>
       )}

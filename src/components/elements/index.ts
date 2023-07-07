@@ -6,3 +6,5 @@ export * from "./Modal";
 export * from "./ResizablePanel";
 export * from "./user";
 export * from "./moving-box";
+export * from "./Toggle";
+export * from "./Tooltip";

@@ -16,20 +16,42 @@ import {
   DatePicker,
   DatePickerWithRange,
   FormikInput,
+  FormikToggle,
+  MapGroupLetter,
+  MapHighLightedGroupLetter,
+  NormalEventTime,
   RealButton,
   ThreeElementMovingBox,
   TimePicker,
+  Toggle,
   animations,
 } from "@/components";
 import { cn } from "@/lib";
+import { SGroup } from "@/types";
+
+import { GroupPicker } from "./GroupPicker";
+import { TrailerPicker } from "./TrailerPicker";
 
 import { AllDayEventInput, CalendarEventTab } from ".";
 
-export const EventCreationTabs = () => {
+interface Props {
+  /**
+   * The date user selected when pressing on calendar date
+   */
+  openDate: Date;
+}
+
+export const EventCreationTabs = ({ openDate }: Props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [normalEventInitialValues] = useState<NormalEventFormValues>({
-    startTime: undefined,
-    startDate: undefined,
+    startTime: new Date(),
+    startDate: openDate,
+    selectedGroups: [],
+    trailer: {},
+    description: "",
+    isHighlighted: false,
+    // this will not be implemented yet
+    endTime: undefined,
   });
   const [allDayEventInitialValues] = useState<AllDayEventFormValues>({
     title: "",
@@ -43,6 +65,9 @@ export const EventCreationTabs = () => {
       to: undefined,
     },
   });
+
+  const [advancedOptionsPressed, setAdvancedOptionsPressed] = useState(false);
+  const [highlightGroupPressed] = useState(false);
 
   return (
     <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
@@ -66,7 +91,6 @@ export const EventCreationTabs = () => {
         <div className="p-3">
           <AnimatePresence>
             {/* normal */}
-            {/* user chooses groups, time, trailers, title */}
             {/* add pick for multiple days */}
             {/* add presets */}
             <Tab.Panel
@@ -80,18 +104,169 @@ export const EventCreationTabs = () => {
               <Formik
                 initialValues={normalEventInitialValues}
                 validationSchema={YupSchemas.Events.NormalEvent}
+                validateOnMount
+                validateOnChange
                 onSubmit={(values, { setSubmitting }) => {
                   setSubmitting(true);
+
+                  const highlightedGroupIds = values.selectedGroups
+                    ?.filter(group => group.highlighted)
+                    .map(group => group.id);
+
+                  const normalGroupIds = values.selectedGroups
+                    ?.filter(group => !group.highlighted)
+                    .map(group => group.id);
+
+                  const data = {
+                    start: values.startTime,
+                    end: values.endTime,
+                    highlightedGroupIds,
+                    normalGroupIds,
+                    trailer: values.trailer,
+                    description: values.description,
+                  };
+
+                  console.log(data);
 
                   setSubmitting(false);
                 }}
               >
-                {() => {
+                {/* normal */}
+                {({ values, submitForm, errors, isValid }) => {
+                  console.log("errors 1234", errors, isValid);
+
+                  const filteredGroups = values.selectedGroups
+                    .filter(group => !group.highlighted)
+                    .map(group => {
+                      return {
+                        letter: group.letter as SGroup["letter"],
+                      } satisfies SGroup;
+                    });
+
+                  const filteredHighlightedGroups = values.selectedGroups
+                    ?.filter(group => group.highlighted)
+                    .map(group => {
+                      return {
+                        letter: group.letter as SGroup["letter"],
+                      } satisfies SGroup;
+                    });
+
                   return (
                     <Form>
-                      <div className="flex flex-col items-start justify-start">
-                        <TimePicker name="startTime" />
-                        <DatePicker name="startDate" />
+                      <div className="flex flex-row justify-between pb-4">
+                        <div className="flex flex-col items-start justify-start">
+                          <div className="flex flex-row">
+                            <div className="flex flex-col">
+                              <p className="text-sm text-stone-600">Vali trenni kellaaeg</p>
+                              <div className="pt-2">
+                                <TimePicker name="startTime" />
+                              </div>
+                            </div>
+                            <div className="flex flex-col">
+                              <p className="text-sm text-stone-600">Vali trenni kuupäev</p>
+                              <DatePicker name="startDate" />
+                            </div>
+                          </div>
+
+                          <GroupPicker name="selectedGroups" pressed={highlightGroupPressed} />
+
+                          <div className="flex flex-col pt-5">
+                            <p className="text-xs text-stone-600">Näita veel parameetreid</p>
+                            <Toggle
+                              pressed={advancedOptionsPressed}
+                              setPressed={setAdvancedOptionsPressed}
+                            />
+                            {advancedOptionsPressed && (
+                              <div className="flex flex-col mt-4 ml-4 space-y-3">
+                                {/* <div className="flex flex-col">
+                                  <p className="text-xs text-stone-600">Vali millal trenn lõppeb</p>
+                                  <TimePicker name="endTime" />
+                                </div> */}
+
+                                <div className="flex flex-col">
+                                  <p className="text-xs text-stone-600">Tõsta trenn esile</p>
+                                  <FormikToggle name="isHighlighted" />
+                                </div>
+                                <FormikInput
+                                  inputSize="sm"
+                                  label="Mis trennis toimub?"
+                                  placeholder="karate seminar"
+                                  name="description"
+                                />
+                                <TrailerPicker name="trailer" />
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex flex-col justify-center">
+                          <p className="self-center font-semibold justify-self-center text-stone-500">
+                            {values.startDate ? format(values.startDate, "EEEE") : "Esmaspäev"}
+                          </p>
+                          <div className="flex flex-col mt-2 border border-t-0 h-52 w-36 border-stone-100">
+                            <div className="flex flex-col items-center justify-center">
+                              <div className="text-xs font-medium font-number sm:text-sm md:text-base text-text-primary">
+                                {values.startDate ? format(values.startDate, "dd") : "1"}
+                              </div>
+                            </div>
+                            <div className="flex flex-col justify-center flex-grow ml-2 text-center">
+                              <div className="flex flex-col justify-start rounded-lg">
+                                <div
+                                  id="normal-event"
+                                  className="flex flex-row items-center justify-start"
+                                >
+                                  <NormalEventTime
+                                    start={values.startTime}
+                                    isHighlighted={values.isHighlighted}
+                                  />
+                                  <div
+                                    id="normal-event"
+                                    className={cn("flex justify-center items-center")}
+                                  >
+                                    <MapGroupLetter
+                                      groups={
+                                        filteredGroups.length === 0 &&
+                                        filteredHighlightedGroups.length === 0
+                                          ? [{ letter: "S" }, { letter: "K" }]
+                                          : filteredGroups
+                                      }
+                                    />
+                                    <MapHighLightedGroupLetter
+                                      highlightedGroups={
+                                        filteredGroups.length === 0 &&
+                                        filteredHighlightedGroups.length === 0
+                                          ? [{ letter: "N" }]
+                                          : filteredHighlightedGroups
+                                      }
+                                    />
+                                    {values.trailer && (
+                                      <p
+                                        id="normal-event"
+                                        className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] font-number font-semibold text-center"
+                                      >
+                                        {values.trailer.text}
+                                      </p>
+                                    )}
+                                  </div>
+                                </div>
+                                {values.description && (
+                                  <p className="text-[0.4rem] xs:text-[0.6rem] sm:text-[0.71rem] font-semibold text-left -mt-[0.2rem]">
+                                    {values.description}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+
+                          <RealButton
+                            type="submit"
+                            isValid={isValid}
+                            className="mt-8"
+                            onClick={submitForm}
+                            variant="orange"
+                          >
+                            Loo
+                          </RealButton>
+                        </div>
                       </div>
                     </Form>
                   );
@@ -112,13 +287,15 @@ export const EventCreationTabs = () => {
               <Formik
                 initialValues={allDayEventInitialValues}
                 validationSchema={YupSchemas.Events.AllDayEvent}
+                validateOnMount
+                validateOnChange
                 onSubmit={(values, { setSubmitting }) => {
                   setSubmitting(true);
 
                   setSubmitting(false);
                 }}
               >
-                {({ values, submitForm }) => {
+                {({ values, submitForm, isValid }) => {
                   return (
                     <Form>
                       <div className="flex flex-col items-center justify-center">
@@ -130,11 +307,7 @@ export const EventCreationTabs = () => {
                             <p className="self-center font-semibold justify-self-center text-stone-500">
                               {values.start ? format(values.start, "EEEE") : "Esmaspäev"}
                             </p>
-                            <div
-                              className={cn(
-                                "h-52 w-36 border mt-2 border-stone-100 border-t-0 flex flex-col"
-                              )}
-                            >
+                            <div className="flex flex-col mt-2 border border-t-0 h-52 w-36 border-stone-100">
                               <div className="flex flex-col items-center justify-center">
                                 <div className="text-xs font-medium font-number sm:text-sm md:text-base text-text-primary">
                                   {values.start ? format(values.start, "dd") : "1"}
@@ -155,7 +328,13 @@ export const EventCreationTabs = () => {
                             </div>
                           </div>
                         </div>
-                        <RealButton className="mt-8" onClick={submitForm} variant="orange">
+                        <RealButton
+                          type="submit"
+                          className="mt-8"
+                          onClick={submitForm}
+                          isValid={isValid}
+                          variant="orange"
+                        >
                           Loo
                         </RealButton>
                       </div>
@@ -177,25 +356,33 @@ export const EventCreationTabs = () => {
               <Formik
                 initialValues={multiDayEventInitialValues}
                 validationSchema={YupSchemas.Events.MultiDayEvent}
+                validateOnMount
+                validateOnChange
                 onSubmit={(values, { setSubmitting }) => {
                   setSubmitting(true);
 
                   setSubmitting(false);
                 }}
               >
-                {({ submitForm }) => {
+                {({ submitForm, isValid }) => {
                   return (
                     <Form>
                       <div className="flex flex-col items-center justify-center">
                         <DatePickerWithRange name="dateRange" />
                         <FormikInput
                           required
-                          className="w-full"
+                          className="sm:w-[38rem] lg:w-[40rem]"
                           label="Pealkiri"
                           placeholder="Pealkiri"
                           name="title"
                         />
-                        <RealButton className="mt-8" onClick={submitForm} variant="orange">
+                        <RealButton
+                          type="submit"
+                          className="mt-8"
+                          onClick={submitForm}
+                          isValid={isValid}
+                          variant="orange"
+                        >
                           Loo
                         </RealButton>
                       </div>
