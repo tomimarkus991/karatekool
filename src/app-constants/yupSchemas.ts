@@ -56,34 +56,36 @@ const UpdateProfile = object().shape({
 export type UpdateProfileFormValues = InferType<typeof UpdateProfile>;
 
 // create normal event
-const NormalEvent = object()
-  .shape({
-    startTime: string().default(undefined),
-    startDate: date().default(undefined),
-    selectedGroups: array()
-      .of(object().shape({ id: number(), letter: string(), highlighted: boolean() }))
-      .default([]),
-    isHighlighted: boolean().required("Vajalik"),
-    trailerId: number().default(undefined),
-    description: string().default(undefined),
-    endTime: string().default(undefined),
-  })
-  .test(
-    "eitherGroupIdsOrHighlightedGroupIds",
-    "Vali vähemalt üks grupp või üks esiletõstetud grupp",
-    function (obj) {
-      const { selectedGroups } = obj;
-      const hasGroupIds = selectedGroups && selectedGroups.length > 0;
-
-      return hasGroupIds;
-    }
-  );
+const NormalEvent = object().shape({
+  startTime: date().default(new Date()).required("Vajalik"),
+  startDate: date().default(new Date()).required("Vajalik"),
+  // selectedGroups has to be bigger than 0
+  selectedGroups: array()
+    .of(object().shape({ id: number(), letter: string(), highlighted: boolean() }))
+    .default([])
+    .required("Vajalik")
+    .test({
+      message: "Vali vähemalt üks grupp",
+      test: value => {
+        return value.length > 0;
+      },
+    }),
+  isHighlighted: boolean().default(false),
+  trailer: object().shape({ id: number(), text: string() }).default(undefined),
+  description: string().default(undefined),
+  endTime: string().default(undefined),
+});
 
 export type NormalEventFormValues = InferType<typeof NormalEvent>;
 export type NormalEventSelectedGroupsFormValues = Pick<
   NormalEventFormValues,
   "selectedGroups"
 >["selectedGroups"];
+export type NormalEventIsHighlightedFormValues = Pick<
+  NormalEventFormValues,
+  "isHighlighted"
+>["isHighlighted"];
+export type NormalEventTrailerFormValues = Pick<NormalEventFormValues, "trailer">["trailer"];
 
 // create all day event
 const AllDayEvent = object().shape({

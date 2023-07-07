@@ -30,6 +30,7 @@ export const CalendarDate = ({ events, date, month }: Props) => {
 
   return (
     <CalendarEventCreationModal
+      openDate={date}
       isModalOpen={isModalOpen}
       setIsModalOpen={setIsModalOpen}
       button={

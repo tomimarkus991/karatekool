@@ -11,11 +11,20 @@ interface Props {
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   button: React.ReactNode;
+  /**
+   * The date user selected when pressing on calendar date
+   */
+  openDate: Date;
 }
 
 const transition = { type: "ease", ease: "easeInOut", duration: 1 };
 
-export const CalendarEventCreationModal = ({ isModalOpen, setIsModalOpen, button }: Props) => {
+export const CalendarEventCreationModal = ({
+  isModalOpen,
+  setIsModalOpen,
+  button,
+  openDate,
+}: Props) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -30,7 +39,7 @@ export const CalendarEventCreationModal = ({ isModalOpen, setIsModalOpen, button
     >
       <>
         <MotionConfig transition={transition}>
-          <div className="relative overflow-hidden">
+          <div className="relative overflow-scroll">
             <ResizablePanel duration={transition.duration}>
               <div className="flex flex-row items-center justify-between pt-6 px-7">
                 <p className="text-xl font-bold">Loo trenn</p>
@@ -41,7 +50,7 @@ export const CalendarEventCreationModal = ({ isModalOpen, setIsModalOpen, button
                 </div>
               </div>
               <div className="p-10">
-                <EventCreationTabs />
+                <EventCreationTabs openDate={openDate} />
               </div>
             </ResizablePanel>
           </div>

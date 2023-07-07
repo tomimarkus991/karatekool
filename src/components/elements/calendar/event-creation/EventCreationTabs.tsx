@@ -16,6 +16,7 @@ import {
   DatePicker,
   DatePickerWithRange,
   FormikInput,
+  FormikToggle,
   MapGroupLetter,
   MapHighLightedGroupLetter,
   NormalEventTime,
@@ -26,23 +27,30 @@ import {
   animations,
 } from "@/components";
 import { cn } from "@/lib";
-
-import { SGroup } from "../../../../types";
+import { SGroup } from "@/types";
 
 import { GroupPicker } from "./GroupPicker";
 import { TrailerPicker } from "./TrailerPicker";
 
 import { AllDayEventInput, CalendarEventTab } from ".";
 
-export const EventCreationTabs = () => {
+interface Props {
+  /**
+   * The date user selected when pressing on calendar date
+   */
+  openDate: Date;
+}
+
+export const EventCreationTabs = ({ openDate }: Props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [normalEventInitialValues] = useState<NormalEventFormValues>({
-    startTime: undefined,
-    startDate: undefined,
+    startTime: new Date(),
+    startDate: openDate,
     selectedGroups: [],
-    trailerId: undefined,
+    trailer: {},
     description: "",
     isHighlighted: false,
+    // this will not be implemented yet
     endTime: undefined,
   });
   const [allDayEventInitialValues] = useState<AllDayEventFormValues>({
@@ -83,7 +91,6 @@ export const EventCreationTabs = () => {
         <div className="p-3">
           <AnimatePresence>
             {/* normal */}
-            {/* user chooses groups, time, trailers, title */}
             {/* add pick for multiple days */}
             {/* add presets */}
             <Tab.Panel
@@ -97,6 +104,8 @@ export const EventCreationTabs = () => {
               <Formik
                 initialValues={normalEventInitialValues}
                 validationSchema={YupSchemas.Events.NormalEvent}
+                validateOnMount
+                validateOnChange
                 onSubmit={(values, { setSubmitting }) => {
                   setSubmitting(true);
 
@@ -113,7 +122,7 @@ export const EventCreationTabs = () => {
                     end: values.endTime,
                     highlightedGroupIds,
                     normalGroupIds,
-                    trailerId: values.trailerId,
+                    trailer: values.trailer,
                     description: values.description,
                   };
 
@@ -123,8 +132,8 @@ export const EventCreationTabs = () => {
                 }}
               >
                 {/* normal */}
-                {({ values }) => {
-                  console.log("12344 values", values);
+                {({ values, submitForm, errors, isValid }) => {
+                  console.log("errors 1234", errors, isValid);
 
                   const filteredGroups = values.selectedGroups
                     .filter(group => !group.highlighted)
@@ -146,50 +155,46 @@ export const EventCreationTabs = () => {
                     <Form>
                       <div className="flex flex-row justify-between pb-4">
                         <div className="flex flex-col items-start justify-start">
-                          <div className="flex flex-col">
-                            <p className="text-sm text-stone-600">Vali millal trenn algab</p>
-                            <TimePicker name="startTime" />
+                          <div className="flex flex-row">
+                            <div className="flex flex-col">
+                              <p className="text-sm text-stone-600">Vali trenni kellaaeg</p>
+                              <div className="pt-2">
+                                <TimePicker name="startTime" />
+                              </div>
+                            </div>
+                            <div className="flex flex-col">
+                              <p className="text-sm text-stone-600">Vali trenni kuupäev</p>
+                              <DatePicker name="startDate" />
+                            </div>
                           </div>
 
-                          <div className="flex flex-col w-full">
-                            {/* <p className="text-sm text-stone-600">Esile tõstetud grupid</p> */}
+                          <GroupPicker name="selectedGroups" pressed={highlightGroupPressed} />
 
-                            {/* <Toggle
-                              pressed={highlightGroupPressed}
-                              tooltip={
-                                highlightGroupPressed
-                                  ? "Näita tavalisi gruppe"
-                                  : "Tõsta grupid esile"
-                              }
-                              setPressed={setHighlightGroupPressed}
-                            /> */}
-
-                            <GroupPicker name="selectedGroups" pressed={highlightGroupPressed} />
-                          </div>
-                          <DatePicker name="startDate" />
-                          <div className="flex flex-col">
-                            {/* <p className="text-sm text-stone-600">Lisa veel parameetreid</p> */}
+                          <div className="flex flex-col pt-5">
+                            <p className="text-xs text-stone-600">Näita veel parameetreid</p>
                             <Toggle
-                              tooltip={advancedOptionsPressed ? "Sulge" : "Lisa veel parameetreid"}
                               pressed={advancedOptionsPressed}
                               setPressed={setAdvancedOptionsPressed}
                             />
                             {advancedOptionsPressed && (
-                              <>
-                                <div className="flex flex-col">
-                                  <p className="text-sm text-stone-600">
-                                    Võid valida millal trenn lõppeb
-                                  </p>
+                              <div className="flex flex-col mt-4 ml-4 space-y-3">
+                                {/* <div className="flex flex-col">
+                                  <p className="text-xs text-stone-600">Vali millal trenn lõppeb</p>
                                   <TimePicker name="endTime" />
+                                </div> */}
+
+                                <div className="flex flex-col">
+                                  <p className="text-xs text-stone-600">Tõsta trenn esile</p>
+                                  <FormikToggle name="isHighlighted" />
                                 </div>
                                 <FormikInput
-                                  className="w-full"
-                                  label="Info"
+                                  inputSize="sm"
+                                  label="Mis trennis toimub?"
                                   placeholder="karate seminar"
                                   name="description"
                                 />
-                                <TrailerPicker />
-                              </>
+                                <TrailerPicker name="trailer" />
+                              </div>
                             )}
                           </div>
                         </div>
@@ -210,10 +215,8 @@ export const EventCreationTabs = () => {
                                   className="flex flex-row items-center justify-start"
                                 >
                                   <NormalEventTime
-                                    event={{
-                                      is_highlighted: values.isHighlighted,
-                                      start: new Date().toISOString(),
-                                    }}
+                                    start={values.startTime}
+                                    isHighlighted={values.isHighlighted}
                                   />
                                   <div
                                     id="normal-event"
@@ -235,12 +238,12 @@ export const EventCreationTabs = () => {
                                           : filteredHighlightedGroups
                                       }
                                     />
-                                    {values.trailerId && (
+                                    {values.trailer && (
                                       <p
                                         id="normal-event"
                                         className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] font-number font-semibold text-center"
                                       >
-                                        {values.trailerId}
+                                        {values.trailer.text}
                                       </p>
                                     )}
                                   </div>
@@ -253,6 +256,16 @@ export const EventCreationTabs = () => {
                               </div>
                             </div>
                           </div>
+
+                          <RealButton
+                            type="submit"
+                            isValid={isValid}
+                            className="mt-8"
+                            onClick={submitForm}
+                            variant="orange"
+                          >
+                            Loo
+                          </RealButton>
                         </div>
                       </div>
                     </Form>
@@ -274,13 +287,15 @@ export const EventCreationTabs = () => {
               <Formik
                 initialValues={allDayEventInitialValues}
                 validationSchema={YupSchemas.Events.AllDayEvent}
+                validateOnMount
+                validateOnChange
                 onSubmit={(values, { setSubmitting }) => {
                   setSubmitting(true);
 
                   setSubmitting(false);
                 }}
               >
-                {({ values, submitForm }) => {
+                {({ values, submitForm, isValid }) => {
                   return (
                     <Form>
                       <div className="flex flex-col items-center justify-center">
@@ -313,7 +328,13 @@ export const EventCreationTabs = () => {
                             </div>
                           </div>
                         </div>
-                        <RealButton className="mt-8" onClick={submitForm} variant="orange">
+                        <RealButton
+                          type="submit"
+                          className="mt-8"
+                          onClick={submitForm}
+                          isValid={isValid}
+                          variant="orange"
+                        >
                           Loo
                         </RealButton>
                       </div>
@@ -335,13 +356,15 @@ export const EventCreationTabs = () => {
               <Formik
                 initialValues={multiDayEventInitialValues}
                 validationSchema={YupSchemas.Events.MultiDayEvent}
+                validateOnMount
+                validateOnChange
                 onSubmit={(values, { setSubmitting }) => {
                   setSubmitting(true);
 
                   setSubmitting(false);
                 }}
               >
-                {({ submitForm }) => {
+                {({ submitForm, isValid }) => {
                   return (
                     <Form>
                       <div className="flex flex-col items-center justify-center">
@@ -353,7 +376,13 @@ export const EventCreationTabs = () => {
                           placeholder="Pealkiri"
                           name="title"
                         />
-                        <RealButton className="mt-8" onClick={submitForm} variant="orange">
+                        <RealButton
+                          type="submit"
+                          className="mt-8"
+                          onClick={submitForm}
+                          isValid={isValid}
+                          variant="orange"
+                        >
                           Loo
                         </RealButton>
                       </div>

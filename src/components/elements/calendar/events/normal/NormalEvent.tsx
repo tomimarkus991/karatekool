@@ -52,7 +52,7 @@ export const NormalEvent = ({ event, date }: Props) => {
       className="flex flex-col justify-start rounded-lg hover:bg-stone-50"
     >
       <div id="normal-event" className="flex flex-row items-center justify-start">
-        <NormalEventTime event={event} />
+        <NormalEventTime start={parseISO(event.start)} isHighlighted={event.is_highlighted} />
         <div id="normal-event" className={cn("flex justify-center items-center")}>
           <MapGroupLetter groups={groups} />
           <MapHighLightedGroupLetter highlightedGroups={highlighted_group} />

@@ -1,8 +1,7 @@
 import { isSameDay, parseISO } from "date-fns";
 import { motion } from "framer-motion";
-import { useDetectOverflow } from "use-detect-overflow";
 
-import { NormalEventTime, MapGroupLetter, MapHighLightedGroupLetter } from "@/components";
+import { MapGroupLetter, MapHighLightedGroupLetter, NormalEventTime } from "@/components";
 import { useCalendarFilters } from "@/context";
 import { cn } from "@/lib";
 import { EventData, EventTypes } from "@/types";
@@ -16,7 +15,6 @@ export const DayViewNormalEvent = ({ event, date }: Props) => {
   const { group, event_trailer, highlighted_group, description, event_type } = event;
   const start = parseISO(event.start);
   const { letter } = useCalendarFilters();
-  const [ref, { overflowX }] = useDetectOverflow();
 
   if (EventTypes.NORMAL !== event_type) {
     return <></>;
@@ -60,15 +58,15 @@ export const DayViewNormalEvent = ({ event, date }: Props) => {
       className="absolute flex flex-col justify-start left-5"
       style={{ top: `${55 * currentHour + currentMinutes}px` }}
     >
-      <div className="flex flex-row items-center justify-start" ref={ref}>
-        <NormalEventTime event={event} dayView />
+      <div className="flex flex-row items-center justify-start">
+        <NormalEventTime
+          start={parseISO(event.start)}
+          isHighlighted={event.is_highlighted}
+          dayView
+        />
         <div className={cn("flex justify-center items-center")}>
-          <MapGroupLetter groups={group} overflowX={overflowX} dayView />
-          <MapHighLightedGroupLetter
-            highlightedGroups={highlighted_group}
-            overflowX={overflowX}
-            dayView
-          />
+          <MapGroupLetter groups={group} dayView />
+          <MapHighLightedGroupLetter highlightedGroups={highlighted_group} dayView />
           {event_trailer?.text && (
             <p className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] font-number font-semibold text-center">
               {event_trailer?.text}
