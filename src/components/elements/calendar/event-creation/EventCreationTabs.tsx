@@ -27,6 +27,8 @@ import {
 } from "@/components";
 import { cn } from "@/lib";
 
+import { SGroup } from "../../../../types";
+
 import { GroupPicker } from "./GroupPicker";
 import { TrailerPicker } from "./TrailerPicker";
 
@@ -57,7 +59,7 @@ export const EventCreationTabs = () => {
   });
 
   const [advancedOptionsPressed, setAdvancedOptionsPressed] = useState(false);
-  const [highlightGroupPressed, setHighlightGroupPressed] = useState(false);
+  const [highlightGroupPressed] = useState(false);
 
   return (
     <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
@@ -98,12 +100,47 @@ export const EventCreationTabs = () => {
                 onSubmit={(values, { setSubmitting }) => {
                   setSubmitting(true);
 
+                  const highlightedGroupIds = values.selectedGroups
+                    ?.filter(group => group.highlighted)
+                    .map(group => group.id);
+
+                  const normalGroupIds = values.selectedGroups
+                    ?.filter(group => !group.highlighted)
+                    .map(group => group.id);
+
+                  const data = {
+                    start: values.startTime,
+                    end: values.endTime,
+                    highlightedGroupIds,
+                    normalGroupIds,
+                    trailerId: values.trailerId,
+                    description: values.description,
+                  };
+
+                  console.log(data);
+
                   setSubmitting(false);
                 }}
               >
                 {/* normal */}
                 {({ values }) => {
                   console.log("12344 values", values);
+
+                  const filteredGroups = values.selectedGroups
+                    .filter(group => !group.highlighted)
+                    .map(group => {
+                      return {
+                        letter: group.letter as SGroup["letter"],
+                      } satisfies SGroup;
+                    });
+
+                  const filteredHighlightedGroups = values.selectedGroups
+                    ?.filter(group => group.highlighted)
+                    .map(group => {
+                      return {
+                        letter: group.letter as SGroup["letter"],
+                      } satisfies SGroup;
+                    });
 
                   return (
                     <Form>
@@ -114,10 +151,10 @@ export const EventCreationTabs = () => {
                             <TimePicker name="startTime" />
                           </div>
 
-                          <div className="flex flex-col w-32">
+                          <div className="flex flex-col w-full">
                             {/* <p className="text-sm text-stone-600">Esile tõstetud grupid</p> */}
 
-                            <Toggle
+                            {/* <Toggle
                               pressed={highlightGroupPressed}
                               tooltip={
                                 highlightGroupPressed
@@ -125,7 +162,7 @@ export const EventCreationTabs = () => {
                                   : "Tõsta grupid esile"
                               }
                               setPressed={setHighlightGroupPressed}
-                            />
+                            /> */}
 
                             <GroupPicker name="selectedGroups" pressed={highlightGroupPressed} />
                           </div>
@@ -182,9 +219,21 @@ export const EventCreationTabs = () => {
                                     id="normal-event"
                                     className={cn("flex justify-center items-center")}
                                   >
-                                    <MapGroupLetter groups={[{ letter: "S" }, { letter: "K" }]} />
+                                    <MapGroupLetter
+                                      groups={
+                                        filteredGroups.length === 0 &&
+                                        filteredHighlightedGroups.length === 0
+                                          ? [{ letter: "S" }, { letter: "K" }]
+                                          : filteredGroups
+                                      }
+                                    />
                                     <MapHighLightedGroupLetter
-                                      highlightedGroups={[{ letter: "N" }]}
+                                      highlightedGroups={
+                                        filteredGroups.length === 0 &&
+                                        filteredHighlightedGroups.length === 0
+                                          ? [{ letter: "N" }]
+                                          : filteredHighlightedGroups
+                                      }
                                     />
                                     {values.trailerId && (
                                       <p

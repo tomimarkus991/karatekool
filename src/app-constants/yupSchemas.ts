@@ -60,9 +60,9 @@ const NormalEvent = object()
   .shape({
     startTime: string().default(undefined),
     startDate: date().default(undefined),
-    selectedGroups: array().of(
-      object().shape({ id: number(), letter: string(), highlighted: boolean() })
-    ),
+    selectedGroups: array()
+      .of(object().shape({ id: number(), letter: string(), highlighted: boolean() }))
+      .default([]),
     isHighlighted: boolean().required("Vajalik"),
     trailerId: number().default(undefined),
     description: string().default(undefined),

@@ -13,7 +13,7 @@ interface Props {
   pressed: boolean;
 }
 
-export const GroupPicker = ({ name, pressed }: Props) => {
+export const GroupPicker = ({ name }: Props) => {
   const [field, { value }, { setValue }] = useField<NormalEventSelectedGroupsFormValues>(name);
 
   const { data } = useGetGroups();
@@ -27,55 +27,11 @@ export const GroupPicker = ({ name, pressed }: Props) => {
       <Listbox {...field} multiple value={value} onChange={setValue}>
         <Listbox.Options
           static
-          className="relative py-1 mt-2 text-base bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+          className="relative px-2 py-3 mt-2 text-base bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
         >
           <ResizablePanel>
-            {pressed ? (
-              <div className="grid items-center justify-center grid-cols-4 grid-rows-2">
-                {highlightedGroups.map(highlightedGroup => {
-                  const isGroupDisabled = value?.some(
-                    selectedGroup =>
-                      selectedGroup.letter === highlightedGroup.letter &&
-                      selectedGroup.highlighted === false
-                  );
-                  return (
-                    <Listbox.Option
-                      className={cn(
-                        "flex flex-row justify-self-center",
-                        "!disabled:cursor-not-allowed !disabled:opacity-80"
-                      )}
-                      key={highlightedGroup.id}
-                      value={highlightedGroup}
-                      disabled={isGroupDisabled}
-                    >
-                      {({ selected }) => {
-                        return (
-                          <div
-                            className={cn(
-                              "flex flex-row justify-self-center border rounded-lg p-1 select-none cursor-pointer font-semibold",
-                              selected ? "border-secondary" : "border-transparent",
-                              isGroupDisabled && "group opacity-80 cursor-not-allowed"
-                            )}
-                            key={highlightedGroup.id}
-                          >
-                            <p
-                              className={cn(
-                                "underline decoration-red-500",
-                                groupColorMapper(highlightedGroup?.letter as GroupLetters)
-                              )}
-                            >
-                              {highlightedGroup.letter}
-                            </p>
-                            <p className="text-red-500 ml-[0.06rem]">!</p>
-                          </div>
-                        );
-                      }}
-                    </Listbox.Option>
-                  );
-                })}
-              </div>
-            ) : (
-              <div className="grid items-center justify-center grid-cols-4 grid-rows-2">
+            <div className="flex flex-row space-x-4">
+              <div className="grid items-center justify-center grid-cols-4 grid-rows-2 gap-1">
                 {groups.map(group => {
                   const isGroupDisabled = value?.some(
                     selectedGroup =>
@@ -95,7 +51,7 @@ export const GroupPicker = ({ name, pressed }: Props) => {
                             className={cn(
                               "flex flex-row justify-self-center border rounded-lg p-1 font-semibold select-none",
                               selected ? "border-secondary" : "border-transparent",
-                              isGroupDisabled && "group cursor-not-allowed opacity-80"
+                              isGroupDisabled && "group cursor-not-allowed opacity-20"
                             )}
                             key={group.id}
                           >
@@ -109,7 +65,48 @@ export const GroupPicker = ({ name, pressed }: Props) => {
                   );
                 })}
               </div>
-            )}
+
+              <div className="grid items-center justify-center grid-cols-4 grid-rows-2 gap-1">
+                {highlightedGroups.map(highlightedGroup => {
+                  const isGroupDisabled = value?.some(
+                    selectedGroup =>
+                      selectedGroup.letter === highlightedGroup.letter &&
+                      selectedGroup.highlighted === false
+                  );
+                  return (
+                    <Listbox.Option
+                      className={cn("flex flex-row justify-self-center")}
+                      key={highlightedGroup.id}
+                      value={highlightedGroup}
+                      disabled={isGroupDisabled}
+                    >
+                      {({ selected }) => {
+                        return (
+                          <div
+                            className={cn(
+                              "flex flex-row justify-self-center border rounded-lg p-1 select-none cursor-pointer font-semibold",
+                              selected ? "border-secondary" : "border-transparent",
+                              isGroupDisabled && "group opacity-20 cursor-not-allowed"
+                            )}
+                            key={highlightedGroup.id}
+                          >
+                            <p
+                              className={cn(
+                                "underline decoration-red-500",
+                                groupColorMapper(highlightedGroup?.letter as GroupLetters)
+                              )}
+                            >
+                              {highlightedGroup.letter}
+                            </p>
+                            <p className="text-red-500 ml-[0.06rem]">!</p>
+                          </div>
+                        );
+                      }}
+                    </Listbox.Option>
+                  );
+                })}
+              </div>
+            </div>
           </ResizablePanel>
         </Listbox.Options>
       </Listbox>
