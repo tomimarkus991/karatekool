@@ -50,7 +50,7 @@ export const DownloadCalendar = ({ currentMonthString, calendarRef }: Props) => 
           letter === "all" ? (
             `Lae kõikide gruppide kalender alla`
           ) : letter === "none" ? (
-            "Vali grupp, mille kalender alla laadida"
+            "Vali ennem grupp, mille kalender alla laadida"
           ) : (
             <div className="whitespace-nowrap">
               Lae <span className="!uppercase text-white">{letter}</span> grupi kalender alla

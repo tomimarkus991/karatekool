@@ -29,7 +29,7 @@ export const MobileSidebarContent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <>
+    <div className="flex flex-col overflow-y-scroll">
       <div className="flex flex-col mb-8">
         <div className="flex flex-row justify-between px-3">
           <div className="scale-[.8]">
@@ -122,6 +122,6 @@ export const MobileSidebarContent = () => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };

@@ -3,7 +3,6 @@
 import { endOfMonth, endOfWeek, format, formatISO9075, parse, startOfWeek } from "date-fns";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { HiDotsVertical } from "react-icons/hi";
 import { IconType } from "react-icons/lib";
 import { MdOutlineCalendarViewMonth, MdOutlineViewDay } from "react-icons/md";
 
@@ -31,10 +30,13 @@ interface CalendarViewProps {
   Icon: IconType;
 }
 
+const translateType = (type: CalendarViewType) => {
+  if (type === "Day") return "Päev";
+  if (type === "Month") return "Kuu";
+  return "Error";
+};
+
 const CalendarView = ({ type, onClick, Icon }: CalendarViewProps) => {
-  let translatedType;
-  if (type === "Day") translatedType = "Päev";
-  else if (type === "Month") translatedType = "Kuu";
   return (
     <AnimationWrapper
       variants={animations.buttonGhost}
@@ -44,7 +46,7 @@ const CalendarView = ({ type, onClick, Icon }: CalendarViewProps) => {
       <div className="flex items-center justify-start py-2 rounded-lg hover:bg-gray-100">
         <button className="flex flex-row items-center">
           <Icon className="w-4 h-4 ml-2 fill-[#b4b4b4]" />
-          <p className="text-sm text-semibold ml-4 text-[#818181]">{translatedType}</p>
+          <p className="text-sm text-semibold ml-4 text-[#818181]">{translateType(type)}</p>
         </button>
       </div>
     </AnimationWrapper>
@@ -104,6 +106,7 @@ export const Calendar = () => {
               <div className="flex">
                 {user?.role === "admin" && (
                   <CalendarEventCreationModal
+                    openDate={currentDay}
                     isModalOpen={isModalOpen}
                     setIsModalOpen={setIsModalOpen}
                     button={
@@ -120,7 +123,7 @@ export const Calendar = () => {
                 <Popover>
                   <PopoverTrigger>
                     <AnimationWrapper variants={animations.smallScale}>
-                      <HiDotsVertical className="w-6 h-6 fill-[#b4b4b4] cursor-pointer" />
+                      <p className="text-sm text-stone-600">{translateType(calendarType)}</p>
                     </AnimationWrapper>
                   </PopoverTrigger>
                   <PopoverContent>
@@ -148,6 +151,7 @@ export const Calendar = () => {
 
             {user?.role === "admin" && (
               <CalendarEventCreationModal
+                openDate={currentDay}
                 isModalOpen={isMobileModalOpen}
                 setIsModalOpen={setIsMobileModalOpen}
                 button={

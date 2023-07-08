@@ -5,10 +5,13 @@ import { toast } from "react-hot-toast";
 
 import { useSupabase } from "@/context";
 
+import { useIsMobile } from "../useIsMobile";
+
 export const useSignOut = () => {
-  const { push } = useRouter();
+  const { push, refresh } = useRouter();
   const queryClient = useQueryClient();
   const { supabase } = useSupabase();
+  const { isMobile } = useIsMobile();
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
@@ -22,6 +25,9 @@ export const useSignOut = () => {
   return useMutation(() => signOut(), {
     onSuccess: () => {
       queryClient.removeQueries();
+      if (isMobile) {
+        refresh();
+      }
       push("/");
     },
   });

@@ -57,8 +57,8 @@ export const NavbarTop = () => {
           <div className="flex flex-row items-center justify-start flex-1">
             <Icons.logo className="scale-[.80]" />
             <div className="flex flex-col font-semibold">
-              <p className="text-3xl">nüke</p>
-              <p className="text-lg">karate-do klubi</p>
+              <p className="h-6 text-2xl font-semibold">Nüke</p>
+              <p className="font-normal">Karate-do klubi</p>
             </div>
           </div>
           <AnimationWrapper variants={animations.smallScale} key="ntm-club-icon">

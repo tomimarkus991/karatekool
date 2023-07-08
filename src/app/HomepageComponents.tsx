@@ -21,7 +21,7 @@ export const Section1 = () => {
 
   return (
     <>
-      <div className="relative flex flex-col mt-12 overflow-hidden md:flex-row">
+      <div className="relative flex flex-col overflow-hidden md:mt-12 md:flex-row">
         <AnimationWrapper
           className="self-center mb-3 text-center md:mb-0"
           ref={section1TextRef}
@@ -51,7 +51,8 @@ export const Section1 = () => {
         <MobileScroller scroll={handleClick} />
       </div>
 
-      <div ref={scrollToRef} className="flex flex-col md:flex-row mt-[8rem] overflow-hidden">
+      <div ref={scrollToRef} className="mb-[3rem]"></div>
+      <div className="flex flex-col md:flex-row mt-[5rem] overflow-hidden">
         <AnimationWrapper
           ref={section2ImageRef}
           animate={section2ImageControl}
