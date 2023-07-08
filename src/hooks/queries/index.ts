@@ -3,3 +3,4 @@ export * from "./useGetEmailWhitelist";
 export * from "./useUser";
 export * from "./useGetGroups";
 export * from "./useGetTrailers";
+export * from "./useGetMaterials";
