@@ -6,6 +6,7 @@ env:
   NEXT_PUBLIC_SUPABASE_URL: "https://fake.com"
   NEXT_PUBLIC_SUPABASE_ANON_KEY: "fake"
   NEXT_PUBLIC_MAILSEND_API_KEY: "fake"
+  ANALYZE: true
 
 jobs:
   build:
@@ -28,4 +29,4 @@ jobs:
         run: yarn lint
 
       - name: Print Environment Variable
-        run: echo $NEXT_PUBLIC_SUPABASE_URL $NEXT_PUBLIC_SUPABASE_ANON_KEY $NEXT_PUBLIC_MAILSEND_API_KEY
+        run: echo $NEXT_PUBLIC_SUPABASE_URL $NEXT_PUBLIC_SUPABASE_ANON_KEY $NEXT_PUBLIC_MAILSEND_API_KEY $ANALYZE
