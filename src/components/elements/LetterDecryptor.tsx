@@ -4,10 +4,18 @@ import { useEffect, useState } from "react";
 
 interface Props {
   children: string;
+  
+  /**
+   * Show kanji every letterAmount letters
+   * @default 2
+   */
+  letterAmount?: number;
   /**
    * Time in ms
+   * @default 400
    */
   time?: number;
+
 }
 
 const kanjis = [
@@ -77,7 +85,7 @@ const kanjis = [
   "下", // (shita) - down, below
 ];
 
-export const LetterDecryptor = ({ children, time = 400 }: Props) => {
+export const LetterDecryptor = ({ children,letterAmount= 2, time = 400 }: Props) => {
   const [decryptedLetters, setDecryptedLetters] = useState(children.split(""));
 
   const originalLetters = children.split("");
@@ -100,8 +108,8 @@ export const LetterDecryptor = ({ children, time = 400 }: Props) => {
             return "";
           }
 
-          // Show kanji every 2 letters
-          if (index % 2 === 0) {
+          // Show kanji every letterAmount letters
+          if (index % letterAmount === 0) {
             return kanjis[random];
           }
           return "";
