@@ -2,7 +2,7 @@
 
 import { MutableRefObject } from "react";
 import { HiDownload } from "react-icons/hi";
-import { createFileName, useScreenshot } from "use-react-screenshot";
+import { useScreenshot } from "use-react-screenshot";
 
 import { useCalendarFilters } from "@/context";
 
@@ -25,9 +25,9 @@ export const DownloadCalendar = ({ currentMonthString, calendarRef }: Props) => 
   const download = (picture: any) => {
     const link = document.createElement("a");
     link.href = picture;
-    link.download = createFileName(
-      "png",
-      `kalender-${letter}-${currentMonthString.replaceAll(" ", "-")}`
+    link.setAttribute(
+      "download",
+      `kalender-${letter}-${currentMonthString.replaceAll(" ", "-")}.png`
     );
     document.body.appendChild(link);
     link.click();
