@@ -77,7 +77,7 @@ const kanjis = [
   "下", // (shita) - down, below
 ];
 
-export const LetterDecryptor = ({ children, time = 1000 }: Props) => {
+export const LetterDecryptor = ({ children, time = 400 }: Props) => {
   const [decryptedLetters, setDecryptedLetters] = useState(children.split(""));
 
   const originalLetters = children.split("");
@@ -99,7 +99,12 @@ export const LetterDecryptor = ({ children, time = 1000 }: Props) => {
           if (letter === " ") {
             return "";
           }
-          return kanjis[random];
+
+          // Show kanji every 2 letters
+          if (index % 2 === 0) {
+            return kanjis[random];
+          }
+          return "";
         })
       );
     }, 50);

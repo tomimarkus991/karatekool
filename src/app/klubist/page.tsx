@@ -26,7 +26,6 @@ export default function Page() {
       </>
     );
   };
-  const time = 400;
 
   return (
     <div className="max-w-4xl m-auto">
@@ -144,7 +143,7 @@ export default function Page() {
             <AboutPanel id="visioon">
               <div>
                 <p className="mb-2 text-xl font-semibold">
-                  <LetterDecryptor time={time}>Visioon</LetterDecryptor>
+                  <LetterDecryptor>Visioon</LetterDecryptor>
                 </p>
                 <p>
                   Karate-do klubi Nüke visiooniks on karate-do kui spordi-, iseloomu- ja
@@ -155,7 +154,7 @@ export default function Page() {
             <AboutPanel id="missioon">
               <div>
                 <p className="mb-2 text-xl font-semibold">
-                  <LetterDecryptor time={time}>Missioon</LetterDecryptor>
+                  <LetterDecryptor>Missioon</LetterDecryptor>
                 </p>
                 <p>
                   Karate-do klubi Nüke missioon on targa, heasoovliku, tugeva tahte ja iseloomuga
@@ -167,7 +166,7 @@ export default function Page() {
             <AboutPanel id="eesmargid">
               <div>
                 <p className="mb-2 text-xl font-semibold">
-                  <LetterDecryptor time={time}>Eesmärgid</LetterDecryptor>
+                  <LetterDecryptor>Eesmärgid</LetterDecryptor>
                 </p>
                 <ul className="ml-8 list-disc">
                   <li>
@@ -190,7 +189,7 @@ export default function Page() {
             <AboutPanel id="ajaloost">
               <div>
                 <p className="mb-2 text-xl font-semibold">
-                  <LetterDecryptor time={time}>Ajaloost</LetterDecryptor>
+                  <LetterDecryptor>Ajaloost</LetterDecryptor>
                 </p>
                 <p>
                   Karate-do klubi Nüke on Eesti kõige pikema traditsiooniga karateklubi. Nüke loodi
