@@ -133,9 +133,7 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                 }}
               >
                 {/* normal */}
-                {({ values, submitForm, errors, isValid }) => {
-                  console.log("errors 1234", errors, isValid);
-
+                {({ values, submitForm, isValid }) => {
                   const filteredGroups = values.selectedGroups
                     .filter(group => !group.highlighted)
                     .map(group => {
@@ -199,7 +197,7 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                             )}
                           </div>
                         </div>
-                        <div className="flex flex-col justify-center">
+                        <div className="flex flex-col justify-center ml-6 sm:ml-0">
                           <p className="self-center font-semibold justify-self-center text-stone-500">
                             {values.startDate ? format(values.startDate, "EEEE") : "Esmaspäev"}
                           </p>

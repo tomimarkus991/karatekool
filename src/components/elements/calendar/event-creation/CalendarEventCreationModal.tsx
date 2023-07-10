@@ -37,25 +37,23 @@ export const CalendarEventCreationModal = ({
       closeOnOverlayClick={false}
       modalButton={button}
     >
-      <>
-        <MotionConfig transition={transition}>
-          <div className="relative overflow-scroll">
-            <ResizablePanel duration={transition.duration}>
-              <div className="flex flex-row items-center justify-between pt-6 px-7">
-                <p className="text-xl font-bold">Loo trenn</p>
-                <div role="button" tabIndex={0} onClick={closeModal}>
-                  <AnimationWrapper key="sub-modal-x-icon" variants={animations.rotate360}>
-                    <HiX className="w-8 h-8 fill-stone-700 hover:fill-stone-800" />
-                  </AnimationWrapper>
-                </div>
+      <MotionConfig transition={transition}>
+        <div className="relative scrollbar-overflow xs2:overflow-x-hidden">
+          <ResizablePanel duration={transition.duration}>
+            <div className="flex flex-row items-center justify-between pt-6 px-7">
+              <p className="text-xl font-bold">Loo trenn</p>
+              <div role="button" tabIndex={0} onClick={closeModal}>
+                <AnimationWrapper key="sub-modal-x-icon" variants={animations.rotate360}>
+                  <HiX className="w-8 h-8 fill-stone-700 hover:fill-stone-800" />
+                </AnimationWrapper>
               </div>
-              <div className="p-10">
-                <EventCreationTabs openDate={openDate} />
-              </div>
-            </ResizablePanel>
-          </div>
-        </MotionConfig>
-      </>
+            </div>
+            <div className="p-10">
+              <EventCreationTabs openDate={openDate} />
+            </div>
+          </ResizablePanel>
+        </div>
+      </MotionConfig>
     </Modal>
   );
 };
