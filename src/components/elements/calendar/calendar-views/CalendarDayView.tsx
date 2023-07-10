@@ -71,7 +71,8 @@ export const CalendarDayView = ({
     });
 
   const arrayOfHours = [
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+    "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", 
+    "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23",
   ];
 
   return (
@@ -119,7 +120,7 @@ export const CalendarDayView = ({
             {arrayOfHours.map(hour => {
               return (
                 <div key={hour} className="relative flex self-end h-14">
-                  <div className="absolute -top-3">{hour}.00</div>
+                  <div className="absolute -top-3">{hour}:00</div>
                 </div>
               );
             })}
