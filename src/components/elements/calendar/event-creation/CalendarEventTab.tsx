@@ -31,23 +31,22 @@ export const CalendarEventTab = ({ children, selectedIndex, index }: CalendarEve
   };
 
   return (
-    <Tab as={Fragment}>
-      {() => (
-        <AnimationWrapper
-          className={cn(
-            "rounded-xl z-10 text-[0.8rem] md:text-base font-semibold px-1 py-3 w-full cursor-pointer flex justify-center items-center",
-            "focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none"
-          )}
-          variants={animations.smallScale}
-        >
+    <AnimationWrapper className="z-10 w-full" variants={animations.smallScaleXs}>
+      <Tab as={Fragment}>
+        {({ selected }) => (
           <motion.button
+            className={cn(
+              "rounded-xl mx-[0.2rem] text-[0.8rem] md:text-base font-catamaran font-semibold px-1 py-3 w-full",
+              selected ? "opacity-100" : "opacity-20 hover:opacity-100",
+              "focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none"
+            )}
             variants={tabVariant}
             animate={selectedIndex === index ? "active" : "inactive"}
           >
-            {children}
+            <p>{children}</p>
           </motion.button>
-        </AnimationWrapper>
-      )}
-    </Tab>
+        )}
+      </Tab>
+    </AnimationWrapper>
   );
 };

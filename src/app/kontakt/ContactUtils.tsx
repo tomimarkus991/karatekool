@@ -5,6 +5,7 @@ import { Fragment } from "react";
 import { Icons } from "@/components/icons/Icons";
 import { cn } from "@/lib";
 
+import { animations, AnimationWrapper } from "../../components";
 import { LetterDecryptor } from "../../components/elements/LetterDecryptor";
 
 interface ContactHeadingProps {
@@ -50,21 +51,23 @@ export const ContactDojosTab = ({ children, selectedIndex, index }: ContactDojos
   };
 
   return (
-    <Tab as={Fragment}>
-      {({ selected }) => (
-        <motion.button
-          variants={tabVariant}
-          animate={selectedIndex === index ? "active" : "inactive"}
-          className={cn(
-            "rounded-xl z-10 mx-[0.2rem] text-[0.8rem] md:text-base font-catamaran font-semibold px-1 py-3 w-full",
-            selected ? "" : " hover:bg-stone-200",
-            "focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none"
-          )}
-        >
-          {children}
-        </motion.button>
-      )}
-    </Tab>
+    <AnimationWrapper className="z-10 w-full" variants={animations.smallScaleXs}>
+      <Tab as={Fragment}>
+        {({ selected }) => (
+          <motion.button
+            variants={tabVariant}
+            animate={selectedIndex === index ? "active" : "inactive"}
+            className={cn(
+              "rounded-xl mx-[0.2rem] text-[0.8rem] md:text-base font-catamaran font-semibold px-1 py-3 w-full",
+              selected ? "opacity-100" : "opacity-20 hover:opacity-100",
+              "focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none"
+            )}
+          >
+            <p>{children}</p>
+          </motion.button>
+        )}
+      </Tab>
+    </AnimationWrapper>
   );
 };
 
