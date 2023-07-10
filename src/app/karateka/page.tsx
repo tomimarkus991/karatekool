@@ -28,7 +28,7 @@ export default function Page() {
                       .download(material.name);
 
                     if (error) {
-                      toast.error(`Faili allalaadmise error: ${error.message}`);
+                      toast.error(`Faili allalaadmise viga: ${error.message}`);
                       return;
                     }
                     const url = URL.createObjectURL(data);

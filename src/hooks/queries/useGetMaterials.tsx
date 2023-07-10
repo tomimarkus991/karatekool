@@ -12,9 +12,6 @@ export const useGetMaterials = () => {
       toast.error(`Error getting emails: ${error.message}`);
       throw new Error(error.message);
     }
-    console.log(data, error);
-
-    // const arrayOfEmails = data.map(values => values.email || "123123");
 
     return data || [];
   };
