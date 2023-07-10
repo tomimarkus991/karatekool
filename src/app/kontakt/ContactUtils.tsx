@@ -58,7 +58,7 @@ export const ContactDojosTab = ({ children, selectedIndex, index }: ContactDojos
             variants={tabVariant}
             animate={selectedIndex === index ? "active" : "inactive"}
             className={cn(
-              "rounded-xl mx-[0.2rem] text-[0.8rem] md:text-base font-catamaran font-semibold px-1 py-3 w-full",
+              "rounded-xl mx-[0.2rem] text-[0.8rem] md:text-base font-semibold px-1 py-",
               selected ? "opacity-100" : "opacity-20 hover:opacity-100",
               "focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none"
             )}

@@ -24,7 +24,7 @@ export const GroupPicker = ({ name }: Props) => {
   const { groups, highlightedGroups } = data;
 
   return (
-    <div className="">
+    <>
       <Listbox {...field} multiple value={value} onChange={setValue}>
         <Listbox.Options
           static
@@ -110,6 +110,6 @@ export const GroupPicker = ({ name }: Props) => {
         </Listbox.Options>
       </Listbox>
       <InputErrorText className="mt-3" touched={touched} error={error} />
-    </div>
+    </>
   );
 };

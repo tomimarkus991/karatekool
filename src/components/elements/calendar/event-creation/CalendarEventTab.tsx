@@ -31,12 +31,15 @@ export const CalendarEventTab = ({ children, selectedIndex, index }: CalendarEve
   };
 
   return (
-    <AnimationWrapper className="z-10 w-full" variants={animations.smallScaleXs}>
+    <AnimationWrapper
+      className="z-10 w-full my-auto text-center"
+      variants={animations.smallScaleXs}
+    >
       <Tab as={Fragment}>
         {({ selected }) => (
           <motion.button
             className={cn(
-              "rounded-xl mx-[0.2rem] text-[0.8rem] md:text-base font-catamaran font-semibold px-1 py-3 w-full",
+              "rounded-xl text-[0.8rem] md:text-base font-semibold px-1 py-3",
               selected ? "opacity-100" : "opacity-20 hover:opacity-100",
               "focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none"
             )}
