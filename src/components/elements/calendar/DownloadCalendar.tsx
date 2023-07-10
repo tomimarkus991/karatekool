@@ -24,13 +24,15 @@ export const DownloadCalendar = ({ currentMonthString, calendarRef }: Props) => 
 
   const download = (picture: any) => {
     if (typeof window !== "undefined") {
-      const a = document.createElement("a");
-      a.href = picture;
-      a.download = createFileName(
+      const link = document.createElement("a");
+      link.href = picture;
+      link.download = createFileName(
         "png",
         `kalender-${letter}-${currentMonthString.replaceAll(" ", "-")}`
       );
-      a.click();
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
     }
   };
 
