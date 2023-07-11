@@ -1,12 +1,11 @@
 import { Combobox as HeadlessCombobox, Transition } from "@headlessui/react";
 import { useField } from "formik";
-import { CheckIcon, ChevronsUpDown } from "lucide-react";
+import { CheckIcon } from "lucide-react";
 import { Fragment, useEffect, useState } from "react";
-import { useGetMultiDayEventPresets } from "../../../../hooks/queries/useGetMultiDayEventPresets";
-import { AnimationWrapper, animations } from "../../../animations";
-import { RealButton } from "../../button";
-import { useCreateMultiDayEventPreset } from "../../../../hooks";
 import { MultiDayEventEventFormik } from "../../../../app-constants";
+import { useCreateMultiDayEventPreset } from "../../../../hooks";
+import { useGetMultiDayEventPresets } from "../../../../hooks/queries/useGetMultiDayEventPresets";
+import { RealButton } from "../../button";
 import { InputErrorText } from "../../forms";
 
 interface Props {

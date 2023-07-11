@@ -1,6 +1,6 @@
 "use client";
 
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 import { useField } from "formik";
 import { HiOutlineCalendar } from "react-icons/hi";
 

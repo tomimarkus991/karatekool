@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  AnimationWrapper,
-  Calendar,
-  LoginModal,
-  RegisterModal,
-  animations,
-} from "@/components";
+import { Calendar, LoginModal, RegisterModal } from "@/components";
 import { useUser } from "@/hooks";
 
 import Link from "next/link";

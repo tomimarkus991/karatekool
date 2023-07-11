@@ -34,11 +34,13 @@ import { TrailerPicker } from "./TrailerPicker";
 
 import { AllDayEventInput, CalendarEventTab } from ".";
 import { ComboboxEventCreationMultiDayEvent } from "./ComboboxEventCreationMultiDayEvent";
-import { useCreateCalendarMultiDayEvent } from "../../../../hooks";
+import {
+  useCreateCalendarEvent,
+  useCreateCalendarMultiDayEvent,
+  useCreateCalendarAllDayEvent,
+} from "@/hooks";
 import { ComboboxAllDayEventPresets } from "./ComboboxAllDayEventPresets";
 import { toast } from "react-hot-toast";
-import { useCreateCalendarAllDayEvent } from "../../../../hooks/mutations/useCreateCalendarAllDayEvent";
-import { useCreateCalendarEvent } from "../../../../hooks/mutations/useCreateCalendarEvent";
 
 interface Props {
   /**

@@ -2,7 +2,7 @@
 
 import { toast } from "react-hot-toast";
 
-import { Calendar, LoginModal, RegisterModal } from "@/components";
+import { LoginModal, RegisterModal } from "@/components";
 import { useGetMaterials, useUser } from "@/hooks";
 
 import { useSupabase } from "../../context";
