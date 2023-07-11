@@ -35,6 +35,9 @@ import { TrailerPicker } from "./TrailerPicker";
 import { AllDayEventInput, CalendarEventTab } from ".";
 import { ComboboxEventCreationMultiDayEvent } from "./ComboboxEventCreationMultiDayEvent";
 import { useCreateCalendarMultiDayEvent } from "../../../../hooks";
+import { ComboboxAllDayEventPresets } from "./ComboboxAllDayEventPresets";
+import { toast } from "react-hot-toast";
+import { useCreateCalendarAllDayEvent } from "../../../../hooks/mutations/useCreateCalendarAllDayEvent";
 
 interface Props {
   /**
@@ -76,6 +79,8 @@ export const EventCreationTabs = ({ openDate }: Props) => {
 
   const { mutate: createNewMultiDayCalendarEvent } =
     useCreateCalendarMultiDayEvent();
+  const { mutate: createNewAllDayCalendarEvent } =
+    useCreateCalendarAllDayEvent();
 
   return (
     <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
@@ -299,7 +304,6 @@ export const EventCreationTabs = ({ openDate }: Props) => {
             </Tab.Panel>
 
             {/* all day */}
-            {/* add presets */}
             <Tab.Panel
               as={motion.div}
               initial="hidden"
@@ -313,19 +317,30 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                 validationSchema={YupSchemas.Events.AllDayEvent}
                 validateOnMount
                 validateOnChange
-                onSubmit={(values, { setSubmitting }) => {
+                onSubmit={({ start, title, subTitle }, { setSubmitting }) => {
                   setSubmitting(true);
+
+                  if (start && title && subTitle) {
+                    createNewAllDayCalendarEvent({
+                      start: start.toDateString(),
+                      title,
+                      subTitle,
+                    });
+                  } else {
+                    toast.error("Täida kõik väljad");
+                  }
 
                   setSubmitting(false);
                 }}
               >
-                {({ values, submitForm, isValid }) => {
+                {({ values, isValid }) => {
                   return (
                     <Form>
                       <div className="flex flex-col items-center justify-center">
-                        <div className="flex flex-row items-center justify-center">
-                          <div className="mr-6">
+                        <div className="flex flex-row items-center justify-center w-full">
+                          <div className="w-full mr-6">
                             <DatePicker name="start" />
+                            <ComboboxAllDayEventPresets name="title" />
                           </div>
                           <div className="flex flex-col justify-center">
                             <p className="self-center font-semibold justify-self-center text-stone-500">
@@ -350,7 +365,7 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                                 <AllDayEventInput
                                   name="subTitle"
                                   placeholder="Ala pealkiri"
-                                  className="text-sm"
+                                  className="text-sm !scrollbar-none"
                                 />
                               </div>
                             </div>
@@ -359,7 +374,6 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                         <RealButton
                           type="submit"
                           className="mt-8"
-                          onClick={submitForm}
                           isValid={isValid}
                           variant="orange"
                         >
@@ -394,6 +408,8 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                       long_event_end: dateRange.to.toDateString(),
                       multi_day_event_id: event.id,
                     });
+                  } else {
+                    toast.error("Täida kõik väljad");
                   }
 
                   setSubmitting(false);
@@ -405,13 +421,6 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                       <div className="flex flex-col items-center justify-center">
                         <DatePickerWithRange name="dateRange" />
                         <ComboboxEventCreationMultiDayEvent name="event" />
-                        {/* <FormikInput
-                          required
-                          className="sm:w-[38rem] lg:w-[40rem]"
-                          label="Pealkiri"
-                          placeholder="Pealkiri"
-                          name="title"
-                        /> */}
                         <RealButton
                           type="submit"
                           className="mt-8"
