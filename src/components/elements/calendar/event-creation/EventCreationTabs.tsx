@@ -38,6 +38,7 @@ import { useCreateCalendarMultiDayEvent } from "../../../../hooks";
 import { ComboboxAllDayEventPresets } from "./ComboboxAllDayEventPresets";
 import { toast } from "react-hot-toast";
 import { useCreateCalendarAllDayEvent } from "../../../../hooks/mutations/useCreateCalendarAllDayEvent";
+import { useCreateCalendarEvent } from "../../../../hooks/mutations/useCreateCalendarEvent";
 
 interface Props {
   /**
@@ -77,10 +78,11 @@ export const EventCreationTabs = ({ openDate }: Props) => {
   const [advancedOptionsPressed, setAdvancedOptionsPressed] = useState(false);
   const [highlightGroupPressed] = useState(false);
 
-  const { mutate: createNewMultiDayCalendarEvent } =
-    useCreateCalendarMultiDayEvent();
+  const { mutate: createNewNormalCalendarEvent } = useCreateCalendarEvent();
   const { mutate: createNewAllDayCalendarEvent } =
     useCreateCalendarAllDayEvent();
+  const { mutate: createNewMultiDayCalendarEvent } =
+    useCreateCalendarMultiDayEvent();
 
   return (
     <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
@@ -120,33 +122,58 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                 validationSchema={YupSchemas.Events.NormalEvent}
                 validateOnMount
                 validateOnChange
-                onSubmit={(values, { setSubmitting }) => {
+                onSubmit={(
+                  {
+                    startTime,
+                    endTime,
+                    selectedGroups,
+                    description,
+                    trailer,
+                    isHighlighted,
+                    startDate,
+                  },
+                  { setSubmitting }
+                ) => {
                   setSubmitting(true);
 
-                  const highlightedGroupIds = values.selectedGroups
-                    ?.filter((group) => group.highlighted)
-                    .map((group) => group.id);
+                  const groupIds =
+                    selectedGroups
+                      ?.filter((group) => !group.highlighted)
+                      .map((group) => group.id as number) || [];
 
-                  const normalGroupIds = values.selectedGroups
-                    ?.filter((group) => !group.highlighted)
-                    .map((group) => group.id);
+                  const highlightedGroupIds =
+                    selectedGroups
+                      ?.filter((group) => group.highlighted)
+                      .map((group) => group.id as number) || [];
 
-                  const data = {
-                    start: values.startTime,
-                    end: values.endTime,
-                    highlightedGroupIds,
-                    normalGroupIds,
-                    trailer: values.trailer,
-                    description: values.description,
+                  const mergeDateAndTime = (
+                    startDate: Date,
+                    startTime: Date
+                  ): Date => {
+                    let result = new Date(startDate.getTime());
+
+                    result.setHours(startTime.getHours());
+                    result.setMinutes(startTime.getMinutes());
+                    result.setSeconds(startTime.getSeconds());
+
+                    return result;
                   };
 
-                  console.log(data);
+                  createNewNormalCalendarEvent({
+                    start: mergeDateAndTime(startDate, startTime).toISOString(),
+                    normalEventEnd: endTime,
+                    groupIds,
+                    highlightedGroupIds,
+                    description,
+                    trailerId: trailer.id,
+                    isHighlighted,
+                  });
 
                   setSubmitting(false);
                 }}
               >
                 {/* normal */}
-                {({ values, submitForm, isValid }) => {
+                {({ values, isValid }) => {
                   const filteredGroups = values.selectedGroups
                     .filter((group) => !group.highlighted)
                     .map((group) => {
@@ -290,7 +317,6 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                             type="submit"
                             isValid={isValid}
                             className="mt-8"
-                            onClick={submitForm}
                             variant="orange"
                           >
                             Loo
@@ -322,7 +348,7 @@ export const EventCreationTabs = ({ openDate }: Props) => {
 
                   if (start && title && subTitle) {
                     createNewAllDayCalendarEvent({
-                      start: start.toDateString(),
+                      start: start.toISOString(),
                       title,
                       subTitle,
                     });
@@ -404,8 +430,8 @@ export const EventCreationTabs = ({ openDate }: Props) => {
 
                   if (dateRange.from && dateRange.to && event.id) {
                     createNewMultiDayCalendarEvent({
-                      start: dateRange.from.toDateString(),
-                      long_event_end: dateRange.to.toDateString(),
+                      start: dateRange.from.toISOString(),
+                      long_event_end: dateRange.to.toISOString(),
                       multi_day_event_id: event.id,
                     });
                   } else {

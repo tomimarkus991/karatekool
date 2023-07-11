@@ -23,6 +23,11 @@ export const useCreateCalendarAllDayEvent = () => {
       .select()
       .single();
 
+    if (createAllDayEventRes.error) {
+      toast.error(createAllDayEventRes.error.message);
+      throw new Error(createAllDayEventRes.error.message);
+    }
+
     const res = await supabase.from("event").insert({
       start,
       event_type: "ALL_DAY",
