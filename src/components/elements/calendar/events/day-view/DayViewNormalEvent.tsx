@@ -42,9 +42,24 @@ export const DayViewNormalEvent = ({ event, date }: Props) => {
     return <></>;
   }
 
-  const currentHour = start.getHours();
-  const currentMinutes = start.getMinutes();
+const startHour = start.getHours();
 
+// 9 = -0.4
+// 10 = 0.6
+// 11 = 1.6
+// 12 = 2.6
+// 13 = 3.6
+// 14 = 4.6
+// 15 = 5.6
+// 16 = 6.6
+// 17 = 7.6
+// 18 = 8.6
+// 19 = 9.6
+// 20 = 10.6
+// 21 = 11.6
+
+// const howFarFromTop = 55 * (startHour / 10 * 3);
+const howFarFromTop = 55 * (startHour -9.4)
   return (
     <motion.div
       initial="enter"
@@ -56,7 +71,7 @@ export const DayViewNormalEvent = ({ event, date }: Props) => {
         exit: { opacity: 0, x: 300, transition: { duration: 1 } },
       }}
       className="absolute flex flex-col justify-start left-5"
-      style={{ top: `${55 * currentHour + currentMinutes}px` }}
+      style={{ top: `${howFarFromTop}px` }}
     >
       <div className="flex flex-row items-center justify-start">
         <NormalEventTime
