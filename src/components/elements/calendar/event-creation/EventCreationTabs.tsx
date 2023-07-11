@@ -33,6 +33,8 @@ import { GroupPicker } from "./GroupPicker";
 import { TrailerPicker } from "./TrailerPicker";
 
 import { AllDayEventInput, CalendarEventTab } from ".";
+import { ComboboxEventCreationMultiDayEvent } from "./ComboboxEventCreationMultiDayEvent";
+import { useCreateCalendarMultiDayEvent } from "../../../../hooks";
 
 interface Props {
   /**
@@ -59,7 +61,10 @@ export const EventCreationTabs = ({ openDate }: Props) => {
     start: undefined,
   });
   const [multiDayEventInitialValues] = useState<MultiDayEventFormValues>({
-    title: "",
+    event: {
+      id: 0,
+      title: "",
+    },
     dateRange: {
       from: undefined,
       to: undefined,
@@ -68,6 +73,9 @@ export const EventCreationTabs = ({ openDate }: Props) => {
 
   const [advancedOptionsPressed, setAdvancedOptionsPressed] = useState(false);
   const [highlightGroupPressed] = useState(false);
+
+  const { mutate: createNewMultiDayCalendarEvent } =
+    useCreateCalendarMultiDayEvent();
 
   return (
     <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
@@ -111,12 +119,12 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                   setSubmitting(true);
 
                   const highlightedGroupIds = values.selectedGroups
-                    ?.filter(group => group.highlighted)
-                    .map(group => group.id);
+                    ?.filter((group) => group.highlighted)
+                    .map((group) => group.id);
 
                   const normalGroupIds = values.selectedGroups
-                    ?.filter(group => !group.highlighted)
-                    .map(group => group.id);
+                    ?.filter((group) => !group.highlighted)
+                    .map((group) => group.id);
 
                   const data = {
                     start: values.startTime,
@@ -135,16 +143,16 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                 {/* normal */}
                 {({ values, submitForm, isValid }) => {
                   const filteredGroups = values.selectedGroups
-                    .filter(group => !group.highlighted)
-                    .map(group => {
+                    .filter((group) => !group.highlighted)
+                    .map((group) => {
                       return {
                         letter: group.letter as SGroup["letter"],
                       } satisfies SGroup;
                     });
 
                   const filteredHighlightedGroups = values.selectedGroups
-                    ?.filter(group => group.highlighted)
-                    .map(group => {
+                    ?.filter((group) => group.highlighted)
+                    .map((group) => {
                       return {
                         letter: group.letter as SGroup["letter"],
                       } satisfies SGroup;
@@ -156,21 +164,30 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                         <div className="flex flex-col items-start justify-start">
                           <div className="flex flex-row">
                             <div className="flex flex-col">
-                              <p className="text-sm text-stone-600">Vali trenni kellaaeg</p>
+                              <p className="text-sm text-stone-600">
+                                Vali trenni kellaaeg
+                              </p>
                               <div className="pt-2">
                                 <TimePicker name="startTime" />
                               </div>
                             </div>
                             <div className="flex flex-col">
-                              <p className="text-sm text-stone-600">Vali trenni kuupäev</p>
+                              <p className="text-sm text-stone-600">
+                                Vali trenni kuupäev
+                              </p>
                               <DatePicker name="startDate" />
                             </div>
                           </div>
 
-                          <GroupPicker name="selectedGroups" pressed={highlightGroupPressed} />
+                          <GroupPicker
+                            name="selectedGroups"
+                            pressed={highlightGroupPressed}
+                          />
 
                           <div className="flex flex-col pt-5">
-                            <p className="text-xs text-stone-600">Näita veel parameetreid</p>
+                            <p className="text-xs text-stone-600">
+                              Näita veel parameetreid
+                            </p>
                             <Toggle
                               pressed={advancedOptionsPressed}
                               setPressed={setAdvancedOptionsPressed}
@@ -183,7 +200,9 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                                 </div> */}
 
                                 <div className="flex flex-col">
-                                  <p className="text-xs text-stone-600">Tõsta trenn esile</p>
+                                  <p className="text-xs text-stone-600">
+                                    Tõsta trenn esile
+                                  </p>
                                   <FormikToggle name="isHighlighted" />
                                 </div>
                                 <FormikInput
@@ -199,12 +218,16 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                         </div>
                         <div className="flex flex-col justify-center ml-6 sm:ml-0">
                           <p className="self-center font-semibold justify-self-center text-stone-500">
-                            {values.startDate ? format(values.startDate, "EEEE") : "Esmaspäev"}
+                            {values.startDate
+                              ? format(values.startDate, "EEEE")
+                              : "Esmaspäev"}
                           </p>
                           <div className="flex flex-col mt-2 border border-t-0 h-52 w-36 border-stone-100">
                             <div className="flex flex-col items-center justify-center">
                               <div className="text-xs font-medium font-number sm:text-sm md:text-base text-text-primary">
-                                {values.startDate ? format(values.startDate, "dd") : "1"}
+                                {values.startDate
+                                  ? format(values.startDate, "dd")
+                                  : "1"}
                               </div>
                             </div>
                             <div className="flex flex-col justify-center flex-grow ml-2 text-center">
@@ -219,7 +242,9 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                                   />
                                   <div
                                     id="normal-event"
-                                    className={cn("flex justify-center items-center")}
+                                    className={cn(
+                                      "flex justify-center items-center"
+                                    )}
                                   >
                                     <MapGroupLetter
                                       groups={
@@ -304,12 +329,16 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                           </div>
                           <div className="flex flex-col justify-center">
                             <p className="self-center font-semibold justify-self-center text-stone-500">
-                              {values.start ? format(values.start, "EEEE") : "Esmaspäev"}
+                              {values.start
+                                ? format(values.start, "EEEE")
+                                : "Esmaspäev"}
                             </p>
                             <div className="flex flex-col mt-2 border border-t-0 h-52 w-36 border-stone-100">
                               <div className="flex flex-col items-center justify-center">
                                 <div className="text-xs font-medium font-number sm:text-sm md:text-base text-text-primary">
-                                  {values.start ? format(values.start, "dd") : "1"}
+                                  {values.start
+                                    ? format(values.start, "dd")
+                                    : "1"}
                                 </div>
                               </div>
                               <div className="flex flex-col justify-center flex-grow text-center">
@@ -343,7 +372,6 @@ export const EventCreationTabs = ({ openDate }: Props) => {
               </Formik>
             </Tab.Panel>
             {/* multi day */}
-            {/* add presets */}
             <Tab.Panel
               as={motion.div}
               initial="hidden"
@@ -357,28 +385,36 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                 validationSchema={YupSchemas.Events.MultiDayEvent}
                 validateOnMount
                 validateOnChange
-                onSubmit={(values, { setSubmitting }) => {
+                onSubmit={({ dateRange, event }, { setSubmitting }) => {
                   setSubmitting(true);
+
+                  if (dateRange.from && dateRange.to && event.id) {
+                    createNewMultiDayCalendarEvent({
+                      start: dateRange.from.toDateString(),
+                      long_event_end: dateRange.to.toDateString(),
+                      multi_day_event_id: event.id,
+                    });
+                  }
 
                   setSubmitting(false);
                 }}
               >
-                {({ submitForm, isValid }) => {
+                {({ isValid }) => {
                   return (
                     <Form>
                       <div className="flex flex-col items-center justify-center">
                         <DatePickerWithRange name="dateRange" />
-                        <FormikInput
+                        <ComboboxEventCreationMultiDayEvent name="event" />
+                        {/* <FormikInput
                           required
                           className="sm:w-[38rem] lg:w-[40rem]"
                           label="Pealkiri"
                           placeholder="Pealkiri"
                           name="title"
-                        />
+                        /> */}
                         <RealButton
                           type="submit"
                           className="mt-8"
-                          onClick={submitForm}
                           isValid={isValid}
                           variant="orange"
                         >

@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { setDefaultOptions } from "date-fns";
 import { et } from "date-fns/locale";
 import { Toaster } from "react-hot-toast";
-
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { SidebarProvider, CalendarFiltersProvider } from "../context";
 
 const queryClient = new QueryClient();
@@ -23,6 +23,7 @@ export const AppWrapper = ({ children }: Props) => {
           <Toaster />
         </CalendarFiltersProvider>
       </SidebarProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };

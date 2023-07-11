@@ -47,7 +47,10 @@ export const realButtonVariantColors = {
     "outline-casualRedOutline",
   ],
   red: ["text-white bg-primary border-[#b10000]", "active:border-primary"],
-  orange: ["text-white bg-secondary border-[#b77515]", "active:border-secondary"],
+  orange: [
+    "text-white bg-secondary border-[#b77515]",
+    "active:border-secondary",
+  ],
   casualOrange: [
     "text-textGray bg-casualOrange border-casualOrangeDarker",
     "hover:text-textGray",
@@ -105,6 +108,7 @@ export const realButtonVariants = cva(
       variant: realButtonVariantColors,
       size: {
         icon: `py-3 px-5 text-md rounded-lg`,
+        xs: `py-2 px-4 text-sm rounded-2xl`,
         sm: `py-2 px-10 text-sm rounded-2xl`,
         md: `py-2 px-14 text-sm lg:text-md rounded-2xl`,
         lg: `py-3 px-18 text-lg rounded-2xl`,
@@ -129,7 +133,9 @@ export const RealButton = forwardRef<HTMLButtonElement, RealButtonProps>(
   ({ className, variant, size, isValid, focus, ...props }, ref) => {
     return (
       <button
-        className={cn(realButtonVariants({ variant, size, focus, isValid, className }))}
+        className={cn(
+          realButtonVariants({ variant, size, focus, isValid, className })
+        )}
         ref={ref}
         {...props}
       />

@@ -137,7 +137,7 @@ export const CalendarDayView = ({
                 custom={direction}
                 className="min-w-[8rem] z-10 group flex items-center justify-center font-semibold text-lg"
               >
-                <p className="duration-200 ease-in group-hover:scale-110 ">
+                <p className="duration-200 ease-in group-hover:scale-110">
                   {currentDayString}
                 </p>
               </motion.button>

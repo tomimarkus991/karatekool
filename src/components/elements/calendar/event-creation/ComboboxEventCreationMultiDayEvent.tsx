@@ -1,0 +1,125 @@
+import { Combobox as HeadlessCombobox, Transition } from "@headlessui/react";
+import { useField } from "formik";
+import { CheckIcon, ChevronsUpDown } from "lucide-react";
+import { Fragment, useEffect, useState } from "react";
+import { useGetMultiDayEventPresets } from "../../../../hooks/queries/useGetMultiDayEventPresets";
+import { AnimationWrapper, animations } from "../../../animations";
+import { RealButton } from "../../button";
+import { useCreateMultiDayEventPreset } from "../../../../hooks";
+import { MultiDayEventEventFormik } from "../../../../app-constants";
+import { InputErrorText } from "../../forms";
+
+interface Props {
+  name: string;
+}
+
+export const ComboboxEventCreationMultiDayEvent = ({ name }: Props) => {
+  const [query, setQuery] = useState("");
+  const { data: multiDayPresets } = useGetMultiDayEventPresets();
+  const [field, { value, touched, error }, { setValue }] =
+    useField<MultiDayEventEventFormik>(name);
+  const { mutate: createNewMultiDayEventPreset, data: newCreatedEvent } =
+    useCreateMultiDayEventPreset();
+
+  useEffect(() => {
+    if (newCreatedEvent) {
+      setValue(newCreatedEvent.data);
+    }
+  }, [newCreatedEvent]);
+
+  if (!multiDayPresets) return <></>;
+
+  const filteredData =
+    query === ""
+      ? multiDayPresets
+      : multiDayPresets.filter((item) =>
+          item.title
+            .toLowerCase()
+            .replace(/\s+/g, "")
+            .includes(query.toLowerCase().replace(/\s+/g, ""))
+        );
+
+  return (
+    <HeadlessCombobox
+      {...field}
+      multiple={false}
+      value={value}
+      onChange={setValue}
+    >
+      <div className="relative w-full mt-1">
+        <div className="relative w-full overflow-hidden text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none sm:text-sm">
+          <HeadlessCombobox.Button as="div" className="flex items-center">
+            <HeadlessCombobox.Input
+              className="w-full py-2 pl-3 pr-10 text-sm leading-5 border-none rounded-lg ring-0 focus:ring-0 focus:border-none focus:outline-secondary"
+              displayValue={(item: any) => item.title}
+              placeholder="Vali üritus"
+              onChange={(event) => setQuery(event.target.value)}
+            />
+          </HeadlessCombobox.Button>
+        </div>
+        <InputErrorText className="mt-2" error={error} touched={touched} />
+        <Transition
+          as={Fragment}
+          leave="transition ease-in duration-100"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+          afterLeave={() => setQuery("")}
+        >
+          <HeadlessCombobox.Options className="absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg ring-0 focus:outline-none sm:text-sm">
+            {filteredData.length === 0 && query !== "" ? (
+              <div className="relative px-4 py-2 text-gray-700 cursor-default select-none">
+                Midagi ei leitud. Vajuta
+                <RealButton
+                  className="mx-2"
+                  size="xs"
+                  variant="orange"
+                  onClick={() => {
+                    createNewMultiDayEventPreset({
+                      title: query,
+                    });
+                  }}
+                >
+                  siia
+                </RealButton>
+                et luua uus.
+              </div>
+            ) : (
+              filteredData.map((item: any) => (
+                <HeadlessCombobox.Option
+                  key={item.id}
+                  className={({ active }) =>
+                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                      active ? "bg-secondary text-white" : "text-gray-900"
+                    }`
+                  }
+                  value={item}
+                >
+                  {({ selected, active }) => (
+                    <>
+                      <span
+                        className={`block truncate ${
+                          selected ? "font-medium" : "font-normal"
+                        }`}
+                      >
+                        {item.title}
+                      </span>
+                      {selected ? (
+                        <span
+                          className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                            active ? "text-white" : "text-secondary"
+                          }`}
+                        >
+                          <CheckIcon className="w-5 h-5" aria-hidden="true" />
+                        </span>
+                      ) : null}
+                    </>
+                  )}
+                </HeadlessCombobox.Option>
+              ))
+            )}
+          </HeadlessCombobox.Options>
+        </Transition>
+      </div>
+    </HeadlessCombobox>
+  );
+};

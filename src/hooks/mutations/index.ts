@@ -5,3 +5,5 @@ export * from "./useSendPasswordResetEmail";
 export * from "./useResetPassword";
 export * from "./useSendInviteEmail";
 export * from "./useUpdateProfile";
+export * from "./useCreateMultiDayEventPreset";
+export * from "./useCreateCalendarMultiDayEvent";

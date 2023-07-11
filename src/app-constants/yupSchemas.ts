@@ -1,4 +1,13 @@
-import { ref, string, object, number, boolean, array, InferType, date } from "yup";
+import {
+  ref,
+  string,
+  object,
+  number,
+  boolean,
+  array,
+  InferType,
+  date,
+} from "yup";
 
 const Login = object().shape({
   email: string().email("Email peab olema päris").required("Vajalik"),
@@ -61,12 +70,14 @@ const NormalEvent = object().shape({
   startDate: date().default(new Date()).required("Vajalik"),
   // selectedGroups has to be bigger than 0
   selectedGroups: array()
-    .of(object().shape({ id: number(), letter: string(), highlighted: boolean() }))
+    .of(
+      object().shape({ id: number(), letter: string(), highlighted: boolean() })
+    )
     .default([])
     .required("Vajalik")
     .test({
       message: "Vali vähemalt üks grupp",
-      test: value => {
+      test: (value) => {
         return value.length > 0;
       },
     }),
@@ -85,7 +96,10 @@ export type NormalEventIsHighlightedFormValues = Pick<
   NormalEventFormValues,
   "isHighlighted"
 >["isHighlighted"];
-export type NormalEventTrailerFormValues = Pick<NormalEventFormValues, "trailer">["trailer"];
+export type NormalEventTrailerFormValues = Pick<
+  NormalEventFormValues,
+  "trailer"
+>["trailer"];
 
 // create all day event
 const AllDayEvent = object().shape({
@@ -100,19 +114,45 @@ export type AllDayEventFormik = Pick<AllDayEventFormValues, "start">["start"];
 
 // create multi day event
 const MultiDayEvent = object().shape({
-  title: string().required("Vajalik"),
+  event: object()
+    .shape({
+      id: number(),
+      title: string(),
+    })
+    .test({
+      message: "Palun vali üritus",
+      test: (value) => {
+        return (
+          value.id !== undefined &&
+          value.id !== 0 &&
+          value.title !== undefined &&
+          value.title !== ""
+        );
+      },
+    }),
   dateRange: object()
     .shape({
       from: date(),
       to: date(),
     })
-    .default(undefined)
-    .required("Palun täida kuupäevad"),
+    .test({
+      message: "Palun täida kuupäevad",
+      test: (value) => {
+        return value.from !== undefined && value.to !== undefined;
+      },
+    }),
 });
 
 export type MultiDayEventFormValues = InferType<typeof MultiDayEvent>;
 
-export type MultiDayEventFormik = Pick<MultiDayEventFormValues, "dateRange">["dateRange"];
+export type MultiDayEventFormik = Pick<
+  MultiDayEventFormValues,
+  "dateRange"
+>["dateRange"];
+export type MultiDayEventEventFormik = Pick<
+  MultiDayEventFormValues,
+  "event"
+>["event"];
 
 const Events = {
   NormalEvent,

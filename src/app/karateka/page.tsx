@@ -1,50 +1,29 @@
 "use client";
 
-import { toast } from "react-hot-toast";
+import {
+  AnimationWrapper,
+  Calendar,
+  LoginModal,
+  RegisterModal,
+  animations,
+} from "@/components";
+import { useUser } from "@/hooks";
 
-import { Calendar, LoginModal, RegisterModal } from "@/components";
-import { useGetMaterials, useUser } from "@/hooks";
-
-import { useSupabase } from "../../context";
+import Link from "next/link";
 
 export default function Page() {
   const { data: user } = useUser();
-  const { data: materials } = useGetMaterials();
-  const { supabase } = useSupabase();
 
   return (
     <div className="flex flex-col max-w-5xl mx-auto">
-      <div className="px-0 mb-10">
+      <div className="flex flex-col px-0 mb-10">
         <h1 className="mb-3 text-xl font-semibold">Õppematerjalid</h1>
         {user ? (
-          <div className="grid grid-cols-3">
-            {materials?.map(material => {
-              return (
-                <button
-                  key={material.id}
-                  onClick={async () => {
-                    const { data, error } = await supabase.storage
-                      .from("materials")
-                      .download(material.name);
-
-                    if (error) {
-                      toast.error(`Faili allalaadmise viga: ${error.message}`);
-                      return;
-                    }
-                    const url = URL.createObjectURL(data);
-                    const link = document.createElement("a");
-                    link.href = url;
-                    link.setAttribute("download", material.name);
-                    document.body.appendChild(link);
-                    link.click();
-                    link.remove();
-                  }}
-                >
-                  <p>{material.name}</p>
-                </button>
-              );
-            })}
-          </div>
+          <Link href={"/materjalid"} className="w-fit">
+            <p className="ml-2 text-xl underline duration-200 ease-in hover:scale-110 text-secondary decoration-secondary">
+              Materjalid
+            </p>
+          </Link>
         ) : (
           <div>
             <p className="mb-2 text-lg font-light">

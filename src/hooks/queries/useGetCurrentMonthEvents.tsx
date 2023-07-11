@@ -39,8 +39,9 @@ export const useGetCurrentMonthEvents = (
     return _eventData || [];
   };
 
-  return useQuery([firstDayOfCurrentMonth, lastDayOfCurrentMonth], async () => getEvents(), {
-    enabled: false,
-    // staleTime: 0,
-  });
+  return useQuery(
+    ["get_calendar_events", firstDayOfCurrentMonth, lastDayOfCurrentMonth],
+    async () => getEvents(),
+    {}
+  );
 };

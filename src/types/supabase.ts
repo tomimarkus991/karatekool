@@ -1,6 +1,12 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 
-export type Json = string | number | boolean | null | { [key: string]: Json } | Json[];
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json }
+  | Json[];
 
 export interface Database {
   public: {
@@ -162,15 +168,15 @@ export interface Database {
       multi_day_event: {
         Row: {
           id: number;
-          title: string | null;
+          title: string;
         };
         Insert: {
           id?: number;
-          title?: string | null;
+          title?: string;
         };
         Update: {
           id?: number;
-          title?: string | null;
+          title?: string;
         };
       };
       profile: {
