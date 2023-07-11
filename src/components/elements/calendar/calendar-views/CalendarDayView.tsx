@@ -13,14 +13,15 @@ import { calendarUtils } from "../calendarUtils";
 import { DayViewEvent } from "../events/day-view";
 
 import { nextTimeFrame, previousTimeFrame } from "./utils";
-function calculatePosition(
+
+const calculatePosition = (
   currentHour: number,
   currentMinutes: number
-): number {
+): number => {
   let totalMinutes = 12 * 60; // Total minutes from 9:00 to 21:00
   let scale = 728 / totalMinutes; // Scale factor for converting minutes to pixels
   return scale * ((currentHour - 9) * 55.39 + currentMinutes);
-}
+};
 
 interface Props {
   currentMonthString: string;
