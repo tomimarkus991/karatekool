@@ -54,7 +54,7 @@ export const DatePickerWithRange = ({ name }: Props) => {
               to: dateRange?.to as any,
             });
           }}
-          numberOfMonths={2}
+          numberOfMonths={1}
         />
       </PopoverContent>
     </Popover>
