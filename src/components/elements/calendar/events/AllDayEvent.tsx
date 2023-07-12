@@ -1,9 +1,13 @@
 import { isSameDay, parseISO } from "date-fns";
 import { motion } from "framer-motion";
+import { HiTrash, HiX } from "react-icons/hi";
 
+import { AnimationWrapper, animations } from "@/components";
+import { useDeleteCalendarAllDayEvent, useUser } from "@/hooks";
 import { EventData } from "@/types";
 
-import { Popover, PopoverContent, PopoverTrigger } from "../../Popover";
+import { RealButton } from "../../button";
+import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "../../Popover";
 
 interface Props {
   event: EventData;
@@ -37,11 +41,14 @@ export const AllDayEventCalendarDisplay = ({
 export const AllDayEvent = ({ event, date }: Props) => {
   const { all_day_event } = event;
   const start = parseISO(event.start);
+  const { mutate: deleteEvent } = useDeleteCalendarAllDayEvent();
+
+  const { data: user } = useUser();
 
   if (!isSameDay(start, date) || !all_day_event) {
     return <></>;
   }
-  const { title, sub_title } = all_day_event;
+  const { title, sub_title, id } = all_day_event;
 
   return (
     <Popover>
@@ -65,9 +72,50 @@ export const AllDayEvent = ({ event, date }: Props) => {
         </motion.div>
       </PopoverTrigger>
       <PopoverContent className="max-w-xs lg:max-w-sm">
-        <div className="text-center">
-          <p className="text-lg text-blue-600">{title}</p>
-          <p className="text-sm">{sub_title}</p>
+        <div className="flex flex-row">
+          <Popover>
+            <PopoverTrigger>
+              {user?.role === "admin" && (
+                <AnimationWrapper
+                  className="self-center mr-2 cursor-pointer"
+                  variants={animations.smallScaleXs}
+                >
+                  <HiTrash className="w-6 h-6 text-red-600" />
+                </AnimationWrapper>
+              )}
+            </PopoverTrigger>
+            <PopoverContent className="z-50 p-4">
+              <div className="flex flex-col">
+                <p className="mb-4 text-xl font-semibold text-center">
+                  Oled kindel, et soovid seda kustutada?
+                </p>
+                <div className="flex flex-row">
+                  <PopoverClose>
+                    <RealButton className="ml-4" variant="orange">
+                      Tagasi
+                    </RealButton>
+                  </PopoverClose>
+                  <RealButton className="ml-4" variant="red" onClick={() => deleteEvent({ id })}>
+                    Kustuta
+                  </RealButton>
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
+
+          <div className="text-center">
+            <p className="text-lg text-blue-600">{title}</p>
+            <p className="text-sm">{sub_title}</p>
+          </div>
+
+          <PopoverClose>
+            <AnimationWrapper
+              className="self-center ml-2 cursor-pointer"
+              variants={animations.smallScaleXs}
+            >
+              <HiX className="self-center w-8 h-8 cursor-pointer text-stone-800" />
+            </AnimationWrapper>
+          </PopoverClose>
         </div>
       </PopoverContent>
     </Popover>

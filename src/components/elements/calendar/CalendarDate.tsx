@@ -42,26 +42,23 @@ export const CalendarDate = ({ events, date, month }: Props) => {
             user?.role === "admin" && "hover:border-secondary hover:border",
           )}
           onClick={(e: any) => {
+            console.log(e.target.id);
+
             if (user?.role === "admin") {
-              if (
-                e.target.id !== "multi-day-event" &&
-                e.target.id !== "all-day-event" &&
-                e.target.id !== "normal-event"
-              ) {
+              if (e.target.id === "open-creation-modal") {
                 openModal();
               }
             }
           }}
         >
-          <div className="flex flex-col h-full">
+          <div id="open-creation-modal" className="flex flex-col h-full">
             <AnimationWrapper
-              className={cn(
-                "flex justify-center",
-                user?.role === "admin" && "hover:bg-stone-50 rounded-2xl",
-              )}
+              id="open-creation-modal"
+              className={cn("flex justify-center")}
               variants={user?.role === "admin" ? animations.smallScale : undefined}
             >
               <time
+                id="open-creation-modal"
                 className={cn(
                   "font-number font-medium text-xs sm:text-sm md:text-base",
                   isToday(date)
@@ -75,7 +72,10 @@ export const CalendarDate = ({ events, date, month }: Props) => {
               </time>
             </AnimationWrapper>
 
-            <div className="relative flex flex-col h-full">
+            <div
+              id="open-creation-modal"
+              className="relative flex flex-col flex-grow flex-shrink-0 h-full"
+            >
               {events.map(event => (
                 <Event key={event.id} event={event} date={date} bounds={bounds} />
               ))}

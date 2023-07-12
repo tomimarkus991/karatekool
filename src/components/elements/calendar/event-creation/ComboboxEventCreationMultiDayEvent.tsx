@@ -3,8 +3,9 @@ import { useField } from "formik";
 import { CheckIcon } from "lucide-react";
 import { Fragment, useEffect, useState } from "react";
 
-import { MultiDayEventEventFormik } from "../../../../app-constants";
-import { useCreateMultiDayEventPreset, useGetMultiDayEventPresets } from "../../../../hooks";
+import { MultiDayEventEventFormik } from "@/app-constants";
+import { useCreateMultiDayEventPreset, useGetMultiDayEventPresets } from "@/hooks";
+
 import { RealButton } from "../../button";
 import { InputErrorText } from "../../forms";
 

@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast";
 import { useSupabase } from "@/context";
 
 interface Props {
-  id: string;
+  id: number;
 }
 
 export const useDeleteCalendarAllDayEvent = () => {
@@ -12,6 +12,13 @@ export const useDeleteCalendarAllDayEvent = () => {
   const queryClient = useQueryClient();
 
   const execute = async ({ id }: Props) => {
+    const deleteFromEventRes = await supabase.from("event").delete().match({ all_day_event: id });
+
+    if (deleteFromEventRes.error) {
+      toast.error(deleteFromEventRes.error.message);
+      throw new Error(deleteFromEventRes.error.message);
+    }
+
     const res = await supabase.from("all_day_event").delete().match({ id });
 
     if (res.error) {
@@ -19,7 +26,7 @@ export const useDeleteCalendarAllDayEvent = () => {
       throw new Error(res.error.message);
     }
 
-    return res;
+    return true;
   };
 
   return useMutation((user: Props) => execute(user), {
