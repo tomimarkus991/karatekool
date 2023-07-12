@@ -17,13 +17,13 @@ export const Three3DLayout = ({ children }: Props) => {
     <div
       ref={ref}
       // can't use tailwind here
-      style={{
-        position: "relative",
-        width: " 100%",
-        height: "100%",
-        overflow: "auto",
-        touchAction: "auto",
-      }}
+      // style={{
+      //   position: "relative",
+      //   width: " 100%",
+      //   height: "100%",
+      //   overflow: "auto",
+      //   touchAction: "auto",
+      // }}
     >
       {children}
       <Canvas
