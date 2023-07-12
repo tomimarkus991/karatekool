@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast";
 import { useSupabase } from "@/context";
 
 interface Props {
-  id: string;
+  id: number;
 }
 
 export const useDeleteNormalCalendarEvent = () => {

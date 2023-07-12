@@ -62,7 +62,6 @@ const Child = ({ width, multi_day_event }: ChildProps) => {
         </PopoverTrigger>
       </motion.div>
       <PopoverContent className="max-w-xs lg:max-w-sm">
-        {" "}
         <div className="flex flex-row">
           <Popover>
             <PopoverTrigger>
