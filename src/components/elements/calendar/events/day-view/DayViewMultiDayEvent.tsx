@@ -37,7 +37,7 @@ export const DayViewMultiDayEvent = ({ event, date }: Props) => {
       }}
       className={cn(
         "bg-blue-600 mt-4 mx-4 rounded-md cursor-pointer hover:bg-blue-500 z-10",
-        "relative"
+        "relative",
       )}
     >
       <p className="py-2 ml-2 text-base font-medium text-center text-white">

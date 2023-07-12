@@ -39,7 +39,7 @@ export const Accordion = ({
     <div
       className={cn(
         "w-full rounded-2xl bg-white px-2 py-3 flex flex-col",
-        accordionMaxWidth[maxWidth]
+        accordionMaxWidth[maxWidth],
       )}
       onClick={() => setIsOpen(prev => !prev)}
     >

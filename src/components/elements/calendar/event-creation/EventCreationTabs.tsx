@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { Form, Formik } from "formik";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 import {
   AllDayEventFormValues,
@@ -26,21 +27,20 @@ import {
   Toggle,
   animations,
 } from "@/components";
-import { cn } from "@/lib";
-import { SGroup } from "@/types";
-
-import { GroupPicker } from "./GroupPicker";
-import { TrailerPicker } from "./TrailerPicker";
-
-import { AllDayEventInput, CalendarEventTab } from ".";
-import { ComboboxEventCreationMultiDayEvent } from "./ComboboxEventCreationMultiDayEvent";
 import {
   useCreateCalendarEvent,
   useCreateCalendarMultiDayEvent,
   useCreateCalendarAllDayEvent,
 } from "@/hooks";
+import { cn } from "@/lib";
+import { SGroup } from "@/types";
+
 import { ComboboxAllDayEventPresets } from "./ComboboxAllDayEventPresets";
-import { toast } from "react-hot-toast";
+import { ComboboxEventCreationMultiDayEvent } from "./ComboboxEventCreationMultiDayEvent";
+import { GroupPicker } from "./GroupPicker";
+import { TrailerPicker } from "./TrailerPicker";
+
+import { AllDayEventInput, CalendarEventTab } from ".";
 
 interface Props {
   /**
@@ -48,6 +48,16 @@ interface Props {
    */
   openDate: Date;
 }
+
+const mergeDateAndTime = (startDate: Date, startTime: Date): Date => {
+  const result = new Date(startDate.getTime());
+
+  result.setHours(startTime.getHours());
+  result.setMinutes(startTime.getMinutes());
+  result.setSeconds(startTime.getSeconds());
+
+  return result;
+};
 
 export const EventCreationTabs = ({ openDate }: Props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -81,17 +91,15 @@ export const EventCreationTabs = ({ openDate }: Props) => {
   const [highlightGroupPressed] = useState(false);
 
   const { mutate: createNewNormalCalendarEvent } = useCreateCalendarEvent();
-  const { mutate: createNewAllDayCalendarEvent } =
-    useCreateCalendarAllDayEvent();
-  const { mutate: createNewMultiDayCalendarEvent } =
-    useCreateCalendarMultiDayEvent();
+  const { mutate: createNewAllDayCalendarEvent } = useCreateCalendarAllDayEvent();
+  const { mutate: createNewMultiDayCalendarEvent } = useCreateCalendarMultiDayEvent();
 
   return (
     <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
       <Tab.List
         className={cn(
           "flex flex-row relative px-1 w-full flex-1 mb-6 bg-stone-100 rounded-xl mx-auto md:mb-12",
-          "shadow-lg ring-1 ring-stone-400 ring-opacity-5"
+          "shadow-lg ring-1 ring-stone-400 ring-opacity-5",
         )}
       >
         <CalendarEventTab selectedIndex={selectedIndex} index={0}>
@@ -134,32 +142,19 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                     isHighlighted,
                     startDate,
                   },
-                  { setSubmitting }
+                  { setSubmitting },
                 ) => {
                   setSubmitting(true);
 
                   const groupIds =
                     selectedGroups
-                      ?.filter((group) => !group.highlighted)
-                      .map((group) => group.id as number) || [];
+                      ?.filter(group => !group.highlighted)
+                      .map(group => group.id as number) || [];
 
                   const highlightedGroupIds =
                     selectedGroups
-                      ?.filter((group) => group.highlighted)
-                      .map((group) => group.id as number) || [];
-
-                  const mergeDateAndTime = (
-                    startDate: Date,
-                    startTime: Date
-                  ): Date => {
-                    let result = new Date(startDate.getTime());
-
-                    result.setHours(startTime.getHours());
-                    result.setMinutes(startTime.getMinutes());
-                    result.setSeconds(startTime.getSeconds());
-
-                    return result;
-                  };
+                      ?.filter(group => group.highlighted)
+                      .map(group => group.id as number) || [];
 
                   createNewNormalCalendarEvent({
                     start: mergeDateAndTime(startDate, startTime).toISOString(),
@@ -177,20 +172,22 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                 {/* normal */}
                 {({ values, isValid }) => {
                   const filteredGroups = values.selectedGroups
-                    .filter((group) => !group.highlighted)
-                    .map((group) => {
-                      return {
-                        letter: group.letter as SGroup["letter"],
-                      } satisfies SGroup;
-                    });
+                    .filter(group => !group.highlighted)
+                    .map(
+                      group =>
+                        ({
+                          letter: group.letter as SGroup["letter"],
+                        }) satisfies SGroup,
+                    );
 
                   const filteredHighlightedGroups = values.selectedGroups
-                    ?.filter((group) => group.highlighted)
-                    .map((group) => {
-                      return {
-                        letter: group.letter as SGroup["letter"],
-                      } satisfies SGroup;
-                    });
+                    ?.filter(group => group.highlighted)
+                    .map(
+                      group =>
+                        ({
+                          letter: group.letter as SGroup["letter"],
+                        }) satisfies SGroup,
+                    );
 
                   return (
                     <Form>
@@ -198,30 +195,21 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                         <div className="flex flex-col items-start justify-start">
                           <div className="flex flex-row">
                             <div className="flex flex-col">
-                              <p className="text-sm text-stone-600">
-                                Vali trenni kellaaeg
-                              </p>
+                              <p className="text-sm text-stone-600">Vali trenni kellaaeg</p>
                               <div className="pt-2">
                                 <TimePicker name="startTime" />
                               </div>
                             </div>
                             <div className="flex flex-col">
-                              <p className="text-sm text-stone-600">
-                                Vali trenni kuupäev
-                              </p>
+                              <p className="text-sm text-stone-600">Vali trenni kuupäev</p>
                               <DatePicker name="startDate" />
                             </div>
                           </div>
 
-                          <GroupPicker
-                            name="selectedGroups"
-                            pressed={highlightGroupPressed}
-                          />
+                          <GroupPicker name="selectedGroups" pressed={highlightGroupPressed} />
 
                           <div className="flex flex-col pt-5">
-                            <p className="text-xs text-stone-600">
-                              Näita veel parameetreid
-                            </p>
+                            <p className="text-xs text-stone-600">Näita veel parameetreid</p>
                             <Toggle
                               pressed={advancedOptionsPressed}
                               setPressed={setAdvancedOptionsPressed}
@@ -234,9 +222,7 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                                 </div> */}
 
                                 <div className="flex flex-col">
-                                  <p className="text-xs text-stone-600">
-                                    Tõsta trenn esile
-                                  </p>
+                                  <p className="text-xs text-stone-600">Tõsta trenn esile</p>
                                   <FormikToggle name="isHighlighted" />
                                 </div>
                                 <FormikInput
@@ -252,16 +238,12 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                         </div>
                         <div className="flex flex-col justify-center ml-6 sm:ml-0">
                           <p className="self-center font-semibold justify-self-center text-stone-500">
-                            {values.startDate
-                              ? format(values.startDate, "EEEE")
-                              : "Esmaspäev"}
+                            {values.startDate ? format(values.startDate, "EEEE") : "Esmaspäev"}
                           </p>
                           <div className="flex flex-col mt-2 border border-t-0 h-52 w-36 border-stone-100">
                             <div className="flex flex-col items-center justify-center">
                               <div className="text-xs font-medium font-number sm:text-sm md:text-base text-text-primary">
-                                {values.startDate
-                                  ? format(values.startDate, "dd")
-                                  : "1"}
+                                {values.startDate ? format(values.startDate, "dd") : "1"}
                               </div>
                             </div>
                             <div className="flex flex-col justify-center flex-grow ml-2 text-center">
@@ -276,9 +258,7 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                                   />
                                   <div
                                     id="normal-event"
-                                    className={cn(
-                                      "flex justify-center items-center"
-                                    )}
+                                    className={cn("flex justify-center items-center")}
                                   >
                                     <MapGroupLetter
                                       groups={
@@ -361,56 +341,45 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                   setSubmitting(false);
                 }}
               >
-                {({ values, isValid }) => {
-                  return (
-                    <Form>
-                      <div className="flex flex-col items-center justify-center">
-                        <div className="flex flex-row items-center justify-center w-full">
-                          <div className="w-full mr-6">
-                            <DatePicker name="start" />
-                            <ComboboxAllDayEventPresets name="title" />
-                          </div>
-                          <div className="flex flex-col justify-center">
-                            <p className="self-center font-semibold justify-self-center text-stone-500">
-                              {values.start
-                                ? format(values.start, "EEEE")
-                                : "Esmaspäev"}
-                            </p>
-                            <div className="flex flex-col mt-2 border border-t-0 h-52 w-36 border-stone-100">
-                              <div className="flex flex-col items-center justify-center">
-                                <div className="text-xs font-medium font-number sm:text-sm md:text-base text-text-primary">
-                                  {values.start
-                                    ? format(values.start, "dd")
-                                    : "1"}
-                                </div>
+                {({ values, isValid }) => (
+                  <Form>
+                    <div className="flex flex-col items-center justify-center">
+                      <div className="flex flex-row items-center justify-center w-full">
+                        <div className="w-full mr-6">
+                          <DatePicker name="start" />
+                          <ComboboxAllDayEventPresets name="title" />
+                        </div>
+                        <div className="flex flex-col justify-center">
+                          <p className="self-center font-semibold justify-self-center text-stone-500">
+                            {values.start ? format(values.start, "EEEE") : "Esmaspäev"}
+                          </p>
+                          <div className="flex flex-col mt-2 border border-t-0 h-52 w-36 border-stone-100">
+                            <div className="flex flex-col items-center justify-center">
+                              <div className="text-xs font-medium font-number sm:text-sm md:text-base text-text-primary">
+                                {values.start ? format(values.start, "dd") : "1"}
                               </div>
-                              <div className="flex flex-col justify-center flex-grow text-center">
-                                <AllDayEventInput
-                                  name="title"
-                                  placeholder="Pealkiri"
-                                  className="mb-3 text-lg text-blue-600"
-                                />
-                                <AllDayEventInput
-                                  name="subTitle"
-                                  placeholder="Ala pealkiri"
-                                  className="text-sm !scrollbar-none"
-                                />
-                              </div>
+                            </div>
+                            <div className="flex flex-col justify-center flex-grow text-center">
+                              <AllDayEventInput
+                                name="title"
+                                placeholder="Pealkiri"
+                                className="mb-3 text-lg text-blue-600"
+                              />
+                              <AllDayEventInput
+                                name="subTitle"
+                                placeholder="Ala pealkiri"
+                                className="text-sm !scrollbar-none"
+                              />
                             </div>
                           </div>
                         </div>
-                        <RealButton
-                          type="submit"
-                          className="mt-8"
-                          isValid={isValid}
-                          variant="orange"
-                        >
-                          Loo
-                        </RealButton>
                       </div>
-                    </Form>
-                  );
-                }}
+                      <RealButton type="submit" className="mt-8" isValid={isValid} variant="orange">
+                        Loo
+                      </RealButton>
+                    </div>
+                  </Form>
+                )}
               </Formik>
             </Tab.Panel>
             {/* multi day */}
@@ -443,24 +412,17 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                   setSubmitting(false);
                 }}
               >
-                {({ isValid }) => {
-                  return (
-                    <Form>
-                      <div className="flex flex-col items-center justify-center">
-                        <DatePickerWithRange name="dateRange" />
-                        <ComboboxEventCreationMultiDayEvent name="event" />
-                        <RealButton
-                          type="submit"
-                          className="mt-8"
-                          isValid={isValid}
-                          variant="orange"
-                        >
-                          Loo
-                        </RealButton>
-                      </div>
-                    </Form>
-                  );
-                }}
+                {({ isValid }) => (
+                  <Form>
+                    <div className="flex flex-col items-center justify-center">
+                      <DatePickerWithRange name="dateRange" />
+                      <ComboboxEventCreationMultiDayEvent name="event" />
+                      <RealButton type="submit" className="mt-8" isValid={isValid} variant="orange">
+                        Loo
+                      </RealButton>
+                    </div>
+                  </Form>
+                )}
               </Formik>
             </Tab.Panel>
           </AnimatePresence>

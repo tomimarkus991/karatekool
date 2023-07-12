@@ -47,10 +47,7 @@ export const realButtonVariantColors = {
     "outline-casualRedOutline",
   ],
   red: ["text-white bg-primary border-[#b10000]", "active:border-primary"],
-  orange: [
-    "text-white bg-secondary border-[#b77515]",
-    "active:border-secondary",
-  ],
+  orange: ["text-white bg-secondary border-[#b77515]", "active:border-secondary"],
   casualOrange: [
     "text-textGray bg-casualOrange border-casualOrangeDarker",
     "hover:text-textGray",
@@ -122,7 +119,7 @@ export const realButtonVariants = cva(
       },
     },
     defaultVariants: { variant: "dark", size: "md", focus: false },
-  }
+  },
 );
 
 export interface RealButtonProps
@@ -130,17 +127,13 @@ export interface RealButtonProps
     VariantProps<typeof realButtonVariants> {}
 
 export const RealButton = forwardRef<HTMLButtonElement, RealButtonProps>(
-  ({ className, variant, size, isValid, focus, ...props }, ref) => {
-    return (
-      <button
-        className={cn(
-          realButtonVariants({ variant, size, focus, isValid, className })
-        )}
-        ref={ref}
-        {...props}
-      />
-    );
-  }
+  ({ className, variant, size, isValid, focus, ...props }, ref) => (
+    <button
+      className={cn(realButtonVariants({ variant, size, focus, isValid, className }))}
+      ref={ref}
+      {...props}
+    />
+  ),
 );
 
 RealButton.displayName = "RealButton";

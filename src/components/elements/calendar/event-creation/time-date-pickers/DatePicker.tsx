@@ -2,22 +2,14 @@
 
 import { format } from "date-fns";
 import { useField } from "formik";
+import { Dispatch, SetStateAction } from "react";
 import { HiOutlineCalendar } from "react-icons/hi";
 
 import { AllDayEventFormik } from "@/app-constants";
 import { AnimationWrapper, animations, calendarUtils } from "@/components";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/elements/Popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/elements/Popover";
 
-import {
-  DatePickerCalendar,
-  DatePickerCalendarButton,
-  DatePickerCalendarProps,
-} from ".";
-import { Dispatch, SetStateAction } from "react";
+import { DatePickerCalendar, DatePickerCalendarButton, DatePickerCalendarProps } from ".";
 
 type Props = DatePickerCalendarProps & {
   name: string;
@@ -29,16 +21,9 @@ export const DatePicker = ({ name, className, ...props }: Props) => {
     <Popover>
       <PopoverTrigger>
         <AnimationWrapper variants={animations.subtleScale}>
-          <DatePickerCalendarButton
-            variant="ghost"
-            className="pl-0 ml-0 text-left group"
-          >
+          <DatePickerCalendarButton variant="ghost" className="pl-0 ml-0 text-left group">
             <HiOutlineCalendar className="w-6 h-6 mr-2 text-stone-700 group-hover:text-stone-800" />
-            {value ? (
-              format(value, "PPP")
-            ) : (
-              <p className="text-lg">Vali kuupäev</p>
-            )}
+            {value ? format(value, "PPP") : <p className="text-lg">Vali kuupäev</p>}
           </DatePickerCalendarButton>
         </AnimationWrapper>
       </PopoverTrigger>
@@ -49,7 +34,7 @@ export const DatePicker = ({ name, className, ...props }: Props) => {
           mode="single"
           className={className}
           selected={value}
-          onSelect={(date) => {
+          onSelect={date => {
             setValue(date);
           }}
           initialFocus
@@ -88,7 +73,7 @@ export const RegularDatePicker = ({
           className={className}
           defaultMonth={value}
           selected={value}
-          onSelect={(date) => {
+          onSelect={date => {
             setValue(format(date as Date, currentDayType));
             setCurrentMonthString(format(date as Date, currentMonthType));
 

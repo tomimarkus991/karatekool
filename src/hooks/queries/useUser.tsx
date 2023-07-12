@@ -19,7 +19,7 @@ export const useUser = () => {
           username,
           avatar,
           role
-        `
+        `,
       )
       .eq("id", session?.user.id)
       .single();

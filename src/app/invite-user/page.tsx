@@ -30,31 +30,29 @@ export default function Page() {
             setSubmitting(false);
           }}
         >
-          {({ isValid, handleSubmit }) => {
-            return (
-              <Form className={cn("flex flex-col")}>
-                <div className="flex flex-row items-center justify-between pl-3">
-                  <p className="text-xl font-bold">Saada kutse</p>
+          {({ isValid, handleSubmit }) => (
+            <Form className={cn("flex flex-col")}>
+              <div className="flex flex-row items-center justify-between pl-3">
+                <p className="text-xl font-bold">Saada kutse</p>
+              </div>
+              <div className={cn("flex items-center flex-col py-2 mb-5 px-3")}>
+                <div className="w-full mt-3 space-y-2">
+                  <FormikInput className="w-full" placeholder="Email" name="email" />
                 </div>
-                <div className={cn("flex items-center flex-col py-2 mb-5 px-3")}>
-                  <div className="w-full mt-3 space-y-2">
-                    <FormikInput className="w-full" placeholder="Email" name="email" />
-                  </div>
-                </div>
+              </div>
 
-                <div className="flex flex-col items-center justify-center">
-                  <RealButton
-                    variant="red"
-                    type="submit"
-                    onClick={handleSubmit as any}
-                    isValid={isValid}
-                  >
-                    Saada
-                  </RealButton>
-                </div>
-              </Form>
-            );
-          }}
+              <div className="flex flex-col items-center justify-center">
+                <RealButton
+                  variant="red"
+                  type="submit"
+                  onClick={handleSubmit as any}
+                  isValid={isValid}
+                >
+                  Saada
+                </RealButton>
+              </div>
+            </Form>
+          )}
         </Formik>
       </div>
     </div>

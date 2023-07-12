@@ -12,11 +12,7 @@ export const useCreateMultiDayEventPreset = () => {
   const queryClient = useQueryClient();
 
   const execute = async ({ title }: Props) => {
-    const res = await supabase
-      .from("multi_day_event")
-      .insert({ title })
-      .select()
-      .single();
+    const res = await supabase.from("multi_day_event").insert({ title }).select().single();
 
     if (res.error) {
       toast.error(res.error.message);

@@ -150,18 +150,16 @@ export const CalendarMonthView = ({
                 key={week.toISOString()}
                 className="grid grid-cols-7 border-t h-52 first:border-t-0 last:border-b-0 border-stone-100"
               >
-                {daysForWeek.map(day => {
-                  return (
-                    <CalendarDate
-                      key={day.toISOString()}
-                      events={events}
-                      date={day}
-                      month={month}
-                      isFetched={isFetched}
-                      isAnimating={isAnimating}
-                    />
-                  );
-                })}
+                {daysForWeek.map(day => (
+                  <CalendarDate
+                    key={day.toISOString()}
+                    events={events}
+                    date={day}
+                    month={month}
+                    isFetched={isFetched}
+                    isAnimating={isAnimating}
+                  />
+                ))}
               </div>
             );
           })}

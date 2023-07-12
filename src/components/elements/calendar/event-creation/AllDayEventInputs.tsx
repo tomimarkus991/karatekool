@@ -14,7 +14,7 @@ export const AllDayEventInput = ({ name, className, ...props }: Props) => {
       {...field}
       className={cn(
         className,
-        "text-center outline-none resize-none h-full scrollbar-overflow focus:border-0 focus:ring-0"
+        "text-center outline-none resize-none h-full scrollbar-overflow focus:border-0 focus:ring-0",
       )}
       name={name}
       autoComplete="off"

@@ -6,13 +6,11 @@ interface Props {
   className?: string;
 }
 
-export const AccordionContentList = ({ title, content, className }: Props) => {
-  return (
-    <div className={cn(className)}>
-      <p className="text-lg font-medium">{title}</p>
-      <div className="px-6 pt-2">
-        <ul className="list-disc text-base text-gray-700 space-y-1">{content}</ul>
-      </div>
+export const AccordionContentList = ({ title, content, className }: Props) => (
+  <div className={cn(className)}>
+    <p className="text-lg font-medium">{title}</p>
+    <div className="px-6 pt-2">
+      <ul className="list-disc text-base text-gray-700 space-y-1">{content}</ul>
     </div>
-  );
-};
+  </div>
+);

@@ -1,9 +1,9 @@
 "use client";
 
+import Link from "next/link";
+
 import { Calendar, LoginModal, RegisterModal } from "@/components";
 import { useUser } from "@/hooks";
-
-import Link from "next/link";
 
 export default function Page() {
   const { data: user } = useUser();

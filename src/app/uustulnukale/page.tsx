@@ -2,7 +2,6 @@
 
 import { Accordion, AccordionContentList } from "@/components";
 
-
 export default function Page() {
   const iconClassName = "h-8 w-8 text-[#E50815]";
   const titleClassname = "!text-lg font-semibold xs2:!text-xl";

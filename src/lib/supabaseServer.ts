@@ -15,5 +15,5 @@ export const createServerClient = () =>
       // headers,
       supabaseKey,
       supabaseUrl,
-    }
+    },
   );

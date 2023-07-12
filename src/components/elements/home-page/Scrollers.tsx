@@ -18,11 +18,13 @@ export const Scroller = ({ scroll }: Props) => {
   const [currentScroll, setCurrentScroll] = useState(0);
   const { control, ref } = useAnimateScroll();
 
-  useEffect(() => {
-    return scrollY.on("change", current => {
-      setCurrentScroll(current);
-    });
-  }, [scrollY]);
+  useEffect(
+    () =>
+      scrollY.on("change", current => {
+        setCurrentScroll(current);
+      }),
+    [scrollY],
+  );
 
   return (
     <AnimatePresence>
@@ -36,7 +38,7 @@ export const Scroller = ({ scroll }: Props) => {
             "border-2 rounded-2xl w-6 h-11 fixed bottom-[10%] left-[50%] z-50 border-stone-800 cursor-pointer",
             "before:h-2 before:w-1 before:bg-stone-800 before:rounded-sm before:absolute before:top-1 before:left-[43%]",
             "before:animate-scrollwheel-move-down before:ease-out before:delay-300",
-            "hidden md:block"
+            "hidden md:block",
           )}
         />
       )}
@@ -50,11 +52,13 @@ export const MobileScroller = ({ scroll }: Props) => {
   const [currentScroll, setCurrentScroll] = useState(0);
   const { control, ref } = useAnimateScroll();
 
-  useEffect(() => {
-    return scrollY.on("change", current => {
-      setCurrentScroll(current);
-    });
-  }, [scrollY]);
+  useEffect(
+    () =>
+      scrollY.on("change", current => {
+        setCurrentScroll(current);
+      }),
+    [scrollY],
+  );
 
   return (
     <AnimatePresence>
@@ -70,7 +74,7 @@ export const MobileScroller = ({ scroll }: Props) => {
             <BsChevronCompactDown
               className={cn(
                 "w-20 h-20 cursor-pointer fill-stone-700 rounded-2xl",
-                "delay-1000 animate-mobile-move-down"
+                "delay-1000 animate-mobile-move-down",
               )}
             />
           </AnimationWrapper>

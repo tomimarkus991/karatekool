@@ -44,7 +44,7 @@ export const useSignUp = () => {
               <p className="ml-1 text-lg font-semibold">et luba taodelda</p>
             </div>
           </div>,
-          { duration: 30000, id: "whitelist-toast" }
+          { duration: 30000, id: "whitelist-toast" },
         );
       } else {
         toast.error(error.message);

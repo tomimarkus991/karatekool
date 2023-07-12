@@ -39,7 +39,7 @@ export const CalendarDate = ({ events, date, month }: Props) => {
           className={cn(
             "w-full h-full m-auto box-border p-[0.1rem] sm:p-1",
             "border-stone-100 border-r first:border-l",
-            user?.role === "admin" && "hover:border-secondary hover:border"
+            user?.role === "admin" && "hover:border-secondary hover:border",
           )}
           onClick={(e: any) => {
             if (user?.role === "admin") {
@@ -57,7 +57,7 @@ export const CalendarDate = ({ events, date, month }: Props) => {
             <AnimationWrapper
               className={cn(
                 "flex justify-center",
-                user?.role === "admin" && "hover:bg-stone-50 rounded-2xl"
+                user?.role === "admin" && "hover:bg-stone-50 rounded-2xl",
               )}
               variants={user?.role === "admin" ? animations.smallScale : undefined}
             >
@@ -67,7 +67,7 @@ export const CalendarDate = ({ events, date, month }: Props) => {
                   isToday(date)
                     ? // ? "text-white bg-primary h-4 w-4 sm:h-5 sm:w-5 rounded-full text-center"
                       "text-primary"
-                    : `${!isSameMonth(date, month) ? "text-stone-300" : "text-text-primary"}`
+                    : `${!isSameMonth(date, month) ? "text-stone-300" : "text-text-primary"}`,
                 )}
                 dateTime={format(date, "dd-MM-yyyy")}
               >
@@ -76,9 +76,9 @@ export const CalendarDate = ({ events, date, month }: Props) => {
             </AnimationWrapper>
 
             <div className="relative flex flex-col h-full">
-              {events.map(event => {
-                return <Event key={event.id} event={event} date={date} bounds={bounds} />;
-              })}
+              {events.map(event => (
+                <Event key={event.id} event={event} date={date} bounds={bounds} />
+              ))}
             </div>
           </div>
         </button>

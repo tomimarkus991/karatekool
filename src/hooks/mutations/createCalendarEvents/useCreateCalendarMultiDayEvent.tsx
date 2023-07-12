@@ -13,11 +13,7 @@ export const useCreateCalendarMultiDayEvent = () => {
   const { supabase } = useSupabase();
   const queryClient = useQueryClient();
 
-  const execute = async ({
-    start,
-    long_event_end,
-    multi_day_event_id,
-  }: Props) => {
+  const execute = async ({ start, long_event_end, multi_day_event_id }: Props) => {
     const res = await supabase.from("event").insert({
       start,
       long_event_end,

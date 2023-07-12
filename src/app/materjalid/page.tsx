@@ -18,32 +18,30 @@ export default function Page() {
         <h1 className="mb-3 text-xl font-semibold">Õppematerjalid</h1>
         {user ? (
           <>
-            {materials?.map((material) => {
-              return (
-                <button
-                  key={material.id}
-                  onClick={async () => {
-                    const { data, error } = await supabase.storage
-                      .from("materials")
-                      .download(material.name);
+            {materials?.map(material => (
+              <button
+                key={material.id}
+                onClick={async () => {
+                  const { data, error } = await supabase.storage
+                    .from("materials")
+                    .download(material.name);
 
-                    if (error) {
-                      toast.error(`Faili allalaadmise viga: ${error.message}`);
-                      return;
-                    }
-                    const url = URL.createObjectURL(data);
-                    const link = document.createElement("a");
-                    link.href = url;
-                    link.setAttribute("download", material.name);
-                    document.body.appendChild(link);
-                    link.click();
-                    link.remove();
-                  }}
-                >
-                  <p>{material.name}</p>
-                </button>
-              );
-            })}
+                  if (error) {
+                    toast.error(`Faili allalaadmise viga: ${error.message}`);
+                    return;
+                  }
+                  const url = URL.createObjectURL(data);
+                  const link = document.createElement("a");
+                  link.href = url;
+                  link.setAttribute("download", material.name);
+                  document.body.appendChild(link);
+                  link.click();
+                  link.remove();
+                }}
+              >
+                <p>{material.name}</p>
+              </button>
+            ))}
           </>
         ) : (
           <div>

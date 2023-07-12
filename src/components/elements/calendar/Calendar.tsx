@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  endOfMonth,
-  endOfWeek,
-  format,
-  formatISO9075,
-  parse,
-  startOfWeek,
-} from "date-fns";
+import { endOfMonth, endOfWeek, format, formatISO9075, parse, startOfWeek } from "date-fns";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { IconType } from "react-icons/lib";
@@ -43,24 +36,16 @@ const translateType = (type: CalendarViewType) => {
   return "Error";
 };
 
-const CalendarView = ({ type, onClick, Icon }: CalendarViewProps) => {
-  return (
-    <AnimationWrapper
-      variants={animations.buttonGhost}
-      className="cursor-pointer"
-      onClick={onClick}
-    >
-      <div className="flex items-center justify-start py-2 rounded-lg hover:bg-gray-100">
-        <button className="flex flex-row items-center">
-          <Icon className="w-4 h-4 ml-2 fill-[#b4b4b4]" />
-          <p className="text-sm text-semibold ml-4 text-[#818181]">
-            {translateType(type)}
-          </p>
-        </button>
-      </div>
-    </AnimationWrapper>
-  );
-};
+const CalendarView = ({ type, onClick, Icon }: CalendarViewProps) => (
+  <AnimationWrapper variants={animations.buttonGhost} className="cursor-pointer" onClick={onClick}>
+    <div className="flex items-center justify-start py-2 rounded-lg hover:bg-gray-100">
+      <button className="flex flex-row items-center">
+        <Icon className="w-4 h-4 ml-2 fill-[#b4b4b4]" />
+        <p className="text-sm text-semibold ml-4 text-[#818181]">{translateType(type)}</p>
+      </button>
+    </div>
+  </AnimationWrapper>
+);
 
 export const Calendar = () => {
   const { currentMonthType, currentDayType } = calendarUtils;
@@ -72,21 +57,15 @@ export const Calendar = () => {
 
   const [calendarType, setCalendarType] = useState<CalendarViewType>("Month");
   const [currentMonthString, setCurrentMonthString] = useState(
-    format(new Date(), currentMonthType)
+    format(new Date(), currentMonthType),
   );
-  const [currentDayString, setCurrentDayString] = useState(
-    format(new Date(), currentDayType)
-  );
+  const [currentDayString, setCurrentDayString] = useState(format(new Date(), currentDayType));
   const { data: user } = useUser();
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const calendarRef = useRef(null!);
 
-  const firstDayOfCurrentMonth = parse(
-    currentMonthString,
-    currentMonthType,
-    new Date()
-  );
+  const firstDayOfCurrentMonth = parse(currentMonthString, currentMonthType, new Date());
   const currentDay = parse(currentDayString, currentDayType, new Date());
 
   const firstDayOfCalendarMonth = startOfWeek(firstDayOfCurrentMonth);
@@ -98,7 +77,7 @@ export const Calendar = () => {
     isFetched,
   } = useGetCurrentMonthEvents(
     formatISO9075(firstDayOfCalendarMonth),
-    formatISO9075(lastDayOfCalendarMonth)
+    formatISO9075(lastDayOfCalendarMonth),
   );
 
   useEffect(() => {
@@ -138,9 +117,7 @@ export const Calendar = () => {
                 <Popover>
                   <PopoverTrigger>
                     <AnimationWrapper variants={animations.smallScale}>
-                      <p className="text-sm text-stone-600">
-                        {translateType(calendarType)}
-                      </p>
+                      <p className="text-sm text-stone-600">{translateType(calendarType)}</p>
                     </AnimationWrapper>
                   </PopoverTrigger>
                   <PopoverContent>

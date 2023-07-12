@@ -32,13 +32,12 @@ export const useGetGroups = () => {
 
     return {
       groups:
-        (groups.map(group => {
-          return { ...group, highlighted: false };
-        }) as IHighlightedAndGroup[]) || [],
+        (groups.map(group => ({ ...group, highlighted: false })) as IHighlightedAndGroup[]) || [],
       highlightedGroups:
-        (highlightedGroups.map(group => {
-          return { ...group, highlighted: true };
-        }) as IHighlightedAndGroup[]) || [],
+        (highlightedGroups.map(group => ({
+          ...group,
+          highlighted: true,
+        })) as IHighlightedAndGroup[]) || [],
     };
   };
 

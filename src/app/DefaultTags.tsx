@@ -1,12 +1,10 @@
 /* eslint-disable @next/next/no-page-custom-font */
 
-export const DefaultTags = () => {
-  return (
-    <>
-      <div>empty</div>
-    </>
-  );
-};
+export const DefaultTags = () => (
+  <>
+    <div>empty</div>
+  </>
+);
 
 //  {/* <link
 //         rel="stylesheet"

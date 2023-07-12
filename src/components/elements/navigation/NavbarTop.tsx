@@ -32,7 +32,7 @@ export const NavbarTop = () => {
     scrollYBoundedProgress,
     // percentage of the scrollYBoundedProgress so when 0.75 it starts effect when 75 pixels are scrolled
     [0, 0.75, 1],
-    [0, 0, 1]
+    [0, 0, 1],
   );
 
   // const opacity = useTransform(scrollYBoundedProgress, [0, 1], [1, 0]);
@@ -46,7 +46,7 @@ export const NavbarTop = () => {
           backgroundColor: useMotionTemplate`rgba(255, 255, 255, ${useTransform(
             scrollYBoundedProgressThrottled,
             [0, 1],
-            [1, 0.1]
+            [1, 0.1],
           )})`,
           scale: useTransform(scrollYBoundedProgress, [0, 1], [1, 0.8]),
           top: useTransform(scrollYBoundedProgress, [0, 1], [0, -10]),
@@ -74,7 +74,7 @@ export const NavbarTop = () => {
       </motion.div>
       <div
         className={cn(
-          "hidden pl-2 pr-4 mt-4 sm2:flex sm2:max-w-3xl self-center md:max-w-4xl lg:max-w-5xl xl:max-w-5xl max-h-28"
+          "hidden pl-2 pr-4 mt-4 sm2:flex sm2:max-w-3xl self-center md:max-w-4xl lg:max-w-5xl xl:max-w-5xl max-h-28",
         )}
       >
         <div className="flex justify-between">

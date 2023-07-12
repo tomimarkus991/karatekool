@@ -20,10 +20,8 @@ const panelVariants: Variants = {
   },
 };
 
-export const AboutPanel = ({ children, id }: Props) => {
-  return (
-    <Tab.Panel as={motion.div} initial="hidden" animate="active" variants={panelVariants} key={id}>
-      {children}
-    </Tab.Panel>
-  );
-};
+export const AboutPanel = ({ children, id }: Props) => (
+  <Tab.Panel as={motion.div} initial="hidden" animate="active" variants={panelVariants} key={id}>
+    {children}
+  </Tab.Panel>
+);

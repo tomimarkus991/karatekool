@@ -14,12 +14,9 @@ import { DayViewEvent } from "../events/day-view";
 
 import { nextTimeFrame, previousTimeFrame } from "./utils";
 
-const calculatePosition = (
-  currentHour: number,
-  currentMinutes: number
-): number => {
-  let totalMinutes = 12 * 60; // Total minutes from 9:00 to 21:00
-  let scale = 728 / totalMinutes; // Scale factor for converting minutes to pixels
+const calculatePosition = (currentHour: number, currentMinutes: number): number => {
+  const totalMinutes = 12 * 60; // Total minutes from 9:00 to 21:00
+  const scale = 728 / totalMinutes; // Scale factor for converting minutes to pixels
   return scale * ((currentHour - 9) * 55.39 + currentMinutes);
 };
 
@@ -50,10 +47,10 @@ export const CalendarDayView = ({
   fetchEvents,
   currentDay,
 }: Props) => {
-  let date = new Date();
-  let currentHour = date.getHours();
-  let currentMinutes = date.getMinutes();
-  let position = calculatePosition(currentHour, currentMinutes);
+  const date = new Date();
+  const currentHour = date.getHours();
+  const currentMinutes = date.getMinutes();
+  const position = calculatePosition(currentHour, currentMinutes);
 
   const { currentDayType, removeImmediately, currentMonthType } = calendarUtils;
 
@@ -94,6 +91,7 @@ export const CalendarDayView = ({
         fetchEvents();
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentMonthString, currentPickedDay]);
 
   const arrayOfHours = [
@@ -138,9 +136,7 @@ export const CalendarDayView = ({
                 custom={direction}
                 className="min-w-[8rem] z-10 group flex items-center justify-center font-semibold text-lg"
               >
-                <p className="duration-200 ease-in group-hover:scale-110">
-                  {currentDayString}
-                </p>
+                <p className="duration-200 ease-in group-hover:scale-110">{currentDayString}</p>
               </motion.button>
             </RegularDatePicker>
           </div>
@@ -164,59 +160,41 @@ export const CalendarDayView = ({
         </header>
       </div>
 
-      <motion.div
-        className="py-6"
-        variants={animations.calendar.view}
-        custom={direction}
-      >
+      <motion.div className="py-6" variants={animations.calendar.view} custom={direction}>
         <div className="flex flex-row">
           <div className="w-10 pr-3 ml-2 justify-self-start">
-            {arrayOfHours.map((hour) => {
-              return (
-                <div key={hour} className="relative flex self-end h-14">
-                  <div className="absolute -top-3">{hour}:00</div>
-                </div>
-              );
-            })}
+            {arrayOfHours.map(hour => (
+              <div key={hour} className="relative flex self-end h-14">
+                <div className="absolute -top-3">{hour}:00</div>
+              </div>
+            ))}
           </div>
           <div className="flex flex-col w-2 border-r-[1px] border-gray-600 border-opacity-30">
-            {arrayOfHours.map((hour) => {
-              return (
-                <div
-                  key={hour}
-                  className="flex h-14 border-b-[1px] border-gray-600 border-opacity-30 z-10"
-                />
-              );
-            })}
+            {arrayOfHours.map(hour => (
+              <div
+                key={hour}
+                className="flex h-14 border-b-[1px] border-gray-600 border-opacity-30 z-10"
+              />
+            ))}
           </div>
           <div className="relative flex flex-grow">
             <div className="absolute top-0 left-0 w-full h-full">
-              {events.map((event) => {
-                return (
-                  <DayViewEvent
-                    key={event.id}
-                    event={event}
-                    date={currentDay}
-                  />
-                );
-              })}
+              {events.map(event => (
+                <DayViewEvent key={event.id} event={event} date={currentDay} />
+              ))}
             </div>
             <div className="flex flex-col flex-grow">
               <div
-                className={cn(
-                  "absolute left-0 w-full border-t-2 border-secondary rounded-lg"
-                )}
+                className={cn("absolute left-0 w-full border-t-2 border-secondary rounded-lg")}
                 style={{ top: `${position}px` }}
               />
 
-              {arrayOfHours.map((hour) => {
-                return (
-                  <div
-                    className="flex flex-1 flex-grow h-14 border-b-[1px] border-gray-600 border-opacity-30"
-                    key={hour}
-                  />
-                );
-              })}
+              {arrayOfHours.map(hour => (
+                <div
+                  className="flex flex-1 flex-grow h-14 border-b-[1px] border-gray-600 border-opacity-30"
+                  key={hour}
+                />
+              ))}
             </div>
           </div>
         </div>

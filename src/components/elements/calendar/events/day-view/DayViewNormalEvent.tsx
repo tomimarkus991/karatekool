@@ -1,11 +1,7 @@
 import { isSameDay, parseISO } from "date-fns";
 import { motion } from "framer-motion";
 
-import {
-  MapGroupLetter,
-  MapHighLightedGroupLetter,
-  NormalEventTime,
-} from "@/components";
+import { MapGroupLetter, MapHighLightedGroupLetter, NormalEventTime } from "@/components";
 import { useCalendarFilters } from "@/context";
 import { cn } from "@/lib";
 import { EventData, EventTypes } from "@/types";
@@ -15,16 +11,11 @@ interface Props {
   date: Date;
 }
 
-const calculatePosition = (
-  currentHour: number,
-  currentMinutes: number
-): number => {
-  return 56 * (currentHour - 9.4) + currentMinutes * 1.1;
-};
+const calculatePosition = (currentHour: number, currentMinutes: number): number =>
+  56 * (currentHour - 9.4) + currentMinutes * 1.1;
 
 export const DayViewNormalEvent = ({ event, date }: Props) => {
-  const { group, event_trailer, highlighted_group, description, event_type } =
-    event;
+  const { group, event_trailer, highlighted_group, description, event_type } = event;
   const start = parseISO(event.start);
   const { letter } = useCalendarFilters();
 
@@ -45,11 +36,10 @@ export const DayViewNormalEvent = ({ event, date }: Props) => {
   // if filter is all show all groups
   if (
     letter !== "all" &&
-    !(group.filter((_group) => _group?.letter === letter).length > 0) &&
+    !(group.filter(_group => _group?.letter === letter).length > 0) &&
     !(
-      highlighted_group.filter(
-        (_highlighted_group) => _highlighted_group?.letter === letter
-      ).length > 0
+      highlighted_group.filter(_highlighted_group => _highlighted_group?.letter === letter).length >
+      0
     )
   ) {
     return <></>;
@@ -80,10 +70,7 @@ export const DayViewNormalEvent = ({ event, date }: Props) => {
         />
         <div className={cn("flex justify-center items-center")}>
           <MapGroupLetter groups={group} dayView />
-          <MapHighLightedGroupLetter
-            highlightedGroups={highlighted_group}
-            dayView
-          />
+          <MapHighLightedGroupLetter highlightedGroups={highlighted_group} dayView />
           {event_trailer?.text && (
             <p className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] font-number font-semibold text-center">
               {event_trailer?.text}

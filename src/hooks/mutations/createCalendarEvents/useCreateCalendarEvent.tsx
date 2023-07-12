@@ -46,17 +46,17 @@ export const useCreateCalendarEvent = () => {
 
     if (createEventRes.data.id) {
       await supabase.from("event_group").insert(
-        groupIds.map((groupId) => ({
+        groupIds.map(groupId => ({
           event_id: createEventRes.data.id,
           group_id: groupId,
-        }))
+        })),
       );
 
       await supabase.from("event_highlighted_group").insert(
-        highlightedGroupIds.map((groupId) => ({
+        highlightedGroupIds.map(groupId => ({
           event_id: createEventRes.data.id,
           highlighted_group_id: groupId,
-        }))
+        })),
       );
     }
   };

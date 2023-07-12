@@ -17,15 +17,13 @@ export default function Page() {
     text: string;
   }
 
-  const IconText = ({ icon, text }: Props) => {
-    return (
-      <>
-        <div className="w-[20%] flex justify-center items-center">{icon}</div>
+  const IconText = ({ icon, text }: Props) => (
+    <>
+      <div className="w-[20%] flex justify-center items-center">{icon}</div>
 
-        <p className="ml-2 w-[80%] text-base font-light md:ml-4 md:text-lg">{text}</p>
-      </>
-    );
-  };
+      <p className="ml-2 w-[80%] text-base font-light md:ml-4 md:text-lg">{text}</p>
+    </>
+  );
 
   return (
     <div className="max-w-4xl m-auto">
@@ -112,7 +110,7 @@ export default function Page() {
       <Tab.Group>
         <Tab.List
           className={cn(
-            "relative m-auto max-w-[38rem] h-[17rem] sm:h-[20rem] md:h-[25rem] mb-3 overflow-hidden lg:mt-12"
+            "relative m-auto max-w-[38rem] h-[17rem] sm:h-[20rem] md:h-[25rem] mb-3 overflow-hidden lg:mt-12",
           )}
         >
           <Tab as={Fragment}>

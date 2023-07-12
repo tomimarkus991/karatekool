@@ -7,11 +7,7 @@ import { HiOutlineCalendar } from "react-icons/hi";
 
 import { MultiDayEventFormik } from "@/app-constants";
 import { AnimationWrapper, InputErrorText, animations } from "@/components";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/elements/Popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/elements/Popover";
 
 import { DatePickerCalendar, DatePickerCalendarButton } from ".";
 
@@ -19,8 +15,7 @@ interface Props {
   name: string;
 }
 export const DatePickerWithRange = ({ name }: Props) => {
-  const [field, { value, error, touched }, { setValue }] =
-    useField<MultiDayEventFormik>(name);
+  const [field, { value, error, touched }, { setValue }] = useField<MultiDayEventFormik>(name);
 
   return (
     <Popover>
@@ -34,8 +29,7 @@ export const DatePickerWithRange = ({ name }: Props) => {
             {value?.from ? (
               value?.to ? (
                 <>
-                  {format(value.from, "LLL dd, y")} -{" "}
-                  {format(value.to, "LLL dd, y")}
+                  {format(value.from, "LLL dd, y")} - {format(value.to, "LLL dd, y")}
                 </>
               ) : (
                 format(value.from, "LLL dd, y")
@@ -54,7 +48,7 @@ export const DatePickerWithRange = ({ name }: Props) => {
           mode="range"
           // it wants it to be dateRange but yup doesn't allow that so i cast it to DateRange
           selected={value as DateRange}
-          onSelect={(dateRange) => {
+          onSelect={dateRange => {
             setValue({
               from: dateRange?.from as any,
               to: dateRange?.to as any,

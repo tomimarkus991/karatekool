@@ -35,7 +35,7 @@ export const GroupPicker = ({ name }: Props) => {
               {groups.map(group => {
                 const isGroupDisabled = value?.some(
                   selectedGroup =>
-                    selectedGroup.letter === group.letter && selectedGroup.highlighted === true
+                    selectedGroup.letter === group.letter && selectedGroup.highlighted === true,
                 );
 
                 return (
@@ -45,22 +45,20 @@ export const GroupPicker = ({ name }: Props) => {
                     value={group}
                     disabled={isGroupDisabled}
                   >
-                    {({ selected }) => {
-                      return (
-                        <div
-                          className={cn(
-                            "flex flex-row justify-self-center border rounded-lg p-1 font-semibold cursor-pointer select-none",
-                            selected ? "border-secondary" : "border-transparent",
-                            isGroupDisabled && "group cursor-not-allowed opacity-20"
-                          )}
-                          key={group.id}
-                        >
-                          <p className={cn(groupColorMapper(group?.letter as GroupLetters))}>
-                            {group.letter}
-                          </p>
-                        </div>
-                      );
-                    }}
+                    {({ selected }) => (
+                      <div
+                        className={cn(
+                          "flex flex-row justify-self-center border rounded-lg p-1 font-semibold cursor-pointer select-none",
+                          selected ? "border-secondary" : "border-transparent",
+                          isGroupDisabled && "group cursor-not-allowed opacity-20",
+                        )}
+                        key={group.id}
+                      >
+                        <p className={cn(groupColorMapper(group?.letter as GroupLetters))}>
+                          {group.letter}
+                        </p>
+                      </div>
+                    )}
                   </Listbox.Option>
                 );
               })}
@@ -71,7 +69,7 @@ export const GroupPicker = ({ name }: Props) => {
                 const isGroupDisabled = value?.some(
                   selectedGroup =>
                     selectedGroup.letter === highlightedGroup.letter &&
-                    selectedGroup.highlighted === false
+                    selectedGroup.highlighted === false,
                 );
                 return (
                   <Listbox.Option
@@ -80,28 +78,26 @@ export const GroupPicker = ({ name }: Props) => {
                     value={highlightedGroup}
                     disabled={isGroupDisabled}
                   >
-                    {({ selected }) => {
-                      return (
-                        <div
+                    {({ selected }) => (
+                      <div
+                        className={cn(
+                          "flex flex-row justify-self-center border rounded-lg p-1 select-none cursor-pointer font-semibold",
+                          selected ? "border-secondary" : "border-transparent",
+                          isGroupDisabled && "group opacity-20 cursor-not-allowed",
+                        )}
+                        key={highlightedGroup.id}
+                      >
+                        <p
                           className={cn(
-                            "flex flex-row justify-self-center border rounded-lg p-1 select-none cursor-pointer font-semibold",
-                            selected ? "border-secondary" : "border-transparent",
-                            isGroupDisabled && "group opacity-20 cursor-not-allowed"
+                            "underline decoration-red-500",
+                            groupColorMapper(highlightedGroup?.letter as GroupLetters),
                           )}
-                          key={highlightedGroup.id}
                         >
-                          <p
-                            className={cn(
-                              "underline decoration-red-500",
-                              groupColorMapper(highlightedGroup?.letter as GroupLetters)
-                            )}
-                          >
-                            {highlightedGroup.letter}
-                          </p>
-                          <p className="text-red-500 ml-[0.06rem]">!</p>
-                        </div>
-                      );
-                    }}
+                          {highlightedGroup.letter}
+                        </p>
+                        <p className="text-red-500 ml-[0.06rem]">!</p>
+                      </div>
+                    )}
                   </Listbox.Option>
                 );
               })}

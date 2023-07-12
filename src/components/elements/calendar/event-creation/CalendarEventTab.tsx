@@ -41,7 +41,7 @@ export const CalendarEventTab = ({ children, selectedIndex, index }: CalendarEve
             className={cn(
               "rounded-xl text-[0.8rem] md:text-base font-semibold px-1 py-3",
               selected ? "opacity-100" : "opacity-20 hover:opacity-100",
-              "focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none"
+              "focus:ring-0 ring-white ring-opacity-0 ring-offset-2 ring-offset-transparent focus:outline-none",
             )}
             variants={tabVariant}
             animate={selectedIndex === index ? "active" : "inactive"}

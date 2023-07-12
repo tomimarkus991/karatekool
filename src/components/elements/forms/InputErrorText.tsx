@@ -6,12 +6,10 @@ interface Props {
   className?: string;
 }
 
-export const InputErrorText = ({ touched, error, className }: Props) => {
-  return (
-    <>
-      {touched && error && (
-        <p className={cn("text-sm font-medium text-red-500", className)}>{error}</p>
-      )}
-    </>
-  );
-};
+export const InputErrorText = ({ touched, error, className }: Props) => (
+  <>
+    {touched && error && (
+      <p className={cn("text-sm font-medium text-red-500", className)}>{error}</p>
+    )}
+  </>
+);

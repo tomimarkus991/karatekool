@@ -94,7 +94,7 @@ const realDiamondButtonVariants = cva(
       },
     },
     defaultVariants: { variant: "dark", size: "md" },
-  }
+  },
 );
 
 const textVariants = cva(["align-middle table-cell -rotate-45"], {
@@ -114,17 +114,15 @@ export interface RealDiamondButtonProps
     VariantProps<typeof textVariants> {}
 
 export const RealDiamondButton = forwardRef<HTMLButtonElement, RealDiamondButtonProps>(
-  ({ className, variant, size, textSize, children, ...props }, ref) => {
-    return (
-      <button
-        className={cn(realDiamondButtonVariants({ variant, size, className }))}
-        ref={ref}
-        {...props}
-      >
-        <div className={cn(textVariants({ textSize }))}>{children}</div>
-      </button>
-    );
-  }
+  ({ className, variant, size, textSize, children, ...props }, ref) => (
+    <button
+      className={cn(realDiamondButtonVariants({ variant, size, className }))}
+      ref={ref}
+      {...props}
+    >
+      <div className={cn(textVariants({ textSize }))}>{children}</div>
+    </button>
+  ),
 );
 
 RealDiamondButton.displayName = "RealDiamondButton";

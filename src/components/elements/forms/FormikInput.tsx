@@ -55,7 +55,7 @@ export const FormikInput = forwardRef<HTMLInputElement, FormikInputProps>(
       required,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [field, { touched, error }] = useField(name);
 
@@ -82,7 +82,7 @@ export const FormikInput = forwardRef<HTMLInputElement, FormikInputProps>(
               formikInputVariants({ variant, inputSize, className }),
               error && "border-2 border-red-400 outline-none caret-red-400 focus:border-red-500",
               inputPrefix && "pl-8",
-              inputAfterfix && "pr-9"
+              inputAfterfix && "pr-9",
             )}
             autoFocus={false}
             autoComplete="off"
@@ -99,7 +99,7 @@ export const FormikInput = forwardRef<HTMLInputElement, FormikInputProps>(
         <InputErrorText className="mt-1 ml-1" touched={touched} error={error} />
       </div>
     );
-  }
+  },
 );
 
 FormikInput.displayName = "FormikInput";

@@ -6,9 +6,7 @@ import { useSupabase } from "@/context";
 export const useGetMultiDayEventPresets = () => {
   const { supabase } = useSupabase();
   const getQuery = async () => {
-    const { data, error } = await supabase
-      .from("multi_day_event")
-      .select(`id,title`);
+    const { data, error } = await supabase.from("multi_day_event").select(`id,title`);
 
     if (error) {
       toast.error(`Error getting multi_day_event: ${error.message}`);

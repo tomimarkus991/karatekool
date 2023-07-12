@@ -51,7 +51,7 @@ export const NavbarTopLink = ({ children, href, index, ...props }: Props) => {
               "lg:text-lg items-center py-3 font-semibold",
               "transition ease-in-out duration-200 delay-150",
               "group-hover:-translate-y-1 group-hover:scale-110 group-hover:text-primary group-hover:delay-[0ms]",
-              "group-active:translate-y-0 group-active:scale-100"
+              "group-active:translate-y-0 group-active:scale-100",
             )}
           >
             {children}

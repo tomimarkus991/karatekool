@@ -2,9 +2,9 @@ import { Combobox as HeadlessCombobox, Transition } from "@headlessui/react";
 import { useField } from "formik";
 import { CheckIcon } from "lucide-react";
 import { Fragment, useEffect, useState } from "react";
+
 import { MultiDayEventEventFormik } from "../../../../app-constants";
-import { useCreateMultiDayEventPreset } from "../../../../hooks";
-import { useGetMultiDayEventPresets } from "../../../../hooks/queries/useGetMultiDayEventPresets";
+import { useCreateMultiDayEventPreset, useGetMultiDayEventPresets } from "../../../../hooks";
 import { RealButton } from "../../button";
 import { InputErrorText } from "../../forms";
 
@@ -15,8 +15,7 @@ interface Props {
 export const ComboboxEventCreationMultiDayEvent = ({ name }: Props) => {
   const [query, setQuery] = useState("");
   const { data: multiDayPresets } = useGetMultiDayEventPresets();
-  const [field, { value, touched, error }, { setValue }] =
-    useField<MultiDayEventEventFormik>(name);
+  const [field, { value, touched, error }, { setValue }] = useField<MultiDayEventEventFormik>(name);
   const { mutate: createNewMultiDayEventPreset, data: newCreatedEvent } =
     useCreateMultiDayEventPreset();
 
@@ -24,6 +23,7 @@ export const ComboboxEventCreationMultiDayEvent = ({ name }: Props) => {
     if (newCreatedEvent) {
       setValue(newCreatedEvent.data);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newCreatedEvent]);
 
   if (!multiDayPresets) return <></>;
@@ -31,20 +31,15 @@ export const ComboboxEventCreationMultiDayEvent = ({ name }: Props) => {
   const filteredData =
     query === ""
       ? multiDayPresets
-      : multiDayPresets.filter((item) =>
+      : multiDayPresets.filter(item =>
           item.title
             .toLowerCase()
             .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
+            .includes(query.toLowerCase().replace(/\s+/g, "")),
         );
 
   return (
-    <HeadlessCombobox
-      {...field}
-      multiple={false}
-      value={value}
-      onChange={setValue}
-    >
+    <HeadlessCombobox {...field} multiple={false} value={value} onChange={setValue}>
       <div className="relative w-full mt-1">
         <div className="relative w-full overflow-hidden text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none sm:text-sm">
           <HeadlessCombobox.Button as="div" className="flex items-center">
@@ -52,7 +47,7 @@ export const ComboboxEventCreationMultiDayEvent = ({ name }: Props) => {
               className="w-full py-2 pl-3 pr-10 text-sm leading-5 border-none rounded-lg ring-0 focus:ring-0 focus:border-none focus:outline-secondary"
               displayValue={(item: any) => item.title}
               placeholder="Vali üritus"
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={event => setQuery(event.target.value)}
             />
           </HeadlessCombobox.Button>
         </div>
@@ -96,9 +91,7 @@ export const ComboboxEventCreationMultiDayEvent = ({ name }: Props) => {
                   {({ selected, active }) => (
                     <>
                       <span
-                        className={`block truncate ${
-                          selected ? "font-medium" : "font-normal"
-                        }`}
+                        className={`block truncate ${selected ? "font-medium" : "font-normal"}`}
                       >
                         {item.title}
                       </span>

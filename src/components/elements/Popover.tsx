@@ -29,7 +29,7 @@ export const PopoverContent = React.forwardRef<
         "bg-white",
         "p-3 shadow-lg outline-none overflow-hidden",
         "animate-in duration-300 fade-in-0 data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2",
-        className
+        className,
       )}
       {...props}
     />

@@ -49,30 +49,28 @@ export const Button = ({
   children,
   customColors,
   ...props
-}: ButtonProps) => {
-  return (
-    <AnimationWrapper key="regular-button" className="max-w-fit" variants={animations.button}>
-      <button
-        type={type}
+}: ButtonProps) => (
+  <AnimationWrapper key="regular-button" className="max-w-fit" variants={animations.button}>
+    <button
+      type={type}
+      className={cn(
+        `m-0 select-none rounded-2xl text-center font-medium tracking-wider`,
+        variants[variant],
+        sizes[size],
+        !isValid && "cursor-not-allowed opacity-50",
+        className,
+        variant === "custom" && customColors,
+      )}
+      {...props}
+    >
+      <p
         className={cn(
-          `m-0 select-none rounded-2xl text-center font-medium tracking-wider`,
-          variants[variant],
-          sizes[size],
-          !isValid && "cursor-not-allowed opacity-50",
-          className,
-          variant === "custom" && customColors
+          variant !== "light" && "text-white",
+          customColors?.includes("white") && "text-gray-700",
         )}
-        {...props}
       >
-        <p
-          className={cn(
-            variant !== "light" && "text-white",
-            customColors?.includes("white") && "text-gray-700"
-          )}
-        >
-          {children}
-        </p>
-      </button>
-    </AnimationWrapper>
-  );
-};
+        {children}
+      </p>
+    </button>
+  </AnimationWrapper>
+);

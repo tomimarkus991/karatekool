@@ -13,10 +13,8 @@ interface Props {
 }
 
 export const TrailerPicker = ({ name }: Props) => {
-  const [field, { value }, { setValue }] =
-    useField<NormalEventTrailerFormValues>(name);
-  const [memorySelect, setMemorySelect] =
-    useState<NormalEventTrailerFormValues | null>(null);
+  const [field, { value }, { setValue }] = useField<NormalEventTrailerFormValues>(name);
+  const [memorySelect, setMemorySelect] = useState<NormalEventTrailerFormValues | null>(null);
 
   const { data: trailers } = useGetTrailers();
 
@@ -43,31 +41,25 @@ export const TrailerPicker = ({ name }: Props) => {
           <ResizablePanel>
             <div className="flex flex-row space-x-4">
               <div className="grid items-center justify-center grid-cols-3 gap-1">
-                {trailers.map((trailer) => {
-                  return (
-                    <Listbox.Option
-                      className={cn("flex flex-row justify-self-center")}
-                      key={trailer.id}
-                      value={trailer}
-                    >
-                      {({ selected }) => {
-                        return (
-                          <div
-                            className={cn(
-                              "flex flex-row justify-self-center border rounded-lg p-1 font-semibold cursor-pointer select-none",
-                              selected
-                                ? "border-secondary"
-                                : "border-transparent"
-                            )}
-                            key={trailer.id}
-                          >
-                            <p>{trailer.text}</p>
-                          </div>
-                        );
-                      }}
-                    </Listbox.Option>
-                  );
-                })}
+                {trailers.map(trailer => (
+                  <Listbox.Option
+                    className={cn("flex flex-row justify-self-center")}
+                    key={trailer.id}
+                    value={trailer}
+                  >
+                    {({ selected }) => (
+                      <div
+                        className={cn(
+                          "flex flex-row justify-self-center border rounded-lg p-1 font-semibold cursor-pointer select-none",
+                          selected ? "border-secondary" : "border-transparent",
+                        )}
+                        key={trailer.id}
+                      >
+                        <p>{trailer.text}</p>
+                      </div>
+                    )}
+                  </Listbox.Option>
+                ))}
               </div>
             </div>
           </ResizablePanel>

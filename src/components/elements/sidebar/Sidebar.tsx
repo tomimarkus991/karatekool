@@ -21,7 +21,7 @@ export const Sidebar = () => {
             variants={animations.sidebar.mobile(placement)}
             className={cn(
               "fixed z-[1205] flex h-[96vh] w-64 flex-col bg-white top-4 mr-4 rounded-xl",
-              placement === "right" ? "right-0" : "left-0"
+              placement === "right" ? "right-0" : "left-0",
             )}
           >
             <div className="flex flex-col h-full px-3 py-6">

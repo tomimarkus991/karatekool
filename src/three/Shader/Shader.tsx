@@ -13,7 +13,7 @@ const ShaderImpl = shaderMaterial(
     color: new THREE.Color(100, 5, 0.025),
   },
   vertex,
-  fragment
+  fragment,
 );
 
 extend({ ShaderImpl });

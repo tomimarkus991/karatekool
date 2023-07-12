@@ -9,7 +9,7 @@ export const useGetEmailWhitelist = () => {
     const { data, error } = await supabase.from("email_whitelist").select(
       `
     email
-    `
+    `,
     );
 
     if (error) {

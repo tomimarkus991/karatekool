@@ -7,7 +7,7 @@ import { EventData } from "@/types";
 // must get events for only current month and long events if they are in both months
 export const useGetCurrentMonthEvents = (
   firstDayOfCurrentMonth: string,
-  lastDayOfCurrentMonth: string
+  lastDayOfCurrentMonth: string,
 ) => {
   const { supabase } = useSupabase();
 
@@ -22,10 +22,10 @@ export const useGetCurrentMonthEvents = (
     event_trailer (text),
     group (letter),
     highlighted_group (letter)
-    `
+    `,
       )
       .or(
-        `and(start.gte.${firstDayOfCurrentMonth},start.lte.${lastDayOfCurrentMonth}),and(long_event_end.gte.${firstDayOfCurrentMonth},long_event_end.lte.${lastDayOfCurrentMonth})`
+        `and(start.gte.${firstDayOfCurrentMonth},start.lte.${lastDayOfCurrentMonth}),and(long_event_end.gte.${firstDayOfCurrentMonth},long_event_end.lte.${lastDayOfCurrentMonth})`,
       )
       .order("start", { ascending: true });
 
@@ -42,6 +42,6 @@ export const useGetCurrentMonthEvents = (
   return useQuery(
     ["get_calendar_events", firstDayOfCurrentMonth, lastDayOfCurrentMonth],
     async () => getEvents(),
-    {}
+    {},
   );
 };

@@ -12,10 +12,7 @@ export const useDeleteNormalCalendarEvent = () => {
   const queryClient = useQueryClient();
 
   const execute = async ({ id }: Props) => {
-    const eventGroupRes = await supabase
-      .from("event_group")
-      .delete()
-      .match({ event_id: id });
+    const eventGroupRes = await supabase.from("event_group").delete().match({ event_id: id });
 
     if (eventGroupRes.error) {
       toast.error(eventGroupRes.error.message);

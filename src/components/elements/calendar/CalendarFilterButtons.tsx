@@ -21,21 +21,19 @@ export const CalendarFilterButtons = ({ currentMonthString, calendarRef }: Props
   const { data: user } = useUser();
   return (
     <div className="grid justify-center grid-cols-5 gap-2 max-w-[14rem] m-auto sm:flex sm:justify-start sm:max-w-none sm:m-0 sm:ml-4">
-      {groupLetters.map(letter => {
-        return (
-          <RealButton
-            key={letter}
-            className="relative group"
-            variant={buttonVariantMapper(letter)}
-            size="oneLetter"
-            focus={true}
-            onClick={() => setLetter(letter)}
-          >
-            <Tooltip tooltip={`Näita ${letter} grupi trenne`} />
-            {letter}
-          </RealButton>
-        );
-      })}
+      {groupLetters.map(letter => (
+        <RealButton
+          key={letter}
+          className="relative group"
+          variant={buttonVariantMapper(letter)}
+          size="oneLetter"
+          focus={true}
+          onClick={() => setLetter(letter)}
+        >
+          <Tooltip tooltip={`Näita ${letter} grupi trenne`} />
+          {letter}
+        </RealButton>
+      ))}
 
       <DownloadCalendar calendarRef={calendarRef} currentMonthString={currentMonthString} />
 

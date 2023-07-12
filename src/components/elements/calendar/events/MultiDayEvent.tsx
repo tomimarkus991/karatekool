@@ -42,7 +42,7 @@ const Child = ({ width, multi_day_event }: ChildProps) => {
         style={{ width }}
         className={cn(
           "bg-blue-600 mt-2 ml-2 rounded-md cursor-pointer hover:bg-blue-500 z-10",
-          "relative"
+          "relative",
         )}
       >
         <PopoverTrigger style={{ width }} className="relative">
@@ -89,7 +89,7 @@ export const MultiDayEvent = ({ event, date, bounds }: Props) => {
   }).map(day => format(day, "dd-MM-yyyy"));
 
   const longEventLengthForWeek = eachDayOfLongEvents.filter(eventDay =>
-    weekDays.includes(eventDay)
+    weekDays.includes(eventDay),
   ).length;
   // 4 days * calendar date width - 24 (margin)
   const width = longEventLengthForWeek * bounds.width - 24;

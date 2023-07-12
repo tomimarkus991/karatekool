@@ -27,7 +27,7 @@ export const DownloadCalendar = ({ currentMonthString, calendarRef }: Props) => 
     link.href = picture;
     link.setAttribute(
       "download",
-      `kalender-${letter}-${currentMonthString.replaceAll(" ", "-")}.png`
+      `kalender-${letter}-${currentMonthString.replaceAll(" ", "-")}.png`,
     );
     document.body.appendChild(link);
     link.click();

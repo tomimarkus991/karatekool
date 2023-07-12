@@ -38,20 +38,18 @@ export interface GlowButtonProps
     VariantProps<typeof glowButtonVariants> {}
 
 export const GlowButton = forwardRef<HTMLButtonElement, GlowButtonProps>(
-  ({ className, variant, size, text, isValid, ...props }, ref) => {
-    return (
-      <AnimationWrapper key="regular-button" variants={animations.button}>
-        <button
-          className={cn(
-            glowButtonVariants({ variant, size, isValid, text, className }),
-            "text-white lowercase font-semibold"
-          )}
-          ref={ref}
-          {...props}
-        />
-      </AnimationWrapper>
-    );
-  }
+  ({ className, variant, size, text, isValid, ...props }, ref) => (
+    <AnimationWrapper key="regular-button" variants={animations.button}>
+      <button
+        className={cn(
+          glowButtonVariants({ variant, size, isValid, text, className }),
+          "text-white lowercase font-semibold",
+        )}
+        ref={ref}
+        {...props}
+      />
+    </AnimationWrapper>
+  ),
 );
 
 GlowButton.displayName = "GlowButton";

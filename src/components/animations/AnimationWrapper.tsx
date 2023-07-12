@@ -41,7 +41,7 @@ export const AnimationWrapper = forwardRef<HTMLDivElement, IProps>(
         {children}
       </motion.div>
     );
-  }
+  },
 );
 
 AnimationWrapper.displayName = "AnimationWrapper";

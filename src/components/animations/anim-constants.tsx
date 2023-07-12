@@ -308,8 +308,8 @@ const sideButton: Variants = {
   },
 };
 
-const mobile = (placement: SidebarPlacementType) => {
-  return {
+const mobile = (placement: SidebarPlacementType) =>
+  ({
     initial: { x: placement === "right" ? "15rem" : "-14rem" },
     animate: {
       x: 0,
@@ -326,27 +326,22 @@ const mobile = (placement: SidebarPlacementType) => {
       },
       opacity: 1,
     },
-  } as Variants;
-};
+  }) as Variants;
 
 const header: Variants = {
-  enter: (direction: number) => {
-    return { x: `${30 * direction}%`, opacity: 0 };
-  },
+  enter: (direction: number) => ({ x: `${30 * direction}%`, opacity: 0 }),
   middle: { x: "0%", opacity: 1 },
-  exit: (direction: number) => {
-    return { x: `${-30 * direction}%`, opacity: 0 };
-  },
+  exit: (direction: number) => ({ x: `${-30 * direction}%`, opacity: 0 }),
 };
 
 const view: Variants = {
-  enter: (direction: number) => {
-    return { x: `${10 * direction}%`, opacity: 0, transition: { opacity: { duration: 0.5 } } };
-  },
+  enter: (direction: number) => ({
+    x: `${10 * direction}%`,
+    opacity: 0,
+    transition: { opacity: { duration: 0.5 } },
+  }),
   middle: { x: "0%", opacity: 1 },
-  exit: (direction: number) => {
-    return { x: `${-10 * direction}%`, opacity: 0 };
-  },
+  exit: (direction: number) => ({ x: `${-10 * direction}%`, opacity: 0 }),
 };
 
 const calendar = {
