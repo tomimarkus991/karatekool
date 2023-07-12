@@ -48,6 +48,14 @@ const ApplyToClub = object().shape({
 
 export type ApplyToClubFormValues = InferType<typeof ApplyToClub>;
 
+const SendQuestionForm = object().shape({
+  name: string().min(3).required("Vajalik"),
+  email: string().email("Email peab olema päris").required("Vajalik"),
+  question: string().required("Vajalik"),
+});
+
+export type SendQuestionFormValues = InferType<typeof SendQuestionForm>;
+
 const UpdateProfile = object().shape({
   name: string().min(3),
   avatar: string(),
@@ -138,4 +146,5 @@ export const YupSchemas = {
   ApplyToClub,
   UpdateProfile,
   Events,
+  SendQuestionForm,
 };

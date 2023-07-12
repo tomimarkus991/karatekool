@@ -13,6 +13,7 @@ import {
   RealButton,
   ResizablePanel,
   animations,
+  defaultTransition,
 } from "@/components";
 import { useGetEmailWhitelist } from "@/hooks";
 import { cn } from "@/lib";
@@ -37,8 +38,6 @@ const FormObserver = ({ whitelistedEmails, setIsEmailWhitelisted }: FormObserver
   return null;
 };
 
-const transition = { type: "ease", ease: "easeInOut", duration: 1 };
-
 export default function Page() {
   const [initialValues] = useState<ApplyToClubFormValues>({
     name: "",
@@ -53,9 +52,9 @@ export default function Page() {
   const [requestSuccess, setRequestSuccess] = useState(false);
 
   return (
-    <MotionConfig transition={transition}>
+    <MotionConfig transition={defaultTransition}>
       <div className="max-w-[25rem] m-auto p-6 bg-white rounded-xl overflow-hidden relative">
-        <ResizablePanel duration={transition.duration}>
+        <ResizablePanel duration={defaultTransition.duration}>
           <Formik
             initialValues={initialValues}
             validationSchema={YupSchemas.ApplyToClub}
@@ -92,8 +91,8 @@ export default function Page() {
                     <motion.div
                       exit={{ opacity: 0 }}
                       transition={{
-                        ...transition,
-                        duration: transition.duration / 1.5,
+                        ...defaultTransition,
+                        duration: defaultTransition.duration / 1.5,
                       }}
                       key="form"
                     >
@@ -180,9 +179,9 @@ export default function Page() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{
-                        ...transition,
-                        duration: transition.duration,
-                        delay: transition.duration,
+                        ...defaultTransition,
+                        duration: defaultTransition.duration,
+                        delay: defaultTransition.duration,
                       }}
                       key="success"
                     >

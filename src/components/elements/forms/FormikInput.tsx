@@ -103,3 +103,47 @@ export const FormikInput = forwardRef<HTMLInputElement, FormikInputProps>(
 );
 
 FormikInput.displayName = "FormikInput";
+
+interface FormikTextareaProps
+  extends React.InputHTMLAttributes<HTMLTextAreaElement>,
+    VariantProps<typeof formikInputVariants> {
+  name: string;
+  label?: string | ReactNode;
+}
+
+export const FormikTextArea = forwardRef<HTMLTextAreaElement, FormikTextareaProps>(
+  ({ label, name, className = "appearance-none", variant, inputSize, required, ...props }, ref) => {
+    const [field, { touched, error }] = useField(name);
+
+    return (
+      <div>
+        {label && (
+          <div className="ml-1">
+            <label className="text-sm text-stone-400" htmlFor={props.id || name}>
+              {label}
+            </label>
+            {required && <span className="ml-1 text-red-500">*</span>}
+          </div>
+        )}
+
+        <div className="relative">
+          <textarea
+            className={cn(
+              formikInputVariants({ variant, inputSize, className }),
+              "scrollbar-overflow overflow-x-hidden",
+              error && "border-2 border-red-400 outline-none caret-red-400 focus:border-red-500",
+            )}
+            autoFocus={false}
+            autoComplete="off"
+            ref={ref}
+            {...field}
+            {...props}
+          />
+        </div>
+        <InputErrorText className="mt-1 ml-1" touched={touched} error={error} />
+      </div>
+    );
+  },
+);
+
+FormikTextArea.displayName = "FormikTextArea";

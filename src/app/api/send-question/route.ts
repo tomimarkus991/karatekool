@@ -3,21 +3,21 @@ import { Redis } from "@upstash/redis";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-import { ApplyToClubFormValues } from "../../../app-constants";
-import { ApplyToClubEmailTemplate } from "../../../components/emails/ApplyToClubEmailTemplate";
+import { SendQuestionFormValues } from "../../../app-constants";
+import { SendSupportQuestionEmailTemplate } from "../../../components/emails/SendSupportQuestion";
 
 const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
 
 // Create a rate limiter that allows 1 request per day
 const rateLimit = new Ratelimit({
   redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(1, "1 d"),
+  limiter: Ratelimit.slidingWindow(5, "1 d"),
   analytics: true,
 });
 
 export async function POST(req: Request) {
-  const requestBodyJson = (await req.json()) as ApplyToClubFormValues;
-  const { email, group, name, reason } = requestBodyJson;
+  const requestBodyJson = (await req.json()) as SendQuestionFormValues;
+  const { email, name, question } = requestBodyJson;
   try {
     const { success } = await rateLimit.limit(email.toLowerCase());
 
@@ -26,9 +26,9 @@ export async function POST(req: Request) {
     if (success) {
       const data = await resend.emails.send({
         from: "onboarding@resend.dev",
-        to: "tomimarkusalber@gmail.com",
-        subject: `Taotlus ${name}`,
-        react: ApplyToClubEmailTemplate({ email, group, name, reason }),
+        to: ["tomimarkusalber@gmail.com", "tomimdev@gmail.com"],
+        subject: `Küsimus ${name}`,
+        react: SendSupportQuestionEmailTemplate({ email, name, question }),
       });
       return NextResponse.json(data);
     }

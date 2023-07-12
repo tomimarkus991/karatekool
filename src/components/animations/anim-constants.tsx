@@ -370,6 +370,8 @@ const tabSwitch: Variants = {
 
 const calendarEventCreation = { tabSwitch };
 
+export const defaultTransition = { type: "ease", ease: "easeInOut", duration: 1 };
+
 export const animations = {
   scaleAndRotation,
   scaleAndFullRotation,

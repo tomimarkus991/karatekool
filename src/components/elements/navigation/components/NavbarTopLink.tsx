@@ -1,3 +1,5 @@
+"use client";
+
 import { AnimatePresence, ForwardRefComponent, HTMLMotionProps, motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

@@ -19,6 +19,7 @@ import SupabaseListener from "../components/supabase/supabaseListener";
 import { SupabaseProvider } from "@/context/SupabaseContext";
 import { createServerClient } from "../lib/supabaseServer";
 import { Three3DLayout } from "@/three/components/Three3DLayout";
+import { EmailSender } from "../components/elements/navigation/EmailSender";
 
 const APP_NAME = "Karatekool Nüke";
 const APP_DEFAULT_TITLE = "Karatekool Nüke";
@@ -104,6 +105,7 @@ export default async function RootLayout({ children }: NextLayoutProps) {
                 <div className="px-4 pt-36 sm2:pt-8">{children}</div>
                 <Sidebar />
                 <Footer />
+                <EmailSender />
               </div>
             </AppWrapper>
           </SupabaseProvider>
