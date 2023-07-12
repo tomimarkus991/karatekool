@@ -107,7 +107,7 @@ export const Section1 = () => {
 const Copy = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => {
   const copyScale = useTransform(scrollYProgress, [0, 0.75], [1, 0.5]);
   const copyOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
-  const copyY = useTransform(scrollYProgress, [0, 0.75], ["0%", "7.5%"]);
+  const copyY = useTransform(scrollYProgress, [0, 0.75], ["-10%", "7.5%"]);
 
   return (
     <motion.div
@@ -248,7 +248,7 @@ export const Section2 = () => {
   return (
     <>
       {/* <Nav scrollYProgress={scrollYProgress} /> */}
-      <section ref={targetRef} className="bg-surface-bg h-[350vh] w-full">
+      <section ref={targetRef} className="bg-surface-bg h-[200vh] w-full">
         <div className="sticky top-0 z-0 grid h-screen grid-cols-3 grid-rows-3 gap-4 p-4 overflow-hidden">
           <Copy scrollYProgress={scrollYProgress} />
           <Images scrollYProgress={scrollYProgress} />
