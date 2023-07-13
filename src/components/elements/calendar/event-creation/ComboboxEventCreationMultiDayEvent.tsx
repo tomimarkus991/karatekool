@@ -22,7 +22,7 @@ export const ComboboxEventCreationMultiDayEvent = ({ name }: Props) => {
 
   useEffect(() => {
     if (newCreatedEvent) {
-      setValue(newCreatedEvent.data);
+      setValue(newCreatedEvent.data as MultiDayEventEventFormik);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newCreatedEvent]);
@@ -33,7 +33,7 @@ export const ComboboxEventCreationMultiDayEvent = ({ name }: Props) => {
     query === ""
       ? multiDayPresets
       : multiDayPresets.filter(item =>
-          item.title
+          (item.title as string)
             .toLowerCase()
             .replace(/\s+/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, "")),

@@ -11,7 +11,8 @@
     "analyze": "ANALYZE=true next build",
     "typecheck": "tsc --noEmit",
     "lint:fix": "eslint --fix --ext .js,.ts,.tsx ./src --ignore-path .gitignore",
-    "sitemap": "next-sitemap"
+    "sitemap": "next-sitemap",
+    "supabase:types": "npx supabase gen types typescript --project-id wqdplpmiyvwmetnipmwd > src/types/supabase.ts"
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^9.2.1",
@@ -108,7 +109,7 @@
     "lint-staged": "^13.2.3",
     "postcss": "^8.4.25",
     "raw-loader": "^4.0.2",
-    "supabase": ">=1.77.6",
+    "supabase": "^1.77.6",
     "tailwind-scrollbar": "^3.0.4",
     "tailwind-scrollbar-hide": "^1.1.7",
     "tailwindcss": "^3.3.2",

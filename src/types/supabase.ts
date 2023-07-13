@@ -1,6 +1,6 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 
-export type Json = string | number | boolean | null | { [key: string]: Json } | Json[];
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export interface Database {
   public: {
@@ -21,6 +21,7 @@ export interface Database {
           sub_title?: string | null;
           title?: string | null;
         };
+        Relationships: [];
       };
       email_whitelist: {
         Row: {
@@ -38,6 +39,7 @@ export interface Database {
           email?: string | null;
           id?: number;
         };
+        Relationships: [];
       };
       event: {
         Row: {
@@ -82,6 +84,26 @@ export interface Database {
           trailer_id?: number | null;
           updated_at?: string | null;
         };
+        Relationships: [
+          {
+            foreignKeyName: "event_all_day_event_fkey";
+            columns: ["all_day_event"];
+            referencedRelation: "all_day_event";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "event_multi_day_event_fkey";
+            columns: ["multi_day_event"];
+            referencedRelation: "multi_day_event";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "event_trailer_id_fkey";
+            columns: ["trailer_id"];
+            referencedRelation: "event_trailer";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       event_group: {
         Row: {
@@ -99,6 +121,20 @@ export interface Database {
           group_id?: number;
           id?: number;
         };
+        Relationships: [
+          {
+            foreignKeyName: "event_group_event_id_fkey";
+            columns: ["event_id"];
+            referencedRelation: "event";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "event_group_group_id_fkey";
+            columns: ["group_id"];
+            referencedRelation: "group";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       event_highlighted_group: {
         Row: {
@@ -116,6 +152,66 @@ export interface Database {
           highlighted_group_id?: number;
           id?: number;
         };
+        Relationships: [
+          {
+            foreignKeyName: "event_highlighted_group_event_id_fkey";
+            columns: ["event_id"];
+            referencedRelation: "event";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "event_highlighted_group_highlighted_group_id_fkey";
+            columns: ["highlighted_group_id"];
+            referencedRelation: "highlighted_group";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      event_preset: {
+        Row: {
+          created_at: string | null;
+          description: string | null;
+          event_type: string;
+          group_ids: number[] | null;
+          highlighted_group_ids: number[] | null;
+          id: number;
+          is_highlighted: boolean;
+          start: string | null;
+          trailer_id: number | null;
+          updated_at: string | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          description?: string | null;
+          event_type?: string;
+          group_ids?: number[] | null;
+          highlighted_group_ids?: number[] | null;
+          id?: number;
+          is_highlighted?: boolean;
+          start?: string | null;
+          trailer_id?: number | null;
+          updated_at?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          description?: string | null;
+          event_type?: string;
+          group_ids?: number[] | null;
+          highlighted_group_ids?: number[] | null;
+          id?: number;
+          is_highlighted?: boolean;
+          start?: string | null;
+          trailer_id?: number | null;
+          updated_at?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "event_preset_trailer_id_fkey";
+            columns: ["trailer_id"];
+            referencedRelation: "event_trailer";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       event_trailer: {
         Row: {
@@ -130,6 +226,7 @@ export interface Database {
           id?: number;
           text?: string | null;
         };
+        Relationships: [];
       };
       group: {
         Row: {
@@ -144,6 +241,7 @@ export interface Database {
           id?: number;
           letter?: string | null;
         };
+        Relationships: [];
       };
       highlighted_group: {
         Row: {
@@ -158,20 +256,49 @@ export interface Database {
           id?: number;
           letter?: string | null;
         };
+        Relationships: [];
       };
       multi_day_event: {
         Row: {
           id: number;
-          title: string;
+          title: string | null;
         };
         Insert: {
           id?: number;
-          title?: string;
+          title?: string | null;
         };
         Update: {
           id?: number;
-          title?: string;
+          title?: string | null;
         };
+        Relationships: [];
+      };
+      new_applications: {
+        Row: {
+          created_at: string | null;
+          email: string | null;
+          group: string | null;
+          id: number;
+          name: string | null;
+          reason: string | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          email?: string | null;
+          group?: string | null;
+          id?: number;
+          name?: string | null;
+          reason?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          email?: string | null;
+          group?: string | null;
+          id?: number;
+          name?: string | null;
+          reason?: string | null;
+        };
+        Relationships: [];
       };
       profile: {
         Row: {
@@ -198,6 +325,14 @@ export interface Database {
           updated_at?: string | null;
           username?: string | null;
         };
+        Relationships: [
+          {
+            foreignKeyName: "profile_id_fkey";
+            columns: ["id"];
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
       };
     };
     Views: {
