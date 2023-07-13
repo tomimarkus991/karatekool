@@ -67,6 +67,7 @@ export type UpdateProfileFormValues = InferType<typeof UpdateProfile>;
 const NormalEvent = object().shape({
   startTime: date().default(new Date()).required("Vajalik"),
   startDate: date().default(new Date()).required("Vajalik"),
+  selectedStartDates: array().of(date()).default([]),
   // selectedGroups has to be bigger than 0
   selectedGroups: array()
     .of(object().shape({ id: number(), letter: string(), highlighted: boolean() }))

@@ -10,7 +10,7 @@ import { cn } from "@/lib";
 import { useAnimateScroll } from "../../../hooks";
 import { AnimationWrapper, animations } from "../../animations";
 interface Props {
-  scroll: () => void;
+  scroll?: () => void;
 }
 export const Scroller = ({ scroll }: Props) => {
   const { scrollY } = useScroll();
@@ -35,8 +35,8 @@ export const Scroller = ({ scroll }: Props) => {
           animate={control}
           variants={animations.mouseFadeInFromBottom}
           className={cn(
-            "border-2 rounded-2xl w-6 h-11 fixed bottom-[10%] left-[50%] z-50 border-stone-800 cursor-pointer",
-            "before:h-2 before:w-1 before:bg-stone-800 before:rounded-sm before:absolute before:top-1 before:left-[43%]",
+            "border-2 rounded-2xl w-6 h-11 fixed bottom-[10%] left-[50%] z-50 border-gray-400 cursor-pointer",
+            "before:h-2 before:w-1 before:bg-stone-400 before:rounded-sm before:absolute before:top-1 before:left-[43%]",
             "before:animate-scrollwheel-move-down before:ease-out before:delay-300",
             "hidden md:block",
           )}
@@ -73,7 +73,7 @@ export const MobileScroller = ({ scroll }: Props) => {
           >
             <BsChevronCompactDown
               className={cn(
-                "w-20 h-20 cursor-pointer fill-stone-700 rounded-2xl",
+                "w-20 h-20 cursor-pointer fill-stone-300 rounded-2xl",
                 "delay-1000 animate-mobile-move-down",
               )}
             />

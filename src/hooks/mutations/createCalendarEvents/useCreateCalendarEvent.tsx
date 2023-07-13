@@ -4,13 +4,13 @@ import { toast } from "react-hot-toast";
 import { useSupabase } from "@/context";
 
 interface Props {
-  start: string;
   isHighlighted?: boolean;
   trailerId?: number;
   normalEventEnd?: string;
   description?: string;
   groupIds?: number[];
   highlightedGroupIds?: number[];
+  selectedStartDates: string[];
 }
 
 export const useCreateCalendarEvent = () => {
@@ -18,7 +18,7 @@ export const useCreateCalendarEvent = () => {
   const queryClient = useQueryClient();
 
   const execute = async ({
-    start,
+    selectedStartDates,
     isHighlighted = false,
     trailerId,
     normalEventEnd,
@@ -26,39 +26,43 @@ export const useCreateCalendarEvent = () => {
     groupIds = [],
     highlightedGroupIds = [],
   }: Props) => {
-    const createEventRes = await supabase
-      .from("event")
-      .insert({
-        start,
-        is_highlighted: isHighlighted,
-        trailer_id: trailerId,
-        normal_event_end: normalEventEnd,
-        description,
-        event_type: "NORMAL",
-      })
-      .select()
-      .single();
+    // create as many events as there are in selectedStartDates
 
-    if (createEventRes.error) {
-      toast.error(createEventRes.error.message);
-      throw new Error(createEventRes.error.message);
-    }
+    selectedStartDates.forEach(async start => {
+      const createEventRes = await supabase
+        .from("event")
+        .insert({
+          start,
+          is_highlighted: isHighlighted,
+          trailer_id: trailerId,
+          normal_event_end: normalEventEnd,
+          description,
+          event_type: "NORMAL",
+        })
+        .select()
+        .single();
 
-    if (createEventRes.data.id) {
-      await supabase.from("event_group").insert(
-        groupIds.map(groupId => ({
-          event_id: createEventRes.data.id,
-          group_id: groupId,
-        })),
-      );
+      if (createEventRes.error) {
+        toast.error(createEventRes.error.message);
+        throw new Error(createEventRes.error.message);
+      }
 
-      await supabase.from("event_highlighted_group").insert(
-        highlightedGroupIds.map(groupId => ({
-          event_id: createEventRes.data.id,
-          highlighted_group_id: groupId,
-        })),
-      );
-    }
+      if (createEventRes.data.id) {
+        await supabase.from("event_group").insert(
+          groupIds.map(groupId => ({
+            event_id: createEventRes.data.id,
+            group_id: groupId,
+          })),
+        );
+
+        await supabase.from("event_highlighted_group").insert(
+          highlightedGroupIds.map(groupId => ({
+            event_id: createEventRes.data.id,
+            highlighted_group_id: groupId,
+          })),
+        );
+      }
+    });
   };
 
   return useMutation((user: Props) => execute(user), {

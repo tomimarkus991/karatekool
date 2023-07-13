@@ -4,6 +4,7 @@ import { Switch } from "@headlessui/react";
 import { useField } from "formik";
 
 import { NormalEventIsHighlightedFormValues } from "../../app-constants";
+import { cn } from "../../lib";
 
 import { Tooltip } from "./Tooltip";
 
@@ -13,20 +14,44 @@ interface Props {
   tooltip?: string;
 }
 
+interface ToggleWrapperProps {
+  pressed: boolean;
+  tooltip?: string;
+}
+
+const ToggleWrapper = ({ pressed, tooltip }: ToggleWrapperProps) => {
+  return (
+    <>
+      <div
+        className={cn(
+          pressed ? "bg-secondary" : "bg-secondary-light",
+          "relative group inline-flex h-[24px] w-[44px] shrink-0 cursor-pointer rounded-full border-2 border-transparent",
+          " focus:ring-secondary",
+          "transition-colors duration-200 ease-in-out",
+        )}
+      >
+        {tooltip && <Tooltip tooltip={tooltip} />}
+        <span className="sr-only">Use setting</span>
+        <span
+          aria-hidden="true"
+          className={cn(
+            pressed ? "translate-x-[21px]" : "translate-x-[2px]",
+            "justify-center self-center",
+            "pointer-events-none inline-block h-[18px] w-[18px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out",
+          )}
+        />
+      </div>
+    </>
+  );
+};
+
 export const Toggle = ({ pressed, setPressed, tooltip }: Props) => (
   <Switch
+    className="relative flex items-center mt-1 rounded-full cursor-pointer focus:outline-none w-fit focus:ring-secondary focus:ring-2 focus:ring-offset-2"
     checked={pressed}
     onChange={setPressed}
-    className={`${pressed ? "bg-secondary" : "bg-secondary-light"}
-          relative group inline-flex h-[25px] w-[58px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
   >
-    {tooltip && <Tooltip tooltip={tooltip} />}
-    <span className="sr-only">Use setting</span>
-    <span
-      aria-hidden="true"
-      className={`${pressed ? "translate-x-[32.8px]" : "translate-x-0"}
-            pointer-events-none inline-block h-[22px] w-[22px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
-    />
+    <ToggleWrapper pressed={pressed} tooltip={tooltip} />
   </Switch>
 );
 
@@ -36,22 +61,16 @@ interface FormikToggleProps {
 }
 
 export const FormikToggle = ({ tooltip, name }: FormikToggleProps) => {
-  const [field, { value }, { setValue }] = useField<NormalEventIsHighlightedFormValues>(name);
+  const [field, { value: pressed }, { setValue: setPressed }] =
+    useField<NormalEventIsHighlightedFormValues>(name);
   return (
     <Switch
+      className="relative flex items-center mt-1 rounded-full cursor-pointer focus:outline-none w-fit focus:ring-secondary focus:ring-2 focus:ring-offset-2"
       {...(field as any)}
-      checked={value}
-      onChange={setValue}
-      className={`${value ? "bg-secondary" : "bg-secondary-light"}
-          relative group inline-flex h-[25px] w-[58px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+      checked={pressed}
+      onChange={setPressed}
     >
-      {tooltip && <Tooltip tooltip={tooltip} />}
-      <span className="sr-only">Use setting</span>
-      <span
-        aria-hidden="true"
-        className={`${value ? "translate-x-[32.8px]" : "translate-x-0"}
-            pointer-events-none inline-block h-[22px] w-[22px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
-      />
+      <ToggleWrapper pressed={pressed} tooltip={tooltip} />
     </Switch>
   );
 };
