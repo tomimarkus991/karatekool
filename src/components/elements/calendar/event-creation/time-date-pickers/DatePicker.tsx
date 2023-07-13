@@ -43,6 +43,39 @@ export const DatePicker = ({ name, className, ...props }: Props) => {
     </Popover>
   );
 };
+export const MultiDatePicker = ({ name, className, ...props }: Props) => {
+  const [field, { value: values }, { setValue }] = useField<Date[] | undefined>(name);
+
+  return (
+    <Popover>
+      <PopoverTrigger>
+        <AnimationWrapper variants={animations.subtleScale}>
+          <DatePickerCalendarButton variant="ghost" className="pl-0 ml-0 text-left group">
+            <HiOutlineCalendar className="w-6 h-6 mr-2 text-stone-700 group-hover:text-stone-800" />
+            {values?.length && values[0] ? (
+              <p className="text-lg">{values.length} päeva on veel valitud</p>
+            ) : (
+              <p className="text-lg">Vali kuupäev</p>
+            )}
+          </DatePickerCalendarButton>
+        </AnimationWrapper>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0 z-[5001]">
+        <DatePickerCalendar
+          {...field}
+          {...props}
+          mode="multiple"
+          className={className}
+          selected={values}
+          onSelect={date => {
+            setValue(date);
+          }}
+          initialFocus
+        />
+      </PopoverContent>
+    </Popover>
+  );
+};
 
 type RegularDatePickerProps = DatePickerCalendarProps & {
   children: React.ReactNode;

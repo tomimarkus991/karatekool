@@ -40,7 +40,7 @@ import { ComboboxEventCreationMultiDayEvent } from "./ComboboxEventCreationMulti
 import { GroupPicker } from "./GroupPicker";
 import { TrailerPicker } from "./TrailerPicker";
 
-import { AllDayEventInput, CalendarEventTab } from ".";
+import { AllDayEventInput, CalendarEventTab, MultiDatePicker } from ".";
 
 interface Props {
   /**
@@ -64,6 +64,7 @@ export const EventCreationTabs = ({ openDate }: Props) => {
   const [normalEventInitialValues] = useState<NormalEventFormValues>({
     startTime: new Date(),
     startDate: openDate,
+    selectedStartDates: [],
     selectedGroups: [],
     trailer: {},
     description: "",
@@ -141,6 +142,7 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                     trailer,
                     isHighlighted,
                     startDate,
+                    selectedStartDates,
                   },
                   { setSubmitting },
                 ) => {
@@ -156,14 +158,26 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                       ?.filter(group => group.highlighted)
                       .map(group => group.id as number) || [];
 
+                  const mappedStartDates = selectedStartDates.map(date => {
+                    return mergeDateAndTime(date as Date, startTime).toISOString();
+                  });
+
+                  const originalStartDate = mergeDateAndTime(startDate, startTime).toISOString();
+
+                  const allStartDates = [originalStartDate, ...mappedStartDates];
+
+                  const sameDatesRemoved = allStartDates.filter((date, index) => {
+                    return allStartDates.indexOf(date) === index;
+                  });
+
                   createNewNormalCalendarEvent({
-                    start: mergeDateAndTime(startDate, startTime).toISOString(),
                     normalEventEnd: endTime,
                     groupIds,
                     highlightedGroupIds,
                     description,
                     trailerId: trailer.id,
                     isHighlighted,
+                    selectedStartDates: sameDatesRemoved,
                   });
 
                   setSubmitting(false);
@@ -207,6 +221,14 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                           </div>
 
                           <GroupPicker name="selectedGroups" pressed={highlightGroupPressed} />
+
+                          <div className="flex flex-col mt-4">
+                            <p className="text-sm text-stone-600">Vali mitu päeva</p>
+                            <MultiDatePicker
+                              name="selectedStartDates"
+                              disabled={values.startDate}
+                            />
+                          </div>
 
                           <div className="flex flex-col pt-5">
                             <p className="text-xs text-stone-600">Näita veel parameetreid</p>
