@@ -55,7 +55,7 @@ export const MultiDatePicker = ({ name, className, ...props }: Props) => {
             {values?.length && values[0] ? (
               <p className="text-lg">{values.length} päeva on veel valitud</p>
             ) : (
-              <p className="text-lg">Vali kuupäev</p>
+              <p className="text-lg">Vali kuupäevad</p>
             )}
           </DatePickerCalendarButton>
         </AnimationWrapper>
