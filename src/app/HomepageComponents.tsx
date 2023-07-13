@@ -29,8 +29,8 @@ export const Section1 = () => {
           animate={section1TextControl}
           variants={animations.pageItems.fadeInFromLeft}
         >
-          <p className="text-4xl font-semibold md:mr-10">Ilusat suve!</p>
-          <p className="text-2xl md:mr-10">Avame registreerimise Augusti lõpus!</p>
+          <p className="text-4xl font-semibold">Ilusat suve!</p>
+          <p className="text-2xl">Avame registreerimise Augusti lõpus!</p>
         </AnimationWrapper>
 
         <AnimationWrapper
@@ -118,8 +118,8 @@ const Copy = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => 
       }}
       className="absolute z-20 flex flex-col items-center justify-center w-full h-screen px-8"
     >
-      <p className="text-4xl font-semibold md:mr-10">Ilusat suve!</p>
-      <p className="text-2xl md:mr-10">Avame registreerimise Augusti lõpus!</p>
+      <p className="text-4xl font-semibold">Ilusat suve!</p>
+      <p className="text-2xl">Avame registreerimise Augusti lõpus!</p>
       <div className="flex items-center gap-4">
         {/* <button className="px-4 py-2 font-medium text-white transition-colors bg-violet-600 hover:bg-violet-600">
           Try for free
@@ -135,39 +135,28 @@ const Copy = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => 
 const Images = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => {
   const scale = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
 
-  const image1Offset = useTransform(scrollYProgress, [0, 1], ["-35%", "0%"]);
-
   const image2OffsetX = useTransform(scrollYProgress, [0, 1], ["30%", "0%"]);
   const image2OffsetY = useTransform(scrollYProgress, [0, 1], ["-30%", "0%"]);
 
-  const image3OffsetX = useTransform(scrollYProgress, [0, 1], ["-25%", "0%"]);
-  const image3OffsetY = useTransform(scrollYProgress, [0, 1], ["25%", "0%"]);
+  const image6OffsetX = useTransform(scrollYProgress, [0, 1], ["-5%", "0%"]);
+  const image6OffsetY = useTransform(scrollYProgress, [0, 1], ["-35%", "0%"]);
 
   const image4OffsetX = useTransform(scrollYProgress, [0, 1], ["25%", "0%"]);
   const image4OffsetY = useTransform(scrollYProgress, [0, 1], ["-145%", "0%"]);
 
-  const image5OffsetX = useTransform(scrollYProgress, [0, 1], ["-25%", "0%"]);
+  const image3OffsetX = useTransform(scrollYProgress, [0, 1], ["-115%", "0%"]);
+  const image3OffsetY = useTransform(scrollYProgress, [0, 1], ["25%", "0%"]);
+
+  const image5OffsetX = useTransform(scrollYProgress, [0, 1], ["10%", "0%"]);
   const image5OffsetY = useTransform(scrollYProgress, [0, 1], ["25%", "0%"]);
 
-  const image6OffsetX = useTransform(scrollYProgress, [0, 1], ["25%", "0%"]);
-  const image6OffsetY = useTransform(scrollYProgress, [0, 1], ["25%", "0%"]);
+  const image1OffsetX = useTransform(scrollYProgress, [0, 1], ["-0%", "0%"]);
+  const image1OffsetY = useTransform(scrollYProgress, [0, 1], ["-50%", "0%"]);
 
   return (
     <>
       <motion.div
         className="relative z-10 col-span-2"
-        style={{
-          backgroundImage:
-            "url(https://wqdplpmiyvwmetnipmwd.supabase.co/storage/v1/object/sign/images/nuke33.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvbnVrZTMzLnBuZyIsImlhdCI6MTY4OTE4ODUxNSwiZXhwIjoxNzIwNzI0NTE1fQ.yX25ThF5Biq6EQd5VFqFT0JqfOb0hThWCZ4oyScTFv0&t=2023-07-12T19%3A01%3A55.569Z)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          scale,
-          x: image1Offset,
-          y: image1Offset,
-        }}
-      />
-      <motion.div
-        className="relative z-10 row-span-2"
         style={{
           backgroundImage:
             "url(https://wqdplpmiyvwmetnipmwd.supabase.co/storage/v1/object/sign/images/55.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvNTUucG5nIiwiaWF0IjoxNjg5MTg4NDkzLCJleHAiOjE3MjA3MjQ0OTN9.zRwyNc11lFsxvCIs1SwifMFi3xvIyip1qEpDoWyhdbI&t=2023-07-12T19%3A01%3A32.811Z)",
@@ -178,17 +167,16 @@ const Images = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) =
           y: image2OffsetY,
         }}
       />
-
       <motion.div
-        className="relative z-10 row-span-2"
+        className="relative z-10"
         style={{
           backgroundImage:
-            "url(https://wqdplpmiyvwmetnipmwd.supabase.co/storage/v1/object/sign/images/nuke45.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvbnVrZTQ1LnBuZyIsImlhdCI6MTY4OTE4ODU0NiwiZXhwIjoxNzIwNzI0NTQ2fQ.CDQOkl-CSQyYYcn39zPp1LnGMg9TjLwBDYAAlkZqwMY&t=2023-07-12T19%3A02%3A26.751Z)",
+            "url(https://wqdplpmiyvwmetnipmwd.supabase.co/storage/v1/object/sign/images/nuke55.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvbnVrZTU1LnBuZyIsImlhdCI6MTY4OTE4ODU1OSwiZXhwIjoxNzIwNzI0NTU5fQ.7MNFQrzP2C2hF91a0sYJIXJUCf9bamY_pA_LNCmdIkM&t=2023-07-12T19%3A02%3A39.361Z)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           scale,
-          x: image3OffsetX,
-          y: image3OffsetY,
+          x: image6OffsetX,
+          y: image6OffsetY,
         }}
       />
       <motion.div
@@ -203,12 +191,23 @@ const Images = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) =
           y: image4OffsetY,
         }}
       />
-
       <motion.div
         className="relative z-10"
         style={{
           backgroundImage:
-            "url(https://wqdplpmiyvwmetnipmwd.supabase.co/storage/v1/object/sign/images/nuke55.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvbnVrZTU1LnBuZyIsImlhdCI6MTY4OTE4ODU1OSwiZXhwIjoxNzIwNzI0NTU5fQ.7MNFQrzP2C2hF91a0sYJIXJUCf9bamY_pA_LNCmdIkM&t=2023-07-12T19%3A02%3A39.361Z)",
+            "url(https://wqdplpmiyvwmetnipmwd.supabase.co/storage/v1/object/sign/images/nuke45.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvbnVrZTQ1LnBuZyIsImlhdCI6MTY4OTE4ODU0NiwiZXhwIjoxNzIwNzI0NTQ2fQ.CDQOkl-CSQyYYcn39zPp1LnGMg9TjLwBDYAAlkZqwMY&t=2023-07-12T19%3A02%3A26.751Z)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          scale,
+          x: image3OffsetX,
+          y: image3OffsetY,
+        }}
+      />
+      <motion.div
+        className="relative z-10"
+        style={{
+          backgroundImage:
+            "url(https://wqdplpmiyvwmetnipmwd.supabase.co/storage/v1/object/sign/images/nuke455.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvbnVrZTQ1NS5wbmciLCJpYXQiOjE2ODkyMjc5NzIsImV4cCI6MTcyMDc2Mzk3Mn0.IJRq1N0eUqZ__Co1kINt-fm9ikuIRAkZAV2cmCq9aew&t=2023-07-13T05%3A59%3A32.094Z)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           scale,
@@ -217,15 +216,15 @@ const Images = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) =
         }}
       />
       <motion.div
-        className="relative z-10"
+        className="relative z-10 col-span-3"
         style={{
           backgroundImage:
-            "url(https://wqdplpmiyvwmetnipmwd.supabase.co/storage/v1/object/sign/images/suke54.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvc3VrZTU0LnBuZyIsImlhdCI6MTY4OTE4ODU2NSwiZXhwIjoxNzIwNzI0NTY1fQ.u6lx5LErPoXhFFVIBqHtwTASBBqkIVwyzcMjexNxZDI&t=2023-07-12T19%3A02%3A45.709Z)",
+            "url(https://wqdplpmiyvwmetnipmwd.supabase.co/storage/v1/object/sign/images/nuke33.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvbnVrZTMzLnBuZyIsImlhdCI6MTY4OTE4ODUxNSwiZXhwIjoxNzIwNzI0NTE1fQ.yX25ThF5Biq6EQd5VFqFT0JqfOb0hThWCZ4oyScTFv0&t=2023-07-12T19%3A01%3A55.569Z)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           scale,
-          x: image6OffsetX,
-          y: image6OffsetY,
+          x: image1OffsetX,
+          y: image1OffsetY,
         }}
       />
     </>
@@ -252,14 +251,15 @@ export const Section2 = () => {
         <div className="sticky top-0 z-0 grid h-screen grid-cols-3 grid-rows-3 gap-4 p-4 overflow-hidden">
           <Copy scrollYProgress={scrollYProgress} />
           <Images scrollYProgress={scrollYProgress} />
-
+          <Scroller />
+          <MobileScroller />
           {/* <Circles /> */}
         </div>
       </section>
 
-      <div className="flex items-center justify-center h-screen text-white bg-surface-bg">
-        <span>Other content here {":)"}</span>
-      </div>
+      {/* <div className="flex items-center justify-center h-screen text-white bg-surface-bg"> */}
+      {/* <span>Other content here {":)"}</span> */}
+      {/* </div> */}
     </>
   );
 };
