@@ -13,7 +13,7 @@ import {
 import { useCalendarFilters } from "@/context";
 import { useDeleteNormalCalendarEvent, useUser } from "@/hooks";
 import { cn } from "@/lib";
-import { EventData, SEventTrailer, SGroup, SHighLightedGroup } from "@/types";
+import { EventData, SEventTrailer, SGroup } from "@/types";
 
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "../../../Popover";
 
@@ -22,14 +22,17 @@ interface Props {
   date: Date;
 }
 interface NormalEventDisplayProps {
-  event: EventData;
+  event: {
+    start: string | null;
+    is_highlighted: boolean;
+  };
   groups: SGroup[];
-  highlighted_group: SHighLightedGroup[];
+  highlighted_group: SGroup[];
   event_trailer: SEventTrailer | null;
   description: string | null;
 }
 
-const NormalEventDisplay = ({
+export const NormalEventDisplay = ({
   event,
   groups,
   highlighted_group,
@@ -38,12 +41,15 @@ const NormalEventDisplay = ({
 }: NormalEventDisplayProps) => (
   <div>
     <div className="flex flex-row items-center justify-start">
-      <NormalEventTime start={parseISO(event.start)} isHighlighted={event.is_highlighted} />
+      <NormalEventTime
+        start={event.start ? parseISO(event.start) : null}
+        isHighlighted={event.is_highlighted}
+      />
       <div className={cn("flex justify-center items-center")}>
         <MapGroupLetter groups={groups} />
         <MapHighLightedGroupLetter highlightedGroups={highlighted_group} />
         {event_trailer?.text && (
-          <p className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] font-number font-semibold text-center">
+          <p className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] whitespace-nowrap font-number font-semibold text-center">
             {event_trailer?.text}
           </p>
         )}

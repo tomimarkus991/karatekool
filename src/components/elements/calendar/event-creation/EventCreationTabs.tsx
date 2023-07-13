@@ -1,25 +1,30 @@
 "use client";
 
 import { Tab } from "@headlessui/react";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { HiX } from "react-icons/hi";
 
 import {
   AllDayEventFormValues,
   MultiDayEventFormValues,
   NormalEventFormValues,
+  NormalEventSelectedGroupsFormValues,
   YupSchemas,
 } from "@/app-constants";
 import {
+  AnimationWrapper,
   DatePicker,
   DatePickerWithRange,
   FormikInput,
   FormikToggle,
   MapGroupLetter,
   MapHighLightedGroupLetter,
+  Modal,
+  NormalEventDisplay,
   NormalEventTime,
   RealButton,
   ThreeElementMovingBox,
@@ -31,9 +36,12 @@ import {
   useCreateCalendarEvent,
   useCreateCalendarMultiDayEvent,
   useCreateCalendarAllDayEvent,
+  useGetEventPresets,
 } from "@/hooks";
 import { cn } from "@/lib";
 import { SGroup } from "@/types";
+
+import { useCreateEventPreset } from "../../../../hooks/mutations/presets";
 
 import { ComboboxAllDayEventPresets } from "./ComboboxAllDayEventPresets";
 import { ComboboxEventCreationMultiDayEvent } from "./ComboboxEventCreationMultiDayEvent";
@@ -61,6 +69,9 @@ const mergeDateAndTime = (startDate: Date, startTime: Date): Date => {
 
 export const EventCreationTabs = ({ openDate }: Props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const [isEventPresetModalOpen, setIsEventPresetModalOpen] = useState(false);
+
   const [normalEventInitialValues] = useState<NormalEventFormValues>({
     startTime: new Date(),
     startDate: openDate,
@@ -95,6 +106,9 @@ export const EventCreationTabs = ({ openDate }: Props) => {
   const { mutate: createNewAllDayCalendarEvent } = useCreateCalendarAllDayEvent();
   const { mutate: createNewMultiDayCalendarEvent } = useCreateCalendarMultiDayEvent();
 
+  const { data: eventPresets } = useGetEventPresets();
+  const { mutate: createEventPreset } = useCreateEventPreset();
+
   return (
     <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
       <Tab.List
@@ -118,7 +132,6 @@ export const EventCreationTabs = ({ openDate }: Props) => {
         <div className="p-3">
           <AnimatePresence>
             {/* normal */}
-            {/* add pick for multiple days */}
             {/* add presets */}
             <Tab.Panel
               as={motion.div}
@@ -184,7 +197,7 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                 }}
               >
                 {/* normal */}
-                {({ values, isValid }) => {
+                {({ values, isValid, setValues }) => {
                   const filteredGroups = values.selectedGroups
                     .filter(group => !group.highlighted)
                     .map(
@@ -208,6 +221,95 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                       <div className="flex flex-row justify-between pb-4">
                         <div className="flex flex-col items-start justify-start">
                           <div className="flex flex-row">
+                            <div className="flex flex-col mr-3">
+                              <p className="text-sm text-stone-600">Vali valmis üritus</p>
+                              <Modal
+                                open={isEventPresetModalOpen}
+                                setOpen={setIsEventPresetModalOpen}
+                                maxWidth="lg"
+                                modalButton={
+                                  <RealButton
+                                    type="button"
+                                    variant="orange"
+                                    size="xs"
+                                    onClick={() => setIsEventPresetModalOpen(true)}
+                                  >
+                                    Vali preset
+                                  </RealButton>
+                                }
+                              >
+                                <div className="p-4">
+                                  <div className="flex flex-row items-center justify-between pl-3">
+                                    <p className="text-xl font-bold">Taotle luba</p>
+                                    <div
+                                      role="button"
+                                      tabIndex={0}
+                                      onClick={() => setIsEventPresetModalOpen(false)}
+                                    >
+                                      <AnimationWrapper
+                                        key="sub-modal-x-icon"
+                                        variants={animations.rotate360}
+                                      >
+                                        <HiX className="w-8 h-8 fill-stone-700 hover:fill-stone-800" />
+                                      </AnimationWrapper>
+                                    </div>
+                                  </div>
+
+                                  <div className="grid grid-cols-4 mt-6 mb-4">
+                                    {eventPresets?.map(preset => {
+                                      const displayGroups = preset.groups?.map(group => {
+                                        return {
+                                          letter: group.letter as SGroup["letter"],
+                                        } satisfies SGroup;
+                                      });
+
+                                      const displayHighlightedGroups =
+                                        preset.highlightedGroups?.map(group => {
+                                          return {
+                                            letter: group.letter as SGroup["letter"],
+                                          } satisfies SGroup;
+                                        });
+
+                                      const selectedGroups = [
+                                        ...preset.groups,
+                                        ...preset.highlightedGroups,
+                                      ] as NormalEventSelectedGroupsFormValues;
+
+                                      return (
+                                        <button
+                                          key={preset.id}
+                                          className="mx-auto cursor-pointer w-fit"
+                                          onClick={() => {
+                                            setValues({
+                                              isHighlighted: preset.is_highlighted,
+                                              selectedGroups,
+                                              trailer: preset.trailer,
+                                              selectedStartDates: [],
+                                              startDate: values.startDate,
+                                              startTime: preset.start
+                                                ? parseISO(preset.start)
+                                                : new Date(),
+                                              description: preset?.description || "",
+                                            });
+                                          }}
+                                        >
+                                          <NormalEventDisplay
+                                            description={preset.description}
+                                            event={{
+                                              is_highlighted: preset.is_highlighted,
+                                              start: preset.start,
+                                            }}
+                                            event_trailer={preset.trailer}
+                                            groups={displayGroups}
+                                            highlighted_group={displayHighlightedGroups}
+                                          />
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+                              </Modal>
+                            </div>
                             <div className="flex flex-col">
                               <p className="text-sm text-stone-600">Vali trenni kellaaeg</p>
                               <div className="pt-2">
@@ -301,7 +403,7 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                                     {values.trailer && (
                                       <p
                                         id="normal-event"
-                                        className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] font-number font-semibold text-center"
+                                        className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] whitespace-nowrap sm:text-[0.55rem] font-number font-semibold text-center"
                                       >
                                         {values.trailer.text}
                                       </p>
@@ -324,6 +426,34 @@ export const EventCreationTabs = ({ openDate }: Props) => {
                             variant="orange"
                           >
                             Loo
+                          </RealButton>
+
+                          <RealButton
+                            className="mt-4"
+                            variant="light"
+                            onClick={() => {
+                              const groupIds = values.selectedGroups
+                                .filter(group => !group.highlighted)
+                                .map(group => group.id as number);
+
+                              const highlightedGroupIds = values.selectedGroups
+                                .filter(group => group.highlighted)
+                                .map(group => group.id as number);
+
+                              createEventPreset({
+                                description: values.description || null,
+                                group_ids: groupIds,
+                                highlighted_group_ids: highlightedGroupIds,
+                                start: mergeDateAndTime(
+                                  values.startDate,
+                                  values.startTime,
+                                ).toISOString(),
+                                trailer_id: values.trailer.id || null,
+                                is_highlighted: values.isHighlighted,
+                              });
+                            }}
+                          >
+                            Loo preset
                           </RealButton>
                         </div>
                       </div>

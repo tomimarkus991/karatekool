@@ -3,11 +3,7 @@ import { toast } from "react-hot-toast";
 
 import { useSupabase } from "@/context";
 
-export interface IHighlightedAndGroup {
-  id: number;
-  letter: string;
-  highlighted: boolean;
-}
+import { NormalEventSelectedGroupsFormValues } from "../../app-constants";
 
 export const useGetGroups = () => {
   const { supabase } = useSupabase();
@@ -32,12 +28,15 @@ export const useGetGroups = () => {
 
     return {
       groups:
-        (groups.map(group => ({ ...group, highlighted: false })) as IHighlightedAndGroup[]) || [],
+        (groups.map(group => ({
+          ...group,
+          highlighted: false,
+        })) as NormalEventSelectedGroupsFormValues) || [],
       highlightedGroups:
         (highlightedGroups.map(group => ({
           ...group,
           highlighted: true,
-        })) as IHighlightedAndGroup[]) || [],
+        })) as NormalEventSelectedGroupsFormValues) || [],
     };
   };
 

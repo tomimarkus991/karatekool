@@ -47,9 +47,6 @@ export interface Group {
 export interface SGroup {
   letter: GroupLetters;
 }
-export interface SHighLightedGroup {
-  letter: GroupLetters;
-}
 export interface SEventTrailer {
   text: string;
 }
@@ -80,7 +77,7 @@ export interface EventData {
   all_day_event: SAllDayEvent | null;
   multi_day_event: SMultiDayEvent | null;
   group: SGroup[];
-  highlighted_group: SHighLightedGroup[];
+  highlighted_group: SGroup[];
   event_type: EventTypes;
 }
 

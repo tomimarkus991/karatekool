@@ -6,7 +6,7 @@ import { et } from "date-fns/locale";
 import { cn } from "@/lib";
 
 interface Props {
-  start: Date;
+  start: Date | null;
   isHighlighted: boolean;
   dayView?: boolean;
 }
@@ -23,7 +23,7 @@ export const NormalEventTime = ({ start, isHighlighted, dayView = false }: Props
         isHighlighted && "underline text-red-500",
       )}
     >
-      {format(start, "HH:mm", { locale: et })}
+      {start ? format(start, "HH:mm", { locale: et }) : "00:00"}
     </p>
     {/* <p className="text-sm font-number">{format(start, "HH:mm", { locale: et })}</p> */}
   </>

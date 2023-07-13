@@ -33,7 +33,7 @@ export const CalendarEventCreationModal = ({
     <Modal
       open={isModalOpen}
       setOpen={setIsModalOpen}
-      maxWidth="2xl"
+      maxWidth="3xl"
       closeOnOverlayClick={false}
       modalButton={button}
     >

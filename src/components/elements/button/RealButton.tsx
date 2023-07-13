@@ -127,8 +127,9 @@ export interface RealButtonProps
     VariantProps<typeof realButtonVariants> {}
 
 export const RealButton = forwardRef<HTMLButtonElement, RealButtonProps>(
-  ({ className, variant, size, isValid, focus, ...props }, ref) => (
+  ({ className, variant, size, type = "button", isValid, focus, ...props }, ref) => (
     <button
+      type={type}
       className={cn(realButtonVariants({ variant, size, focus, isValid, className }))}
       ref={ref}
       {...props}

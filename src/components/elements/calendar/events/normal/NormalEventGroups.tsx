@@ -1,5 +1,5 @@
 import { cn, groupColorMapper } from "@/lib";
-import { SGroup, SHighLightedGroup } from "@/types";
+import { SGroup } from "@/types";
 
 interface MapGroupLetterProps {
   groups: SGroup[];
@@ -31,7 +31,7 @@ export const MapGroupLetter = ({ groups, dayView = false }: MapGroupLetterProps)
 );
 
 interface MapHighlightedGroupLetterProps {
-  highlightedGroups: SHighLightedGroup[];
+  highlightedGroups: SGroup[];
   dayView?: boolean;
 }
 

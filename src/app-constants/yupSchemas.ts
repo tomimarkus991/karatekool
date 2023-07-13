@@ -70,7 +70,13 @@ const NormalEvent = object().shape({
   selectedStartDates: array().of(date()).default([]),
   // selectedGroups has to be bigger than 0
   selectedGroups: array()
-    .of(object().shape({ id: number(), letter: string(), highlighted: boolean() }))
+    .of(
+      object().shape({
+        id: number().required(),
+        letter: string().required(),
+        highlighted: boolean().required(),
+      }),
+    )
     .default([])
     .required("Vajalik")
     .test({

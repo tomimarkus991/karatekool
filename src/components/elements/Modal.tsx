@@ -60,6 +60,7 @@ const modalMaxWidth = {
   lg: "sm:w-[32rem]",
   xl: "sm:w-[36rem]",
   "2xl": "sm:w-[42rem]",
+  "3xl": "md:w-[50rem]",
 };
 
 interface Props {
