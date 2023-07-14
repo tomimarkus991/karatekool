@@ -147,7 +147,7 @@ export const CalendarEventCreationModal = ({
                         variants={animations.calendarEventCreation.tabSwitch}
                         key={"panel 2"}
                       >
-                        <AllDayEventCreationTab />
+                        <AllDayEventCreationTab openDate={openDate} />
                       </Tab.Panel>
                       {/* multi day */}
                       <Tab.Panel

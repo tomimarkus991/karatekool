@@ -11,11 +11,15 @@ import { useCreateCalendarAllDayEvent } from "@/hooks";
 
 import { AllDayEventInput, ComboboxAllDayEventPresets } from ".";
 
-export const AllDayEventCreationTab = () => {
+interface Props {
+  openDate: Date;
+}
+
+export const AllDayEventCreationTab = ({ openDate }: Props) => {
   const [allDayEventInitialValues] = useState<AllDayEventFormValues>({
     title: "",
     subTitle: "Treeninguid ei toimu",
-    start: undefined,
+    start: openDate,
   });
   const { mutate: createNewAllDayCalendarEvent } = useCreateCalendarAllDayEvent();
 

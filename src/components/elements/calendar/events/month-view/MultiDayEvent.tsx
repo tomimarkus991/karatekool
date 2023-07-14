@@ -8,16 +8,14 @@ import {
   startOfWeek,
 } from "date-fns";
 import { motion } from "framer-motion";
-import { HiTrash, HiX } from "react-icons/hi";
 import { RectReadOnly } from "react-use-measure";
 
-import { AnimationWrapper, animations } from "@/components";
-import { useDeleteCalendarMultiDayEvent, useUser } from "@/hooks";
+import { DeleteEventPopoverContent } from "@/components";
+import { useDeleteCalendarMultiDayEvent } from "@/hooks";
 import { cn } from "@/lib";
 import { EventData, SMultiDayEvent } from "@/types";
 
-import { RealButton } from "../../../button";
-import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "../../../Popover";
+import { Popover, PopoverTrigger } from "../../../Popover";
 
 interface Props {
   event: EventData;
@@ -34,7 +32,6 @@ const Child = ({ width, multi_day_event }: ChildProps) => {
   const { title, id } = multi_day_event;
   const { mutate: deleteEvent } = useDeleteCalendarMultiDayEvent();
 
-  const { data: user } = useUser();
   return (
     <Popover>
       <motion.div
@@ -61,50 +58,10 @@ const Child = ({ width, multi_day_event }: ChildProps) => {
           </p>
         </PopoverTrigger>
       </motion.div>
-      <PopoverContent className="max-w-xs lg:max-w-sm">
-        <div className="flex flex-row">
-          <Popover>
-            <PopoverTrigger>
-              {user?.role === "admin" && (
-                <AnimationWrapper
-                  className="self-center mr-2 cursor-pointer"
-                  variants={animations.smallScaleXs}
-                >
-                  <HiTrash className="w-6 h-6 text-red-600" />
-                </AnimationWrapper>
-              )}
-            </PopoverTrigger>
-            <PopoverContent className="z-50 p-4">
-              <div className="flex flex-col">
-                <p className="mb-4 text-xl font-semibold text-center">
-                  Oled kindel, et soovid seda kustutada?
-                </p>
-                <div className="flex flex-row">
-                  <PopoverClose>
-                    <RealButton className="ml-4" variant="orange">
-                      Tagasi
-                    </RealButton>
-                  </PopoverClose>
-                  <RealButton className="ml-4" variant="red" onClick={() => deleteEvent({ id })}>
-                    Kustuta
-                  </RealButton>
-                </div>
-              </div>
-            </PopoverContent>
-          </Popover>
 
-          <p className="text-center">{title}</p>
-
-          <PopoverClose>
-            <AnimationWrapper
-              className="self-center ml-2 cursor-pointer"
-              variants={animations.smallScaleXs}
-            >
-              <HiX className="self-center w-8 h-8 cursor-pointer text-stone-800" />
-            </AnimationWrapper>
-          </PopoverClose>
-        </div>
-      </PopoverContent>
+      <DeleteEventPopoverContent deleteEvent={() => deleteEvent({ id })}>
+        <p className="text-center">{title}</p>
+      </DeleteEventPopoverContent>
     </Popover>
   );
 };
