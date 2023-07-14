@@ -16,8 +16,8 @@ import { useDeleteCalendarMultiDayEvent, useUser } from "@/hooks";
 import { cn } from "@/lib";
 import { EventData, SMultiDayEvent } from "@/types";
 
-import { RealButton } from "../../button";
-import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "../../Popover";
+import { RealButton } from "../../../button";
+import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "../../../Popover";
 
 interface Props {
   event: EventData;

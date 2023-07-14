@@ -1,0 +1,367 @@
+"use client";
+
+import { format, parseISO } from "date-fns";
+import { Form, Formik } from "formik";
+import { useState } from "react";
+import { HiX } from "react-icons/hi";
+
+import {
+  NormalEventFormValues,
+  NormalEventSelectedGroupsFormValues,
+  YupSchemas,
+} from "@/app-constants";
+import {
+  AnimationWrapper,
+  DatePicker,
+  FormikInput,
+  FormikToggle,
+  MapGroupLetter,
+  MapHighLightedGroupLetter,
+  Modal,
+  MultiDatePicker,
+  NormalEventDisplay,
+  NormalEventTime,
+  RealButton,
+  TimePicker,
+  Toggle,
+  animations,
+} from "@/components";
+import { useCreateCalendarEvent, useCreateEventPreset, useGetEventPresets } from "@/hooks";
+import { cn } from "@/lib";
+import { SGroup } from "@/types";
+
+import { GroupPicker, TrailerPicker } from ".";
+
+const mergeDateAndTime = (startDate: Date, startTime: Date): Date => {
+  const result = new Date(startDate.getTime());
+
+  result.setHours(startTime.getHours());
+  result.setMinutes(startTime.getMinutes());
+  result.setSeconds(startTime.getSeconds());
+
+  return result;
+};
+
+interface Props {
+  openDate: Date;
+}
+
+export const NormalEventCreationTab = ({ openDate }: Props) => {
+  const [isEventPresetModalOpen, setIsEventPresetModalOpen] = useState(false);
+
+  const [normalEventInitialValues] = useState<NormalEventFormValues>({
+    startTime: new Date(),
+    startDate: openDate,
+    selectedStartDates: [],
+    selectedGroups: [],
+    trailer: {},
+    description: "",
+    isHighlighted: false,
+    // this will not be implemented yet
+    endTime: undefined,
+  });
+
+  const [advancedOptionsPressed, setAdvancedOptionsPressed] = useState(false);
+  const [highlightGroupPressed] = useState(false);
+
+  const { mutate: createNewNormalCalendarEvent } = useCreateCalendarEvent();
+
+  const { data: eventPresets } = useGetEventPresets();
+  const { mutate: createEventPreset } = useCreateEventPreset();
+  return (
+    <Formik
+      initialValues={normalEventInitialValues}
+      validationSchema={YupSchemas.Events.NormalEvent}
+      validateOnMount
+      validateOnChange
+      onSubmit={(
+        {
+          startTime,
+          endTime,
+          selectedGroups,
+          description,
+          trailer,
+          isHighlighted,
+          startDate,
+          selectedStartDates,
+        },
+        { setSubmitting },
+      ) => {
+        setSubmitting(true);
+
+        const groupIds =
+          selectedGroups?.filter(group => !group.highlighted).map(group => group.id as number) ||
+          [];
+
+        const highlightedGroupIds =
+          selectedGroups?.filter(group => group.highlighted).map(group => group.id as number) || [];
+
+        const mappedStartDates = selectedStartDates.map(date => {
+          return mergeDateAndTime(date as Date, startTime).toISOString();
+        });
+
+        const originalStartDate = mergeDateAndTime(startDate, startTime).toISOString();
+
+        const allStartDates = [originalStartDate, ...mappedStartDates];
+
+        const sameDatesRemoved = allStartDates.filter((date, index) => {
+          return allStartDates.indexOf(date) === index;
+        });
+
+        createNewNormalCalendarEvent({
+          normalEventEnd: endTime,
+          groupIds,
+          highlightedGroupIds,
+          description,
+          trailerId: trailer.id,
+          isHighlighted,
+          selectedStartDates: sameDatesRemoved,
+        });
+
+        setSubmitting(false);
+      }}
+    >
+      {/* normal */}
+      {({ values, isValid, setValues }) => {
+        const filteredGroups = values.selectedGroups
+          .filter(group => !group.highlighted)
+          .map(
+            group =>
+              ({
+                letter: group.letter as SGroup["letter"],
+              }) satisfies SGroup,
+          );
+
+        const filteredHighlightedGroups = values.selectedGroups
+          ?.filter(group => group.highlighted)
+          .map(
+            group =>
+              ({
+                letter: group.letter as SGroup["letter"],
+              }) satisfies SGroup,
+          );
+
+        return (
+          <Form>
+            <div className="flex flex-row justify-between pb-4">
+              <div className="flex flex-col items-start justify-start">
+                <div className="flex flex-row">
+                  <div className="flex flex-col mr-3">
+                    <p className="text-sm text-stone-600">Vali valmis üritus</p>
+                    <Modal
+                      open={isEventPresetModalOpen}
+                      setOpen={setIsEventPresetModalOpen}
+                      maxWidth="lg"
+                      modalButton={
+                        <RealButton
+                          type="button"
+                          variant="orange"
+                          size="xs"
+                          onClick={() => setIsEventPresetModalOpen(true)}
+                        >
+                          Vali preset
+                        </RealButton>
+                      }
+                    >
+                      <div className="p-4">
+                        <div className="flex flex-row items-center justify-between pl-3">
+                          <p className="text-xl font-bold">Taotle luba</p>
+                          <div
+                            role="button"
+                            tabIndex={0}
+                            onClick={() => setIsEventPresetModalOpen(false)}
+                          >
+                            <AnimationWrapper
+                              key="sub-modal-x-icon"
+                              variants={animations.rotate360}
+                            >
+                              <HiX className="w-8 h-8 fill-stone-700 hover:fill-stone-800" />
+                            </AnimationWrapper>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-4 mt-6 mb-4">
+                          {eventPresets?.map(preset => {
+                            const displayGroups = preset.groups?.map(group => {
+                              return {
+                                letter: group.letter as SGroup["letter"],
+                              } satisfies SGroup;
+                            });
+
+                            const displayHighlightedGroups = preset.highlightedGroups?.map(
+                              group => {
+                                return {
+                                  letter: group.letter as SGroup["letter"],
+                                } satisfies SGroup;
+                              },
+                            );
+
+                            const selectedGroups = [
+                              ...preset.groups,
+                              ...preset.highlightedGroups,
+                            ] as NormalEventSelectedGroupsFormValues;
+
+                            return (
+                              <button
+                                key={preset.id}
+                                className="mx-auto cursor-pointer w-fit"
+                                onClick={() => {
+                                  setValues({
+                                    isHighlighted: preset.is_highlighted,
+                                    selectedGroups,
+                                    trailer: preset.trailer,
+                                    selectedStartDates: [],
+                                    startDate: values.startDate,
+                                    startTime: preset.start ? parseISO(preset.start) : new Date(),
+                                    description: preset?.description || "",
+                                  });
+                                }}
+                              >
+                                <NormalEventDisplay
+                                  description={preset.description}
+                                  event={{
+                                    is_highlighted: preset.is_highlighted,
+                                    start: preset.start,
+                                  }}
+                                  event_trailer={preset.trailer}
+                                  groups={displayGroups}
+                                  highlighted_group={displayHighlightedGroups}
+                                />
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </Modal>
+                  </div>
+                  <div className="flex flex-col">
+                    <p className="text-sm text-stone-600">Vali trenni kellaaeg</p>
+                    <div className="pt-2">
+                      <TimePicker name="startTime" />
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                    <p className="text-sm text-stone-600">Vali trenni kuupäev</p>
+                    <DatePicker name="startDate" />
+                  </div>
+                </div>
+
+                <GroupPicker name="selectedGroups" pressed={highlightGroupPressed} />
+
+                <div className="flex flex-col mt-4">
+                  <p className="text-sm text-stone-600">Vali mitu päeva</p>
+                  <MultiDatePicker name="selectedStartDates" disabled={values.startDate} />
+                </div>
+
+                <div className="flex flex-col pt-5">
+                  <p className="text-xs text-stone-600">Näita veel parameetreid</p>
+                  <Toggle pressed={advancedOptionsPressed} setPressed={setAdvancedOptionsPressed} />
+                  {advancedOptionsPressed && (
+                    <div className="flex flex-col mt-4 ml-4 space-y-3">
+                      {/* <div className="flex flex-col">
+                                  <p className="text-xs text-stone-600">Vali millal trenn lõppeb</p>
+                                  <TimePicker name="endTime" />
+                                </div> */}
+
+                      <div className="flex flex-col">
+                        <p className="text-xs text-stone-600">Tõsta trenn esile</p>
+                        <FormikToggle name="isHighlighted" />
+                      </div>
+                      <FormikInput
+                        inputSize="sm"
+                        label="Mis trennis toimub?"
+                        placeholder="karate seminar"
+                        name="description"
+                      />
+                      <TrailerPicker name="trailer" />
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="flex flex-col justify-center ml-6 sm:ml-0">
+                <p className="self-center font-semibold justify-self-center text-stone-500">
+                  {values.startDate ? format(values.startDate, "EEEE") : "Esmaspäev"}
+                </p>
+                <div className="flex flex-col mt-2 border border-t-0 h-52 w-36 border-stone-100">
+                  <div className="flex flex-col items-center justify-center">
+                    <div className="text-xs font-medium font-number sm:text-sm md:text-base text-text-primary">
+                      {values.startDate ? format(values.startDate, "dd") : "1"}
+                    </div>
+                  </div>
+                  <div className="flex flex-col justify-center flex-grow ml-2 text-center">
+                    <div className="flex flex-col justify-start rounded-lg">
+                      <div id="normal-event" className="flex flex-row items-center justify-start">
+                        <NormalEventTime
+                          start={values.startTime}
+                          isHighlighted={values.isHighlighted}
+                        />
+                        <div id="normal-event" className={cn("flex justify-center items-center")}>
+                          <MapGroupLetter
+                            groups={
+                              filteredGroups.length === 0 && filteredHighlightedGroups.length === 0
+                                ? [{ letter: "S" }, { letter: "K" }]
+                                : filteredGroups
+                            }
+                          />
+                          <MapHighLightedGroupLetter
+                            highlightedGroups={
+                              filteredGroups.length === 0 && filteredHighlightedGroups.length === 0
+                                ? [{ letter: "N" }]
+                                : filteredHighlightedGroups
+                            }
+                          />
+                          {values.trailer && (
+                            <p
+                              id="normal-event"
+                              className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] whitespace-nowrap sm:text-[0.55rem] font-number font-semibold text-center"
+                            >
+                              {values.trailer.text}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      {values.description && (
+                        <p className="text-[0.4rem] xs:text-[0.6rem] sm:text-[0.71rem] font-semibold text-left -mt-[0.2rem]">
+                          {values.description}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <RealButton type="submit" isValid={isValid} className="mt-8" variant="orange">
+                  Loo
+                </RealButton>
+
+                <RealButton
+                  className="mt-4"
+                  variant="light"
+                  onClick={() => {
+                    const groupIds = values.selectedGroups
+                      .filter(group => !group.highlighted)
+                      .map(group => group.id as number);
+
+                    const highlightedGroupIds = values.selectedGroups
+                      .filter(group => group.highlighted)
+                      .map(group => group.id as number);
+
+                    createEventPreset({
+                      description: values.description || null,
+                      group_ids: groupIds,
+                      highlighted_group_ids: highlightedGroupIds,
+                      start: mergeDateAndTime(values.startDate, values.startTime).toISOString(),
+                      trailer_id: values.trailer.id || null,
+                      is_highlighted: values.isHighlighted,
+                    });
+                  }}
+                >
+                  Loo preset
+                </RealButton>
+              </div>
+            </div>
+          </Form>
+        );
+      }}
+    </Formik>
+  );
+};

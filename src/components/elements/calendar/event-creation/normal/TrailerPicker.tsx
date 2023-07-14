@@ -6,7 +6,7 @@ import { NormalEventTrailerFormValues } from "@/app-constants";
 import { useGetTrailers } from "@/hooks";
 import { cn } from "@/lib";
 
-import { ResizablePanel } from "../../ResizablePanel";
+import { ResizablePanel } from "../../../ResizablePanel";
 
 interface Props {
   name: string;

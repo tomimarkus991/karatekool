@@ -15,7 +15,7 @@ import { useDeleteNormalCalendarEvent, useUser } from "@/hooks";
 import { cn } from "@/lib";
 import { EventData, SEventTrailer, SGroup } from "@/types";
 
-import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "../../../Popover";
+import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "../../../../Popover";
 
 interface Props {
   event: EventData;

@@ -4,8 +4,7 @@ import { toast } from "react-hot-toast";
 import { useSupabase } from "@/context";
 import { SEventTrailer } from "@/types";
 
-import { useGetGroups } from "../useGetGroups";
-import { useGetTrailers } from "../useGetTrailers";
+import { useGetGroups, useGetTrailers } from "../calendar";
 
 export const useGetEventPresets = () => {
   const { supabase } = useSupabase();

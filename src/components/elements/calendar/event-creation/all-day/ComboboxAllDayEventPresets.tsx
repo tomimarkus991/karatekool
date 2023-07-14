@@ -3,7 +3,7 @@ import { useField } from "formik";
 import { CheckIcon } from "lucide-react";
 import { Fragment, useState } from "react";
 
-import { InputErrorText } from "../../forms";
+import { InputErrorText } from "../../../forms";
 
 interface Props {
   name: string;

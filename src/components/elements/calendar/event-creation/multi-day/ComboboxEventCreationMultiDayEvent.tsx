@@ -6,8 +6,8 @@ import { Fragment, useEffect, useState } from "react";
 import { MultiDayEventEventFormik } from "@/app-constants";
 import { useCreateMultiDayEventPreset, useGetMultiDayEventPresets } from "@/hooks";
 
-import { RealButton } from "../../button";
-import { InputErrorText } from "../../forms";
+import { RealButton } from "../../../button";
+import { InputErrorText } from "../../../forms";
 
 interface Props {
   name: string;

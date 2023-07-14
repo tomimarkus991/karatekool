@@ -6,7 +6,7 @@ import { useGetGroups } from "@/hooks";
 import { cn, groupColorMapper } from "@/lib";
 import { GroupLetters } from "@/types";
 
-import { InputErrorText } from "../../forms";
+import { InputErrorText } from "../../../forms";
 
 interface Props {
   name: string;
@@ -65,17 +65,16 @@ export const GroupPicker = ({ name }: Props) => {
             </div>
 
             <div className="grid items-center justify-center grid-cols-4 grid-rows-2 gap-1">
-              {highlightedGroups.map(highlightedGroup => {
+              {highlightedGroups.map(group => {
                 const isGroupDisabled = value?.some(
                   selectedGroup =>
-                    selectedGroup.letter === highlightedGroup.letter &&
-                    selectedGroup.highlighted === false,
+                    selectedGroup.letter === group.letter && selectedGroup.highlighted === false,
                 );
                 return (
                   <Listbox.Option
                     className={cn("flex flex-row justify-self-center")}
-                    key={highlightedGroup.id}
-                    value={highlightedGroup}
+                    key={group.id}
+                    value={group}
                     disabled={isGroupDisabled}
                   >
                     {({ selected }) => (
@@ -85,15 +84,15 @@ export const GroupPicker = ({ name }: Props) => {
                           selected ? "border-secondary" : "border-transparent",
                           isGroupDisabled && "group opacity-20 cursor-not-allowed",
                         )}
-                        key={highlightedGroup.id}
+                        key={group.id}
                       >
                         <p
                           className={cn(
                             "underline decoration-red-500",
-                            groupColorMapper(highlightedGroup?.letter as GroupLetters),
+                            groupColorMapper(group?.letter as GroupLetters),
                           )}
                         >
-                          {highlightedGroup.letter}
+                          {group.letter}
                         </p>
                         <p className="text-red-500 ml-[0.06rem]">!</p>
                       </div>

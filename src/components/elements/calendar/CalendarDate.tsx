@@ -4,10 +4,16 @@ import { format, isSameMonth, isToday } from "date-fns";
 import { useState } from "react";
 import useMeasure from "react-use-measure";
 
-import { AnimationWrapper, Event, animations } from "@/components";
+import {
+  AllDayEvent,
+  AnimationWrapper,
+  MultiDayEvent,
+  NormalEvent,
+  animations,
+} from "@/components";
 import { useUser } from "@/hooks";
 import { cn } from "@/lib";
-import { EventData } from "@/types";
+import { EventData, EventTypes } from "@/types";
 
 import { CalendarEventCreationModal } from ".";
 
@@ -77,7 +83,17 @@ export const CalendarDate = ({ events, date, month }: Props) => {
               className="relative flex flex-col flex-grow flex-shrink-0 h-full"
             >
               {events.map(event => (
-                <Event key={event.id} event={event} date={date} bounds={bounds} />
+                <>
+                  {event.event_type === EventTypes.MULTI_DAY && (
+                    <MultiDayEvent event={event} date={date} bounds={bounds} />
+                  )}
+                  {event.event_type === EventTypes.ALL_DAY && (
+                    <AllDayEvent event={event} date={date} />
+                  )}
+                  {event.event_type === EventTypes.NORMAL && (
+                    <NormalEvent key={event.id + event.event_type} event={event} date={date} />
+                  )}
+                </>
               ))}
             </div>
           </div>

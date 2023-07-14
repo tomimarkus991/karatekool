@@ -1,9 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
+import { NormalEventSelectedGroupsFormValues } from "@/app-constants";
 import { useSupabase } from "@/context";
-
-import { NormalEventSelectedGroupsFormValues } from "../../app-constants";
 
 export const useGetGroups = () => {
   const { supabase } = useSupabase();

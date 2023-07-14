@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 
 import { useSupabase } from "@/context";
 
-import { useIsMobile } from "../useIsMobile";
+import { useIsMobile } from "../../useIsMobile";
 
 export const useSignOut = () => {
   const { push, refresh } = useRouter();

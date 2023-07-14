@@ -2,12 +2,11 @@ import { isSameDay, parseISO } from "date-fns";
 import { motion } from "framer-motion";
 import { HiTrash, HiX } from "react-icons/hi";
 
-import { AnimationWrapper, animations } from "@/components";
+import { AnimationWrapper, animations, RealButton } from "@/components";
 import { useDeleteCalendarAllDayEvent, useUser } from "@/hooks";
 import { EventData } from "@/types";
 
-import { RealButton } from "../../button";
-import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "../../Popover";
+import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "../../../Popover";
 
 interface Props {
   event: EventData;
