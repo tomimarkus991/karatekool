@@ -9,6 +9,8 @@ import { FaSpinner } from "react-icons/fa";
 import { TwoElementMovingBox } from "@/components";
 import { cn } from "@/lib";
 
+import vhkDoor from "../../../../public/general/vhk_door_arrow.jpg";
+
 import {
   ContactDojosTab,
   ContactAddress,
@@ -29,6 +31,13 @@ const dojoContentVariants = (toLeft: boolean) => {
     active: {
       x: 0,
       opacity: 1,
+      transition: {
+        duration,
+      },
+    },
+    exit: {
+      x: toLeft ? -20 : 20,
+      opacity: 0,
       transition: {
         duration,
       },
@@ -101,9 +110,10 @@ export const ContactDojos = () => {
                 <Image
                   width={2000}
                   height={2000}
-                  src="/general/vhk_door_arrow.jpg"
+                  src={vhkDoor}
                   alt="vhk-door"
                   className="rounded-xl"
+                  placeholder="blur"
                 />
               </div>
             </div>

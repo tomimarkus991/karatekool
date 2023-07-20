@@ -14,7 +14,11 @@ import { UserProfile } from "../user/UserProfile";
 
 import { NavbarTopLink } from "./components";
 
-export const NavbarTop = () => {
+interface Props {
+  bg?: string;
+}
+
+export const NavbarTop = ({ bg = "bg-surface-bg" }: Props) => {
   const routes = [
     [definedRoutes.home, "kodu"],
     [definedRoutes.newcomer, "uustulnukale"],
@@ -51,7 +55,10 @@ export const NavbarTop = () => {
           scale: useTransform(scrollYBoundedProgress, [0, 1], [1, 0.8]),
           top: useTransform(scrollYBoundedProgress, [0, 1], [0, -10]),
         }}
-        className="mx-auto inset-x-0 my-2 sm2:hidden fixed top-0 z-[1200] flex rounded-md drop-shadow-lg backdrop-blur-md shadow-inner items-center w-[95%]"
+        className={cn(
+          "mx-auto inset-x-0 my-2 sm2:hidden fixed top-0 z-[1200] flex rounded-md drop-shadow-lg backdrop-blur-md shadow-inner items-center w-[95%]",
+          bg,
+        )}
       >
         <div className="flex flex-row items-center justify-between flex-1 px-4">
           <div className="flex flex-row items-center justify-start flex-1">
@@ -74,7 +81,8 @@ export const NavbarTop = () => {
       </motion.div>
       <div
         className={cn(
-          "hidden pl-2 pr-4 mt-4 sm2:flex sm2:max-w-3xl self-center md:max-w-4xl lg:max-w-5xl xl:max-w-5xl max-h-28",
+          "hidden pl-2 pr-4 mt-4 sm2:flex z-10 sm2:max-w-3xl self-center md:max-w-4xl lg:max-w-5xl xl:max-w-5xl max-h-28",
+          bg,
         )}
       >
         <div className="flex justify-between">
@@ -87,7 +95,7 @@ export const NavbarTop = () => {
           </div>
           <div className="flex flex-row items-center gap-3 font-normal lg:gap-5">
             {routes.map(([href, label], index) => (
-              <NavbarTopLink key={href} href={href} index={index}>
+              <NavbarTopLink key={href} href={href} bg={bg} index={index}>
                 {/* make first letter uppercase */}
                 {label.charAt(0).toUpperCase() + label.slice(1)}
               </NavbarTopLink>

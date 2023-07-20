@@ -5,8 +5,8 @@ import { Fragment } from "react";
 import { Icons } from "@/components/icons/Icons";
 import { cn } from "@/lib";
 
-import { animations, AnimationWrapper } from "../../components";
-import { LetterDecryptor } from "../../components/elements/LetterDecryptor";
+import { animations, AnimationWrapper } from "../../../components";
+import { LetterDecryptor } from "../../../components/elements/LetterDecryptor";
 
 interface ContactHeadingProps {
   children: string;

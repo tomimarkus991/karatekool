@@ -4,8 +4,13 @@ import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 
+import tiger from "../../public/general/tiger-hero.png";
 import { AnimationWrapper, animations } from "../components";
 import { Scroller, MobileScroller } from "../components/elements/home-page/Scrollers";
+import { EmailSender } from "../components/elements/navigation/EmailSender";
+import { Footer } from "../components/elements/navigation/Footer";
+import { NavbarTop } from "../components/elements/navigation/NavbarTop";
+import { Sidebar } from "../components/elements/sidebar/Sidebar";
 import { useAnimateScroll } from "../hooks";
 
 export const Section1 = () => {
@@ -261,5 +266,91 @@ export const Section2 = () => {
       {/* <span>Other content here {":)"}</span> */}
       {/* </div> */}
     </>
+  );
+};
+
+export const MainComponent = () => {
+  // const { control: section1ImageControl, ref: section1ImageRef } = useAnimateScroll();
+  const { control: section1TextControl, ref: section1TextRef } = useAnimateScroll();
+
+  const targetRef = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+  });
+
+  return (
+    <div className="flex flex-col justify-between min-h-screen">
+      <NavbarTop bg="bg-white" />
+      <div className="pt-36 sm2:pt-8">
+        <div className="flex flex-col justify-center w-full min-h-screen">
+          <Image
+            priority
+            fill
+            quality={100}
+            src={tiger}
+            placeholder="blur"
+            alt="tiiger"
+            className="object-cover p-3 pointer-events-none select-none md:mt-0 mt-28"
+            style={{ objectPosition: "75%" }}
+          />
+
+          <div className="relative md:absolute z-10 top-[20%] md:ml-4 md:top-[30%] lg:top-[40%] lg:ml-16 xl:ml-32 2xl:ml-80">
+            <AnimationWrapper
+              className="mx-auto mb-3 text-center md:mb-0"
+              ref={section1TextRef}
+              animate={section1TextControl}
+              variants={animations.pageItems.fadeInFromLeft}
+            >
+              <p className="text-4xl font-semibold md:text-5xl lg:text-[6xl]">Ilusat suve!</p>
+              <p className="text-xl md:text-2xl lg:text-[3xl]">
+                Avame registreerimise Augusti lõpus!
+              </p>
+            </AnimationWrapper>
+          </div>
+          <section ref={targetRef} className="relative h-[200vh] w-full max-w-7xl mx-auto">
+            <div className="sticky top-[120%] z-0 grid h-screen grid-cols-3 grid-rows-3 gap-4 p-4">
+              {/* <Copy scrollYProgress={scrollYProgress} /> */}
+              <Images scrollYProgress={scrollYProgress} />
+              {/* <Circles /> */}
+            </div>
+          </section>
+          <Scroller />
+          <MobileScroller />
+        </div>
+      </div>
+      <Sidebar />
+      <Footer bg="bg-white" />
+      <EmailSender />
+    </div>
+    // <div className="relative flex flex-col overflow-hidden md:mt-12 md:flex-row">
+    //   <AnimationWrapper
+    //     className="self-center mb-3 text-center md:mb-0"
+    //     ref={section1TextRef}
+    //     animate={section1TextControl}
+    //     variants={animations.pageItems.fadeInFromLeft}
+    //   >
+    //     <p className="text-4xl font-semibold">Ilusat suve!</p>
+    //     <p className="text-2xl">Avame registreerimise Augusti lõpus!</p>
+    //   </AnimationWrapper>
+
+    //   <AnimationWrapper
+    //     ref={section1ImageRef}
+    //     animate={section1ImageControl}
+    //     variants={animations.pageItems.fadeInFromRight}
+    //   >
+    // <Image
+    //   priority
+    //   quality={100}
+    //   src={tiger}
+    //   placeholder="blur"
+    //   alt="tiiger"
+    //   className="object-cover rounded-lg pointer-events-none select-none ml-44 w-96"
+    //   style={{ objectPosition: "75%" }}
+    // />
+    //   </AnimationWrapper>
+
+    //   <Scroller />
+    //   <MobileScroller />
+    // </div>
   );
 };

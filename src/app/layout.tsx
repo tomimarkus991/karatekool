@@ -12,14 +12,10 @@ import { Catamaran, Quicksand, Rubik } from "next/font/google";
 import { NextLayoutProps } from "@/types";
 
 import { cn } from "@/lib";
-import { Footer } from "../components/elements/navigation/Footer";
-import { NavbarTop } from "../components/elements/navigation/NavbarTop";
-import { Sidebar } from "../components/elements/sidebar/Sidebar";
 import SupabaseListener from "../components/supabase/supabaseListener";
 import { SupabaseProvider } from "@/context/SupabaseContext";
 import { createServerClient } from "../lib/supabaseServer";
 import { Three3DLayout } from "@/three/components/Three3DLayout";
-import { EmailSender } from "../components/elements/navigation/EmailSender";
 
 const APP_NAME = "Karatekool Nüke";
 const APP_DEFAULT_TITLE = "Karatekool Nüke";
@@ -90,7 +86,7 @@ export default async function RootLayout({ children }: NextLayoutProps) {
 
       <body
         className={cn(
-          "min-h-screen bg-surface-bg font-catamaran antialiased flex flex-col",
+          "min-h-screen font-catamaran antialiased flex flex-col",
           catamaran.variable,
           rubik.variable,
           quicksand.variable,
@@ -99,15 +95,7 @@ export default async function RootLayout({ children }: NextLayoutProps) {
         <Three3DLayout>
           <SupabaseProvider session={session}>
             <SupabaseListener serverAccessToken={session?.access_token} />
-            <AppWrapper>
-              <div className="flex flex-col justify-between min-h-screen">
-                <NavbarTop />
-                <div className="px-4 pt-36 sm2:pt-8">{children}</div>
-                <Sidebar />
-                <Footer />
-                <EmailSender />
-              </div>
-            </AppWrapper>
+            <AppWrapper>{children}</AppWrapper>
           </SupabaseProvider>
         </Three3DLayout>
       </body>

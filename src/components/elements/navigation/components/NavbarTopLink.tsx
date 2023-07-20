@@ -10,6 +10,7 @@ import { cn } from "@/lib";
 
 interface SidebarItemProps {
   href: any;
+  bg?: string;
   index: number;
   children?: string;
 }
@@ -17,7 +18,7 @@ interface SidebarItemProps {
 type Props = SidebarItemProps &
   Omit<ForwardRefComponent<HTMLDivElement, HTMLMotionProps<"div">>, "$$typeof">;
 
-export const NavbarTopLink = ({ children, href, index, ...props }: Props) => {
+export const NavbarTopLink = ({ children, href, index, bg = "bg-surface-bg", ...props }: Props) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const pathname = usePathname();
 
@@ -26,13 +27,16 @@ export const NavbarTopLink = ({ children, href, index, ...props }: Props) => {
       key={href}
       onMouseEnter={() => setHoveredIndex(index)}
       onMouseLeave={() => setHoveredIndex(null)}
-      className="relative px-4 py-1 -mx-3 cursor-pointer group xl:px-6"
+      className="relative px-4 -mx-3 cursor-pointer group xl:px-6"
       {...props}
     >
       <AnimatePresence>
         {hoveredIndex === index && (
           <motion.span
-            className="absolute inset-0 bg-[#f0f2f4] rounded-xl"
+            className={cn(
+              bg !== "bg-surface-bg" ? "bg-stone-100" : "bg-[#f0f2f4]",
+              "absolute inset-0 rounded-xl",
+            )}
             layoutId="hoverBackground"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { duration: 0.15 } }}

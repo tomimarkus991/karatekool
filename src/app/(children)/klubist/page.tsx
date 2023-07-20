@@ -7,7 +7,7 @@ import { Fragment } from "react";
 import { RealDiamondButton, ResizablePanel } from "@/components";
 import { cn } from "@/lib";
 
-import { LetterDecryptor } from "../../components/elements/LetterDecryptor";
+import { LetterDecryptor } from "../../../components/elements/LetterDecryptor";
 
 import { AboutPanel } from "./AboutPanel";
 

@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import { LoginModal, RegisterModal } from "@/components";
 import { useGetMaterials, useUser } from "@/hooks";
 
-import { useSupabase } from "../../context";
+import { useSupabase } from "../../../context";
 
 export default function Page() {
   const { data: user } = useUser();

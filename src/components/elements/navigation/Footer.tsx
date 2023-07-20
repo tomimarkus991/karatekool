@@ -8,8 +8,12 @@ import { Icons } from "@/components/icons/Icons";
 import { socialMedia } from "@/config";
 import { cn } from "@/lib";
 
-export const Footer = () => (
-  <div className="relative mt-12 waves-aspect">
+interface Props {
+  bg?: string;
+}
+
+export const Footer = ({ bg = "bg-surface-bg" }: Props) => (
+  <div className={cn("relative mt-12 waves-aspect", bg)}>
     <div
       className={cn("absolute z-10 flex bottom-0 left-0 w-full h-full justify-center items-center")}
     >
