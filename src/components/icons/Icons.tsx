@@ -1,9 +1,7 @@
-import { LucideProps, type Icon as LucideIcon } from "lucide-react";
+import { LucideProps } from "lucide-react";
 import { SVGProps } from "react";
 
 import { AnimationWrapper, animations } from "@/components";
-
-export type Icon = LucideIcon;
 
 export const Icons = {
   gitHub: (props: LucideProps) => (
