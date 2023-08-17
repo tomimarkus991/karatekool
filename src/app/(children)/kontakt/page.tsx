@@ -1,21 +1,13 @@
-"use client";
+import { Metadata } from "next";
 
-import { ContactDojos } from "./ContactDojos";
-import { ContactHeading } from "./ContactUtils";
+import { KontaktPageComponent } from "./KontaktPageComponent";
+
+export const metadata: Metadata = {
+  title: "Kontakt ja Klubid",
+  description:
+    "Võta ühendust Nüke Klubiga või külasta meid meie võimlates Vanalinnas ja Sikupillis.",
+};
 
 export default function Page() {
-  return (
-    <>
-      <div className="mb-4 md:hidden">
-        <ContactHeading>Kontakt</ContactHeading>
-        <div className="space-y-2 text-[0.9rem]">
-          <p>(+372) 57 50 17 33</p>
-          <p>info@karatekool.ee</p>
-          <p>MTÜ Karate-do klubi Nüke</p>
-          <p>EE 2310 1022 0004 3840 13</p>
-        </div>
-      </div>
-      <ContactDojos />
-    </>
-  );
+  return <KontaktPageComponent />;
 }

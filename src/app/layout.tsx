@@ -20,7 +20,7 @@ import { Three3DLayout } from "@/three/components/Three3DLayout";
 const APP_NAME = "Karatekool Nüke";
 const APP_DEFAULT_TITLE = "Karatekool Nüke";
 const APP_TITLE_TEMPLATE = "%s - Karatekool Nüke";
-const APP_DESCRIPTION = "Karatekool nüke koduleht!";
+const APP_DESCRIPTION = "Karatekool Nüke koduleht!";
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,
