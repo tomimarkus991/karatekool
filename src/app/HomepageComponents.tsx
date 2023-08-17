@@ -281,7 +281,7 @@ export const MainComponent = () => {
   return (
     <div className="flex flex-col justify-between min-h-screen">
       <NavbarTop bg="bg-white" />
-      <div className="pt-36 sm2:pt-8">
+      <div className="pt-32 sm2:pt-8">
         <div className="flex flex-col justify-center w-full min-h-screen">
           <Image
             priority
@@ -295,7 +295,7 @@ export const MainComponent = () => {
 
           <div className="relative lg:absolute z-10 top-[20%] md:!top-[50%] lg:!top-[30%] lg:ml-16 xl:ml-32 2xl:ml-80">
             <AnimationWrapper
-              className="mx-auto mb-3 text-center md:mb-0"
+              className="mx-auto mb-5 text-center md:mb-0"
               ref={section1TextRef}
               animate={section1TextControl}
               variants={animations.pageItems.fadeInFromLeft}
@@ -307,12 +307,12 @@ export const MainComponent = () => {
             </AnimationWrapper>
 
             <AnimationWrapper
-              className="mx-auto mt-16 text-center lg:mt-28"
+              className="mx-auto text-center sm:mt-16 lg:mt-28"
               ref={section1TextRef}
               animate={section1TextControl}
               variants={animations.pageItems.fadeInFromLeftDelayed}
             >
-              <p className="text-3xl font-semibold md:text-4xl lg:text-4xl xl:text-5xl">
+              <p className="text-2xl font-semibold sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl">
                 Nüke 35-hooaeg, 2023/2024
               </p>
             </AnimationWrapper>
