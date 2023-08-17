@@ -6,14 +6,14 @@ import { Database } from "../types/supabase";
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 
-export const createServerClient = () =>
-  createServerComponentClient<Database>(
-    {
-      cookies,
-    },
+export const createServerClient = () => {
+  const cookieStore = cookies();
+  return createServerComponentClient<Database>(
+    { cookies: () => cookieStore },
     {
       // headers,
       supabaseKey,
       supabaseUrl,
     },
   );
+};
