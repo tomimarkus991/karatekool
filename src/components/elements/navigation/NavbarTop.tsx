@@ -86,12 +86,14 @@ export const NavbarTop = ({ bg = "bg-surface-bg" }: Props) => {
         )}
       >
         <div className="flex justify-between">
-          <div className="flex flex-row items-center space-x-1 lg:space-x-3">
-            <Icons.logo2 className="scale-[1] lg:scale-[1] mr-4 lg:mr-20" />
-            {/* <div className="font-semibold">
-            <p className="md:text-2xl lg:text-2xl md:hidden lg:block">Nüke</p>
-            <p className="md:text-base lg:text-lg md:hidden lg:block">karate-do klubi</p>
-          </div> */}
+          <div className="flex flex-row items-center space-x-1 md:mr-16 sm2:mr-12 lg:mr-28 lg:space-x-3">
+            <Icons.logo2 className="scale-[1] sm2:mr-1" />
+            <div className="mr-4 font-semibold">
+              <p className="sm2:text-xl md:text-2xl sm:hidden sm2:block !leading-[1.2rem]">Nüke</p>
+              <p className="sm2:text-base md:text-lg sm:hidden sm2:block !leading-[1.2rem]">
+                karate-do klubi
+              </p>
+            </div>
           </div>
           <div className="flex flex-row items-center gap-3 font-normal lg:gap-5">
             {routes.map(([href, label], index) => (
@@ -108,9 +110,6 @@ export const NavbarTop = ({ bg = "bg-surface-bg" }: Props) => {
               />
             ) : (
               <>
-                <div className="z-10 lg:hidden">
-                  <LoginModal />
-                </div>
                 <div className="z-10 max-lg:hidden lg:block">
                   <LoginModal />
                 </div>

@@ -21,12 +21,17 @@ const fadeInFromLeft: Variants = {
   initial: { opacity: 0, x: -100 },
   animate: { opacity: 1, x: 0, transition: { delay: 0.1, duration: 0.5, ease: "easeInOut" } },
 };
+const fadeInFromLeftDelayed: Variants = {
+  initial: { opacity: 0, x: -100 },
+  animate: { opacity: 1, x: 0, transition: { delay: 1, duration: 0.5, ease: "easeInOut" } },
+};
 
 const pageItems = {
   fadeInFromTop,
   fadeInFromBottom,
   fadeInFromLeft,
   fadeInFromRight,
+  fadeInFromLeftDelayed,
 };
 
 const mouseFadeInFromBottom: Variants = {
