@@ -3,7 +3,7 @@
 import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
 import { useState } from "react";
-import { HiX } from "react-icons/hi";
+import { HiPencil, HiTrash, HiX } from "react-icons/hi";
 
 import {
   NormalEventFormValues,
@@ -26,7 +26,12 @@ import {
   Toggle,
   animations,
 } from "@/components";
-import { useCreateCalendarEvent, useCreateEventPreset, useGetEventPresets } from "@/hooks";
+import {
+  useCreateCalendarEvent,
+  useCreateEventPreset,
+  useDeleteEventPreset,
+  useGetEventPresets,
+} from "@/hooks";
 import { cn } from "@/lib";
 import { SGroup } from "@/types";
 
@@ -42,13 +47,149 @@ const mergeDateAndTime = (startDate: Date, startTime: Date): Date => {
   return result;
 };
 
+interface PresetsModalProps {
+  values: NormalEventFormValues;
+  setValues: (data: NormalEventFormValues) => any;
+}
+
+const PresetsModal = ({ values, setValues }: PresetsModalProps) => {
+  const [isEventPresetModalOpen, setIsEventPresetModalOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const { data: eventPresets } = useGetEventPresets();
+  const { mutate: deletePreset } = useDeleteEventPreset();
+
+  return (
+    <Modal
+      open={isEventPresetModalOpen}
+      setOpen={setIsEventPresetModalOpen}
+      maxWidth="lg"
+      modalButton={
+        <RealButton
+          type="button"
+          variant="orange"
+          size="xs"
+          onClick={() => setIsEventPresetModalOpen(true)}
+        >
+          Vali valmis üritus
+        </RealButton>
+      }
+      closeOnOverlayClick={false}
+    >
+      <div className="p-4">
+        <div className="flex flex-row items-center justify-between pl-3">
+          <div className="flex flex-row">
+            {isEditing ? (
+              <p className="text-xl font-bold">Vali milline üritus kustutada</p>
+            ) : (
+              <p className="text-xl font-bold">Valmis üritused</p>
+            )}
+
+            <AnimationWrapper className="ml-2 cursor-pointer" variants={animations.smallScaleXs}>
+              <HiPencil className="w-6 h-6 text-red-600" onClick={() => setIsEditing(!isEditing)} />
+            </AnimationWrapper>
+          </div>
+          <div
+            role="button"
+            tabIndex={0}
+            onClick={() => {
+              setIsEventPresetModalOpen(false);
+              setIsEditing(false);
+            }}
+          >
+            <AnimationWrapper key="sub-modal-x-icon" variants={animations.rotate360}>
+              <HiX className="w-8 h-8 fill-stone-700 hover:fill-stone-800" />
+            </AnimationWrapper>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-4 mt-6 mb-4">
+          {eventPresets?.map(preset => {
+            const displayGroups = preset.groups?.map(group => {
+              return {
+                letter: group.letter as SGroup["letter"],
+              } satisfies SGroup;
+            });
+
+            const displayHighlightedGroups = preset.highlightedGroups?.map(group => {
+              return {
+                letter: group.letter as SGroup["letter"],
+              } satisfies SGroup;
+            });
+
+            const selectedGroups = [
+              ...preset.groups,
+              ...preset.highlightedGroups,
+            ] as NormalEventSelectedGroupsFormValues;
+
+            return (
+              <>
+                {isEditing ? (
+                  <button
+                    key={preset.id}
+                    className="flex flex-col mx-auto opacity-50 cursor-pointer w-fit hover:opacity-100"
+                    onClick={() => {
+                      deletePreset({ id: preset.id });
+                    }}
+                  >
+                    <NormalEventDisplay
+                      description={preset.description}
+                      event={{
+                        is_highlighted: preset.is_highlighted,
+                        start: preset.start,
+                      }}
+                      event_trailer={preset.trailer}
+                      groups={displayGroups}
+                      highlighted_group={displayHighlightedGroups}
+                    />
+                    <HiTrash className="self-center w-6 h-6 text-red-600" />
+                  </button>
+                ) : (
+                  <button
+                    key={preset.id}
+                    className="mx-auto cursor-pointer w-fit"
+                    onClick={() => {
+                      setValues({
+                        isHighlighted: preset.is_highlighted,
+                        selectedGroups,
+                        trailer: preset.trailer,
+                        selectedStartDates: [],
+                        startDate: values.startDate,
+                        startTime: preset.start ? parseISO(preset.start) : new Date(),
+                        description: preset?.description || "",
+                      });
+
+                      setIsEventPresetModalOpen(false);
+                    }}
+                  >
+                    <AnimationWrapper className="cursor-pointer" variants={animations.smallScale}>
+                      <NormalEventDisplay
+                        description={preset.description}
+                        event={{
+                          is_highlighted: preset.is_highlighted,
+                          start: preset.start,
+                        }}
+                        event_trailer={preset.trailer}
+                        groups={displayGroups}
+                        highlighted_group={displayHighlightedGroups}
+                      />
+                    </AnimationWrapper>
+                  </button>
+                )}
+              </>
+            );
+          })}
+        </div>
+      </div>
+    </Modal>
+  );
+};
+
 interface Props {
   openDate: Date;
 }
 
 export const NormalEventCreationTab = ({ openDate }: Props) => {
-  const [isEventPresetModalOpen, setIsEventPresetModalOpen] = useState(false);
-
   const [normalEventInitialValues] = useState<NormalEventFormValues>({
     startTime: new Date(),
     startDate: openDate,
@@ -66,7 +207,6 @@ export const NormalEventCreationTab = ({ openDate }: Props) => {
 
   const { mutate: createNewNormalCalendarEvent } = useCreateCalendarEvent();
 
-  const { data: eventPresets } = useGetEventPresets();
   const { mutate: createEventPreset } = useCreateEventPreset();
   return (
     <Formik
@@ -145,95 +285,11 @@ export const NormalEventCreationTab = ({ openDate }: Props) => {
           <Form>
             <div className="flex flex-row justify-between pb-4">
               <div className="flex flex-col items-start justify-start">
+                <div className="flex flex-col mb-3">
+                  <p className="text-sm text-stone-600">Vali valmis üritus</p>
+                  <PresetsModal values={values} setValues={setValues} />
+                </div>
                 <div className="flex flex-row">
-                  <div className="flex flex-col mr-3">
-                    <p className="text-sm text-stone-600">Vali valmis üritus</p>
-                    <Modal
-                      open={isEventPresetModalOpen}
-                      setOpen={setIsEventPresetModalOpen}
-                      maxWidth="lg"
-                      modalButton={
-                        <RealButton
-                          type="button"
-                          variant="orange"
-                          size="xs"
-                          onClick={() => setIsEventPresetModalOpen(true)}
-                        >
-                          Vali preset
-                        </RealButton>
-                      }
-                    >
-                      <div className="p-4">
-                        <div className="flex flex-row items-center justify-between pl-3">
-                          <p className="text-xl font-bold">Taotle luba</p>
-                          <div
-                            role="button"
-                            tabIndex={0}
-                            onClick={() => setIsEventPresetModalOpen(false)}
-                          >
-                            <AnimationWrapper
-                              key="sub-modal-x-icon"
-                              variants={animations.rotate360}
-                            >
-                              <HiX className="w-8 h-8 fill-stone-700 hover:fill-stone-800" />
-                            </AnimationWrapper>
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-4 mt-6 mb-4">
-                          {eventPresets?.map(preset => {
-                            const displayGroups = preset.groups?.map(group => {
-                              return {
-                                letter: group.letter as SGroup["letter"],
-                              } satisfies SGroup;
-                            });
-
-                            const displayHighlightedGroups = preset.highlightedGroups?.map(
-                              group => {
-                                return {
-                                  letter: group.letter as SGroup["letter"],
-                                } satisfies SGroup;
-                              },
-                            );
-
-                            const selectedGroups = [
-                              ...preset.groups,
-                              ...preset.highlightedGroups,
-                            ] as NormalEventSelectedGroupsFormValues;
-
-                            return (
-                              <button
-                                key={preset.id}
-                                className="mx-auto cursor-pointer w-fit"
-                                onClick={() => {
-                                  setValues({
-                                    isHighlighted: preset.is_highlighted,
-                                    selectedGroups,
-                                    trailer: preset.trailer,
-                                    selectedStartDates: [],
-                                    startDate: values.startDate,
-                                    startTime: preset.start ? parseISO(preset.start) : new Date(),
-                                    description: preset?.description || "",
-                                  });
-                                }}
-                              >
-                                <NormalEventDisplay
-                                  description={preset.description}
-                                  event={{
-                                    is_highlighted: preset.is_highlighted,
-                                    start: preset.start,
-                                  }}
-                                  event_trailer={preset.trailer}
-                                  groups={displayGroups}
-                                  highlighted_group={displayHighlightedGroups}
-                                />
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </Modal>
-                  </div>
                   <div className="flex flex-col">
                     <p className="text-sm text-stone-600">Vali trenni kellaaeg</p>
                     <div className="pt-2">
@@ -282,7 +338,7 @@ export const NormalEventCreationTab = ({ openDate }: Props) => {
                 <p className="self-center font-semibold justify-self-center text-stone-500">
                   {values.startDate ? format(values.startDate, "EEEE") : "Esmaspäev"}
                 </p>
-                <div className="flex flex-col mt-2 border border-t-0 h-52 w-36 border-stone-100">
+                <div className="flex flex-col self-center mt-2 border border-t-0 h-52 w-36 border-stone-100">
                   <div className="flex flex-col items-center justify-center">
                     <div className="text-xs font-medium font-number sm:text-sm md:text-base text-text-primary">
                       {values.startDate ? format(values.startDate, "dd") : "1"}

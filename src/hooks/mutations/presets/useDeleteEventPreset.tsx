@@ -24,7 +24,7 @@ export const useDeleteEventPreset = () => {
 
   return useMutation((user: Props) => execute(user), {
     onSuccess: () => {
-      toast.success("Preset kustutatud");
+      toast.success("Valmis üritus kustutatud");
       queryClient.invalidateQueries({
         queryKey: ["event_presets"],
         stale: true,
