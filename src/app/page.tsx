@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-import { MainComponent } from "./HomepageComponents";
+import { MainComponent } from "./(home_components)/HomepageComponents";
 
 export const metadata: Metadata = {
   title: "Nüke Kodu",

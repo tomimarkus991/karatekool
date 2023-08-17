@@ -4,14 +4,17 @@ import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 
-import tiger from "../../public/general/tiger-hero.png";
-import { AnimationWrapper, animations } from "../components";
-import { Scroller, MobileScroller } from "../components/elements/home-page/Scrollers";
-import { EmailSender } from "../components/elements/navigation/EmailSender";
-import { Footer } from "../components/elements/navigation/Footer";
-import { NavbarTop } from "../components/elements/navigation/NavbarTop";
-import { Sidebar } from "../components/elements/sidebar/Sidebar";
-import { useAnimateScroll } from "../hooks";
+import { AnimationWrapper, animations } from "../../components";
+import { Scroller, MobileScroller } from "../../components/elements/home-page/Scrollers";
+import { EmailSender } from "../../components/elements/navigation/EmailSender";
+import { Footer } from "../../components/elements/navigation/Footer";
+import { NavbarTop } from "../../components/elements/navigation/NavbarTop";
+import { Sidebar } from "../../components/elements/sidebar/Sidebar";
+import { useAnimateScroll } from "../../hooks";
+
+import BigGroupJaneda from "./big-group-janeda.png";
+import ParnuFront from "./parnu-front.png";
+import Tiger from "./tiger-hero.png";
 
 export const Section1 = () => {
   const scrollToRef = useRef<any>(null);
@@ -46,10 +49,9 @@ export const Section1 = () => {
           <Image
             width={1439}
             height={751}
-            priority
             className="w-full m-auto md:max-w-lg rounded-xl"
             alt="house"
-            src="/general/home/parnu-front.png"
+            src={ParnuFront}
           />
         </AnimationWrapper>
 
@@ -67,10 +69,9 @@ export const Section1 = () => {
           <Image
             width={1439}
             height={751}
-            priority
             className="w-full m-auto md:max-w-md rounded-xl"
             alt="house"
-            src="/general/home/big-group-janeda.png"
+            src={BigGroupJaneda}
           />
         </AnimationWrapper>
 
@@ -163,8 +164,7 @@ const Images = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) =
       <motion.div
         className="relative z-10 col-span-2"
         style={{
-          backgroundImage:
-            "url(https://wqdplpmiyvwmetnipmwd.supabase.co/storage/v1/object/sign/images/55.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvNTUucG5nIiwiaWF0IjoxNjg5MTg4NDkzLCJleHAiOjE3MjA3MjQ0OTN9.zRwyNc11lFsxvCIs1SwifMFi3xvIyip1qEpDoWyhdbI&t=2023-07-12T19%3A01%3A32.811Z)",
+          backgroundImage: "url(/general/home/johann.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           scale,
@@ -175,8 +175,7 @@ const Images = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) =
       <motion.div
         className="relative z-10"
         style={{
-          backgroundImage:
-            "url(https://wqdplpmiyvwmetnipmwd.supabase.co/storage/v1/object/sign/images/nuke55.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvbnVrZTU1LnBuZyIsImlhdCI6MTY4OTE4ODU1OSwiZXhwIjoxNzIwNzI0NTU5fQ.7MNFQrzP2C2hF91a0sYJIXJUCf9bamY_pA_LNCmdIkM&t=2023-07-12T19%3A02%3A39.361Z)",
+          backgroundImage: "url(/general/home/poisid-kata.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           scale,
@@ -187,8 +186,7 @@ const Images = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) =
       <motion.div
         className="relative z-10"
         style={{
-          backgroundImage:
-            "url(https://wqdplpmiyvwmetnipmwd.supabase.co/storage/v1/object/sign/images/nuke5.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvbnVrZTUucG5nIiwiaWF0IjoxNjg5MTg4NTUzLCJleHAiOjE3MjA3MjQ1NTN9.JwR77HQcBm7VKE2fNMx5AA-VLTWDBqea8gQvFO4DA78&t=2023-07-12T19%3A02%3A33.025Z)",
+          backgroundImage: "url(/general/home/big-group-janeda.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           scale,
@@ -199,8 +197,7 @@ const Images = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) =
       <motion.div
         className="relative z-10"
         style={{
-          backgroundImage:
-            "url(https://wqdplpmiyvwmetnipmwd.supabase.co/storage/v1/object/sign/images/nuke45.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvbnVrZTQ1LnBuZyIsImlhdCI6MTY4OTE4ODU0NiwiZXhwIjoxNzIwNzI0NTQ2fQ.CDQOkl-CSQyYYcn39zPp1LnGMg9TjLwBDYAAlkZqwMY&t=2023-07-12T19%3A02%3A26.751Z)",
+          backgroundImage: "url(/general/home/parnu-front.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           scale,
@@ -211,8 +208,7 @@ const Images = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) =
       <motion.div
         className="relative z-10"
         style={{
-          backgroundImage:
-            "url(https://wqdplpmiyvwmetnipmwd.supabase.co/storage/v1/object/sign/images/nuke455.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvbnVrZTQ1NS5wbmciLCJpYXQiOjE2ODkyMjc5NzIsImV4cCI6MTcyMDc2Mzk3Mn0.IJRq1N0eUqZ__Co1kINt-fm9ikuIRAkZAV2cmCq9aew&t=2023-07-13T05%3A59%3A32.094Z)",
+          backgroundImage: "url(/general/home/nuke-old-image.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           scale,
@@ -223,8 +219,7 @@ const Images = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) =
       <motion.div
         className="relative z-10 col-span-3"
         style={{
-          backgroundImage:
-            "url(https://wqdplpmiyvwmetnipmwd.supabase.co/storage/v1/object/sign/images/nuke33.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWFnZXMvbnVrZTMzLnBuZyIsImlhdCI6MTY4OTE4ODUxNSwiZXhwIjoxNzIwNzI0NTE1fQ.yX25ThF5Biq6EQd5VFqFT0JqfOb0hThWCZ4oyScTFv0&t=2023-07-12T19%3A01%3A55.569Z)",
+          backgroundImage: "url(/general/home/club-all.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           scale,
@@ -287,7 +282,7 @@ export const MainComponent = () => {
             priority
             fill
             quality={100}
-            src={tiger}
+            src={Tiger}
             placeholder="blur"
             alt="tiiger"
             className="object-cover lg:ml-28 pointer-events-none md:!object-[88%] object-[75%] 2xl:!scale-[.85] sm:!scale-80 md:!scale-75 lg:!scale-[.84] select-none lg:mt-0 mt-28"
@@ -354,7 +349,7 @@ export const MainComponent = () => {
     // <Image
     //   priority
     //   quality={100}
-    //   src={tiger}
+    //   src={Tiger}
     //   placeholder="blur"
     //   alt="tiiger"
     //   className="object-cover rounded-lg pointer-events-none select-none ml-44 w-96"
