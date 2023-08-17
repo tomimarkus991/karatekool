@@ -290,11 +290,10 @@ export const MainComponent = () => {
             src={tiger}
             placeholder="blur"
             alt="tiiger"
-            className="object-cover p-3 pointer-events-none select-none md:mt-0 mt-28"
-            style={{ objectPosition: "75%" }}
+            className="object-cover lg:ml-28 pointer-events-none md:!object-[88%] object-[75%] 2xl:!scale-[.85] sm:!scale-80 md:!scale-75 lg:!scale-[.84] select-none lg:mt-0 mt-28"
           />
 
-          <div className="relative md:absolute z-10 top-[20%] md:ml-4 md:top-[30%] lg:top-[40%] lg:ml-16 xl:ml-32 2xl:ml-80">
+          <div className="relative lg:absolute z-10 top-[20%] md:!top-[50%] lg:!top-[30%] lg:ml-16 xl:ml-32 2xl:ml-80">
             <AnimationWrapper
               className="mx-auto mb-3 text-center md:mb-0"
               ref={section1TextRef}
@@ -306,7 +305,21 @@ export const MainComponent = () => {
                 Avame registreerimise Augusti lõpus!
               </p>
             </AnimationWrapper>
+
+            <AnimationWrapper
+              className="mx-auto mt-16 text-center lg:mt-28"
+              ref={section1TextRef}
+              animate={section1TextControl}
+              variants={animations.pageItems.fadeInFromLeftDelayed}
+            >
+              <p className="text-3xl font-semibold md:text-4xl lg:text-4xl xl:text-5xl">
+                Nüke 35-hooaeg, 2023/2024
+              </p>
+            </AnimationWrapper>
           </div>
+          {/* <div className="relative lg:absolute z-10 top-[40%] md:!top-[70%] lg:!top-[50%] lg:ml-112 xl:ml-24 2xl:ml-64">
+
+          </div> */}
           <section ref={targetRef} className="relative h-[200vh] w-full max-w-7xl mx-auto">
             <div className="sticky top-[120%] z-0 grid h-screen grid-cols-3 grid-rows-3 gap-4 p-4">
               {/* <Copy scrollYProgress={scrollYProgress} /> */}
