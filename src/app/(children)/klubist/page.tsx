@@ -10,6 +10,7 @@ import { cn } from "@/lib";
 import { LetterDecryptor } from "../../../components/elements/LetterDecryptor";
 
 import { AboutPanel } from "./AboutPanel";
+import TreenerHerik from "./treener-herik.png";
 
 export default function Page() {
   interface Props {
@@ -26,9 +27,9 @@ export default function Page() {
   );
 
   return (
-    <div className="max-w-4xl m-auto">
+    <div className="max-w-4xl m-auto mt-6">
       <div className="mb-5">
-        <h1 className="mb-3 text-xl font-semibold">
+        <h1 className="mb-3 text-2xl font-semibold">
           <LetterDecryptor>Nüke klubist</LetterDecryptor>
         </h1>
         <p className="mb-2 text-base font-light md:text-lg">
@@ -46,16 +47,19 @@ export default function Page() {
           elumaneeri kohaselt.
         </p>
       </div>
-      <h1 className="mb-3 text-xl font-semibold">
-        <LetterDecryptor>Nüke treener</LetterDecryptor>
+      <h1 className="mb-3 text-2xl font-semibold">
+        <LetterDecryptor>Klubi Nüke peaõpetaja</LetterDecryptor>
       </h1>
       <div className="flex flex-col items-center justify-center md:flex-row">
-        <div className="relative aspect-[1/1] w-60 h-60 md:w-80 md:h-80 object-cover">
+        <div className="relative aspect-[1/1] w-60 h-60 lg:mr-24 md:w-80 md:h-80 object-cover">
           <Image
-            fill
-            alt="treener-herik"
-            src="/general/treener-herik.png"
-            className="self-center xs2:self-start md:self-center xs2:mr-16"
+            src={TreenerHerik}
+            alt="Treener Herik"
+            priority
+            width={700}
+            quality={100}
+            placeholder="blur"
+            className="self-center rounded-full xs2:self-start md:self-center xs2:mr-16"
           />
         </div>
         <div className="flex flex-col">
@@ -63,8 +67,7 @@ export default function Page() {
           <div className="flex flex-col space-y-5 md:space-y-10">
             <div className="flex flex-row items-center justify-center">
               <IconText
-                text="Klubi Nüke peaõpetaja ja musta vöö 3.aste IV kategooria karatetreener. (Riiklikult
-                  atesteeritud)."
+                text="Musta vöö 4.aste, EKR VI taseme karateõpetaja."
                 icon={
                   <Image
                     width={0}
@@ -76,7 +79,7 @@ export default function Page() {
                 }
               />
             </div>
-            <div className="flex flex-row items-center justify-end max-w-sm ml-auto">
+            <div className="flex flex-row items-center justify-end max-w-sm ml-auto md:mr-12 lg:mr-0">
               <IconText
                 text="Mitmekordne Eesti meister ja paljude rahvusvaheliste turniiride auhinnavõitja."
                 icon={
