@@ -11,6 +11,7 @@ export default function Page() {
         key="Uute liikmete vastuvõtt"
         title={"Uute liikmete vastuvõtt"}
         titleClassname={titleClassname}
+        delay={0}
         body={
           <div className="mb-2 text-base md:text-lg">
             <p className="px-4 pb-2 mb-2">
@@ -48,6 +49,7 @@ export default function Page() {
         key="Miks tulla harjutama just Nüke klubisse?"
         title={"Miks tulla harjutama just Nüke klubisse?"}
         titleClassname={titleClassname}
+        delay={100}
         body={
           <div className="px-6 mb-2">
             <ul className="space-y-1 list-disc">
@@ -86,6 +88,7 @@ export default function Page() {
         key="Miks peaks karated õppima?"
         title={"Miks peaks karated õppima?"}
         titleClassname={titleClassname}
+        delay={200}
         body={
           <div>
             <AccordionContentList
@@ -139,6 +142,7 @@ export default function Page() {
         key="Kellele karate sobib?"
         title={"Kellele karate sobib?"}
         titleClassname={titleClassname}
+        delay={300}
         body={
           <div>
             <AccordionContentList
@@ -191,6 +195,7 @@ export default function Page() {
         key="Milline näeb välja treeningriietus?"
         title={"Milline näeb välja treeningriietus?"}
         titleClassname={titleClassname}
+        delay={400}
         body={
           <>
             <AccordionContentList
@@ -239,6 +244,7 @@ export default function Page() {
         key="Nõuded treeningutel"
         title={"Nõuded treeningutel"}
         titleClassname={titleClassname}
+        delay={500}
         body={
           <div>
             <AccordionContentList
@@ -271,6 +277,7 @@ export default function Page() {
         key="Treeningtasu"
         title={"Treeningtasu"}
         titleClassname={titleClassname}
+        delay={600}
         body={
           <div className="px-6 mb-2 space-y-6">
             <p>

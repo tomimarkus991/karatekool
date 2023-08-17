@@ -48,7 +48,7 @@ export default function Page() {
         </p>
       </div>
       <h1 className="mb-3 text-2xl font-semibold">
-        <LetterDecryptor>Klubi Nüke peaõpetaja</LetterDecryptor>
+        <LetterDecryptor delay={200}>Klubi Nüke peaõpetaja</LetterDecryptor>
       </h1>
       <div className="flex flex-col items-center justify-center md:flex-row">
         <div className="relative aspect-[1/1] w-60 h-60 lg:mr-24 md:w-80 md:h-80 object-cover">
@@ -63,7 +63,9 @@ export default function Page() {
           />
         </div>
         <div className="flex flex-col">
-          <h1 className="mt-6 mb-3 text-xl font-semibold md:text-2xl">Herik Tölpt</h1>
+          <h1 className="mt-6 mb-3 text-xl font-semibold md:text-2xl">
+            <LetterDecryptor delay={400}>Herik Tölpt</LetterDecryptor>
+          </h1>
           <div className="flex flex-col space-y-5 md:space-y-10">
             <div className="flex flex-row items-center justify-center">
               <IconText

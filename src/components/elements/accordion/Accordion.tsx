@@ -6,6 +6,8 @@ import { HiMinus, HiPlus } from "react-icons/hi";
 
 import { cn } from "@/lib";
 
+import { LetterDecryptor } from "../LetterDecryptor";
+
 const accordionMaxWidth = {
   xs: "max-w-xs",
   sm: "max-w-sm",
@@ -22,6 +24,7 @@ interface Props {
   iconClassName: string;
   titleClassname?: string;
   maxWidth?: keyof typeof accordionMaxWidth;
+  delay?: number;
 }
 
 export const Accordion = ({
@@ -30,6 +33,7 @@ export const Accordion = ({
   iconClassName,
   maxWidth = "2xl",
   titleClassname,
+  delay = 0,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -48,7 +52,9 @@ export const Accordion = ({
         aria-expanded={isOpen}
         className={cn("flex justify-between items-center w-full space-x-4 px-4")}
       >
-        <p className={cn("text-lg sm:text-xl font-medium text-start", titleClassname)}>{title}</p>
+        <p className={cn("text-lg sm:text-xl font-medium text-start", titleClassname)}>
+          <LetterDecryptor delay={delay}>{title}</LetterDecryptor>
+        </p>
         <AnimatePresence initial={false} mode="wait">
           <motion.div
             key={isOpen ? "minus" : "plus"}

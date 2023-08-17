@@ -15,6 +15,11 @@ interface Props {
    * @default 400
    */
   time?: number;
+  /**
+   * Delay in ms
+   * @default 0
+   * */
+  delay?: number;
 }
 
 const kanjis = [
@@ -84,48 +89,49 @@ const kanjis = [
   "下", // (shita) - down, below
 ];
 
-export const LetterDecryptor = ({ children, letterAmount = 2, time = 400 }: Props) => {
+export const LetterDecryptor = ({ children, letterAmount = 2, time = 400, delay = 0 }: Props) => {
   const [decryptedLetters, setDecryptedLetters] = useState(children.split(""));
 
   const originalLetters = children.split("");
-
   useEffect(() => {
-    const startTime = Date.now();
-    const msToShowLetter = time / decryptedLetters.length;
-    const interval1 = setInterval(() => {
-      const elapsedTime = Date.now() - startTime;
-
-      setDecryptedLetters(
-        decryptedLetters.map((letter, index) => {
-          const random = Math.floor(Math.random() * kanjis.length - 1);
-
-          if (elapsedTime > msToShowLetter * index + 1) {
-            return letter;
-          }
-
-          if (letter === " ") {
-            return "";
-          }
-
-          // Show kanji every letterAmount letters
-          if (index % letterAmount === 0) {
-            return kanjis[random];
-          }
-          return "";
-        }),
-      );
-    }, 50);
-
     setTimeout(() => {
-      clearInterval(interval1);
-      setDecryptedLetters(originalLetters);
-    }, time);
+      const startTime = Date.now();
+      const msToShowLetter = time / decryptedLetters.length;
+      const interval1 = setInterval(() => {
+        const elapsedTime = Date.now() - startTime;
 
-    return () => {
-      clearInterval(interval1);
-      setDecryptedLetters(originalLetters);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        setDecryptedLetters(
+          decryptedLetters.map((letter, index) => {
+            const random = Math.floor(Math.random() * kanjis.length - 1);
+
+            if (elapsedTime > msToShowLetter * index + 1) {
+              return letter;
+            }
+
+            if (letter === " ") {
+              return "";
+            }
+
+            // Show kanji every letterAmount letters
+            if (index % letterAmount === 0) {
+              return kanjis[random];
+            }
+            return "";
+          }),
+        );
+      }, 50);
+
+      setTimeout(() => {
+        clearInterval(interval1);
+        setDecryptedLetters(originalLetters);
+      }, time);
+
+      return () => {
+        clearInterval(interval1);
+        setDecryptedLetters(originalLetters);
+      };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, delay);
   }, []);
 
   return <>{decryptedLetters.join("")}</>;
