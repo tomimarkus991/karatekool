@@ -4,6 +4,13 @@ import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 
+import BigGroupJaneda from "public/general/home/big-group-janeda.png";
+import KlubiImage from "public/general/home/club-all.png";
+import JohannImage from "public/general/home/johann.png";
+import PoisidKata from "public/general/home/kata-competition.png";
+import OldNuke from "public/general/home/nuke-old-image.png";
+import ParnuImage from "public/general/home/parnu-front.png";
+
 import { AnimationWrapper, animations } from "../../components";
 import { Scroller, MobileScroller } from "../../components/elements/home-page/Scrollers";
 import { EmailSender } from "../../components/elements/navigation/EmailSender";
@@ -12,8 +19,6 @@ import { NavbarTop } from "../../components/elements/navigation/NavbarTop";
 import { Sidebar } from "../../components/elements/sidebar/Sidebar";
 import { useAnimateScroll } from "../../hooks";
 
-import BigGroupJaneda from "./big-group-janeda.png";
-import ParnuFront from "./parnu-front.png";
 import Tiger from "./tiger-hero.png";
 
 export const Section1 = () => {
@@ -51,7 +56,7 @@ export const Section1 = () => {
             height={751}
             className="w-full m-auto md:max-w-lg rounded-xl"
             alt="house"
-            src={ParnuFront}
+            src={ParnuImage}
           />
         </AnimationWrapper>
 
@@ -138,7 +143,7 @@ const Copy = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => 
   );
 };
 
-const Images = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => {
+export const Images = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => {
   const scale = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
 
   const image2OffsetX = useTransform(scrollYProgress, [0, 1], ["30%", "0%"]);
@@ -162,81 +167,86 @@ const Images = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) =
   return (
     <>
       <motion.div
-        className="relative z-10 col-span-2"
+        className="relative z-10 h-full col-span-2 overflow-hidden"
         style={{
-          backgroundImage: "url(/general/home/johann.png)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          // backgroundSize: "cover",
+          // backgroundPosition: "center",
           scale,
           x: image2OffsetX,
           y: image2OffsetY,
         }}
-      />
+      >
+        <Image src={BigGroupJaneda} quality={100} alt="jäneda laager" placeholder="blur" />
+      </motion.div>
       <motion.div
         className="relative z-10"
         style={{
-          backgroundImage: "url(/general/home/poisid-kata.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           scale,
           x: image6OffsetX,
           y: image6OffsetY,
         }}
-      />
+      >
+        <Image
+          src={PoisidKata}
+          alt="Kata"
+          quality={100}
+          className="aspect-[2/1]"
+          placeholder="blur"
+        />
+      </motion.div>
       <motion.div
         className="relative z-10"
         style={{
-          backgroundImage: "url(/general/home/big-group-janeda.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           scale,
           x: image4OffsetX,
           y: image4OffsetY,
         }}
-      />
+      >
+        <Image src={JohannImage} alt="johann" width={2000} height={2000} placeholder="blur" />
+      </motion.div>
       <motion.div
         className="relative z-10"
         style={{
-          backgroundImage: "url(/general/home/parnu-front.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           scale,
           x: image3OffsetX,
           y: image3OffsetY,
         }}
-      />
+      >
+        <Image src={ParnuImage} alt="Pärnu" width={2000} height={2000} placeholder="blur" />
+      </motion.div>
       <motion.div
         className="relative z-10"
         style={{
-          backgroundImage: "url(/general/home/nuke-old-image.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           scale,
           x: image5OffsetX,
           y: image5OffsetY,
         }}
-      />
+      >
+        <Image src={OldNuke} alt="Nüke" width={2000} height={2000} placeholder="blur" />
+      </motion.div>
       <motion.div
         className="relative z-10 col-span-3"
         style={{
-          backgroundImage: "url(/general/home/club-all.png)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           scale,
           x: image1OffsetX,
           y: image1OffsetY,
         }}
-      />
+      >
+        <Image src={KlubiImage} alt="Nüke" width={2000} height={2000} placeholder="blur" />
+      </motion.div>
     </>
   );
 };
-
-// const Circles = () => (
-//   <>
-//     <div className="w-3/5 max-w-[850px] min-w-[400px] aspect-square border-[8px] border-slate-200 rounded-full absolute z-0 left-0 top-0 -translate-x-[50%] -translate-y-[50%]" />
-//     <div className="w-1/2 max-w-[600px] min-w-[300px] aspect-square border-[8px] border-slate-200 rounded-full absolute z-0 right-0 bottom-0 translate-x-[50%] translate-y-[50%]" />
-//   </>
-// );
 
 export const Section2 = () => {
   const targetRef = useRef<HTMLDivElement | null>(null);
@@ -250,7 +260,7 @@ export const Section2 = () => {
       <section ref={targetRef} className="bg-surface-bg h-[200vh] w-full">
         <div className="sticky top-0 z-0 grid h-screen grid-cols-3 grid-rows-3 gap-4 p-4 overflow-hidden">
           <Copy scrollYProgress={scrollYProgress} />
-          <Images scrollYProgress={scrollYProgress} />
+          {/* <Images scrollYProgress={scrollYProgress} /> */}
           <Scroller />
           <MobileScroller />
           {/* <Circles /> */}
@@ -268,10 +278,10 @@ export const MainComponent = () => {
   // const { control: section1ImageControl, ref: section1ImageRef } = useAnimateScroll();
   const { control: section1TextControl, ref: section1TextRef } = useAnimateScroll();
 
-  const targetRef = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-  });
+  // const targetRef = useRef<HTMLDivElement | null>(null);
+  // const { scrollYProgress } = useScroll({
+  //   target: targetRef,
+  // });
 
   return (
     <div className="flex flex-col justify-between min-h-screen">
@@ -307,7 +317,7 @@ export const MainComponent = () => {
               animate={section1TextControl}
               variants={animations.pageItems.fadeInFromLeftDelayed}
             >
-              <p className="text-2xl font-semibold sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl">
+              <p className="text-2xl font-semibold sm:text-3xl md:text-4xl">
                 Nüke 35-hooaeg, 2023/2024
               </p>
             </AnimationWrapper>
@@ -315,13 +325,11 @@ export const MainComponent = () => {
           {/* <div className="relative lg:absolute z-10 top-[40%] md:!top-[70%] lg:!top-[50%] lg:ml-112 xl:ml-24 2xl:ml-64">
 
           </div> */}
-          <section ref={targetRef} className="relative h-[200vh] w-full max-w-7xl mx-auto">
+          {/* <section ref={targetRef} className="relative h-[200vh] w-full max-w-7xl mx-auto">
             <div className="sticky top-[120%] z-0 grid h-screen grid-cols-3 grid-rows-3 gap-4 p-4">
-              {/* <Copy scrollYProgress={scrollYProgress} /> */}
               <Images scrollYProgress={scrollYProgress} />
-              {/* <Circles /> */}
             </div>
-          </section>
+          </section> */}
           <Scroller />
           <MobileScroller />
         </div>
@@ -362,3 +370,10 @@ export const MainComponent = () => {
     // </div>
   );
 };
+
+// const Circles = () => (
+//   <>
+//     <div className="w-3/5 max-w-[850px] min-w-[400px] aspect-square border-[8px] border-slate-200 rounded-full absolute z-0 left-0 top-0 -translate-x-[50%] -translate-y-[50%]" />
+//     <div className="w-1/2 max-w-[600px] min-w-[300px] aspect-square border-[8px] border-slate-200 rounded-full absolute z-0 right-0 bottom-0 translate-x-[50%] translate-y-[50%]" />
+//   </>
+// );
