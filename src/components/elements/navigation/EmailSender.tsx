@@ -91,7 +91,7 @@ export const EmailSender = () => {
                       >
                         <Form className={cn("flex flex-col")}>
                           <div className="flex flex-row items-center justify-between pl-3">
-                            <p className="text-xl font-bold">Taotle luba</p>
+                            <p className="text-xl font-bold">Saada küsimus</p>
                             <div role="button" tabIndex={0} onClick={() => setIsModalOpen(false)}>
                               <AnimationWrapper
                                 key="sub-modal-x-icon"
