@@ -86,11 +86,11 @@ export const NavbarTop = ({ bg = "bg-surface-bg" }: Props) => {
         )}
       >
         <div className="flex justify-between">
-          <div className="flex flex-row items-center space-x-1 md:mr-16 sm2:mr-12 lg:mr-28 lg:space-x-3">
+          <div className="flex flex-row items-center space-x-1 md:mr-16 sm2:mr-0 lg:mr-28 lg:space-x-3">
             <Icons.logo2 className="scale-[1] sm2:mr-1" />
             <div className="mr-4 font-semibold">
               <p className="sm2:text-xl md:text-2xl sm:hidden sm2:block !leading-[1.2rem]">Nüke</p>
-              <p className="sm2:text-base md:text-lg sm:hidden sm2:block !leading-[1.2rem]">
+              <p className="sm2:text-base md:text-lg sm:hidden sm2:w-20 md:w-auto sm2:block !leading-[1.2rem]">
                 karate-do klubi
               </p>
             </div>
