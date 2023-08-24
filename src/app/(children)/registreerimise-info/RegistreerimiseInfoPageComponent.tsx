@@ -65,7 +65,8 @@ export const TrainingsTab = () => {
                 </p>
                 <p className="md:text-lg">
                   Kõigil karatehuvilistel on võimalik registreerida ennast Nüke treeningutele (lapse
-                  nimi, isikukood, kool, klass) aadressil info@karatekool.ee
+                  nimi, isikukood, kool, klass) aadressil{" "}
+                  <span className="text-blue-500 underline">info@karatekool.ee</span>
                 </p>
               </div>
 
@@ -119,8 +120,9 @@ export const TrainingsTab = () => {
                 </p>
                 <p className="md:text-lg">
                   Kõigil karatehuvilistel on võimalik registreerida ennast Nüke treeningutele
-                  aadressil info@karatekool.ee (11.-19. aastastel – nimi, isikukood, kool, klass) ja
-                  (20.a. ja vanemad – nimi ja vanus)
+                  aadressil <span className="text-blue-500 underline">info@karatekool.ee</span>{" "}
+                  (11.-19. aastastel – nimi, isikukood, kool, klass) ja (20.a. ja vanemad – nimi ja
+                  vanus)
                 </p>
               </div>
 
