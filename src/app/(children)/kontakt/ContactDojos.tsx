@@ -22,7 +22,7 @@ import VhkMap from "./VhkMap";
 
 const duration = 0.4;
 
-const dojoContentVariants = (toLeft: boolean) => {
+export const dojoContentVariants = (toLeft: boolean) => {
   const variant: Variants = {
     hidden: {
       x: toLeft ? 20 : -20,

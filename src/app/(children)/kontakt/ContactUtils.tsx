@@ -1,11 +1,12 @@
 import { Tab } from "@headlessui/react";
 import { motion, Variants } from "framer-motion";
+import Link from "next/link";
 import { Fragment } from "react";
 
+import { animations, AnimationWrapper } from "@/components";
 import { Icons } from "@/components/icons/Icons";
 import { cn } from "@/lib";
 
-import { animations, AnimationWrapper } from "../../../components";
 import { LetterDecryptor } from "../../../components/elements/LetterDecryptor";
 
 interface ContactHeadingProps {
@@ -83,6 +84,9 @@ export const ContactAddress = ({ title, address, directionsLink }: ContactAddres
         <div className="flex flex-col items-center justify-start mr-2">
           <ContactAddressHeading>{title}</ContactAddressHeading>
           <p className="text-[0.9rem] self-start">{address}</p>
+          <Link className="self-start" href="/registreerimise-info">
+            <p className="self-start mt-4 text-lg underline text-secondary">Registreerimise info</p>
+          </Link>
         </div>
         <Icons.directionsButton onClick={() => window.open(directionsLink, "_blank")} />
       </div>
@@ -92,6 +96,9 @@ export const ContactAddress = ({ title, address, directionsLink }: ContactAddres
           <Icons.directionsButton onClick={() => window.open(directionsLink, "_blank")} />
         </div>
         <p className="text-lg leading-[0.5rem]">{address}</p>
+        <Link href="/registreerimise-info">
+          <p className="mt-4 text-xl underline text-secondary md:text-2xl">Registreerimise info</p>
+        </Link>
       </div>
       <div className="hidden space-y-2 text-lg md:text-base md:block">
         <ContactHeading>Kontakt</ContactHeading>

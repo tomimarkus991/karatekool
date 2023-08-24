@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 import { AnimationWrapper, animations } from "../../components";
 import { Scroller, MobileScroller } from "../../components/elements/home-page/Scrollers";
@@ -53,21 +54,25 @@ export const MainComponent = () => {
               animate={section1TextControl}
               variants={animations.pageItems.fadeInFromLeft}
             >
-              <p className="text-4xl font-semibold md:text-5xl lg:text-[6xl]">Ilusat suve!</p>
-              <p className="text-xl md:text-2xl lg:text-[3xl]">
-                Avame registreerimise Augusti lõpus!
+              <p className="mb-4 text-2xl font-semibold text-center sm:text-3xl md:text-4xl xl:text-5xl">
+                Klubisse registreerumine on alanud!
               </p>
+              <Link href="/registreerimise-info">
+                <p className="text-xl underline text-secondary md:text-2xl xl:text-3xl">
+                  Registreerimise info
+                </p>
+              </Link>
             </AnimationWrapper>
 
             <AnimationWrapper
-              className="mx-auto text-center sm:mt-16 lg:mt-28"
+              className="mx-auto text-center sm:mt-8 lg:mt-20"
               ref={section1TextRef}
               animate={section1TextControl}
               variants={animations.pageItems.fadeInFromLeftDelayed}
             >
-              <p className="text-2xl font-semibold sm:text-3xl md:text-4xl">
-                <LetterDecryptor delay={1250} time={1000}>
-                  Nüke 35-hooaeg, 2023/2024
+              <p className="text-2xl font-semibold sm:text-3xl md:text-3xl xl:text-4xl">
+                <LetterDecryptor delay={1250} time={1250}>
+                  Nüke 35-õppeaasta!
                 </LetterDecryptor>
               </p>
             </AnimationWrapper>

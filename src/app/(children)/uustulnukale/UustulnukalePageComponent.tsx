@@ -1,13 +1,35 @@
 "use client";
 
-import { Accordion, AccordionContentList } from "@/components";
+import Link from "next/link";
+
+import { Accordion, AccordionContentList, AnimationWrapper, animations } from "@/components";
+import { useAnimateScroll } from "@/hooks";
 
 export const UustulnukalePageComponent = () => {
   const iconClassName = "h-8 w-8 text-[#E50815]";
   const titleClassname = "!text-lg font-semibold xs2:!text-xl";
 
+  const { control: section1TextControl, ref: section1TextRef } = useAnimateScroll();
+
   return (
     <div className="flex flex-col items-center justify-center mb-8 space-y-4 font-catamaran">
+      <AnimationWrapper
+        className="mx-auto mb-3 text-center"
+        ref={section1TextRef}
+        animate={section1TextControl}
+        variants={animations.pageItems.fadeInFromLeft}
+      >
+        <p className="mb-4 text-2xl font-semibold sm:text-3xl">
+          Klubisse registreerumine on alanud!
+        </p>
+
+        <Link href="/registreerimise-info">
+          <p className="text-xl underline text-secondary md:text-2xl">Registreerimise info</p>
+        </Link>
+
+        <p className="mt-6 text-xl font-bold text-primary">SEPTEMBRI TREENINGUD ON TASUTA!</p>
+      </AnimationWrapper>
+
       <Accordion
         key="Miks tulla harjutama just Nüke klubisse?"
         title={"Miks tulla harjutama just Nüke klubisse?"}
