@@ -46,7 +46,7 @@ export const KlubistPageComponent = () => {
           elumaneeri kohaselt.
         </p>
       </div>
-      <h1 className="mb-3 text-2xl font-semibold">
+      <h1 id="treener-herik" className="mb-3 text-2xl font-semibold">
         <LetterDecryptor delay={200}>Klubi Nüke peaõpetaja</LetterDecryptor>
       </h1>
       <div className="flex flex-col items-center justify-center md:flex-row">

@@ -3,9 +3,10 @@
 import { Tab } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { TwoElementMovingBox } from "@/components";
+import { AnimationWrapper, TwoElementMovingBox, animations } from "@/components";
 import { cn } from "@/lib";
 
 import { dojoContentVariants } from "../kontakt/ContactDojos";
@@ -42,7 +43,7 @@ export const TrainingsTab = () => {
           >
             <div className="space-y-8">
               <div>
-                <li className="mb-2 font-semibold list-disc md:text-2xl text-secondary">
+                <li className="mb-2 font-semibold list-disc md:text-xl text-secondary">
                   Treeningud ALGKLASSIDE LASTELE, VHK spordisaal (Vene 22)
                 </li>
 
@@ -57,7 +58,7 @@ export const TrainingsTab = () => {
               </div>
 
               <div>
-                <li className="mb-2 font-semibold list-disc md:text-2xl text-secondary">
+                <li className="mb-2 font-semibold list-disc md:text-xl text-secondary">
                   KLUBISSE REGISTREERUMINE
                 </li>
                 <p className="mb-1 text-xl font-semibold text-primary">
@@ -71,7 +72,7 @@ export const TrainingsTab = () => {
               </div>
 
               <div>
-                <li className="mb-2 font-semibold list-disc md:text-2xl text-secondary">
+                <li className="mb-2 font-semibold list-disc md:text-xl text-secondary">
                   ESIMESED TREENINGUD TOIMUVAD
                 </li>
                 <p className="font-semibold md:text-lg text-primary">
@@ -92,7 +93,7 @@ export const TrainingsTab = () => {
           >
             <div className="space-y-8">
               <div>
-                <li className="mb-2 font-semibold list-disc md:text-2xl text-secondary">
+                <li className="mb-2 font-semibold list-disc md:text-xl text-secondary">
                   Treeningud noortele ja täiskasvanutele, VHK spordisaal (Vene 22)
                 </li>
 
@@ -112,7 +113,7 @@ export const TrainingsTab = () => {
               </div>
 
               <div>
-                <li className="mb-2 font-semibold list-disc md:text-2xl text-secondary">
+                <li className="mb-2 font-semibold list-disc md:text-xl text-secondary">
                   KLUBISSE REGISTREERUMINE
                 </li>
                 <p className="mb-1 text-xl font-semibold text-primary">
@@ -127,7 +128,7 @@ export const TrainingsTab = () => {
               </div>
 
               <div>
-                <li className="mb-2 font-semibold list-disc md:text-2xl text-secondary">
+                <li className="mb-2 font-semibold list-disc md:text-xl text-secondary">
                   ESIMESED TREENINGUD TOIMUVAD
                 </li>
                 <p className="font-semibold md:text-lg text-primary">
@@ -144,6 +145,7 @@ export const TrainingsTab = () => {
 };
 
 export const RegistreerimiseInfoPageComponent = () => {
+  const router = useRouter();
   return (
     <div className="max-w-4xl mx-auto">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
@@ -192,7 +194,16 @@ export const RegistreerimiseInfoPageComponent = () => {
           lastevanemate hoiakutest ja suhtumisest. Trennis käivatele lastele on lastevanemate toetus
           ning tunnustus väga oluline!
         </p>
-        <p className="text-lg">Karateõpetaja Herik Tölpt</p>
+        <AnimationWrapper className="!mt-0 w-fit" variants={animations.subtleScale}>
+          <button
+            className="text-lg cursor-pointer text-secondary"
+            onClick={() => {
+              router.push("/klubist#treener-herik");
+            }}
+          >
+            Karateõpetaja Herik Tölpt
+          </button>
+        </AnimationWrapper>
       </div>
       <p className="my-4 text-lg font-semibold text-primary">2023/2024 hooaja TREENINGUD</p>
 
