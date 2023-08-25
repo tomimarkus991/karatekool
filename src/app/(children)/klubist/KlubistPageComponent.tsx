@@ -27,23 +27,15 @@ export const KlubistPageComponent = () => {
 
   return (
     <div className="max-w-4xl m-auto mt-6">
-      <div className="mb-5">
+      <div className="mb-12">
         <h1 className="mb-3 text-2xl font-semibold">
           <LetterDecryptor>Nüke klubist</LetterDecryptor>
         </h1>
         <p className="mb-2 text-base font-light md:text-lg">
-          Nükes õpetatakse Shotokan karated. Õppe-ja treeningtegevus, kus omandatakse karate ja
-          spordialaseid põhiväärtusi, on väga mitmekesine, mahutades nii karate kui spordi
-          teoreetiline, kehaline, tehniline, taktikaline kui ka eetilis-moraalne ja psühholoogiline
-          ettevalmistus.
-        </p>
-        <p className="mb-2 text-base font-light md:text-lg">
-          Algperioodil tehakse trenni 3 korda nädalas, hiljem vastavalt õpilase tasemele ja soovile
-          treeningute arv kasvab. Soovijatel on võimalus käia ka võistlemas. Klubis korraldatakse
-          aastaringselt karatelaagreid, seminare ja võistlusi. Mitmekesine ning tasakaalustatud
-          õppe- ja treeningprogramm on mõeldud selleks, et trenni tulnust kasvatada tõeline
-          karateka; kujundada tema iseloomu ja väärtushoiakuid, veenda teda elama ja harjutama õige
-          elumaneeri kohaselt.
+          Nükes õpetatakse Shotokan karated. Õppe-ja treeningtegevus, kus omandatakse karate-do ja
+          spordialaseid põhiväärtusi, on väga mitmekesine. Klubi õppe- ja treeningtegevusse mahub
+          nii karate kui spordi teoreetiline, kehaline, tehniline, taktikaline kui ka
+          eetilis-moraalne ja psühholoogiline ettevalmistus.
         </p>
       </div>
       <h1 id="treener-herik" className="mb-3 text-2xl font-semibold">
@@ -130,7 +122,7 @@ export const KlubistPageComponent = () => {
           <Tab as={Fragment}>
             <div className="remove-ring absolute top-[50%] sm:top-[40%] left-[45%] md:top-[45%]">
               <RealDiamondButton size="xl" textSize="xl" variant="casualSkyBlue">
-                Eesmärgid
+                Eesmärk
               </RealDiamondButton>
             </div>
           </Tab>
@@ -159,33 +151,25 @@ export const KlubistPageComponent = () => {
                   <LetterDecryptor>Missioon</LetterDecryptor>
                 </p>
                 <p>
-                  Karate-do klubi Nüke missioon on targa, heasoovliku, tugeva tahte ja iseloomuga
-                  ning aktiivse ja sportliku eluhoiakuga inimese kasvatamine karate-do ja laiemalt
-                  spordi kaudu.
+                  Karate-do klubi Nüke missiooniks on karate-do ja spordi õpetamise kaudu terve,
+                  targa, heasoovliku, tugeva tahte ja iseloomuga ning aktiivse ja sportliku
+                  eluhoiakuga inimese kasvatamine.
                 </p>
               </div>
             </AboutPanel>
             <AboutPanel id="eesmargid">
               <div>
                 <p className="mb-2 text-xl font-semibold">
-                  <LetterDecryptor>Eesmärgid</LetterDecryptor>
+                  <LetterDecryptor>Eesmärk</LetterDecryptor>
                 </p>
-                <ul className="ml-8 list-disc">
-                  <li>
-                    luua tingimused süvendatud karate- ja spordialaseks eneseteostamiseks ja õppeks
-                  </li>
-                  <li>
-                    organiseerida karate kui spordi ning iseloomu- ja väärtuspõhise kasvatussüsteemi
-                    teoreetiline ja praktiline ettevalmistus ja õpe
-                  </li>
-                  <li>
-                    äratada õpilastes huvi karate õppimise, spordi ja pideva enesetäiustamise vastu
-                  </li>
-                  <li>
-                    anda karate õppimiseks, sportimiseks ning enese- ja iseloomukasvatuseks vajalike
-                    teadmisi ja oskusi.
-                  </li>
-                </ul>
+                <p>
+                  Organiseerida ja luua tingimused süsteemseks ja süvendatud karate- ja
+                  spordialaseks eneseteostamiseks ja õppeks.
+                </p>
+                <p>
+                  Äratada õpilastes huvi, anda vajalikke teadmisi ning oskusi karate õppimiseks ja
+                  pidevaks enesetäiustamiseks.
+                </p>
               </div>
             </AboutPanel>
             <AboutPanel id="ajaloost">
