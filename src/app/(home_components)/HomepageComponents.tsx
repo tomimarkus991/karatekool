@@ -54,7 +54,7 @@ export const MainComponent = () => {
               animate={section1TextControl}
               variants={animations.pageItems.fadeInFromLeft}
             >
-              <p className="mb-4 text-2xl font-semibold text-center sm:text-3xl md:text-4xl xl:text-5xl">
+              <p className="mb-4 text-2xl font-semibold text-center sm:text-3xl md:text-4xl">
                 Klubisse registreerumine on alanud!
               </p>
               <Link href="/registreerimise-info">
@@ -70,7 +70,7 @@ export const MainComponent = () => {
               animate={section1TextControl}
               variants={animations.pageItems.fadeInFromLeftDelayed}
             >
-              <p className="text-2xl font-semibold sm:text-3xl md:text-3xl xl:text-4xl">
+              <p className="text-3xl font-semibold md:text-4xl xl:text-5xl text-secondary-light">
                 <LetterDecryptor delay={1250} time={1250}>
                   Nüke 35-õppeaasta!
                 </LetterDecryptor>
