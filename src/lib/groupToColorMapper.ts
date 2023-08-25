@@ -37,7 +37,8 @@ export const groupColorMapper = (group: GroupLetters) => {
     case "T":
       return groupColors[group];
     default:
-      throw new Error(`Invalid group letter: ${group}`);
+      return "light";
+    // throw new Error(`Invalid group letter: ${group}`);
   }
 };
 export const buttonVariantMapper = (group: GroupLetters) => {
@@ -52,6 +53,7 @@ export const buttonVariantMapper = (group: GroupLetters) => {
     case "T":
       return groupAllColors[group] as keyof typeof realButtonVariantColors;
     default:
-      throw new Error(`Invalid group letter: ${group}`);
+      return "light";
+    // throw new Error(`Invalid group letter: ${group}`);
   }
 };
