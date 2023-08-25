@@ -137,11 +137,18 @@ export const RegisterForm = ({ closeModal }: Props) => {
                 <AnimationWrapper variants={animations.smallScaleXs}>
                   <p
                     className={cn(
-                      "font-semibold cursor-pointer text-secondary text-center",
-                      isAllowedToRegister ? "text-base" : "text-xl",
+                      "font-semibold text-secondary text-center",
+                      isAllowedToRegister ? "hidden" : "text-base",
                     )}
                   >
                     Kui sa pole veel luba taotlenud, vajuta siia
+                  </p>
+                </AnimationWrapper>
+              </Link>
+              <Link href={"/question"}>
+                <AnimationWrapper variants={animations.smallScaleXs}>
+                  <p className="mt-2 font-semibold text-primary">
+                    NB! Kui soovid hoopis küsimust küsida vajuta siia!
                   </p>
                 </AnimationWrapper>
               </Link>
