@@ -59,5 +59,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/uustulnukale`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/question`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/registreerimise-info`,
+      lastModified: new Date(),
+    },
   ];
 }
