@@ -5,12 +5,6 @@ import React from "react";
 
 import { cn } from "@/lib";
 
-export const popoverSizes = {
-  sm: "w-32",
-  md: "w-48",
-  lg: "w-64",
-};
-
 export const Popover = PopoverPrimitive.Root;
 
 export const PopoverTrigger = PopoverPrimitive.Trigger;
