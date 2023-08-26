@@ -76,6 +76,20 @@ export const MainComponent = () => {
                 </LetterDecryptor>
               </p>
             </AnimationWrapper>
+            <AnimationWrapper
+              className="mx-auto text-center sm:mt-8 lg:mt-20"
+              ref={section1TextRef}
+              animate={section1TextControl}
+              variants={animations.pageItems.fadeInFromLeft}
+            >
+              <Link href="/buklet">
+                <p className="text-3xl font-semibold underline md:text-4xl xl:text-5xl text-secondary-light">
+                  <LetterDecryptor letterAmount={1} delay={200} time={1250}>
+                    Buklet
+                  </LetterDecryptor>
+                </p>
+              </Link>
+            </AnimationWrapper>
           </div>
           {/* <div className="relative lg:absolute z-10 top-[40%] md:!top-[70%] lg:!top-[50%] lg:ml-112 xl:ml-24 2xl:ml-64">
 
