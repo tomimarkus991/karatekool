@@ -13,6 +13,7 @@ const nextConfig = {
   experimental: {
     appDir: true,
     typedRoutes: true,
+    outputFileTracingIgnores: ["**canvas**"],
   },
   typescript: {
     ignoreBuildErrors: true,
