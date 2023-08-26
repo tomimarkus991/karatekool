@@ -91,6 +91,7 @@ module.exports = {
         spinner: "spin-forwards 1s linear infinite",
         "scrollwheel-move-down": "animate-scrollwheel-move-down 2500ms ease infinite",
         "mobile-move-down": "animate-mobile-move-down 2500ms ease infinite",
+        pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;",
       },
       gridTemplateColumns: {
         "auto-fit": "repeat(auto-fit, minmax(100%, 1fr))",
@@ -138,6 +139,17 @@ module.exports = {
           },
           "100%": {
             transform: "translateY(0)",
+          },
+        },
+        pulse: {
+          "0%": {
+            opacity: 1,
+          },
+          "50%": {
+            opacity: 0.5,
+          },
+          "100%": {
+            opacity: 1,
           },
         },
       },

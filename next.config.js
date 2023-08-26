@@ -41,6 +41,25 @@ const nextConfig = {
       ],
     });
 
+    config.externals.push({
+      sharp: "commonjs sharp",
+      canvas: "commonjs canvas",
+    });
+
+    config.module.rules.unshift({
+      test: /pdf\.worker\.(min\.)?js/,
+      use: [
+        {
+          loader: "file-loader",
+          options: {
+            name: "[contenthash].[ext]",
+            publicPath: "_next/static/worker",
+            outputPath: "static/worker",
+          },
+        },
+      ],
+    });
+
     // shader support
     config.module.rules.push({
       test: /\.(glsl|vs|fs|vert|frag)$/,
