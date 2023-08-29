@@ -46,6 +46,24 @@ export const realButtonVariantColors = {
     "active:border-casualRed",
     "outline-casualRedOutline",
   ],
+  casualGold: [
+    "text-textGray bg-casualGold border-casualGoldDarker",
+    "hover:text-textGray",
+    "active:border-casualGold",
+    "outline-casualGoldOutline",
+  ],
+  casualGray: [
+    "text-textGray bg-casualGray border-casualGrayDarker",
+    "hover:text-textGray",
+    "active:border-casualGray",
+    "outline-casualGrayOutline",
+  ],
+  casualL: [
+    "text-textGray bg-casualL border-casualLDarker",
+    "hover:text-textGray",
+    "active:border-casualL",
+    "outline-casualLOutline",
+  ],
   red: ["text-white bg-primary border-[#b10000]", "active:border-primary"],
   orange: ["text-white bg-secondary border-[#b77515]", "active:border-secondary"],
   casualOrange: [
