@@ -651,4 +651,20 @@ export const Icons = {
       <line x1="3" y1="29" x2="41" y2="29" stroke="#393939" strokeWidth="6" strokeLinecap="round" />
     </svg>
   ),
+  elevenGroups: (props: SVGProps<SVGSVGElement>) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={30}
+      height={30}
+      fill="none"
+      stroke="#2c3e50"
+      strokeWidth={2.5}
+      viewBox="0 0 44 44"
+      {...props}
+    >
+      <path d="M12.832 9.167A3.666 3.666 0 0 1 16.499 5.5h18.333a3.667 3.667 0 0 1 3.667 3.667V27.5a3.667 3.667 0 0 1-3.667 3.667H16.499a3.666 3.666 0 0 1-3.667-3.667V9.167Z" />
+      <path d="M31.167 31.166v3.667A3.666 3.666 0 0 1 27.5 38.5H9.167A3.666 3.666 0 0 1 5.5 34.833V16.5a3.667 3.667 0 0 1 3.667-3.667h3.666" />
+      <path d="M23.667 25.667V11L20 14.667M31.167 25.667V11L27.5 14.667" />
+    </svg>
+  ),
 };
