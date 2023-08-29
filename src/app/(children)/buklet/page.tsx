@@ -44,16 +44,16 @@ export default function Page() {
             <button
               disabled={pageNumber <= 1}
               onClick={previousPage}
-              className="absolute inset-y-0 left-0 z-10 p-2 text-white transition-colors disabled:cursor-not-allowed hover:bg-black/60"
+              className="absolute inset-y-0 left-0 z-10 p-2 text-white transition-colors group disabled:cursor-not-allowed"
             >
-              <ChevronLeft className="rounded-lg bg-black/40" />
+              <ChevronLeft className="rounded-lg bg-black/40 group-hover:bg-black/60" />
             </button>
             <button
               disabled={pageNumber >= numPages}
               onClick={nextPage}
-              className="absolute inset-y-0 right-0 z-10 p-2 text-white transition-colors hover:bg-black/60"
+              className="absolute inset-y-0 right-0 z-10 p-2 text-white transition-colors group disabled:cursor-not-allowed"
             >
-              <ChevronRight className="rounded-lg bg-black/40" />
+              <ChevronRight className="rounded-lg bg-black/40 group-hover:bg-black/60" />
             </button>
           </>
         )}
