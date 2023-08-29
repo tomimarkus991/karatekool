@@ -42,7 +42,7 @@ export const DownloadCalendar = ({ currentMonthString, calendarRef }: Props) => 
     <RealButton
       size="icon"
       disabled={letter === "none"}
-      className="px-0 sm:px-3 disabled:opacity-75 disabled:cursor-not-allowed group"
+      className="px-0 md2:px-3 disabled:opacity-75 disabled:cursor-not-allowed group"
       onClick={downloadScreenshot}
     >
       <Tooltip

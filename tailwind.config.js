@@ -35,6 +35,7 @@ module.exports = {
       xs: "460px",
       xs2: "500px",
       sm2: "700px",
+      md2: "840px",
       ...defaultTheme.screens,
     },
     extend: {

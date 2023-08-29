@@ -6,7 +6,7 @@ import { MutableRefObject, useCallback, useEffect } from "react";
 import { RealButton, Tooltip } from "@/components";
 import { useCalendarFilters } from "@/context";
 import { useUser } from "@/hooks";
-import { buttonVariantMapper, groupLetters } from "@/lib";
+import { buttonVariantMapper, cn, groupLetters } from "@/lib";
 
 import { GroupFilters } from "../../../types";
 import { Icons } from "../../icons/Icons";
@@ -45,7 +45,13 @@ export const CalendarFilterButtons = ({ currentMonthString, calendarRef }: Props
   }, []);
 
   return (
-    <div className="grid justify-center grid-cols-5 gap-2 max-w-[14rem] m-auto sm:flex sm:justify-start sm:max-w-none sm:m-0 sm:ml-4">
+    <div
+      className={cn(
+        "grid justify-center grid-cols-5 gap-2 max-w-[14rem] m-auto",
+        "xs2:grid-cols-7 xs2:max-w-[20rem]",
+        "md2:grid-cols-[repeat(13,minmax(0,1fr))] md2:max-w-[45rem]",
+      )}
+    >
       {groupLetters.map(letter => (
         <RealButton
           key={letter}
@@ -70,7 +76,7 @@ export const CalendarFilterButtons = ({ currentMonthString, calendarRef }: Props
         <RealButton
           onClick={() => setLetter("all")}
           size="icon"
-          className="relative px-0 sm:px-3 group"
+          className="relative px-0 md2:px-3 group"
           variant="light"
         >
           <Tooltip tooltip="Näita kõikide gruppide trenne" />
