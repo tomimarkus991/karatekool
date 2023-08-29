@@ -33,7 +33,7 @@ export interface Event {
   groupId: string;
 }
 
-export type GroupLetters = "S" | "V" | "A" | "E" | "N" | "M" | "K" | "T";
+export type GroupLetters = "S" | "S1" | "L" | "C" | "V" | "A" | "E" | "N" | "M" | "K" | "T";
 
 export type GroupFilters = GroupLetters | "all" | "none";
 

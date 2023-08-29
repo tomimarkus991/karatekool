@@ -1,7 +1,6 @@
 import { isSameDay, parseISO } from "date-fns";
 import { motion } from "framer-motion";
 
-import { groups } from "@/app-constants";
 import {
   DeleteEventPopoverContent,
   MapGroupLetter,
@@ -103,7 +102,14 @@ export const DayViewNormalEvent = ({ event, date }: Props) => {
           description={description}
           event={event}
           event_trailer={event_trailer}
-          groups={groups}
+          groups={[
+            {
+              letter: "S",
+            },
+            {
+              letter: "A",
+            },
+          ]}
           highlighted_group={highlighted_group}
         />
       </DeleteEventPopoverContent>

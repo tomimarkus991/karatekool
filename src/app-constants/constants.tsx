@@ -1,5 +1,3 @@
-import { Group } from "@/types";
-
 export const placeHolder = [];
 
 export const days = {
@@ -7,19 +5,6 @@ export const days = {
   short: ["Esm", "Tei", "Kol", "Nel", "Ree", "Lau", "Püh"],
   long: ["Esmaspäev", "Teisipäev", "Kolmapäev", "Neljapäev", "Reede", "Laupäev", "Pühapäev"],
 };
-
-export const groups: Group[] = [
-  {
-    description: "Sikupilli",
-    letter: "S",
-    color: "purple",
-  },
-  {
-    description: "",
-    letter: "A",
-    color: "blue",
-  },
-];
 
 export const rowWidthInPercent = 14.28571428571429;
 
