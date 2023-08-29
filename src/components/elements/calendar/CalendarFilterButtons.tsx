@@ -2,7 +2,6 @@
 
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { MutableRefObject, useCallback, useEffect } from "react";
-import { TbBoxMultiple8 } from "react-icons/tb";
 
 import { RealButton, Tooltip } from "@/components";
 import { useCalendarFilters } from "@/context";
@@ -10,6 +9,7 @@ import { useUser } from "@/hooks";
 import { buttonVariantMapper, groupLetters } from "@/lib";
 
 import { GroupFilters } from "../../../types";
+import { Icons } from "../../icons/Icons";
 
 import { DownloadCalendar } from "./DownloadCalendar";
 
@@ -74,7 +74,7 @@ export const CalendarFilterButtons = ({ currentMonthString, calendarRef }: Props
           variant="light"
         >
           <Tooltip tooltip="Näita kõikide gruppide trenne" />
-          <TbBoxMultiple8 className="w-6 h-6 text-stone-800" />
+          <Icons.elevenGroups className="w-6 h-6 text-stone-800" />
         </RealButton>
       )}
       {/* <RealButton size="sm" onClick={() => setLetter("all")}>
