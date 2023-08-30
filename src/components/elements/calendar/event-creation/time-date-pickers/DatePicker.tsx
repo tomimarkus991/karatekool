@@ -53,9 +53,9 @@ export const MultiDatePicker = ({ name, className, ...props }: Props) => {
           <DatePickerCalendarButton variant="ghost" className="pl-0 ml-0 text-left group">
             <HiOutlineCalendar className="w-6 h-6 mr-2 text-stone-700 group-hover:text-stone-800" />
             {values?.length && values[0] ? (
-              <p className="text-lg">{values.length} päeva on veel valitud</p>
+              <p className="text-lg">{values.length} päeva on valitud</p>
             ) : (
-              <p className="text-lg">Vali kuupäevad</p>
+              <p className="text-lg">Vali trenni kuupäevad</p>
             )}
           </DatePickerCalendarButton>
         </AnimationWrapper>
