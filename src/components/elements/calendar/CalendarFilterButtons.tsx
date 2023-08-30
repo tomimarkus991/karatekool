@@ -74,7 +74,11 @@ export const CalendarFilterButtons = ({ currentMonthString, calendarRef }: Props
 
       {user && (
         <RealButton
-          onClick={() => setLetter("all")}
+          onClick={() => {
+            setLetter("all");
+
+            router.push(`${pathname}?${createQueryString("group", "all")}` as any);
+          }}
           size="icon"
           className="relative px-0 md2:px-3 group"
           variant="light"
