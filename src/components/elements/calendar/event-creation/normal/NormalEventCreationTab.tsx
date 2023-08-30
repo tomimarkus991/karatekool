@@ -273,7 +273,6 @@ export const NormalEventCreationTab = ({ openDate }: Props) => {
             <div className="flex flex-row justify-between pb-4">
               <div className="flex flex-col items-start justify-start">
                 <div className="flex flex-col mb-3">
-                  <p className="text-sm text-stone-600">Vali valmis üritus</p>
                   <PresetsModal setValues={setValues} />
                 </div>
                 <div className="flex flex-row">
