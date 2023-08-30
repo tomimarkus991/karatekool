@@ -101,7 +101,7 @@ const PresetsModal = ({ setValues }: PresetsModalProps) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-4 mt-6 mb-4">
+        <div className="grid grid-cols-4 gap-4 my-3">
           {eventPresets?.map(preset => {
             const displayGroups = preset.groups?.map(group => {
               return {
