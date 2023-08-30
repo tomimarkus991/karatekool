@@ -65,6 +65,7 @@ export const MultiDatePicker = ({ name, className, ...props }: Props) => {
           {...field}
           {...props}
           mode="multiple"
+          defaultMonth={values?.[0]}
           className={className}
           selected={values}
           onSelect={date => {
