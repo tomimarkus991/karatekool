@@ -316,6 +316,16 @@ export const NormalEventCreationTab = ({ openDate }: Props) => {
                 </div>
               </div>
               <div className="flex flex-col justify-center ml-6 sm:ml-0">
+                <RealButton
+                  className="mb-4"
+                  variant="light"
+                  size="xs"
+                  onClick={() => {
+                    setValues(normalEventInitialValues);
+                  }}
+                >
+                  Reset Form
+                </RealButton>
                 <p className="self-center font-semibold justify-self-center text-stone-500">
                   {values.selectedStartDates[0]
                     ? format(values.selectedStartDates[0], "EEEE")
