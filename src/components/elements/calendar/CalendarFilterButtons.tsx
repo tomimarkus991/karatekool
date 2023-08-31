@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { MutableRefObject, useCallback, useEffect } from "react";
 
 import { RealButton, Tooltip } from "@/components";
@@ -22,7 +22,6 @@ export const CalendarFilterButtons = ({ currentMonthString, calendarRef }: Props
   const { setLetter } = useCalendarFilters();
   const { data: user } = useUser();
   const pathname = usePathname();
-  const router = useRouter();
 
   const searchParams = useSearchParams();
 
@@ -61,8 +60,7 @@ export const CalendarFilterButtons = ({ currentMonthString, calendarRef }: Props
           focus={true}
           onClick={() => {
             setLetter(letter);
-
-            router.push(`${pathname}?${createQueryString("group", letter)}` as any);
+            window.history.pushState({}, "", `${pathname}?${createQueryString("group", letter)}`);
           }}
         >
           <Tooltip tooltip={`Näita ${letter} grupi trenne`} />
@@ -77,7 +75,7 @@ export const CalendarFilterButtons = ({ currentMonthString, calendarRef }: Props
           onClick={() => {
             setLetter("all");
 
-            router.push(`${pathname}?${createQueryString("group", "all")}` as any);
+            window.history.pushState({}, "", `${pathname}?${createQueryString("group", "all")}`);
           }}
           size="icon"
           className="relative px-0 md2:px-3 group"
