@@ -4,11 +4,11 @@ import { realButtonVariantColors } from "../components";
 
 export const groupAllColors = {
   S: "casualRed",
-  S1: "casualGray",
-  L: "casualL",
-  C: "casualGold",
-  V: "casualOrange",
-  A: "casualGreen",
+  S1: "casualOrange",
+  L: "casualYellow",
+  C: "casualBrightGreen",
+  V: "casualGreen",
+  A: "casualCyan",
   E: "casualAqua",
   N: "casualSkyBlue",
   M: "casualSlateBlue",
@@ -21,11 +21,11 @@ export const groupAllColors = {
  */
 export const groupLetterColors = {
   S: "text-casualRed",
-  S1: "text-casualGray",
-  L: "text-casualL",
-  C: "text-casualGold",
-  V: "text-casualOrange",
-  A: "text-casualGreen",
+  S1: "text-casualOrange",
+  L: "text-gold",
+  C: "text-casualBrightGreen",
+  V: "text-casualGreen",
+  A: "text-casualCyan",
   E: "text-casualAqua",
   N: "text-casualSkyBlue",
   M: "text-casualSlateBlue",
