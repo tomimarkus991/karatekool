@@ -39,6 +39,11 @@ module.exports = {
       ...defaultTheme.screens,
     },
     extend: {
+      backgroundImage: {
+        gradient:
+          "linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)",
+        "secondary-gradient": "linear-gradient(60deg, #e68414,#F4D011)",
+      },
       boxShadow: {
         red: "0px 4px 12px 0 rgba(174, 9, 9, 0.3)",
         orange: "0px 4px 12px 0 rgba(229, 141, 8, 0.3)",
@@ -108,6 +113,8 @@ module.exports = {
         "scrollwheel-move-down": "animate-scrollwheel-move-down 2500ms ease infinite",
         "mobile-move-down": "animate-mobile-move-down 2500ms ease infinite",
         pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;",
+        shimmer: "shimmer 3s ease-out infinite alternate",
+        text: "text 5s ease infinite",
       },
       gridTemplateColumns: {
         "auto-fit": "repeat(auto-fit, minmax(100%, 1fr))",
@@ -127,6 +134,21 @@ module.exports = {
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "0 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
+        },
+        text: {
+          "0%, 100%": {
+            "background-size": "200% 200%",
+            "background-position": "left center",
+          },
+          "50%": {
+            "background-size": "200% 200%",
+            "background-position": "right center",
+          },
         },
         "animate-spin": {
           from: { transform: "rotate(0deg)" },

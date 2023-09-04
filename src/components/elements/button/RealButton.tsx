@@ -4,7 +4,11 @@ import { forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
 export const realButtonVariantColors = {
-  red: ["text-white bg-primary border-[#b10000]", "active:border-primary"],
+  red: [
+    // "text-white bg-primary border-[#b10000]",
+    // "active:border-primary",
+    "!bg-gradient duration-100 !border-0 !border-transparent !bg-transparent animate-shimmer text-white",
+  ],
   orange: ["text-white bg-secondary border-[#b77515]", "active:border-secondary"],
   dark: [
     "bg-gray-700 text-textWhite border-gray-900",
@@ -160,7 +164,7 @@ export const RealButton = forwardRef<HTMLButtonElement, RealButtonProps>(
   ({ className, variant, size, type = "button", isValid, focus, ...props }, ref) => (
     <button
       type={type}
-      className={cn(realButtonVariants({ variant, size, focus, isValid, className }))}
+      className={cn(realButtonVariants({ variant, size, focus, isValid, className }), "")}
       ref={ref}
       {...props}
     />

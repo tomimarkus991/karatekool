@@ -11,6 +11,7 @@ import { Footer } from "../../components/elements/navigation/Footer";
 import { NavbarTop } from "../../components/elements/navigation/NavbarTop";
 import { Sidebar } from "../../components/elements/sidebar/Sidebar";
 import { useAnimateScroll } from "../../hooks";
+import { cn } from "../../lib";
 
 import CherryBranch from "./cherry-branch.png";
 import CherryTree from "./cherry-tree.png";
@@ -57,11 +58,13 @@ export const MainComponent = () => {
               <p className="mb-4 text-2xl font-semibold text-center sm:text-3xl md:text-4xl">
                 Klubisse registreerumine on alanud!
               </p>
-              <Link href="/registreerimise-info">
-                <p className="text-xl underline text-secondary md:text-2xl xl:text-3xl">
-                  Registreerimise info
-                </p>
-              </Link>
+              <AnimationWrapper variants={animations.smallScale}>
+                <Link href="/registreerimise-info">
+                  <p className="text-xl underline text-secondary md:text-2xl xl:text-3xl">
+                    Registreerimise info
+                  </p>
+                </Link>
+              </AnimationWrapper>
             </AnimationWrapper>
 
             <AnimationWrapper
@@ -70,7 +73,12 @@ export const MainComponent = () => {
               animate={section1TextControl}
               variants={animations.pageItems.fadeInFromLeftDelayed}
             >
-              <p className="text-3xl font-semibold md:text-4xl xl:text-5xl text-secondary-light">
+              <p
+                className={cn(
+                  "text-3xl font-semibold md:text-4xl xl:text-5xl",
+                  "text-transparent bg-clip-text bg-secondary-gradient animate-text",
+                )}
+              >
                 <LetterDecryptor delay={1250} time={1250}>
                   Nüke 35-õppeaasta!
                 </LetterDecryptor>
@@ -83,11 +91,13 @@ export const MainComponent = () => {
               variants={animations.pageItems.fadeInFromLeft}
             >
               <Link href="/buklet">
-                <p className="text-3xl font-semibold underline md:text-4xl xl:text-5xl text-secondary-light">
-                  <LetterDecryptor letterAmount={1} delay={200} time={1250}>
-                    Buklet
-                  </LetterDecryptor>
-                </p>
+                <AnimationWrapper variants={animations.smallScale}>
+                  <p className="text-3xl font-semibold underline md:text-4xl xl:text-5xl text-secondary-light">
+                    <LetterDecryptor letterAmount={1} delay={200} time={1250}>
+                      Buklet
+                    </LetterDecryptor>
+                  </p>
+                </AnimationWrapper>
               </Link>
             </AnimationWrapper>
           </div>
