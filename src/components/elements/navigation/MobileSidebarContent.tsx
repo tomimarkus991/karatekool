@@ -33,7 +33,7 @@ export const MobileSidebarContent = () => {
       <div className="flex flex-col mb-8">
         <div className="flex flex-row justify-between px-3">
           <div className="scale-[.8]">
-            <Icons.logo />
+            <Icons.logoMobile />
           </div>
           <button onClick={() => setSidebarState("closed")}>
             <AnimationWrapper key="expanded-sidebar-x-icon" variants={animations.scaleAndRotation}>

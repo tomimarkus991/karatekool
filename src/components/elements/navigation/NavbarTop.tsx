@@ -62,7 +62,7 @@ export const NavbarTop = ({ bg = "bg-surface-bg" }: Props) => {
       >
         <div className="flex flex-row items-center justify-between flex-1 px-4">
           <div className="flex flex-row items-center justify-start flex-1">
-            <Icons.logo className="scale-[.80]" />
+            <Icons.logoMobile className="scale-[.80]" />
             <div className="flex flex-col font-semibold">
               <p className="h-6 text-2xl font-semibold">Nüke</p>
               <p className="font-normal">Karate-do klubi</p>
@@ -87,7 +87,7 @@ export const NavbarTop = ({ bg = "bg-surface-bg" }: Props) => {
       >
         <div className="flex justify-between">
           <div className="flex flex-row items-center space-x-1 md:mr-16 sm2:mr-0 lg:mr-28 lg:space-x-3">
-            <Icons.logo className="scale-[1] sm2:mr-1" />
+            <Icons.logoDesktop className="scale-[1] sm2:mr-1" />
             <div className="mr-4 font-semibold">
               <p className="sm2:text-xl md:text-2xl sm:hidden sm2:block !leading-[1.2rem]">Nüke</p>
               <p className="sm2:text-base md:text-lg sm:hidden sm2:w-20 md:w-auto sm2:block !leading-[1.2rem]">
