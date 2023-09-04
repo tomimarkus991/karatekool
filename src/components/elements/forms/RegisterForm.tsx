@@ -141,14 +141,14 @@ export const RegisterForm = ({ closeModal }: Props) => {
                       isAllowedToRegister ? "hidden" : "text-base",
                     )}
                   >
-                    Kui sa pole veel luba taotlenud, vajuta siia
+                    Kui sa pole veel luba taotlenud, vajuta siia.
                   </p>
                 </AnimationWrapper>
               </Link>
               <Link href={"/question"}>
                 <AnimationWrapper variants={animations.smallScaleXs}>
                   <p className="mt-2 font-semibold text-primary">
-                    NB! Kui soovid hoopis küsimust küsida vajuta siia!
+                    NB! Kui soovid esitada küsimust, vajuta siia.
                   </p>
                 </AnimationWrapper>
               </Link>
