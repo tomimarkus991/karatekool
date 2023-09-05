@@ -108,18 +108,22 @@ export const UpdateProfileForm = () => {
   const [initialValues] = useState<UpdateProfileFormValues>({
     name: "",
     avatar: "",
+    calendarType: "",
+    group: "",
   });
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={YupSchemas.UpdateProfile}
       validateOnChange={true}
-      onSubmit={async ({ avatar, name }, { setSubmitting, resetForm }) => {
+      onSubmit={async ({ avatar, name, calendarType, group }, { setSubmitting, resetForm }) => {
         setSubmitting(true);
 
         updateProfile({
           name: name as string,
           avatar: avatar as string,
+          calendarType: calendarType as string,
+          group: group as string,
         });
 
         resetForm();
@@ -139,6 +143,10 @@ export const UpdateProfileForm = () => {
               submitForm={submitForm}
             />
             <FormikInput label="Nimi" placeholder={user?.username || "Nimi"} name="name" />
+
+            {/* @todo */}
+            {/* add group select here */}
+            {/* add calendar type select here */}
 
             <RealButton
               disabled={name === "" ? true : false}

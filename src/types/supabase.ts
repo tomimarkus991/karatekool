@@ -303,7 +303,9 @@ export interface Database {
       profile: {
         Row: {
           avatar: string | null;
+          calendar_type: string | null;
           created_at: string | null;
+          group: string | null;
           id: string;
           role: string | null;
           updated_at: string | null;
@@ -311,7 +313,9 @@ export interface Database {
         };
         Insert: {
           avatar?: string | null;
+          calendar_type?: string | null;
           created_at?: string | null;
+          group?: string | null;
           id: string;
           role?: string | null;
           updated_at?: string | null;
@@ -319,7 +323,9 @@ export interface Database {
         };
         Update: {
           avatar?: string | null;
+          calendar_type?: string | null;
           created_at?: string | null;
+          group?: string | null;
           id?: string;
           role?: string | null;
           updated_at?: string | null;

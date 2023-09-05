@@ -15,7 +15,7 @@ import {
   animations,
   calendarUtils,
 } from "@/components";
-import { useGetCurrentMonthEvents, useIsMobile, useUser } from "@/hooks";
+import { useGetCurrentMonthEvents, useUser } from "@/hooks";
 
 import { LetterDecryptor } from "../LetterDecryptor";
 import { Popover, PopoverContent, PopoverTrigger } from "../Popover";
@@ -49,7 +49,6 @@ const CalendarView = ({ type, onClick, Icon }: CalendarViewProps) => (
 
 export const Calendar = () => {
   const { currentMonthType, currentDayType } = calendarUtils;
-  const { isMobile } = useIsMobile();
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState<number>();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -82,9 +81,8 @@ export const Calendar = () => {
 
   useEffect(() => {
     fetchEvents();
-    if (isMobile) {
-      setCalendarType("Day");
-    }
+    // @todo when user profile has calendar type change it to that
+    // setCalendarType
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

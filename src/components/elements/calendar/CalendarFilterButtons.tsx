@@ -41,6 +41,8 @@ export const CalendarFilterButtons = ({ currentMonthString, calendarRef }: Props
     if (group) {
       setLetter(group as GroupFilters);
     }
+    // @todo (else) when user profile has group change it to that
+    // setLetter
   }, []);
 
   return (

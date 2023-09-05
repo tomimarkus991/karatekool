@@ -6,18 +6,22 @@ import { useSupabase } from "@/context";
 interface Props {
   name: string;
   avatar: string;
+  group: string;
+  calendarType: string;
 }
 
 interface UpdatedFields {
   username?: string;
   avatar?: string;
+  group?: string;
+  calendar_type?: string;
 }
 
 export const useUpdateProfile = () => {
   const { supabase } = useSupabase();
   const queryClient = useQueryClient();
 
-  const execute = async ({ avatar, name }: Props) => {
+  const execute = async ({ avatar, name, calendarType, group }: Props) => {
     const updatedFields: UpdatedFields = {};
 
     if (name) {
@@ -26,6 +30,14 @@ export const useUpdateProfile = () => {
 
     if (avatar) {
       updatedFields.avatar = avatar;
+    }
+
+    if (group) {
+      updatedFields.group = group;
+    }
+
+    if (calendarType) {
+      updatedFields.calendar_type = calendarType;
     }
 
     const res = await supabase

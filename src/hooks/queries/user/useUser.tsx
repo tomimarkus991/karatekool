@@ -18,7 +18,9 @@ export const useUser = () => {
           id,
           username,
           avatar,
-          role
+          role,
+          group,
+          calendar_type
         `,
       )
       .eq("id", session?.user.id)

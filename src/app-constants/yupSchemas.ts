@@ -59,6 +59,8 @@ export type SendQuestionFormValues = InferType<typeof SendQuestionForm>;
 const UpdateProfile = object().shape({
   name: string().min(3),
   avatar: string(),
+  group: string(),
+  calendarType: string(),
 });
 
 export type UpdateProfileFormValues = InferType<typeof UpdateProfile>;
