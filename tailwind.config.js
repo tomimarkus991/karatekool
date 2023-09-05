@@ -4,6 +4,7 @@
 const colors = require("tailwindcss/colors");
 const defaultTheme = require("tailwindcss/defaultTheme");
 const flattenColorPalette = require("tailwindcss/lib/util/flattenColorPalette").default;
+const plugin = require("tailwindcss/plugin");
 
 // This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
 const addVariablesForColors = ({ addBase, theme }) => {
@@ -44,11 +45,21 @@ module.exports = {
           "linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)",
         "secondary-gradient": "linear-gradient(60deg, #e68414,#F4D011)",
       },
+      backgroundColor: {
+        overlay: "hsla(0, 0%, 0%, 0.55)",
+      },
       boxShadow: {
         red: "0px 4px 12px 0 rgba(174, 9, 9, 0.3)",
         orange: "0px 4px 12px 0 rgba(229, 141, 8, 0.3)",
         top: "20px 35px 60px -15px rgba(0, 0, 0, 0.3)",
         notLeft: "3px 3px 5px -4px rgba(0, 0, 0, 0.3)",
+        image: "inset 0 2px 4px 0px hsla(0, 0%, 0%, 0.2)",
+      },
+      textShadow: {
+        sm: "0 1px 2px var(--tw-shadow-color)",
+        DEFAULT: "0 2px 4px var(--tw-shadow-color)",
+        lg: "0 8px 16px var(--tw-shadow-color)",
+        text: "0 0 50px var(--tw-shadow-color)",
       },
       fontSize: {
         xs2: "0.6rem",
@@ -223,5 +234,15 @@ module.exports = {
     require("tailwindcss-animate"),
     require("tailwindcss-border-gradient-radius"),
     addVariablesForColors,
+    plugin(({ matchUtilities, theme }) => {
+      matchUtilities(
+        {
+          "text-shadow": value => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme("textShadow") },
+      );
+    }),
   ],
 };
