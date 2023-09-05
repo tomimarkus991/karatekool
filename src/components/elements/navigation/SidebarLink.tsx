@@ -29,7 +29,6 @@ const Content = ({ children, icon, isActive }: ContentProps) => (
   >
     <AnimationWrapper
       variants={animations.smallScale}
-      key="sidebar-link"
       child
       className={cn("fill-text-primary flex justify-between flex-1")}
     >

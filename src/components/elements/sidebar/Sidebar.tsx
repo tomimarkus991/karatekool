@@ -16,8 +16,6 @@ export const Sidebar = () => {
       {sidebarState === "mobile" && (
         <>
           <AnimationWrapper
-            id="sidebar"
-            key="mobile-app-sidebar-wrapper"
             variants={animations.sidebar.mobile(placement)}
             className={cn(
               "fixed z-[1205] flex h-[96vh] w-64 flex-col bg-white top-4 mr-4 rounded-xl",
@@ -30,8 +28,6 @@ export const Sidebar = () => {
           </AnimationWrapper>
 
           <AnimationWrapper
-            key="mobile-app-sidebar-overlay"
-            id="overlay"
             initial={{ opacity: 0 }}
             animate={{
               opacity: 0.5,
