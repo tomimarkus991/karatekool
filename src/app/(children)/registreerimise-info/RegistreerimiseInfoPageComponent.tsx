@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { BiSolidQuoteAltLeft, BiSolidQuoteAltRight } from "react-icons/bi";
 
 import { AnimationWrapper, TwoElementMovingBox, animations } from "@/components";
 import { cn } from "@/lib";
@@ -150,14 +151,20 @@ export const RegistreerimiseInfoPageComponent = () => {
     <div className="max-w-4xl mx-auto">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
         <div className="space-y-3">
-          <p className="font-sans text-lg font-semibold md:text-2xl">
+          <p className="font-sans text-lg font-semibold tracking-wide md:text-2xl">
             INFO UUSLIIKMETELE ja LASTEVANEMATELE
           </p>
           <p className="text-lg text-secondary">Nüke 35-õppeaasta!</p>
-          <p className="text-xl font-semibold">“KARATEGA JULGEKS, TARGAKS JA HOOLIVAKS!”</p>
+          <div className="flex flex-row">
+            <BiSolidQuoteAltLeft className="text-gray-300" />
+            <p className="ml-1 mr-2 text-xl italic font-semibold">
+              KARATEGA JULGEKS, TARGAKS JA HOOLIVAKS!
+            </p>
+            <BiSolidQuoteAltRight className="text-gray-300" />
+          </div>
         </div>
         <div>
-          <p className="mt-5 text-xl font-bold text-center font-sans sm:max-w-[15rem] text-primary sm:mt-0">
+          <p className="mt-5 text-xl font-bold tracking-wide text-center font-sans sm:max-w-[15rem] text-primary sm:mt-0">
             SEPTEMBRI TREENINGUD ON TASUTA!
           </p>
         </div>
