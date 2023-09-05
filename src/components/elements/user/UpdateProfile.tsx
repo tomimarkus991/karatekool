@@ -49,7 +49,7 @@ const AvatarPicker = ({ avatar, setFieldValue, userAvatar, submitForm }: AvatarP
       }
     >
       <ModalHeader setOpen={setIsModalOpen} type="close">
-        Change avatar
+        Muuda avatari
       </ModalHeader>
 
       <RadioGroup
