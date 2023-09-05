@@ -1,8 +1,8 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 "use client";
 
-import { Dialog } from "@headlessui/react";
-import { AnimatePresence, motion } from "framer-motion";
-import { ReactNode, useRef } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, ReactNode, useRef } from "react";
 import { HiArrowLeft, HiX } from "react-icons/hi";
 
 import { animations, AnimationWrapper } from "@/components";
@@ -84,43 +84,52 @@ export const Modal = ({
   return (
     <>
       {modalButton}
-      <AnimatePresence>
-        {open && (
-          <Dialog
-            static
-            as={motion.div}
-            key="modal-dialog"
-            initialFocus={initialFocusRef}
-            className="fixed inset-0 z-[1300] flex select-none items-center justify-center"
-            open={open}
-            onClose={setOpen}
+      <Transition.Root show={open} as={Fragment}>
+        <Dialog
+          initialFocus={initialFocusRef}
+          className="fixed inset-0 z-[1300] flex select-none items-center justify-center"
+          onClose={setOpen}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-in-out duration-200"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            <button
-              id="button-to-remove-autofocus"
-              ref={initialFocusRef}
-              className="absolute inset-0 hidden"
+            <div
+              className="fixed inset-0 transition-opacity bg-gray-500 opacity-40"
+              onClick={() => setOpen(!closeOnOverlayClick)}
             />
-            <AnimationWrapper
-              key="app-modal-children"
-              id="modal-children"
-              variants={animations.modalEffect}
+          </Transition.Child>
+
+          <button
+            id="button-to-remove-autofocus"
+            ref={initialFocusRef}
+            className="absolute inset-0 hidden"
+          />
+          <Transition.Child
+            as={Fragment}
+            enter="ease-in duration-200"
+            enterFrom="opacity-0 scale-90"
+            enterTo="opacity-100 scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95"
+          >
+            <Dialog.Panel
               className={cn(
                 "minscreen:min-w-[20rem] rounded-xl bg-white z-[10]",
                 modalMaxWidth[maxWidth],
               )}
             >
               {children}
-            </AnimationWrapper>
-            <AnimationWrapper
-              key="app-modal-overlay"
-              id="overlay"
-              variants={animations.overlay}
-              onClick={() => setOpen(!closeOnOverlayClick)}
-              className="absolute inset-0 w-full h-full bg-gray-500 opacity-40"
-            />
-          </Dialog>
-        )}
-      </AnimatePresence>
+            </Dialog.Panel>
+          </Transition.Child>
+        </Dialog>
+      </Transition.Root>
     </>
   );
 };
