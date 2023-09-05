@@ -3,7 +3,7 @@ import { useField } from "formik";
 
 import { NormalEventSelectedGroupsFormValues } from "@/app-constants";
 import { useGetGroups } from "@/hooks";
-import { cn, buttonVariantMapper } from "@/lib";
+import { cn, groupLetterColorMapper } from "@/lib";
 import { GroupLetters } from "@/types";
 
 import { InputErrorText } from "../../../forms";
@@ -54,7 +54,7 @@ export const GroupPicker = ({ name }: Props) => {
                         )}
                         key={group.id}
                       >
-                        <p className={cn(buttonVariantMapper(group?.letter as GroupLetters))}>
+                        <p className={cn(groupLetterColorMapper(group?.letter as GroupLetters))}>
                           {group.letter}
                         </p>
                       </div>
@@ -89,7 +89,7 @@ export const GroupPicker = ({ name }: Props) => {
                         <p
                           className={cn(
                             "underline decoration-red-500",
-                            buttonVariantMapper(group?.letter as GroupLetters),
+                            groupLetterColorMapper(group?.letter as GroupLetters),
                           )}
                         >
                           {group.letter}

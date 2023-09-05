@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { RegistreerimiseInfoPageComponent } from "./RegistreerimiseInfoPageComponent";
 
 export const metadata: Metadata = {
-  title: "Registrerimise info",
+  title: "Registreerimise info",
   description: `Treeningud ALGKLASSIDE LASTELE, VHK spordisaal (Vene 22)
     L-grupp
 TEISIPÄEVAL kell 15:00 – 16:00

@@ -4,6 +4,8 @@ import { forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
 export const realButtonVariantColors = {
+  red: ["text-white bg-primary border-[#b10000]", "active:border-primary"],
+  orange: ["text-white bg-secondary border-[#b77515]", "active:border-secondary"],
   dark: [
     "bg-gray-700 text-textWhite border-gray-900",
     "hover:text-white",
@@ -46,19 +48,35 @@ export const realButtonVariantColors = {
     "active:border-casualRed",
     "outline-casualRedOutline",
   ],
-  red: ["text-white bg-primary border-[#b10000]", "active:border-primary"],
-  orange: ["text-white bg-secondary border-[#b77515]", "active:border-secondary"],
   casualOrange: [
     "text-textGray bg-casualOrange border-casualOrangeDarker",
     "hover:text-textGray",
     "active:border-casualOrange",
     "outline-casualOrangeOutline",
   ],
+  casualYellow: [
+    "text-textGray bg-casualYellow border-casualYellowDarker",
+    "hover:text-textGray",
+    "active:border-casualYellow",
+    "outline-casualYellowOutline",
+  ],
+  casualBrightGreen: [
+    "text-textGray bg-casualBrightGreen border-casualBrightGreenDarker",
+    "hover:text-textGray",
+    "active:border-casualBrightGreen",
+    "outline-casualBrightGreenOutline",
+  ],
   casualGreen: [
     "text-textGray bg-casualGreen border-casualGreenDarker",
     "hover:text-textGray",
     "active:border-casualGreen",
     "outline-casualGreenOutline",
+  ],
+  casualCyan: [
+    "text-textGray bg-casualCyan border-casualCyanDarker",
+    "hover:text-textGray",
+    "active:border-casualCyan",
+    "outline-casualCyanOutline",
   ],
   casualAqua: [
     "text-textGray bg-casualAqua border-casualAquaDarker",
@@ -89,6 +107,18 @@ export const realButtonVariantColors = {
     "hover:text-textGray",
     "active:border-casualPink",
     "outline-casualPinkOutline",
+  ],
+  gold: [
+    "text-textGray bg-gold border-goldDarker",
+    "hover:text-textGray",
+    "active:border-gold",
+    "outline-goldOutline",
+  ],
+  gray: [
+    "text-textGray bg-casualGray border-casualGrayDarker",
+    "hover:text-textGray",
+    "active:border-casualGray",
+    "outline-casualGrayOutline",
   ],
 };
 
@@ -130,7 +160,7 @@ export const RealButton = forwardRef<HTMLButtonElement, RealButtonProps>(
   ({ className, variant, size, type = "button", isValid, focus, ...props }, ref) => (
     <button
       type={type}
-      className={cn(realButtonVariants({ variant, size, focus, isValid, className }))}
+      className={cn(realButtonVariants({ variant, size, focus, isValid, className }), "")}
       ref={ref}
       {...props}
     />

@@ -2,7 +2,7 @@
 
 import { format } from "date-fns";
 import { useField } from "formik";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { HiOutlineCalendar } from "react-icons/hi";
 
 import { AllDayEventFormik } from "@/app-constants";
@@ -45,26 +45,39 @@ export const DatePicker = ({ name, className, ...props }: Props) => {
 };
 export const MultiDatePicker = ({ name, className, ...props }: Props) => {
   const [field, { value: values }, { setValue }] = useField<Date[] | undefined>(name);
+  const [sortedDates, setSortedDates] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (values?.length) {
+      const dates = values.map(value => value.getDate());
+
+      setSortedDates(dates.sort((a, b) => a - b));
+    }
+  }, [values]);
 
   return (
     <Popover>
       <PopoverTrigger>
         <AnimationWrapper variants={animations.subtleScale}>
-          <DatePickerCalendarButton variant="ghost" className="pl-0 ml-0 text-left group">
+          <DatePickerCalendarButton
+            variant="ghost"
+            className="pl-0 ml-0 overflow-hidden text-left group"
+          >
             <HiOutlineCalendar className="w-6 h-6 mr-2 text-stone-700 group-hover:text-stone-800" />
             {values?.length && values[0] ? (
-              <p className="text-lg">{values.length} päeva on veel valitud</p>
+              <p className="text-lg">{sortedDates.map(value => ` ${value} `)}</p>
             ) : (
-              <p className="text-lg">Vali kuupäevad</p>
+              <p className="text-lg">Vali trenni kuupäevad</p>
             )}
           </DatePickerCalendarButton>
         </AnimationWrapper>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0 z-[5001]">
+      <PopoverContent align="start" className="w-auto p-0 z-[5001]">
         <DatePickerCalendar
           {...field}
           {...props}
           mode="multiple"
+          defaultMonth={values?.[0]}
           className={className}
           selected={values}
           onSelect={date => {

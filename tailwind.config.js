@@ -4,6 +4,7 @@
 const colors = require("tailwindcss/colors");
 const defaultTheme = require("tailwindcss/defaultTheme");
 const flattenColorPalette = require("tailwindcss/lib/util/flattenColorPalette").default;
+const plugin = require("tailwindcss/plugin");
 
 // This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
 const addVariablesForColors = ({ addBase, theme }) => {
@@ -39,11 +40,26 @@ module.exports = {
       ...defaultTheme.screens,
     },
     extend: {
+      backgroundImage: {
+        gradient:
+          "linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)",
+        "secondary-gradient": "linear-gradient(60deg, #e68414,#F4D011)",
+      },
+      backgroundColor: {
+        overlay: "hsla(0, 0%, 0%, 0.55)",
+      },
       boxShadow: {
         red: "0px 4px 12px 0 rgba(174, 9, 9, 0.3)",
         orange: "0px 4px 12px 0 rgba(229, 141, 8, 0.3)",
         top: "20px 35px 60px -15px rgba(0, 0, 0, 0.3)",
         notLeft: "3px 3px 5px -4px rgba(0, 0, 0, 0.3)",
+        image: "inset 0 2px 4px 0px hsla(0, 0%, 0%, 0.2)",
+      },
+      textShadow: {
+        sm: "0 1px 2px var(--tw-shadow-color)",
+        DEFAULT: "0 2px 4px var(--tw-shadow-color)",
+        lg: "0 8px 16px var(--tw-shadow-color)",
+        text: "0 0 50px var(--tw-shadow-color)",
       },
       fontSize: {
         xs2: "0.6rem",
@@ -54,31 +70,46 @@ module.exports = {
         "tab-bg": "#F6F6F8",
         primary: "#E50815",
         secondary: "#E58D08",
-        "secondary-light": "#eaa439",
+        "secondary-light": "#EAA439",
         casualRed: "#FF695A",
-        casualOrange: "#FFA033",
-        casualGreen: "#42D68C",
-        casualAqua: "#08CAD1",
-        casualSkyBlue: "#59ADF6",
-        casualSlateBlue: "#97B8FC",
-        casualViolet: "#C780E8",
-        casualPink: "#F07DD7",
         casualRedDarker: "#B92F27",
-        casualOrangeDarker: "#C76A2A",
-        casualGreenDarker: "#30A46A",
-        casualAquaDarker: "#05989D",
-        casualSkyBlueDarker: "#2A85D4",
-        casualSlateBlueDarker: "#728ABC",
-        casualVioletDarker: "#9756B5",
-        casualPinkDarker: "#CC41AE",
         casualRedOutline: "#fcaaa1",
+        casualOrange: "#FFA033",
+        casualOrangeDarker: "#C76A2A",
         casualOrangeOutline: "#FFC684",
+        casualYellow: "#F6DE5C",
+        casualYellowDarker: "#EDC908",
+        casualYellowOutline: "#FFED8C",
+        casualBrightGreen: "#ADFF6C",
+        casualBrightGreenDarker: "#7ED321",
+        casualBrightGreenOutline: "#D0FFB3",
+        casualGreen: "#42D68C",
+        casualGreenDarker: "#30A46A",
         casualGreenOutline: "#79E2AE",
-        casualAquaOutline: "#26E2E9",
+        casualCyan: "#08CAD1",
+        casualCyanDarker: "#05A6AD",
+        casualCyanOutline: "#6BE8EA",
+        casualAqua: "#59DAF6",
+        casualAquaDarker: "#1DA6C3",
+        casualAquaOutline: "#A8E8FF",
+        casualSkyBlue: "#59ADF6",
+        casualSkyBlueDarker: "#2A85D4",
         casualSkyBlueOutline: "#6DB7F8",
+        casualSlateBlue: "#97B8FC",
+        casualSlateBlueDarker: "#728ABC",
         casualSlateBlueOutline: "#AAC6FF",
+        casualViolet: "#C780E8",
+        casualVioletDarker: "#9756B5",
         casualVioletOutline: "#E2A5FF",
+        casualPink: "#F07DD7",
+        casualPinkDarker: "#CC41AE",
         casualPinkOutline: "#FFA8EC",
+        gold: "#D4A017",
+        goldDarker: "#A17A10",
+        goldOutline: "#D4A017",
+        casualGray: "#9A9A9A",
+        casualGrayDarker: "#787878",
+        casualGrayOutline: "#9A9A9A",
         darkOutline: "#78808c",
         lightOutline: "#eef2f6",
         blueOutline: "#6585DF",
@@ -93,6 +124,8 @@ module.exports = {
         "scrollwheel-move-down": "animate-scrollwheel-move-down 2500ms ease infinite",
         "mobile-move-down": "animate-mobile-move-down 2500ms ease infinite",
         pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;",
+        shimmer: "shimmer 3s ease-out infinite alternate",
+        text: "text 5s ease infinite",
       },
       gridTemplateColumns: {
         "auto-fit": "repeat(auto-fit, minmax(100%, 1fr))",
@@ -112,6 +145,21 @@ module.exports = {
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "0 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
+        },
+        text: {
+          "0%, 100%": {
+            "background-size": "200% 200%",
+            "background-position": "left center",
+          },
+          "50%": {
+            "background-size": "200% 200%",
+            "background-position": "right center",
+          },
         },
         "animate-spin": {
           from: { transform: "rotate(0deg)" },
@@ -186,5 +234,15 @@ module.exports = {
     require("tailwindcss-animate"),
     require("tailwindcss-border-gradient-radius"),
     addVariablesForColors,
+    plugin(({ matchUtilities, theme }) => {
+      matchUtilities(
+        {
+          "text-shadow": value => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme("textShadow") },
+      );
+    }),
   ],
 };

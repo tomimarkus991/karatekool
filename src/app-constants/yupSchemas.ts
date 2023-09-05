@@ -66,8 +66,14 @@ export type UpdateProfileFormValues = InferType<typeof UpdateProfile>;
 // create normal event
 const NormalEvent = object().shape({
   startTime: date().default(new Date()).required("Vajalik"),
-  startDate: date().default(new Date()).required("Vajalik"),
-  selectedStartDates: array().of(date()).default([]),
+  selectedStartDates: array()
+    .of(date().required())
+    .default([])
+    .required("Vajalik")
+    .test({
+      message: "Palun vali üritus",
+      test: value => value !== undefined && value.length > 0,
+    }),
   // selectedGroups has to be bigger than 0
   selectedGroups: array()
     .of(

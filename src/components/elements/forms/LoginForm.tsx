@@ -103,7 +103,7 @@ export const LoginForm = ({ closeModal, isValid, isLoggingIn, handleSubmit }: Pr
           </div>
         </div>
         <ModalFooterContainer>
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center pb-4">
             <RealButton
               variant="red"
               className="mb-4"

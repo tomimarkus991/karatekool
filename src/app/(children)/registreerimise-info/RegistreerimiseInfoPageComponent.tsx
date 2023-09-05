@@ -150,14 +150,14 @@ export const RegistreerimiseInfoPageComponent = () => {
     <div className="max-w-4xl mx-auto">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
         <div className="space-y-3">
-          <p className="text-lg font-bold md:text-xl">INFO UUSLIIKMETELE ja LASTEVANEMATELE</p>
-          <p className="text-lg text-secondary">Nüke 35-õppeaasta!</p>
-          <p className="text-lg font-semibold">
-            KARATEGA JULGEKS, TARGAKS ja HOOLIVAKS! (Nüke moto)
+          <p className="font-sans text-lg font-semibold md:text-2xl">
+            INFO UUSLIIKMETELE ja LASTEVANEMATELE
           </p>
+          <p className="text-lg text-secondary">Nüke 35-õppeaasta!</p>
+          <p className="text-xl font-semibold">“KARATEGA JULGEKS, TARGAKS JA HOOLIVAKS!”</p>
         </div>
         <div>
-          <p className="mt-5 text-xl font-bold text-center sm:max-w-[15rem] text-primary sm:mt-0">
+          <p className="mt-5 text-xl font-bold text-center font-sans sm:max-w-[15rem] text-primary sm:mt-0">
             SEPTEMBRI TREENINGUD ON TASUTA!
           </p>
         </div>

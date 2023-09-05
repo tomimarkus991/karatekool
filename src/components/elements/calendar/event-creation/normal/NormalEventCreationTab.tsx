@@ -12,7 +12,6 @@ import {
 } from "@/app-constants";
 import {
   AnimationWrapper,
-  DatePicker,
   FormikInput,
   FormikToggle,
   MapGroupLetter,
@@ -48,11 +47,10 @@ const mergeDateAndTime = (startDate: Date, startTime: Date): Date => {
 };
 
 interface PresetsModalProps {
-  values: NormalEventFormValues;
   setValues: (data: NormalEventFormValues) => any;
 }
 
-const PresetsModal = ({ values, setValues }: PresetsModalProps) => {
+const PresetsModal = ({ setValues }: PresetsModalProps) => {
   const [isEventPresetModalOpen, setIsEventPresetModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -103,7 +101,7 @@ const PresetsModal = ({ values, setValues }: PresetsModalProps) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-4 mt-6 mb-4">
+        <div className="grid grid-cols-4 gap-4 my-3">
           {eventPresets?.map(preset => {
             const displayGroups = preset.groups?.map(group => {
               return {
@@ -154,7 +152,6 @@ const PresetsModal = ({ values, setValues }: PresetsModalProps) => {
                         selectedGroups,
                         trailer: preset.trailer,
                         selectedStartDates: [],
-                        startDate: values.startDate,
                         startTime: preset.start ? parseISO(preset.start) : new Date(),
                         description: preset?.description || "",
                       });
@@ -192,8 +189,7 @@ interface Props {
 export const NormalEventCreationTab = ({ openDate }: Props) => {
   const [normalEventInitialValues] = useState<NormalEventFormValues>({
     startTime: new Date(),
-    startDate: openDate,
-    selectedStartDates: [],
+    selectedStartDates: [openDate],
     selectedGroups: [],
     trailer: {},
     description: "",
@@ -222,7 +218,6 @@ export const NormalEventCreationTab = ({ openDate }: Props) => {
           description,
           trailer,
           isHighlighted,
-          startDate,
           selectedStartDates,
         },
         { setSubmitting },
@@ -236,16 +231,8 @@ export const NormalEventCreationTab = ({ openDate }: Props) => {
         const highlightedGroupIds =
           selectedGroups?.filter(group => group.highlighted).map(group => group.id as number) || [];
 
-        const mappedStartDates = selectedStartDates.map(date => {
+        const startDates = selectedStartDates.map(date => {
           return mergeDateAndTime(date as Date, startTime).toISOString();
-        });
-
-        const originalStartDate = mergeDateAndTime(startDate, startTime).toISOString();
-
-        const allStartDates = [originalStartDate, ...mappedStartDates];
-
-        const sameDatesRemoved = allStartDates.filter((date, index) => {
-          return allStartDates.indexOf(date) === index;
         });
 
         createNewNormalCalendarEvent({
@@ -255,7 +242,7 @@ export const NormalEventCreationTab = ({ openDate }: Props) => {
           description,
           trailerId: trailer.id,
           isHighlighted,
-          selectedStartDates: sameDatesRemoved,
+          selectedStartDates: startDates,
         });
 
         setSubmitting(false);
@@ -286,8 +273,7 @@ export const NormalEventCreationTab = ({ openDate }: Props) => {
             <div className="flex flex-row justify-between pb-4">
               <div className="flex flex-col items-start justify-start">
                 <div className="flex flex-col mb-3">
-                  <p className="text-sm text-stone-600">Vali valmis üritus</p>
-                  <PresetsModal values={values} setValues={setValues} />
+                  <PresetsModal setValues={setValues} />
                 </div>
                 <div className="flex flex-row">
                   <div className="flex flex-col">
@@ -297,17 +283,12 @@ export const NormalEventCreationTab = ({ openDate }: Props) => {
                     </div>
                   </div>
                   <div className="flex flex-col">
-                    <p className="text-sm text-stone-600">Vali trenni kuupäev</p>
-                    <DatePicker name="startDate" />
+                    <p className="text-sm text-stone-600">Vali trenni kuupäevad</p>
+                    <MultiDatePicker name="selectedStartDates" />
                   </div>
                 </div>
 
                 <GroupPicker name="selectedGroups" pressed={highlightGroupPressed} />
-
-                <div className="flex flex-col mt-4">
-                  <p className="text-sm text-stone-600">Vali mitu päeva</p>
-                  <MultiDatePicker name="selectedStartDates" disabled={values.startDate} />
-                </div>
 
                 <div className="flex flex-col pt-5">
                   <p className="text-xs text-stone-600">Näita veel parameetreid</p>
@@ -335,13 +316,27 @@ export const NormalEventCreationTab = ({ openDate }: Props) => {
                 </div>
               </div>
               <div className="flex flex-col justify-center ml-6 sm:ml-0">
+                <RealButton
+                  className="mb-4"
+                  variant="light"
+                  size="xs"
+                  onClick={() => {
+                    setValues(normalEventInitialValues);
+                  }}
+                >
+                  Reset Form
+                </RealButton>
                 <p className="self-center font-semibold justify-self-center text-stone-500">
-                  {values.startDate ? format(values.startDate, "EEEE") : "Esmaspäev"}
+                  {values.selectedStartDates[0]
+                    ? format(values.selectedStartDates[0], "EEEE")
+                    : "Esmaspäev"}
                 </p>
                 <div className="flex flex-col self-center mt-2 border border-t-0 h-52 w-36 border-stone-100">
                   <div className="flex flex-col items-center justify-center">
                     <div className="text-xs font-medium font-number sm:text-sm md:text-base text-text-primary">
-                      {values.startDate ? format(values.startDate, "dd") : "1"}
+                      {values.selectedStartDates[0]
+                        ? format(values.selectedStartDates[0], "dd")
+                        : "1"}
                     </div>
                   </div>
                   <div className="flex flex-col justify-center flex-grow ml-2 text-center">
@@ -405,7 +400,10 @@ export const NormalEventCreationTab = ({ openDate }: Props) => {
                       description: values.description || null,
                       group_ids: groupIds,
                       highlighted_group_ids: highlightedGroupIds,
-                      start: mergeDateAndTime(values.startDate, values.startTime).toISOString(),
+                      start: mergeDateAndTime(
+                        values.selectedStartDates[0] || new Date(),
+                        values.startTime,
+                      ).toISOString(),
                       trailer_id: values.trailer.id || null,
                       is_highlighted: values.isHighlighted,
                     });

@@ -1,4 +1,4 @@
-import { cn, buttonVariantMapper } from "@/lib";
+import { cn, groupLetterColorMapper } from "@/lib";
 import { SGroup } from "@/types";
 
 interface MapGroupLetterProps {
@@ -21,7 +21,7 @@ export const MapGroupLetter = ({ groups, dayView = false }: MapGroupLetterProps)
     {groups.map(group => (
       <p
         id="normal-event"
-        className={cn(buttonVariantMapper(group?.letter), className(dayView))}
+        className={cn(groupLetterColorMapper(group?.letter), className(dayView))}
         key={group?.letter}
       >
         {group?.letter}
@@ -46,7 +46,7 @@ export const MapHighLightedGroupLetter = ({
           id="normal-event"
           className={cn(
             "underline decoration-red-500",
-            buttonVariantMapper(highlightedGroup?.letter),
+            groupLetterColorMapper(highlightedGroup?.letter),
             className(dayView),
           )}
         >
