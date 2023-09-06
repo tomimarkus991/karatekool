@@ -1,6 +1,7 @@
 "use client";
 
 import { useTransform, motion, useMotionTemplate } from "framer-motion";
+import Image from "next/image";
 
 import { AnimationWrapper, animations } from "@/components";
 import { definedRoutes } from "@/config";
@@ -13,6 +14,7 @@ import { LoginModal } from "../user/LoginModal";
 import { UserProfile } from "../user/UserProfile";
 
 import { NavbarTopLink } from "./components";
+import LogoText from "./logo-text-big.png";
 
 interface Props {
   bg?: string;
@@ -63,10 +65,13 @@ export const NavbarTop = ({ bg = "bg-surface-bg" }: Props) => {
         <div className="flex flex-row items-center justify-between flex-1 px-4">
           <div className="flex flex-row items-center justify-start flex-1">
             <Icons.logoMobile className="scale-[.80]" />
-            <div className="flex flex-col font-semibold">
-              <p className="h-6 text-2xl font-semibold">Nüke</p>
-              <p className="font-normal">Karate-do klubi</p>
-            </div>
+            <Image
+              src={LogoText}
+              loading="eager"
+              quality={100}
+              alt="nüke"
+              className="w-[6rem] mb-3"
+            />
           </div>
           <AnimationWrapper variants={animations.smallScale} key="ntm-club-icon">
             <Icons.menuIcon
@@ -86,14 +91,15 @@ export const NavbarTop = ({ bg = "bg-surface-bg" }: Props) => {
         )}
       >
         <div className="flex justify-between">
-          <div className="flex flex-row items-center space-x-1 md:mr-16 sm2:mr-0 lg:mr-28 lg:space-x-3">
-            <Icons.logoDesktop className="scale-[1] sm2:mr-1" />
-            <div className="mr-4 font-semibold">
-              <p className="sm2:text-xl md:text-2xl sm:hidden sm2:block !leading-[1.2rem]">Nüke</p>
-              <p className="sm2:text-base md:text-lg sm:hidden sm2:w-20 md:w-auto sm2:block !leading-[1.2rem]">
-                Karate-do klubi
-              </p>
-            </div>
+          <div className="flex flex-row items-center space-x-1 sm2:mr-0 md:mr-16">
+            <Icons.logoDesktop className="scale-[1] hidden lg:block" />
+            <Image
+              src={LogoText}
+              loading="eager"
+              quality={100}
+              alt="nüke"
+              className="w-[6rem] lg:w-[6rem] xl:w-[7rem] mb-3"
+            />
           </div>
           <div className="flex flex-row items-center gap-3 font-normal lg:gap-5">
             {routes.map(([href, label], index) => (
@@ -102,20 +108,22 @@ export const NavbarTop = ({ bg = "bg-surface-bg" }: Props) => {
                 {label.charAt(0).toUpperCase() + label.slice(1)}
               </NavbarTopLink>
             ))}
-            {user ? (
-              <UserProfile
-                avatar={user?.avatar || "avatar.svg"}
-                username={user?.username || ""}
-                role={user?.role || "user"}
-                group={user?.group || null}
-              />
-            ) : (
-              <>
-                <div className="z-10 max-lg:hidden lg:block">
-                  <LoginModal />
-                </div>
-              </>
-            )}
+            <div className="sm2:hidden md2:block">
+              {user ? (
+                <UserProfile
+                  avatar={user?.avatar || "avatar.svg"}
+                  username={user?.username || ""}
+                  role={user?.role || "user"}
+                  group={user?.group || null}
+                />
+              ) : (
+                <>
+                  <div className="z-10 max-lg:hidden lg:block">
+                    <LoginModal />
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>

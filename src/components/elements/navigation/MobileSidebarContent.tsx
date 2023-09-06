@@ -20,6 +20,8 @@ import { useSignOut, useUser } from "@/hooks";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { UpdateProfileForm } from "../user/UpdateProfile";
 
+import LogoText from "./logo-text-big.png";
+
 import { SidebarLink } from ".";
 
 export const MobileSidebarContent = () => {
@@ -31,13 +33,20 @@ export const MobileSidebarContent = () => {
   return (
     <div className="flex flex-col overflow-y-scroll">
       <div className="flex flex-col mb-8">
-        <div className="flex flex-row justify-between px-3">
-          <div className="scale-[.8]">
-            <Icons.logoMobile />
+        <div className="flex flex-row justify-between">
+          <div className="flex flex-row items-start justify-start">
+            <Icons.logoMobile className="scale-[.8]" />
+            <Image
+              src={LogoText}
+              loading="eager"
+              quality={100}
+              alt="nüke"
+              className="w-[6rem] mb-3 scale-[.9] -ml-1"
+            />
           </div>
           <button onClick={() => setSidebarState("closed")}>
             <AnimationWrapper key="expanded-sidebar-x-icon" variants={animations.scaleAndRotation}>
-              <HiX className="w-12 h-12 fill-text-primary hover:fill-gray-800" />
+              <HiX className="w-6 h-6 mr-3 fill-text-primary hover:fill-gray-800" />
             </AnimationWrapper>
           </button>
         </div>
