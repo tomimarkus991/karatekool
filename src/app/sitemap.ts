@@ -71,5 +71,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/buklet`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/videod`,
+      lastModified: new Date(),
+    },
   ];
 }
