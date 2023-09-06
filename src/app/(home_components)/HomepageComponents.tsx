@@ -1,15 +1,44 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 
+// import { Scroller, MobileScroller } from "../../components/elements/home-page/Scrollers";
+// import { LetterDecryptor } from "../../components/elements/LetterDecryptor";
+// import { EmailSender } from "../../components/elements/navigation/EmailSender";
+// import { Footer } from "../../components/elements/navigation/Footer";
+// import { Sidebar } from "../../components/elements/sidebar/Sidebar";
+// import { NavbarTop } from "../../components/elements/navigation/NavbarTop";
+// const AnimationWrapper = dynamic(() =>
+//   import("../../components/animations/AnimationWrapper").then(mod => mod.AnimationWrapper),
+// );
+const Scroller = dynamic(() =>
+  import("../../components/elements/home-page/Scrollers").then(mod => mod.Scroller),
+);
+const MobileScroller = dynamic(() =>
+  import("../../components/elements/home-page/Scrollers").then(mod => mod.MobileScroller),
+);
+
+const LetterDecryptor = dynamic(() =>
+  import("../../components/elements/LetterDecryptor").then(mod => mod.LetterDecryptor),
+);
+
+const EmailSender = dynamic(() =>
+  import("../../components/elements/navigation/EmailSender").then(mod => mod.EmailSender),
+);
+const Footer = dynamic(() =>
+  import("../../components/elements/navigation/Footer").then(mod => mod.Footer),
+);
+const NavbarTop = dynamic(() =>
+  import("../../components/elements/navigation/NavbarTop").then(mod => mod.NavbarTop),
+);
+
+const Sidebar = dynamic(() =>
+  import("../../components/elements/sidebar/Sidebar").then(mod => mod.Sidebar),
+);
+
 import { AnimationWrapper, animations } from "../../components";
-import { Scroller, MobileScroller } from "../../components/elements/home-page/Scrollers";
-import { LetterDecryptor } from "../../components/elements/LetterDecryptor";
-import { EmailSender } from "../../components/elements/navigation/EmailSender";
-import { Footer } from "../../components/elements/navigation/Footer";
-import { NavbarTop } from "../../components/elements/navigation/NavbarTop";
-import { Sidebar } from "../../components/elements/sidebar/Sidebar";
 import { useAnimateScroll } from "../../hooks";
 import { cn } from "../../lib";
 
