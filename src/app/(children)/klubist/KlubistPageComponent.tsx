@@ -46,6 +46,7 @@ export const KlubistPageComponent = () => {
           <Image
             src={TreenerHerik}
             alt="Treener Herik"
+            loading="eager"
             priority
             width={700}
             quality={100}

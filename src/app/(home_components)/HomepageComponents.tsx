@@ -13,12 +13,12 @@ import { Sidebar } from "../../components/elements/sidebar/Sidebar";
 import { useAnimateScroll } from "../../hooks";
 import { cn } from "../../lib";
 
-import CherryBranch from "./cherry-branch.png";
-import CherryTree from "./cherry-tree.png";
-import Crane from "./crane.png";
+import CherryBranch from "./cherry-branch.jpg";
+import CherryTree from "./cherry-tree.jpg";
+import Crane from "./crane.jpg";
 import KarateDoKanji from "./karate-do-kanji.png";
-import Samurai from "./samurai.png";
-import Tiger from "./tiger-hero.png";
+import Samurai from "./samurai.jpg";
+import Tiger from "./tiger-hero.jpg";
 
 export const MainComponent = () => {
   // const { control: section1ImageControl, ref: section1ImageRef } = useAnimateScroll();
@@ -42,6 +42,7 @@ export const MainComponent = () => {
             priority
             fill
             quality={100}
+            loading="eager"
             src={Tiger}
             placeholder="blur"
             alt="tiiger"
@@ -117,7 +118,7 @@ export const MainComponent = () => {
             <div>
               <Image
                 src={CherryTree}
-                quality={100}
+                loading="lazy"
                 alt="cherry tree"
                 className="w-[40rem]"
                 placeholder="blur"
@@ -126,6 +127,7 @@ export const MainComponent = () => {
             <div className="flex flex-col-reverse sm2:flex-col">
               <Image
                 src={KarateDoKanji}
+                loading="lazy"
                 alt="karate-do kanji"
                 className="w-[22rem] self-center sm2:w-[30rem]"
                 placeholder="blur"
@@ -159,7 +161,7 @@ export const MainComponent = () => {
 
             <Image
               src={CherryBranch}
-              quality={100}
+              loading="lazy"
               alt="cherry branch"
               className="w-[30rem]"
               placeholder="blur"
@@ -169,7 +171,7 @@ export const MainComponent = () => {
           <div className="flex flex-col-reverse sm2:flex-row items-center justify-around max-w-[90rem] mx-auto mt-32">
             <Image
               src={Samurai}
-              quality={100}
+              loading="lazy"
               alt="samurai"
               className="w-[28rem] md:w-[34rem] lg:w-[38rem]"
               placeholder="blur"
@@ -203,7 +205,7 @@ export const MainComponent = () => {
 
             <Image
               src={Crane}
-              quality={100}
+              loading="lazy"
               alt="crane"
               className="w-[28rem] md:w-[34rem] lg:w-[38rem]"
               placeholder="blur"
