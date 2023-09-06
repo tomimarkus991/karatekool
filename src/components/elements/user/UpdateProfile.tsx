@@ -1,4 +1,4 @@
-import { RadioGroup } from "@headlessui/react";
+import { Listbox, RadioGroup } from "@headlessui/react";
 import { Formik, Form } from "formik";
 import Image from "next/image";
 import { useState } from "react";
@@ -13,8 +13,9 @@ import {
   RealButton,
   animations,
 } from "@/components";
-import { useUpdateProfile, useUser } from "@/hooks";
-import { cn } from "@/lib";
+import { useGetGroups, useUpdateProfile, useUser } from "@/hooks";
+import { cn, groupLetterColorMapper } from "@/lib";
+import { GroupLetters } from "@/types";
 
 interface AvatarPickerProps {
   avatar: string;
@@ -108,15 +109,18 @@ export const UpdateProfileForm = () => {
   const [initialValues] = useState<UpdateProfileFormValues>({
     name: "",
     avatar: "",
-    calendarType: "",
-    group: "",
+    calendarType: user?.calendar_type || "",
+    group: user?.group || "",
   });
+
+  const { data } = useGetGroups();
+
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={YupSchemas.UpdateProfile}
       validateOnChange={true}
-      onSubmit={async ({ avatar, name, calendarType, group }, { setSubmitting, resetForm }) => {
+      onSubmit={async ({ avatar, name, calendarType, group }, { setSubmitting }) => {
         setSubmitting(true);
 
         updateProfile({
@@ -126,13 +130,11 @@ export const UpdateProfileForm = () => {
           group: group as string,
         });
 
-        resetForm();
-
         setSubmitting(false);
       }}
     >
       {({ values, setFieldValue, submitForm }) => {
-        const { avatar, name } = values;
+        const { avatar } = values;
 
         return (
           <Form className="flex flex-col items-center justify-center">
@@ -144,14 +146,82 @@ export const UpdateProfileForm = () => {
             />
             <FormikInput label="Nimi" placeholder={user?.username || "Nimi"} name="name" />
 
-            {/* @todo */}
-            {/* add group select here */}
-            {/* add calendar type select here */}
+            <Listbox value={values.group} onChange={value => setFieldValue("group", value)}>
+              <Listbox.Options
+                static
+                className="relative px-2 py-3 mt-6 text-base bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+              >
+                <div className="grid items-center justify-center grid-cols-6 grid-rows-2 gap-1">
+                  {data?.groups.map(group => {
+                    return (
+                      <Listbox.Option
+                        className={cn("flex flex-row justify-self-center")}
+                        key={group.letter}
+                        value={group.letter}
+                      >
+                        {({ selected }) => (
+                          <div
+                            className={cn(
+                              "flex flex-row justify-self-center border rounded-lg p-1 font-semibold cursor-pointer select-none",
+                              selected ? "border-secondary" : "border-transparent",
+                            )}
+                            key={group.id}
+                          >
+                            <p
+                              className={cn(
+                                groupLetterColorMapper(group?.letter as GroupLetters),
+                                "text-lg",
+                              )}
+                            >
+                              {group.letter}
+                            </p>
+                          </div>
+                        )}
+                      </Listbox.Option>
+                    );
+                  })}
+                </div>
+              </Listbox.Options>
+            </Listbox>
+
+            <Listbox
+              value={values.calendarType}
+              onChange={value => setFieldValue("calendarType", value)}
+            >
+              <Listbox.Options
+                static
+                className="relative px-2 py-3 mt-6 mb-3 text-base bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+              >
+                <div className="grid items-center justify-center grid-cols-2 grid-rows-1 gap-1">
+                  {["Kuu", "Päev"].map(calendarType => {
+                    return (
+                      <Listbox.Option
+                        className={cn("flex flex-row justify-self-center")}
+                        key={calendarType}
+                        value={calendarType}
+                      >
+                        {({ selected }) => (
+                          <div
+                            className={cn(
+                              "flex flex-row justify-self-center border rounded-lg p-1 font-semibold cursor-pointer select-none",
+                              selected ? "border-secondary" : "border-transparent",
+                            )}
+                            key={calendarType}
+                          >
+                            <p className={cn("text-lg")}>{calendarType}</p>
+                          </div>
+                        )}
+                      </Listbox.Option>
+                    );
+                  })}
+                </div>
+              </Listbox.Options>
+            </Listbox>
 
             <RealButton
-              disabled={name === "" ? true : false}
+              // disabled={name === "" ||user?.group ? true : false}
               size="sm"
-              className={cn("mt-4", name === "" ? "cursor-not-allowed opacity-80" : "")}
+              className={cn("mt-4 disabled:cursor-not-allowed disabled:opacity-80")}
               variant="orange"
               onClick={submitForm}
             >

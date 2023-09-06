@@ -81,10 +81,14 @@ export const Calendar = () => {
 
   useEffect(() => {
     fetchEvents();
-    // @todo when user profile has calendar type change it to that
-    // setCalendarType
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (user?.calendar_type) {
+      setCalendarType(user.calendar_type === "Kuu" ? "Month" : "Day");
+    }
+  }, [user?.calendar_type]);
 
   return (
     <MotionConfig transition={{ ease: "easeInOut", duration: 0.5 }}>

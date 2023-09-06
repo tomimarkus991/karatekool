@@ -41,9 +41,18 @@ export const CalendarFilterButtons = ({ currentMonthString, calendarRef }: Props
     if (group) {
       setLetter(group as GroupFilters);
     }
-    // @todo (else) when user profile has group change it to that
-    // setLetter
   }, []);
+
+  useEffect(() => {
+    const group = searchParams.get("group");
+
+    if (group) {
+      setLetter(group as GroupFilters);
+    } else if (user?.group) {
+      setLetter(user.group as GroupFilters);
+      window.history.pushState({}, "", `${pathname}?${createQueryString("group", user.group)}`);
+    }
+  }, [user?.group]);
 
   return (
     <div

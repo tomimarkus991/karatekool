@@ -107,6 +107,7 @@ export const NavbarTop = ({ bg = "bg-surface-bg" }: Props) => {
                 avatar={user?.avatar || "avatar.svg"}
                 username={user?.username || ""}
                 role={user?.role || "user"}
+                group={user?.group || null}
               />
             ) : (
               <>

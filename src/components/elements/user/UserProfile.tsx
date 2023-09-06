@@ -14,9 +14,10 @@ interface Props {
   avatar: string;
   username: string;
   role: string;
+  group: string | null;
 }
 
-export const UserProfile = ({ avatar, username, role }: Props) => {
+export const UserProfile = ({ avatar, username, role, group }: Props) => {
   const { mutate: signOut } = useSignOut();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -46,7 +47,8 @@ export const UserProfile = ({ avatar, username, role }: Props) => {
             />
             <div className="flex flex-col justify-center">
               <p className="font-semibold mb-0 text-lg text-[#636363]">{username}</p>
-              {role === "admin" && <p className="text-sm text-[#b4b4b4]">Roll: {role}</p>}
+              {role === "admin" && <p className="text-sm text-[#b4b4b4]">{role}</p>}
+              {group && <p className="text-sm text-[#b4b4b4]">{group} grupp</p>}
             </div>
           </div>
 
