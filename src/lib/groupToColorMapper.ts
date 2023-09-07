@@ -33,7 +33,7 @@ export const groupLetterColors = {
   T: "text-casualPink",
 };
 
-export const groupLetterColorMapper = (group: GroupLetters) => {
+export const groupLetterColorMapper = (group: GroupLetters | string) => {
   switch (group) {
     case "S":
     case "S1":
@@ -54,7 +54,7 @@ export const groupLetterColorMapper = (group: GroupLetters) => {
 
 export const groupLetters = Object.keys(groupAllColors) as GroupLetters[];
 
-export const buttonVariantMapper = (group: GroupLetters) => {
+export const buttonVariantMapper = (group: GroupLetters | string) => {
   switch (group) {
     case "S":
     case "S1":

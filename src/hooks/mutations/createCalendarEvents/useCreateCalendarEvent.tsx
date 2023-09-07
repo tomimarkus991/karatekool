@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 import { useSupabase } from "@/context";
 
 interface Props {
+  id?: number;
   isHighlighted?: boolean;
   trailerId?: number;
   normalEventEnd?: string;
@@ -18,6 +19,7 @@ export const useCreateCalendarEvent = () => {
   const queryClient = useQueryClient();
 
   const execute = async ({
+    id,
     selectedStartDates,
     isHighlighted = false,
     trailerId,
@@ -27,11 +29,13 @@ export const useCreateCalendarEvent = () => {
     highlightedGroupIds = [],
   }: Props) => {
     // create as many events as there are in selectedStartDates
+    console.log("123456", id);
 
     selectedStartDates.forEach(async start => {
       const createEventRes = await supabase
         .from("event")
-        .insert({
+        .upsert({
+          id,
           start,
           is_highlighted: isHighlighted,
           trailer_id: trailerId,
@@ -47,7 +51,24 @@ export const useCreateCalendarEvent = () => {
         throw new Error(createEventRes.error.message);
       }
 
-      if (createEventRes.data.id) {
+      if (id) {
+        await supabase.from("event_group").delete().eq("event_id", id);
+        await supabase.from("event_highlighted_group").delete().eq("event_id", id);
+
+        await supabase.from("event_group").insert(
+          groupIds.map(groupId => ({
+            event_id: id,
+            group_id: groupId,
+          })),
+        );
+
+        await supabase.from("event_highlighted_group").insert(
+          highlightedGroupIds.map(groupId => ({
+            event_id: id,
+            highlighted_group_id: groupId,
+          })),
+        );
+      } else if (createEventRes.data.id) {
         await supabase.from("event_group").insert(
           groupIds.map(groupId => ({
             event_id: createEventRes.data.id,

@@ -32,7 +32,7 @@ import {
   useGetEventPresets,
 } from "@/hooks";
 import { cn } from "@/lib";
-import { SGroup } from "@/types";
+import { EventData } from "@/types";
 
 import { GroupPicker, TrailerPicker } from ".";
 
@@ -103,18 +103,6 @@ const PresetsModal = ({ setValues }: PresetsModalProps) => {
 
         <div className="grid grid-cols-4 gap-4 my-3">
           {eventPresets?.map(preset => {
-            const displayGroups = preset.groups?.map(group => {
-              return {
-                letter: group.letter as SGroup["letter"],
-              } satisfies SGroup;
-            });
-
-            const displayHighlightedGroups = preset.highlightedGroups?.map(group => {
-              return {
-                letter: group.letter as SGroup["letter"],
-              } satisfies SGroup;
-            });
-
             const selectedGroups = [
               ...preset.groups,
               ...preset.highlightedGroups,
@@ -136,9 +124,9 @@ const PresetsModal = ({ setValues }: PresetsModalProps) => {
                         is_highlighted: preset.is_highlighted,
                         start: preset.start,
                       }}
-                      event_trailer={preset.trailer}
-                      groups={displayGroups}
-                      highlighted_group={displayHighlightedGroups}
+                      eventTrailer={preset.trailer}
+                      groups={preset.groups}
+                      highlightedGroups={preset.highlightedGroups}
                     />
                     <HiTrash className="self-center w-6 h-6 text-red-600" />
                   </button>
@@ -166,9 +154,9 @@ const PresetsModal = ({ setValues }: PresetsModalProps) => {
                           is_highlighted: preset.is_highlighted,
                           start: preset.start,
                         }}
-                        event_trailer={preset.trailer}
-                        groups={displayGroups}
-                        highlighted_group={displayHighlightedGroups}
+                        eventTrailer={preset.trailer}
+                        groups={preset.groups}
+                        highlightedGroups={preset.highlightedGroups}
                       />
                     </AnimationWrapper>
                   </button>
@@ -184,22 +172,36 @@ const PresetsModal = ({ setValues }: PresetsModalProps) => {
 
 interface Props {
   openDate: Date;
+  event?: EventData;
 }
 
-export const NormalEventCreationTab = ({ openDate }: Props) => {
-  const [normalEventInitialValues] = useState<NormalEventFormValues>({
-    startTime: new Date(),
-    selectedStartDates: [openDate],
-    selectedGroups: [],
-    trailer: {},
-    description: "",
-    isHighlighted: false,
+export const NormalEventCreationTab = ({ openDate, event }: Props) => {
+  const editEventInitialValues: NormalEventFormValues = {
+    startTime: event ? new Date(event.start) : new Date(),
+    selectedStartDates: event ? [new Date(event.start)] : [new Date()],
+    selectedGroups: event ? [...event.group, ...event.highlighted_group] : ([] as any),
+    trailer: event && event.event_trailer !== null ? event.event_trailer : {},
+    description: event?.description || "",
+    isHighlighted: event?.is_highlighted || false,
     // this will not be implemented yet
-    endTime: undefined,
-  });
+    endTime: event?.normal_event_end || undefined,
+  };
+  const [normalEventInitialValues] = useState<NormalEventFormValues>(
+    event
+      ? editEventInitialValues
+      : {
+          startTime: new Date(),
+          selectedStartDates: [openDate],
+          selectedGroups: [],
+          trailer: {},
+          description: "",
+          isHighlighted: false,
+          // this will not be implemented yet
+          endTime: undefined,
+        },
+  );
 
-  const [advancedOptionsPressed, setAdvancedOptionsPressed] = useState(false);
-  const [highlightGroupPressed] = useState(false);
+  const [advancedOptionsPressed, setAdvancedOptionsPressed] = useState(event ? true : false);
 
   const { mutate: createNewNormalCalendarEvent } = useCreateCalendarEvent();
 
@@ -234,8 +236,10 @@ export const NormalEventCreationTab = ({ openDate }: Props) => {
         const startDates = selectedStartDates.map(date => {
           return mergeDateAndTime(date as Date, startTime).toISOString();
         });
+        console.log(groupIds, highlightedGroupIds, startDates);
 
         createNewNormalCalendarEvent({
+          id: event?.id,
           normalEventEnd: endTime,
           groupIds,
           highlightedGroupIds,
@@ -250,30 +254,26 @@ export const NormalEventCreationTab = ({ openDate }: Props) => {
     >
       {/* normal */}
       {({ values, isValid, setValues }) => {
+        console.log("1234", values);
+
         const filteredGroups = values.selectedGroups
           .filter(group => !group.highlighted)
-          .map(
-            group =>
-              ({
-                letter: group.letter as SGroup["letter"],
-              }) satisfies SGroup,
-          );
+          .map(group => ({
+            ...group,
+          }));
 
         const filteredHighlightedGroups = values.selectedGroups
           ?.filter(group => group.highlighted)
-          .map(
-            group =>
-              ({
-                letter: group.letter as SGroup["letter"],
-              }) satisfies SGroup,
-          );
+          .map(group => ({
+            ...group,
+          }));
 
         return (
           <Form>
             <div className="flex flex-row justify-between pb-4">
               <div className="flex flex-col items-start justify-start">
                 <div className="flex flex-col mb-3">
-                  <PresetsModal setValues={setValues} />
+                  {!event && <PresetsModal setValues={setValues} />}
                 </div>
                 <div className="flex flex-row">
                   <div className="flex flex-col">
@@ -288,7 +288,7 @@ export const NormalEventCreationTab = ({ openDate }: Props) => {
                   </div>
                 </div>
 
-                <GroupPicker name="selectedGroups" pressed={highlightGroupPressed} />
+                <GroupPicker name="selectedGroups" />
 
                 <div className="flex flex-col pt-5">
                   <p className="text-xs text-stone-600">Näita veel parameetreid</p>
@@ -350,14 +350,17 @@ export const NormalEventCreationTab = ({ openDate }: Props) => {
                           <MapGroupLetter
                             groups={
                               filteredGroups.length === 0 && filteredHighlightedGroups.length === 0
-                                ? [{ letter: "S" }, { letter: "K" }]
+                                ? [
+                                    { id: 17, letter: "S", highlighted: false },
+                                    { id: 23, letter: "K", highlighted: false },
+                                  ]
                                 : filteredGroups
                             }
                           />
                           <MapHighLightedGroupLetter
                             highlightedGroups={
                               filteredGroups.length === 0 && filteredHighlightedGroups.length === 0
-                                ? [{ letter: "N" }]
+                                ? [{ id: 5, letter: "N", highlighted: true }]
                                 : filteredHighlightedGroups
                             }
                           />
@@ -381,36 +384,38 @@ export const NormalEventCreationTab = ({ openDate }: Props) => {
                 </div>
 
                 <RealButton type="submit" isValid={isValid} className="mt-8" variant="orange">
-                  Loo
+                  {event ? "Uuenda" : "Loo"}
                 </RealButton>
 
-                <RealButton
-                  className="mt-4"
-                  variant="light"
-                  onClick={() => {
-                    const groupIds = values.selectedGroups
-                      .filter(group => !group.highlighted)
-                      .map(group => group.id as number);
+                {!event && (
+                  <RealButton
+                    className="mt-4"
+                    variant="light"
+                    onClick={() => {
+                      const groupIds = values.selectedGroups
+                        .filter(group => !group.highlighted)
+                        .map(group => group.id as number);
 
-                    const highlightedGroupIds = values.selectedGroups
-                      .filter(group => group.highlighted)
-                      .map(group => group.id as number);
+                      const highlightedGroupIds = values.selectedGroups
+                        .filter(group => group.highlighted)
+                        .map(group => group.id as number);
 
-                    createEventPreset({
-                      description: values.description || null,
-                      group_ids: groupIds,
-                      highlighted_group_ids: highlightedGroupIds,
-                      start: mergeDateAndTime(
-                        values.selectedStartDates[0] || new Date(),
-                        values.startTime,
-                      ).toISOString(),
-                      trailer_id: values.trailer.id || null,
-                      is_highlighted: values.isHighlighted,
-                    });
-                  }}
-                >
-                  Loo preset
-                </RealButton>
+                      createEventPreset({
+                        description: values.description || null,
+                        group_ids: groupIds,
+                        highlighted_group_ids: highlightedGroupIds,
+                        start: mergeDateAndTime(
+                          values.selectedStartDates[0] || new Date(),
+                          values.startTime,
+                        ).toISOString(),
+                        trailer_id: values.trailer.id || null,
+                        is_highlighted: values.isHighlighted,
+                      });
+                    }}
+                  >
+                    Loo preset
+                  </RealButton>
+                )}
               </div>
             </div>
           </Form>

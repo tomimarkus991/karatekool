@@ -66,6 +66,12 @@ export enum EventTypes {
   NORMAL = "NORMAL",
 }
 
+export interface GroupData {
+  id: number;
+  letter: string;
+  highlighted: boolean;
+}
+
 export interface EventData {
   id: number;
   start: string;
@@ -76,8 +82,8 @@ export interface EventData {
   event_trailer: SEventTrailer | null;
   all_day_event: SAllDayEvent | null;
   multi_day_event: SMultiDayEvent | null;
-  group: SGroup[];
-  highlighted_group: SGroup[];
+  group: GroupData[];
+  highlighted_group: GroupData[];
   event_type: EventTypes;
 }
 

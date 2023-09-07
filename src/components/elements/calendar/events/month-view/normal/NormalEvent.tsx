@@ -10,7 +10,7 @@ import {
 import { useCalendarFilters } from "@/context";
 import { useDeleteNormalCalendarEvent } from "@/hooks";
 import { cn } from "@/lib";
-import { EventData, SEventTrailer, SGroup } from "@/types";
+import { EventData, GroupData, SEventTrailer } from "@/types";
 
 import { Popover, PopoverTrigger } from "../../../../Popover";
 
@@ -23,17 +23,17 @@ interface NormalEventDisplayProps {
     start: string | null;
     is_highlighted: boolean;
   };
-  groups: SGroup[];
-  highlighted_group: SGroup[];
-  event_trailer: SEventTrailer | null;
+  groups: GroupData[];
+  highlightedGroups: GroupData[];
+  eventTrailer: SEventTrailer | null;
   description: string | null;
 }
 
 export const NormalEventDisplay = ({
   event,
   groups,
-  highlighted_group,
-  event_trailer,
+  highlightedGroups,
+  eventTrailer,
   description,
 }: NormalEventDisplayProps) => (
   <div>
@@ -44,10 +44,10 @@ export const NormalEventDisplay = ({
       />
       <div className={cn("flex justify-center items-center")}>
         <MapGroupLetter groups={groups} />
-        <MapHighLightedGroupLetter highlightedGroups={highlighted_group} />
-        {event_trailer?.text && (
+        <MapHighLightedGroupLetter highlightedGroups={highlightedGroups} />
+        {eventTrailer?.text && (
           <p className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] whitespace-nowrap font-number font-semibold text-center">
-            {event_trailer?.text}
+            {eventTrailer?.text}
           </p>
         )}
       </div>
@@ -61,7 +61,13 @@ export const NormalEventDisplay = ({
 );
 
 export const NormalEvent = ({ event, date }: Props) => {
-  const { group: groups, event_trailer, highlighted_group, description, id } = event;
+  const {
+    group: groups,
+    event_trailer: eventTrailer,
+    highlighted_group: highlightedGroups,
+    description,
+    id,
+  } = event;
   const start = parseISO(event.start);
   const { letter } = useCalendarFilters();
   const { mutate: deleteEvent } = useDeleteNormalCalendarEvent();
@@ -80,10 +86,7 @@ export const NormalEvent = ({ event, date }: Props) => {
   if (
     letter !== "all" &&
     !(groups.filter(group => group?.letter === letter).length > 0) &&
-    !(
-      highlighted_group.filter(_highlighted_group => _highlighted_group?.letter === letter).length >
-      0
-    )
+    !(highlightedGroups.filter(highlightedGroup => highlightedGroup?.letter === letter).length > 0)
   ) {
     return <></>;
   }
@@ -106,18 +109,18 @@ export const NormalEvent = ({ event, date }: Props) => {
           <NormalEventDisplay
             description={description}
             event={event}
-            event_trailer={event_trailer}
+            eventTrailer={eventTrailer}
             groups={groups}
-            highlighted_group={highlighted_group}
+            highlightedGroups={highlightedGroups}
           />
         </PopoverTrigger>
-        <DeleteEventPopoverContent deleteEvent={() => deleteEvent({ id })}>
+        <DeleteEventPopoverContent event={event} deleteEvent={() => deleteEvent({ id })}>
           <NormalEventDisplay
             description={description}
             event={event}
-            event_trailer={event_trailer}
+            eventTrailer={eventTrailer}
             groups={groups}
-            highlighted_group={highlighted_group}
+            highlightedGroups={highlightedGroups}
           />
         </DeleteEventPopoverContent>
       </motion.div>

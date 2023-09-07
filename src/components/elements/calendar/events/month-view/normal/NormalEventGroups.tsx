@@ -1,8 +1,8 @@
+import { NormalEventSelectedGroupsFormValues } from "@/app-constants";
 import { cn, groupLetterColorMapper } from "@/lib";
-import { SGroup } from "@/types";
 
 interface MapGroupLetterProps {
-  groups: SGroup[];
+  groups: NormalEventSelectedGroupsFormValues;
   dayView?: boolean;
 }
 
@@ -31,7 +31,7 @@ export const MapGroupLetter = ({ groups, dayView = false }: MapGroupLetterProps)
 );
 
 interface MapHighlightedGroupLetterProps {
-  highlightedGroups: SGroup[];
+  highlightedGroups: NormalEventSelectedGroupsFormValues;
   dayView?: boolean;
 }
 

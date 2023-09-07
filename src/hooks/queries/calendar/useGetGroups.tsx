@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
-import { NormalEventSelectedGroupsFormValues } from "@/app-constants";
 import { useSupabase } from "@/context";
 
 export const useGetGroups = () => {
@@ -9,11 +8,11 @@ export const useGetGroups = () => {
   const getQuery = async () => {
     const { data: groups, error: groupError } = await supabase
       .from("group")
-      .select("id,letter")
+      .select("id,letter,highlighted")
       .order("letter", { ascending: true });
     const { data: highlightedGroups, error: highlightedGroupError } = await supabase
       .from("highlighted_group")
-      .select("id,letter")
+      .select("id,letter,highlighted")
       .order("letter", { ascending: true });
 
     if (groupError) {
@@ -26,16 +25,8 @@ export const useGetGroups = () => {
     }
 
     return {
-      groups:
-        (groups.map(group => ({
-          ...group,
-          highlighted: false,
-        })) as NormalEventSelectedGroupsFormValues) || [],
-      highlightedGroups:
-        (highlightedGroups.map(group => ({
-          ...group,
-          highlighted: true,
-        })) as NormalEventSelectedGroupsFormValues) || [],
+      groups,
+      highlightedGroups,
     };
   };
 

@@ -10,7 +10,6 @@ import { InputErrorText } from "../../../forms";
 
 interface Props {
   name: string;
-  pressed: boolean;
 }
 
 export const GroupPicker = ({ name }: Props) => {
@@ -25,7 +24,7 @@ export const GroupPicker = ({ name }: Props) => {
 
   return (
     <>
-      <Listbox {...field} multiple value={value} onChange={setValue}>
+      <Listbox {...field} multiple value={value} onChange={setValue} by="id">
         <Listbox.Options
           static
           className="relative px-2 py-3 mt-2 text-base bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
@@ -45,20 +44,22 @@ export const GroupPicker = ({ name }: Props) => {
                     value={group}
                     disabled={isGroupDisabled}
                   >
-                    {({ selected }) => (
-                      <div
-                        className={cn(
-                          "flex flex-row justify-self-center border rounded-lg p-1 font-semibold cursor-pointer select-none",
-                          selected ? "border-secondary" : "border-transparent",
-                          isGroupDisabled && "group cursor-not-allowed opacity-20",
-                        )}
-                        key={group.id}
-                      >
-                        <p className={cn(groupLetterColorMapper(group?.letter as GroupLetters))}>
-                          {group.letter}
-                        </p>
-                      </div>
-                    )}
+                    {({ selected }) => {
+                      return (
+                        <div
+                          className={cn(
+                            "flex flex-row justify-self-center border rounded-lg p-1 font-semibold cursor-pointer select-none",
+                            selected ? "border-secondary" : "border-transparent",
+                            isGroupDisabled && "group cursor-not-allowed opacity-20",
+                          )}
+                          key={group.id}
+                        >
+                          <p className={cn(groupLetterColorMapper(group?.letter as GroupLetters))}>
+                            {group.letter}
+                          </p>
+                        </div>
+                      );
+                    }}
                   </Listbox.Option>
                 );
               })}

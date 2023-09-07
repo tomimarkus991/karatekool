@@ -20,8 +20,8 @@ export const useGetCurrentMonthEvents = (
     all_day_event (id, title, sub_title),
     multi_day_event (id, title),
     event_trailer (text),
-    group (letter),
-    highlighted_group (letter)
+    group (id, letter, highlighted),
+    highlighted_group (id, letter, highlighted)
     `,
       )
       .or(

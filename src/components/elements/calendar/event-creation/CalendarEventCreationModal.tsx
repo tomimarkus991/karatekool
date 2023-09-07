@@ -14,6 +14,7 @@ import {
   defaultTransition,
 } from "@/components";
 import { cn } from "@/lib";
+import { EventData } from "@/types";
 
 import { AllDayEventCreationTab, MultiDayEventCreationTab, NormalEventCreationTab } from ".";
 
@@ -72,6 +73,17 @@ interface Props {
    * The date user selected when pressing on calendar date
    */
   openDate: Date;
+  /**
+   * If user wants to open the modal with a specific tab selected
+   * 0 - normal event
+   * 1 - all day event
+   * 2 - multi day event
+   */
+  selectedTab?: number;
+  /**
+   * If user wants to edit an event
+   */
+  event?: EventData;
 }
 
 export const CalendarEventCreationModal = ({
@@ -79,11 +91,13 @@ export const CalendarEventCreationModal = ({
   setIsModalOpen,
   button,
   openDate,
+  selectedTab = 0,
+  event,
 }: Props) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(selectedTab);
 
   return (
     <Modal
@@ -135,7 +149,7 @@ export const CalendarEventCreationModal = ({
                         variants={animations.calendarEventCreation.tabSwitch}
                         key={"panel 1"}
                       >
-                        <NormalEventCreationTab openDate={openDate} />
+                        <NormalEventCreationTab openDate={openDate} event={event} />
                       </Tab.Panel>
 
                       {/* all day */}

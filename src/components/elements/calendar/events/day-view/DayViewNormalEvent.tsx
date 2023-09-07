@@ -24,7 +24,14 @@ const calculatePosition = (currentHour: number, currentMinutes: number): number 
   56 * (currentHour - 9.4) + currentMinutes * 1.1;
 
 export const DayViewNormalEvent = ({ event, date }: Props) => {
-  const { group, event_trailer, highlighted_group, description, event_type, id } = event;
+  const {
+    group: groups,
+    event_trailer,
+    highlighted_group: highlightedGroups,
+    description,
+    event_type,
+    id,
+  } = event;
   const start = parseISO(event.start);
   const { letter } = useCalendarFilters();
   const { mutate: deleteEvent } = useDeleteNormalCalendarEvent();
@@ -46,11 +53,8 @@ export const DayViewNormalEvent = ({ event, date }: Props) => {
   // if filter is all show all groups
   if (
     letter !== "all" &&
-    !(group.filter(_group => _group?.letter === letter).length > 0) &&
-    !(
-      highlighted_group.filter(_highlighted_group => _highlighted_group?.letter === letter).length >
-      0
-    )
+    !(groups.filter(group => group?.letter === letter).length > 0) &&
+    !(highlightedGroups.filter(highlightedGroup => highlightedGroup?.letter === letter).length > 0)
   ) {
     return <></>;
   }
@@ -81,8 +85,8 @@ export const DayViewNormalEvent = ({ event, date }: Props) => {
               dayView
             />
             <div className={cn("flex justify-center items-center")}>
-              <MapGroupLetter groups={group} dayView />
-              <MapHighLightedGroupLetter highlightedGroups={highlighted_group} dayView />
+              <MapGroupLetter groups={groups} dayView />
+              <MapHighLightedGroupLetter highlightedGroups={highlightedGroups} dayView />
               {event_trailer?.text && (
                 <p className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] font-number font-semibold text-center">
                   {event_trailer?.text}
@@ -97,20 +101,13 @@ export const DayViewNormalEvent = ({ event, date }: Props) => {
           )}
         </PopoverTrigger>
       </motion.div>
-      <DeleteEventPopoverContent deleteEvent={() => deleteEvent({ id })}>
+      <DeleteEventPopoverContent deleteEvent={() => deleteEvent({ id })} event={event}>
         <NormalEventDisplay
           description={description}
           event={event}
-          event_trailer={event_trailer}
-          groups={[
-            {
-              letter: "S",
-            },
-            {
-              letter: "A",
-            },
-          ]}
-          highlighted_group={highlighted_group}
+          eventTrailer={event_trailer}
+          groups={groups}
+          highlightedGroups={highlightedGroups}
         />
       </DeleteEventPopoverContent>
     </Popover>

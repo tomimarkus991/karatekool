@@ -230,31 +230,37 @@ export interface Database {
       };
       group: {
         Row: {
+          highlighted: boolean;
           id: number;
-          letter: string | null;
+          letter: string;
         };
         Insert: {
+          highlighted?: boolean;
           id?: number;
-          letter?: string | null;
+          letter: string;
         };
         Update: {
+          highlighted?: boolean;
           id?: number;
-          letter?: string | null;
+          letter?: string;
         };
         Relationships: [];
       };
       highlighted_group: {
         Row: {
+          highlighted: boolean;
           id: number;
-          letter: string | null;
+          letter: string;
         };
         Insert: {
+          highlighted?: boolean;
           id?: number;
-          letter?: string | null;
+          letter: string;
         };
         Update: {
+          highlighted?: boolean;
           id?: number;
-          letter?: string | null;
+          letter?: string;
         };
         Relationships: [];
       };
