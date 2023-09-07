@@ -32,10 +32,11 @@ export const useCreateCalendarMultiDayEvent = () => {
   return useMutation((user: Props) => execute(user), {
     onSuccess: () => {
       toast.success("Uus mitme päeva üritus on loodud");
-      queryClient.invalidateQueries({
-        queryKey: ["get_calendar_events"],
-        stale: true,
-      });
+      setTimeout(() => {
+        queryClient.invalidateQueries({
+          queryKey: ["get_calendar_events"],
+        });
+      }, 200);
     },
   });
 };

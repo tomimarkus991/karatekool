@@ -44,7 +44,6 @@ export const useDeleteNormalCalendarEvent = () => {
       toast.success("Üritus kustutatud");
       queryClient.invalidateQueries({
         queryKey: ["get_calendar_events"],
-        stale: true,
       });
     },
   });

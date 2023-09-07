@@ -89,10 +89,11 @@ export const useCreateCalendarEvent = () => {
   return useMutation((user: Props) => execute(user), {
     onSuccess: () => {
       toast.success("Uus üritus on loodud");
-      queryClient.invalidateQueries({
-        queryKey: ["get_calendar_events"],
-        stale: true,
-      });
+      setTimeout(() => {
+        queryClient.invalidateQueries({
+          queryKey: ["get_calendar_events"],
+        });
+      }, 200);
     },
   });
 };
