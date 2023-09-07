@@ -1,9 +1,11 @@
 import { isSameDay, parseISO } from "date-fns";
 import { motion } from "framer-motion";
 
+import { useCalendarFilters } from "@/context";
 import { useDeleteCalendarAllDayEvent } from "@/hooks";
 import { EventData } from "@/types";
 
+import { cn } from "../../../../../lib";
 import { Popover, PopoverTrigger } from "../../../Popover";
 import { DeleteEventPopoverContent } from "../../event-deletion";
 
@@ -16,10 +18,12 @@ export const AllDayEvent = ({ event, date }: Props) => {
   const { all_day_event } = event;
   const start = parseISO(event.start);
   const { mutate: deleteEvent } = useDeleteCalendarAllDayEvent();
+  const { letter } = useCalendarFilters();
 
   if (!isSameDay(start, date) || !all_day_event) {
     return <></>;
   }
+
   const { title, sub_title, id } = all_day_event;
 
   return (
@@ -40,11 +44,20 @@ export const AllDayEvent = ({ event, date }: Props) => {
           <>
             <p
               id="all-day-event"
-              className="mb-3 text-xs text-blue-600 sm:text-base sm:mb-1 xs:text-sm md:text-lg"
+              className={cn(
+                "text-blue-600 text-[0.6rem] xs:text-[0.7rem] sm:text-sm md:text-lg",
+                letter === "all" ? "mb-3" : "mb-0 lg:mb-3",
+              )}
             >
               {title}
             </p>
-            <p id="all-day-event" className="text-xs2 xs:text-xs sm:text-sm">
+            <p
+              id="all-day-event"
+              className={cn(
+                "text-[0.5rem] xs:text-[0.58rem] sm:text-[0.65rem] md:text-[0.8rem]",
+                letter === "all" ? "block" : "hidden lg:block",
+              )}
+            >
               {sub_title}
             </p>
           </>

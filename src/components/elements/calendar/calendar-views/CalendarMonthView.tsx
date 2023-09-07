@@ -13,6 +13,7 @@ import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 
 import { days } from "@/app-constants";
 import { CalendarDate, animations, calendarUtils, AnimationWrapper } from "@/components";
+import { useCalendarFilters } from "@/context";
 import { useIsMobile } from "@/hooks";
 import { cn } from "@/lib";
 import { EventData } from "@/types";
@@ -51,6 +52,9 @@ export const CalendarMonthView = ({
     start: firstDayOfCalendarMonth,
     end: lastDayOfCalendarMonth,
   });
+
+  const { letter } = useCalendarFilters();
+
   const month = parse(currentMonthString, currentMonthType, new Date());
   const { isMobile } = useIsMobile();
 
@@ -148,7 +152,10 @@ export const CalendarMonthView = ({
               <div
                 id="week"
                 key={week.toISOString()}
-                className="grid grid-cols-7 border-t h-52 first:border-t-0 last:border-b-0 border-stone-100"
+                className={cn(
+                  "grid grid-cols-7 border-t first:border-t-0 last:border-b-0 border-stone-100",
+                  letter === "all" ? "h-28 sm:h-36 md:h-44" : "h-16 sm:h-20 md:h-28 lg:h-32",
+                )}
               >
                 {daysForWeek.map(day => (
                   <CalendarDate

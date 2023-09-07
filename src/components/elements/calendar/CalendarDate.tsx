@@ -60,7 +60,7 @@ export const CalendarDate = ({ events, date, month }: Props) => {
           <div id="open-creation-modal" className="flex flex-col h-full">
             <AnimationWrapper
               id="open-creation-modal"
-              className={cn("flex justify-center")}
+              className={cn("flex justify-center mb-1 md:mb-0")}
               variants={user?.role === "admin" ? animations.smallScale : undefined}
             >
               <time
