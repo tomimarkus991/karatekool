@@ -57,7 +57,14 @@ export const CalendarDate = ({ events, date, month }: Props) => {
             }
           }}
         >
-          <div id="open-creation-modal" className="flex flex-col h-full">
+          <div id="open-creation-modal" className={cn("flex flex-col h-full")}>
+            {/* <PlusCircle
+              size={40}
+              className={cn(
+                user?.role === "admin" &&
+                  "absolute opacity-5 text-stone-500 ml-auto mr-auto h-full left-0 right-0 text-center",
+              )}
+            /> */}
             <AnimationWrapper
               id="open-creation-modal"
               className={cn("flex justify-center mb-1 md:mb-0")}
