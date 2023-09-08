@@ -2,6 +2,7 @@
 
 import { format, parseISO } from "date-fns";
 import { Form, Formik } from "formik";
+import { RotateCcw } from "lucide-react";
 import { useState } from "react";
 import { HiPencil, HiTrash, HiX } from "react-icons/hi";
 
@@ -22,7 +23,6 @@ import {
   NormalEventTime,
   RealButton,
   TimePicker,
-  Toggle,
   animations,
 } from "@/components";
 import {
@@ -201,8 +201,6 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
         },
   );
 
-  const [advancedOptionsPressed, setAdvancedOptionsPressed] = useState(event ? true : false);
-
   const { mutate: createNewNormalCalendarEvent } = useCreateCalendarEvent();
 
   const { mutate: createEventPreset } = useCreateEventPreset();
@@ -290,48 +288,47 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
 
                 <GroupPicker name="selectedGroups" />
 
-                <div className="flex flex-col pt-5">
-                  <p className="text-xs text-stone-600">Näita veel parameetreid</p>
-                  <Toggle pressed={advancedOptionsPressed} setPressed={setAdvancedOptionsPressed} />
-                  {advancedOptionsPressed && (
-                    <div className="flex flex-col mt-4 ml-4 space-y-3">
-                      {/* <div className="flex flex-col">
+                {/* <p className="text-xs text-stone-600">Näita veel parameetreid</p> */}
+                {/* <Toggle pressed={advancedOptionsPressed} setPressed={setAdvancedOptionsPressed} /> */}
+                {/* {advancedOptionsPressed && ( */}
+                <div className="flex flex-col pt-5 mt-4 ml-4 space-y-3">
+                  {/* <div className="flex flex-col">
                                   <p className="text-xs text-stone-600">Vali millal trenn lõppeb</p>
                                   <TimePicker name="endTime" />
                                 </div> */}
 
-                      <div className="flex flex-col">
-                        <p className="text-xs text-stone-600">Tõsta trenn esile</p>
-                        <FormikToggle name="isHighlighted" />
-                      </div>
-                      <FormikInput
-                        inputSize="sm"
-                        label="Mis trennis toimub?"
-                        placeholder="karate seminar"
-                        name="description"
-                      />
-                      <TrailerPicker name="trailer" />
-                    </div>
-                  )}
+                  <div className="flex flex-col">
+                    <p className="text-xs text-stone-600">Tõsta trenn esile</p>
+                    <FormikToggle name="isHighlighted" />
+                  </div>
+                  <FormikInput
+                    inputSize="sm"
+                    label="Mis trennis toimub?"
+                    placeholder="karate seminar"
+                    name="description"
+                  />
+                  <TrailerPicker name="trailer" />
                 </div>
+                {/* )} */}
               </div>
               <div className="flex flex-col justify-center ml-6 sm:ml-0">
-                <RealButton
-                  className="mb-4"
-                  variant="light"
-                  size="xs"
-                  onClick={() => {
-                    setValues(normalEventInitialValues);
-                  }}
+                <AnimationWrapper
+                  className="self-center mb-4 max-w-fit max-h-fit"
+                  variants={animations.smallLeftRotation}
                 >
-                  Reset Form
-                </RealButton>
+                  <RotateCcw
+                    className="cursor-pointer text-stone-700 hover:text-stone-800"
+                    onClick={() => {
+                      setValues(normalEventInitialValues);
+                    }}
+                  />
+                </AnimationWrapper>
                 <p className="self-center font-semibold justify-self-center text-stone-500">
                   {values.selectedStartDates[0]
                     ? format(values.selectedStartDates[0], "EEEE")
                     : "Esmaspäev"}
                 </p>
-                <div className="flex flex-col self-center mt-2 border border-t-0 h-52 w-36 border-stone-100">
+                <div className="flex flex-col self-center h-16 mt-2 border border-t-0 sm:h-20 md:h-28 lg:h-32 w-36 border-stone-100">
                   <div className="flex flex-col items-center justify-center">
                     <div className="text-xs font-medium font-number sm:text-sm md:text-base text-text-primary">
                       {values.selectedStartDates[0]

@@ -53,6 +53,25 @@ const scaleAndRotation: Variants = {
   whileTap: { scale: 0.8 },
 };
 
+const smallLeftRotation: Variants = {
+  whileHover: {
+    scale: [1, 1.2],
+    transition: {
+      duration: 0.3,
+      ease: "easeIn",
+      times: [0, 1],
+    },
+  },
+  whileTap: {
+    rotate: [0, -60],
+    transition: {
+      duration: 0.07,
+      ease: "easeIn",
+      times: [0, 1],
+    },
+  },
+};
+
 const scaleAndFullRotation: Variants = {
   whileHover: {
     scale: [1, 1.1],
@@ -378,6 +397,7 @@ const calendarEventCreation = { tabSwitch };
 export const defaultTransition = { type: "ease", ease: "easeInOut", duration: 1 };
 
 export const animations = {
+  smallLeftRotation,
   scaleAndRotation,
   scaleAndFullRotation,
   realButtonEffect,
