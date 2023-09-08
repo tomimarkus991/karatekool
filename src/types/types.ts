@@ -37,20 +37,10 @@ export type GroupLetters = "S" | "S1" | "L" | "C" | "V" | "A" | "E" | "N" | "M" 
 
 export type GroupFilters = GroupLetters | "all" | "none";
 
-export interface Group {
-  id?: string;
-  letter: GroupLetters;
-  description: string;
-  color: "red" | "blue" | "green" | "yellow" | "orange" | "purple" | "pink" | "rose";
-}
-
-export interface SGroup {
-  letter: GroupLetters;
-}
 export interface SEventTrailer {
   text: string;
 }
-export interface SAllDayEvent {
+interface SAllDayEvent {
   id: number;
   title: string;
   sub_title: string;
