@@ -122,7 +122,7 @@ export const CalendarEventCreationModal = ({
               <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
                 <Tab.List
                   className={cn(
-                    "flex flex-row relative px-1 w-full flex-1 mb-6 bg-stone-100 rounded-xl mx-auto md:mb-12",
+                    "flex flex-row relative px-1 w-full flex-1 mb-6 bg-stone-100 rounded-xl mx-auto",
                     "shadow-lg ring-1 ring-stone-400 ring-opacity-5",
                   )}
                 >

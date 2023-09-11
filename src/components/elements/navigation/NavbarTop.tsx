@@ -108,7 +108,6 @@ export const NavbarTop = ({ bg = "bg-surface-bg" }: Props) => {
             <NavbarTopLink href={definedRoutes.karateka} bg={bg} index={3}>
               Karateka
             </NavbarTopLink>
-
             <NavbarTopLink href={definedRoutes.contact} bg={bg} index={4}>
               Kontakt
             </NavbarTopLink>

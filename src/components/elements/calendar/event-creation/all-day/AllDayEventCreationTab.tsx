@@ -48,7 +48,7 @@ export const AllDayEventCreationTab = ({ openDate }: Props) => {
       {({ values, isValid }) => (
         <Form>
           <div className="flex flex-col items-center justify-center">
-            <div className="flex flex-row items-center justify-center w-full">
+            <div className="flex flex-col items-center justify-center w-full space-y-4 sm2:flex-row sm2:space-y-0">
               <div className="w-full mr-6">
                 <DatePicker name="start" />
                 <ComboboxAllDayEventPresets name="title" />
@@ -57,7 +57,7 @@ export const AllDayEventCreationTab = ({ openDate }: Props) => {
                 <p className="self-center font-semibold justify-self-center text-stone-500">
                   {values.start ? format(values.start, "EEEE") : "Esmaspäev"}
                 </p>
-                <div className="flex flex-col mt-2 border border-t-0 h-52 w-36 border-stone-100">
+                <div className="flex flex-col self-center h-16 mt-2 border border-t-0 sm:h-20 md:h-28 lg:h-32 w-36 border-stone-100">
                   <div className="flex flex-col items-center justify-center">
                     <div className="text-xs font-medium font-number sm:text-sm md:text-base text-text-primary">
                       {values.start ? format(values.start, "dd") : "1"}
@@ -78,7 +78,7 @@ export const AllDayEventCreationTab = ({ openDate }: Props) => {
                 </div>
               </div>
             </div>
-            <RealButton type="submit" className="mt-8" isValid={isValid} variant="orange">
+            <RealButton type="submit" className="mt-20 sm2:mt-8" isValid={isValid} variant="orange">
               Loo
             </RealButton>
           </div>

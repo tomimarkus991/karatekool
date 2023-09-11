@@ -6,8 +6,6 @@ import { NormalEventTrailerFormValues } from "@/app-constants";
 import { useGetTrailers } from "@/hooks";
 import { cn } from "@/lib";
 
-import { ResizablePanel } from "../../../ResizablePanel";
-
 interface Props {
   name: string;
 }
@@ -36,33 +34,23 @@ export const TrailerPicker = ({ name }: Props) => {
       <Listbox {...field} value={value} onChange={handleChange}>
         <Listbox.Options
           static
-          className="relative px-2 py-3 mt-2 text-base bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+          className="flex flex-row py-3 mt-5 space-x-4 text-sm bg-white rounded-md shadow-lg px-7 max-w-fit ring-1 ring-gray-100 focus:outline-none"
         >
-          <ResizablePanel>
-            <div className="flex flex-row space-x-4">
-              <div className="grid items-center justify-center grid-cols-3 gap-1">
-                {trailers.map(trailer => (
-                  <Listbox.Option
-                    className={cn("flex flex-row justify-self-center")}
-                    key={trailer.id}
-                    value={trailer}
-                  >
-                    {({ selected }) => (
-                      <div
-                        className={cn(
-                          "flex flex-row justify-self-center border rounded-lg p-1 font-semibold cursor-pointer select-none",
-                          selected ? "border-secondary" : "border-transparent",
-                        )}
-                        key={trailer.id}
-                      >
-                        <p>{trailer.text}</p>
-                      </div>
-                    )}
-                  </Listbox.Option>
-                ))}
-              </div>
-            </div>
-          </ResizablePanel>
+          {trailers.map(trailer => (
+            <Listbox.Option key={trailer.id} value={trailer}>
+              {({ selected }) => (
+                <div
+                  className={cn(
+                    "border rounded-lg p-1 font-semibold cursor-pointer select-none",
+                    selected ? "border-secondary" : "border-transparent",
+                  )}
+                  key={trailer.id}
+                >
+                  <p className="text-primary">{trailer.text}</p>
+                </div>
+              )}
+            </Listbox.Option>
+          ))}
         </Listbox.Options>
       </Listbox>
     </>

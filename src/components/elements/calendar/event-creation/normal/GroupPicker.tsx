@@ -27,10 +27,10 @@ export const GroupPicker = ({ name }: Props) => {
       <Listbox {...field} multiple value={value} onChange={setValue} by="id">
         <Listbox.Options
           static
-          className="relative px-2 py-3 mt-2 text-base bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+          className="relative px-2 py-3 mt-2 text-base bg-white rounded-md shadow-md focus:outline-none sm:text-sm"
         >
-          <div className="flex flex-row flex-shrink space-x-4">
-            <div className="grid items-center justify-center grid-cols-4 grid-rows-2 gap-1">
+          <div className="flex flex-row justify-center">
+            <div className="grid items-center justify-center grid-cols-4 grid-rows-2 gap-1 mr-8">
               {groups.map(group => {
                 const isGroupDisabled = value?.some(
                   selectedGroup =>
