@@ -78,7 +78,7 @@ export const MainComponent = () => {
             className="object-cover lg:ml-28 pointer-events-none md:!object-[88%] object-[75%] 2xl:!scale-[.85] sm:!scale-80 md:!scale-75 lg:!scale-[.84] select-none lg:mt-0 mt-28"
           />
 
-          <div className="flex flex-col justify-start items-start px-6 lg:absolute z-10 lg:left-0 lg:!top-[30%] lg:ml-16 xl:ml-32 2xl:ml-80">
+          <div className="flex flex-col justify-start items-start px-6 lg:absolute z-10 md:z-0 lg:left-0 lg:!top-[30%] lg:ml-16 xl:ml-32 2xl:ml-80">
             <AnimationWrapper
               className="mx-auto mb-5 text-center md:mb-0"
               ref={section1TextRef}
@@ -113,22 +113,6 @@ export const MainComponent = () => {
                   Nüke 35-õppeaasta!
                 </LetterDecryptor>
               </p>
-            </AnimationWrapper>
-            <AnimationWrapper
-              className="mx-auto text-center sm:mt-8 lg:mt-20"
-              ref={section1TextRef}
-              animate={section1TextControl}
-              variants={animations.pageItems.fadeInFromLeft}
-            >
-              <Link href="/buklet">
-                <AnimationWrapper variants={animations.smallScale}>
-                  <p className="text-3xl font-semibold underline md:text-4xl xl:text-5xl text-secondary-light">
-                    <LetterDecryptor letterAmount={1} delay={200} time={1250}>
-                      Buklet
-                    </LetterDecryptor>
-                  </p>
-                </AnimationWrapper>
-              </Link>
             </AnimationWrapper>
           </div>
           {/* <div className="relative lg:absolute z-10 top-[40%] md:!top-[70%] lg:!top-[50%] lg:ml-112 xl:ml-24 2xl:ml-64">

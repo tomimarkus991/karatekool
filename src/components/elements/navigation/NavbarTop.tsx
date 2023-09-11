@@ -15,20 +15,13 @@ import { UserProfile } from "../user/UserProfile";
 
 import { NavbarTopLink } from "./components";
 import LogoText from "./logo-text-big.png";
+import { NavbarFlyoutMenu } from "./NavbarFlyoutMenu";
 
 interface Props {
   bg?: string;
 }
 
 export const NavbarTop = ({ bg = "bg-surface-bg" }: Props) => {
-  const routes = [
-    [definedRoutes.home, "kodu"],
-    [definedRoutes.newcomer, "uustulnukale"],
-    [definedRoutes.aboutClub, "klubist"],
-    [definedRoutes.karateka, "karateka"],
-    [definedRoutes.contact, "kontakt"],
-  ];
-
   const { data: user } = useUser();
 
   const { setSidebarState } = useSidebar();
@@ -84,15 +77,16 @@ export const NavbarTop = ({ bg = "bg-surface-bg" }: Props) => {
           </AnimationWrapper>
         </div>
       </motion.div>
+      {/* desktop */}
       <div
         className={cn(
-          "hidden pl-2 pr-4 mt-4 sm2:flex z-10 sm2:max-w-3xl self-center md:max-w-4xl lg:max-w-5xl xl:max-w-5xl max-h-28",
+          "hidden pl-2 pr-4 mt-4 sm2:flex z-10 sm2:max-w-4xl self-center md:max-w-5xl lg:max-w-5xl xl:max-w-5xl max-h-28",
           bg,
         )}
       >
         <div className="flex justify-between">
-          <div className="flex flex-row items-center space-x-1 sm2:mr-0 md:mr-16">
-            <Icons.logoDesktop className="scale-[1] hidden lg:block" />
+          <div className="flex flex-row items-center space-x-1 sm2:mr-6 md:mr-16">
+            <Icons.logoDesktop className="scale-[0.8] hidden sm2:block" />
             <Image
               src={LogoText}
               loading="eager"
@@ -102,12 +96,22 @@ export const NavbarTop = ({ bg = "bg-surface-bg" }: Props) => {
             />
           </div>
           <div className="flex flex-row items-center gap-3 font-normal lg:gap-5">
-            {routes.map(([href, label], index) => (
-              <NavbarTopLink key={href} href={href} bg={bg} index={index}>
-                {/* make first letter uppercase */}
-                {label.charAt(0).toUpperCase() + label.slice(1)}
-              </NavbarTopLink>
-            ))}
+            <NavbarTopLink href={definedRoutes.home} bg={bg} index={0}>
+              Kodu
+            </NavbarTopLink>
+            <NavbarTopLink href={definedRoutes.newcomer} bg={bg} index={1}>
+              Uustulnukale
+            </NavbarTopLink>
+            <NavbarTopLink href={definedRoutes.aboutClub} bg={bg} index={2} menu>
+              <NavbarFlyoutMenu href={definedRoutes.aboutClub} />
+            </NavbarTopLink>
+            <NavbarTopLink href={definedRoutes.karateka} bg={bg} index={3}>
+              Karateka
+            </NavbarTopLink>
+
+            <NavbarTopLink href={definedRoutes.contact} bg={bg} index={4}>
+              Kontakt
+            </NavbarTopLink>
             <div className="sm2:hidden md2:block">
               {user ? (
                 <UserProfile

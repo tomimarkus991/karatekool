@@ -3,7 +3,7 @@
 import { AnimatePresence, ForwardRefComponent, HTMLMotionProps, motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 import { AnimationWrapper } from "@/components";
 import { cn } from "@/lib";
@@ -12,13 +12,21 @@ interface SidebarItemProps {
   href: any;
   bg?: string;
   index: number;
-  children?: string;
+  children?: ReactNode;
+  menu?: boolean;
 }
 
 type Props = SidebarItemProps &
   Omit<ForwardRefComponent<HTMLDivElement, HTMLMotionProps<"div">>, "$$typeof">;
 
-export const NavbarTopLink = ({ children, href, index, bg = "bg-surface-bg", ...props }: Props) => {
+export const NavbarTopLink = ({
+  children,
+  href,
+  index,
+  bg = "bg-surface-bg",
+  menu = false,
+  ...props
+}: Props) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const pathname = usePathname();
 
@@ -48,21 +56,27 @@ export const NavbarTopLink = ({ children, href, index, bg = "bg-surface-bg", ...
         )}
       </AnimatePresence>
       <AnimationWrapper key={`ntl ${href}`} child>
-        <Link href={href}>
-          <p
-            // @todo :: fix this
-            className={cn(
-              pathname === href ? "text-primary" : "text-text-primary",
-              "relative z-10 flex",
-              "lg:text-lg items-center py-3 font-semibold",
-              "transition ease-in-out duration-200 delay-150",
-              "group-hover:-translate-y-1 group-hover:scale-110 group-hover:text-primary group-hover:delay-[0ms]",
-              "group-active:translate-y-0 group-active:scale-100",
-            )}
-          >
-            {children}
-          </p>
-        </Link>
+        {menu ? (
+          <>{children}</>
+        ) : (
+          <>
+            <Link href={href}>
+              <div
+                // @todo :: fix this
+                className={cn(
+                  pathname === href ? "text-primary" : "text-text-primary",
+                  "relative z-10 flex",
+                  "lg:text-lg items-center py-3 font-semibold",
+                  "transition ease-in-out duration-200 delay-150",
+                  "group-hover:-translate-y-1 group-hover:scale-110 group-hover:text-primary group-hover:delay-[0ms]",
+                  "group-active:translate-y-0 group-active:scale-100",
+                )}
+              >
+                {children}
+              </div>
+            </Link>
+          </>
+        )}
       </AnimationWrapper>
     </motion.div>
   );

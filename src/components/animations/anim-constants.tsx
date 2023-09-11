@@ -396,6 +396,15 @@ const calendarEventCreation = { tabSwitch };
 
 export const defaultTransition = { type: "ease", ease: "easeInOut", duration: 1 };
 
+const navigationMenu: Variants = {
+  initial: (open: number) => ({ translateX: open ? "-13rem" : "13rem", opacity: 0 }),
+  animate: () => ({
+    translateX: "0rem",
+    opacity: 1,
+  }),
+  exit: (open: number) => ({ translateX: open ? "13rem" : "-13rem", opacity: 0 }),
+};
+
 export const animations = {
   smallLeftRotation,
   scaleAndRotation,
@@ -420,4 +429,5 @@ export const animations = {
   calendarEventCreation,
   pageItems,
   mouseFadeInFromBottom,
+  navigationMenu,
 };
