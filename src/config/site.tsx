@@ -47,6 +47,8 @@ export const definedRoutes = {
   resetPassword: "/reset-password",
   newcomer: "/uustulnukale",
   home: "/",
+  videos: "/videod",
+  buklet: "/buklet",
 };
 
 export const socialMedia = {
@@ -58,17 +60,9 @@ export const routes: Router[] = [
   {
     href: definedRoutes.home,
     routeName: "Kodu",
-    // bigIcon: <Icons.home className={cn(bigIconCss)} />,
     bigIcon: (
       <div className={cn(bigIconCss, "relative")}>
         <Image fill alt="house" src="/icons/house.svg" />
-        {/* <Image
-                    width={0}
-                    height={0}
-                    alt="belt"
-                    className="w-[3.5rem] sm:w-[4rem]"
-                    src="/icons/belt.svg"
-                  /> */}
       </div>
     ),
   },
@@ -91,6 +85,24 @@ export const routes: Router[] = [
     href: definedRoutes.contact,
     routeName: "Kontakt",
     bigIcon: <Icons.notebook className={cn(bigIconCss)} />,
+  },
+  {
+    href: definedRoutes.buklet,
+    routeName: "Buklet",
+    bigIcon: (
+      <div className={cn(bigIconCss, "relative")}>
+        <Image fill alt="house" src="/icons/buklet.svg" />
+      </div>
+    ),
+  },
+  {
+    href: definedRoutes.videos,
+    routeName: "Videod",
+    bigIcon: (
+      <div className={cn(bigIconCss, "relative")}>
+        <Image fill alt="house" src="/icons/videod.svg" />
+      </div>
+    ),
   },
 ];
 

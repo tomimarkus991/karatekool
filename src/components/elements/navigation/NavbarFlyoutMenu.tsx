@@ -4,15 +4,7 @@ import { Popover, Transition } from "@headlessui/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment, useRef } from "react";
-import {
-  HiChevronDown,
-  HiFilm,
-  HiFire,
-  HiMap,
-  HiPaperClip,
-  HiPhotograph,
-  HiUserGroup,
-} from "react-icons/hi";
+import { HiChevronDown, HiFilm, HiMap, HiUserGroup } from "react-icons/hi";
 
 import { cn } from "@/lib";
 
@@ -23,36 +15,36 @@ const routes = [
     href: "/klubist",
     icon: HiUserGroup,
   },
-  {
-    name: "Karate-do",
-    description: "Rohkem karate-do kunstist",
-    href: "/karate-do",
-    icon: HiFire,
-  },
+  // {
+  //   name: "Karate-do",
+  //   description: "Rohkem karate-do kunstist",
+  //   href: "/karate-do",
+  //   icon: HiFire,
+  // },
   {
     name: "Videod",
     description: "Videod meie trennidest",
     href: "/videod",
     icon: HiFilm,
   },
-  {
-    name: "Pildid",
-    description: "Vaata karateklubi Nüke pilte",
-    href: "/pildid",
-    icon: HiPhotograph,
-  },
+  // {
+  //   name: "Pildid",
+  //   description: "Vaata karateklubi Nüke pilte",
+  //   href: "/pildid",
+  //   icon: HiPhotograph,
+  // },
   {
     name: "Buklet",
     description: "Vaata meie lahedat Bukletti",
     href: "/buklet",
     icon: HiMap,
   },
-  {
-    name: "Viimased sündmused",
-    description: "Millega meie karatekad tegelevad",
-    href: "/last-events",
-    icon: HiPaperClip,
-  },
+  // {
+  //   name: "Viimased sündmused",
+  //   description: "Millega meie karatekad tegelevad",
+  //   href: "/last-events",
+  //   icon: HiPaperClip,
+  // },
 ];
 interface Props {
   href: any;
@@ -116,8 +108,8 @@ export const NavbarFlyoutMenu = ({ href }: Props) => {
                 leaveTo="opacity-0 translate-y-1"
               >
                 <Popover.Panel className="absolute z-10 flex w-screen px-4 mt-5 -translate-x-1/2 left-1/2 max-w-max">
-                  <div className="flex-auto w-screen max-w-md overflow-hidden text-sm leading-6 bg-white shadow-lg rounded-3xl ring-1 ring-gray-900/5 lg:max-w-3xl">
-                    <div className="grid grid-cols-1 p-4 gap-x-6 gap-y-1 lg:grid-cols-2">
+                  <div className="flex-auto w-screen max-w-md overflow-hidden text-sm leading-6 bg-white shadow-lg rounded-3xl ring-1 ring-gray-900/5 lg:max-w-md">
+                    <div className="grid grid-cols-1 p-4 gap-x-6 gap-y-1 lg:grid-cols-1">
                       {routes.map(item => (
                         <div
                           key={item.name}
