@@ -49,7 +49,7 @@ export const ContactDojosTab = ({ children, selectedIndex, index }: ContactDojos
 
   return (
     <AnimationWrapper
-      className="z-10 w-full my-auto text-center"
+      className="z-[1] w-full my-auto text-center"
       variants={animations.smallScaleXs}
     >
       <Tab as={Fragment}>
