@@ -24,7 +24,7 @@ const ToggleWrapper = ({ pressed, tooltip }: ToggleWrapperProps) => {
     <>
       <div
         className={cn(
-          pressed ? "bg-secondary" : "bg-secondary-light",
+          pressed ? "bg-secondary" : "bg-[#e5e7eb]",
           "relative group inline-flex h-[24px] w-[44px] shrink-0 cursor-pointer rounded-full border-2 border-transparent",
           " focus:ring-secondary",
           "transition-colors duration-200 ease-in-out",
