@@ -31,35 +31,39 @@ export const MobileSidebarContent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="flex flex-col overflow-y-scroll">
-      <div className="flex flex-col mb-8">
-        <div className="flex flex-row justify-between">
-          <div className="flex flex-row items-start justify-start">
-            <Icons.logoMobile className="scale-[.8]" />
-            <Image
-              src={LogoText}
-              loading="eager"
-              quality={100}
-              alt="nüke"
-              className="w-[6rem] mb-3 scale-[.9] -ml-1"
-            />
+    <div className="flex flex-col items-stretch flex-1">
+      <div className="flex flex-col overflow-y-scroll">
+        <div className="flex flex-col mb-8">
+          <div className="flex flex-row justify-between">
+            <div className="flex flex-row items-start justify-start">
+              <Icons.logoMobile className="scale-[.8]" />
+              <Image
+                src={LogoText}
+                loading="eager"
+                quality={100}
+                alt="nüke"
+                className="w-[6rem] mb-3 scale-[.9] -ml-1"
+              />
+            </div>
+            <button onClick={() => setSidebarState("closed")}>
+              <AnimationWrapper
+                key="expanded-sidebar-x-icon"
+                variants={animations.scaleAndRotation}
+              >
+                <HiX className="w-6 h-6 mr-3 fill-text-primary hover:fill-gray-800" />
+              </AnimationWrapper>
+            </button>
           </div>
-          <button onClick={() => setSidebarState("closed")}>
-            <AnimationWrapper key="expanded-sidebar-x-icon" variants={animations.scaleAndRotation}>
-              <HiX className="w-6 h-6 mr-3 fill-text-primary hover:fill-gray-800" />
-            </AnimationWrapper>
-          </button>
-        </div>
-        <div className="h-full mt-8 space-y-3">
-          {routes.map(({ bigIcon, href, routeName }, index) => (
-            <SidebarLink key={`${href} mobile ${index}`} href={href} icon={bigIcon}>
-              {routeName}
-            </SidebarLink>
-          ))}
+          <div className="h-full mt-8 space-y-3">
+            {routes.map(({ bigIcon, href, routeName }, index) => (
+              <SidebarLink key={`${href} mobile ${index}`} href={href} icon={bigIcon}>
+                {routeName}
+              </SidebarLink>
+            ))}
+          </div>
         </div>
       </div>
-
-      <div className="flex flex-col">
+      <div className="flex flex-col mt-auto">
         {user ? (
           <div className="flex flex-col mt-4">
             <Modal
