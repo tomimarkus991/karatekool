@@ -11,9 +11,10 @@ const withPWA = require("@ducanh2912/next-pwa").default({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    appDir: true,
     typedRoutes: true,
-    outputFileTracingIgnores: ["**canvas**"],
+    outputFileTracingExcludes: {
+      canvas: "**canvas**",
+    },
   },
   typescript: {
     ignoreBuildErrors: true,

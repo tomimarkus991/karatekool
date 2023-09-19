@@ -4,9 +4,8 @@
 
 import { Formik, Form } from "formik";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { CheckCircle2, Eye, EyeOff, Loader2 } from "lucide-react";
 import { useState } from "react";
-import { HiEye, HiEyeOff } from "react-icons/hi";
 
 import { ResetPasswordFormValues, YupSchemas } from "@/app-constants";
 import { FormikInput, RealButton, ResizablePanel } from "@/components";
@@ -75,9 +74,9 @@ export default function Page() {
                                   onClick={() => setIsPasswordVisible(!isPasswordVisible)}
                                 >
                                   {isPasswordVisible ? (
-                                    <HiEyeOff className="w-5 h-5 fill-stone-600" />
+                                    <EyeOff className="w-5 h-5 fill-stone-600" />
                                   ) : (
-                                    <HiEye className="w-5 h-5 fill-stone-600" />
+                                    <Eye className="w-5 h-5 fill-stone-600" />
                                   )}
                                 </div>
                               }
@@ -97,9 +96,9 @@ export default function Page() {
                                   }
                                 >
                                   {isConfirmPasswordVisible ? (
-                                    <HiEyeOff className="w-5 h-5 fill-stone-600" />
+                                    <EyeOff className="w-5 h-5 fill-stone-600" />
                                   ) : (
-                                    <HiEye className="w-5 h-5 fill-stone-600" />
+                                    <Eye className="w-5 h-5 fill-stone-600" />
                                   )}
                                 </div>
                               }
