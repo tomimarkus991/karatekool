@@ -45,6 +45,7 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
     // this will not be implemented yet
     endTime: event?.normal_event_end || undefined,
   };
+
   const [normalEventInitialValues] = useState<NormalEventFormValues>(
     event
       ? editEventInitialValues
@@ -111,88 +112,90 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
       {/* normal */}
       {({ values, isValid, setValues }) => {
         return (
-          <Form className="flex flex-col justify-between sm2:flex-row">
-            {/* left side */}
-            <div className="flex flex-col p-6 mb-6 shadow-lg sm2:mb-0 rounded-2xl ring-1 ring-gray-50 focus:outline-none">
-              <div className="self-center mb-4">
-                <Presets setValues={setValues} />
-              </div>
-              <div className="flex flex-row my-4">
-                <div className="pt-2">
-                  <TimePicker name="startTime" />
+          <Form>
+            <div className="flex flex-col justify-between sm2:flex-row max-h-[35rem] md:max-h-[50rem] scrollbar-overflow px-5 py-10">
+              {/* left side */}
+              <div className="flex flex-col p-6 mb-6 md:shadow-lg sm2:mb-0 rounded-2xl md:ring-1 ring-gray-50 focus:outline-none">
+                <div className="self-center mb-4">
+                  <Presets setValues={setValues} />
                 </div>
-
-                <MultiDatePicker name="selectedStartDates" />
-              </div>
-
-              <GroupPicker name="selectedGroups" />
-
-              <div className="flex flex-col mt-6">
-                <div className="flex flex-row items-center justify-center">
-                  <div className="flex flex-col mr-2">
-                    <label className="text-sm text-stone-400" htmlFor="isHighlighted">
-                      Tõsta trenn esile
-                    </label>
-                    <div className="my-2">
-                      <FormikToggle name="isHighlighted" />
-                    </div>
+                <div className="flex flex-row my-4">
+                  <div className="pt-2">
+                    <TimePicker name="startTime" />
                   </div>
-                  <FormikInput
-                    inputSize="sm"
-                    label="Mis trennis toimub?"
-                    placeholder="karate seminar"
-                    name="description"
-                  />
+
+                  <MultiDatePicker name="selectedStartDates" />
                 </div>
-                <TrailerPicker name="trailer" />
+
+                <GroupPicker name="selectedGroups" />
+
+                <div className="flex flex-col mt-6">
+                  <div className="flex flex-row items-center justify-center">
+                    <div className="flex flex-col mr-2">
+                      <label className="text-xs sm:text-sm text-stone-400" htmlFor="isHighlighted">
+                        Tõsta trenn esile
+                      </label>
+                      <div className="my-2">
+                        <FormikToggle name="isHighlighted" />
+                      </div>
+                    </div>
+                    <FormikInput
+                      inputSize="sm"
+                      label="Mis trennis toimub?"
+                      placeholder="karate seminar"
+                      name="description"
+                    />
+                  </div>
+                  <TrailerPicker name="trailer" />
+                </div>
               </div>
-            </div>
-            {/* right side */}
-            <div className="flex flex-col justify-center px-6 py-5 shadow-lg sm2:py-0 rounded-2xl sm:ml-0 ring-1 ring-gray-50 focus:outline-none">
-              <AnimationWrapper
-                className="self-center mb-4 max-w-fit max-h-fit"
-                variants={animations.smallLeftRotation}
-              >
-                <RotateCcw
-                  className="cursor-pointer text-stone-700 hover:text-stone-800"
-                  onClick={() => {
-                    setValues(normalEventInitialValues);
-                  }}
-                />
-              </AnimationWrapper>
-              <PreviewEvent values={values} />
-              <RealButton type="submit" isValid={isValid} className="mt-8" variant="orange">
-                {event ? "Uuenda" : "Loo"}
-              </RealButton>
-              {!event && (
-                <RealButton
-                  className="mt-4"
-                  variant="light"
-                  onClick={() => {
-                    const groupIds = values.selectedGroups
-                      .filter(group => !group.highlighted)
-                      .map(group => group.id as number);
-
-                    const highlightedGroupIds = values.selectedGroups
-                      .filter(group => group.highlighted)
-                      .map(group => group.id as number);
-
-                    createEventPreset({
-                      description: values.description || null,
-                      group_ids: groupIds,
-                      highlighted_group_ids: highlightedGroupIds,
-                      start: mergeDateAndTime(
-                        values.selectedStartDates[0] || new Date(),
-                        values.startTime,
-                      ).toISOString(),
-                      trailer_id: values.trailer.id || null,
-                      is_highlighted: values.isHighlighted,
-                    });
-                  }}
+              {/* right side */}
+              <div className="flex flex-col justify-center px-6 py-5 md:shadow-lg sm2:py-0 rounded-2xl sm:ml-0 md:ring-1 ring-gray-50 focus:outline-none">
+                <AnimationWrapper
+                  className="self-center mb-4 max-w-fit max-h-fit"
+                  variants={animations.smallLeftRotation}
                 >
-                  Loo preset
+                  <RotateCcw
+                    className="cursor-pointer text-stone-700 hover:text-stone-800"
+                    onClick={() => {
+                      setValues(normalEventInitialValues);
+                    }}
+                  />
+                </AnimationWrapper>
+                <PreviewEvent values={values} />
+                <RealButton type="submit" isValid={isValid} className="mt-8" variant="orange">
+                  {event ? "Uuenda" : "Loo"}
                 </RealButton>
-              )}
+                {!event && (
+                  <RealButton
+                    className="mt-4"
+                    variant="light"
+                    onClick={() => {
+                      const groupIds = values.selectedGroups
+                        .filter(group => !group.highlighted)
+                        .map(group => group.id as number);
+
+                      const highlightedGroupIds = values.selectedGroups
+                        .filter(group => group.highlighted)
+                        .map(group => group.id as number);
+
+                      createEventPreset({
+                        description: values.description || null,
+                        group_ids: groupIds,
+                        highlighted_group_ids: highlightedGroupIds,
+                        start: mergeDateAndTime(
+                          values.selectedStartDates[0] || new Date(),
+                          values.startTime,
+                        ).toISOString(),
+                        trailer_id: values.trailer.id || null,
+                        is_highlighted: values.isHighlighted,
+                      });
+                    }}
+                  >
+                    Loo preset
+                  </RealButton>
+                )}
+              </div>
             </div>
           </Form>
         );

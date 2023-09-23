@@ -105,12 +105,13 @@ export const CalendarEventCreationModal = ({
       setOpen={setIsModalOpen}
       maxWidth="3xl"
       closeOnOverlayClick={false}
+      minWidth="w-[30rem]"
       modalButton={button}
     >
       <MotionConfig transition={defaultTransition}>
-        <div className="relative scrollbar-overflow xs2:overflow-x-hidden">
+        <div className="relative overflow-hidden">
           <ResizablePanel duration={defaultTransition.duration}>
-            <div className="flex flex-row items-center justify-between pt-6 px-7">
+            <div className="flex flex-row items-center justify-between pt-6 mb-4 px-7 sm2:mb-0">
               <p className="text-xl font-bold">Loo trenn</p>
               <div role="button" tabIndex={0} onClick={closeModal}>
                 <AnimationWrapper key="sub-modal-x-icon" variants={animations.rotate360}>
@@ -118,7 +119,7 @@ export const CalendarEventCreationModal = ({
                 </AnimationWrapper>
               </div>
             </div>
-            <div className="p-10">
+            <div className="p-2 sm:p-6">
               <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
                 <Tab.List
                   className={cn(

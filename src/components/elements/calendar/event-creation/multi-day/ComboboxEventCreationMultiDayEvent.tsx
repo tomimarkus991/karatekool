@@ -45,7 +45,7 @@ export const ComboboxEventCreationMultiDayEvent = ({ name }: Props) => {
         <div className="relative w-full overflow-hidden text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none sm:text-sm">
           <HeadlessCombobox.Button as="div" className="flex items-center">
             <HeadlessCombobox.Input
-              className="w-full py-2 pl-3 pr-10 text-sm leading-5 border-none rounded-lg ring-0 focus:ring-0 focus:border-none focus:outline-secondary"
+              className="w-full px-3 py-2 text-sm leading-5 border-none rounded-lg w ring-0 focus:ring-0 focus:border-none focus:outline-secondary"
               displayValue={(item: any) => item.title}
               placeholder="Vali üritus"
               onChange={event => setQuery(event.target.value)}

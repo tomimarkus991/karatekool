@@ -45,7 +45,7 @@ export const AllDayEvent = ({ event, date }: Props) => {
             <p
               id="all-day-event"
               className={cn(
-                "text-blue-600 text-[0.6rem] xs:text-[0.7rem] sm:text-sm md:text-lg",
+                "text-blue-600 text-[0.5rem] xs:text-[0.6rem] sm:text-sm md:text-lg",
                 letter === "all" ? "mb-3" : "mb-0 lg:mb-3",
               )}
             >

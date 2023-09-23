@@ -63,7 +63,7 @@ export const FormikInput = forwardRef<HTMLInputElement, FormikInputProps>(
       <div>
         {label && (
           <div className="ml-1">
-            <label className="text-sm text-stone-400" htmlFor={props.id || name}>
+            <label className="text-xs sm:text-sm text-stone-400" htmlFor={props.id || name}>
               {label}
             </label>
             {required && <span className="ml-1 text-red-500">*</span>}

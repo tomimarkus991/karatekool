@@ -70,6 +70,7 @@ interface Props {
   closeOnOverlayClick?: boolean;
   children?: ReactNode;
   maxWidth?: keyof typeof modalMaxWidth;
+  minWidth?: string;
 }
 
 export const Modal = ({
@@ -79,6 +80,7 @@ export const Modal = ({
   closeOnOverlayClick = true,
   setOpen,
   maxWidth = "xl",
+  minWidth,
 }: Props) => {
   const initialFocusRef = useRef(null);
   return (
@@ -123,6 +125,7 @@ export const Modal = ({
               className={cn(
                 "minscreen:min-w-[20rem] rounded-xl bg-white z-[10]",
                 modalMaxWidth[maxWidth],
+                minWidth,
               )}
             >
               {children}

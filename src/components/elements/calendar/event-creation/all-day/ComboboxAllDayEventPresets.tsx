@@ -11,7 +11,6 @@ interface Props {
 
 const allDayPresets = [
   "VHK spordisaalis on kooli üritus",
-  "Nüke võistlus KATA E-, S-, M- ja N-grupp",
   "VHK PK jõulupidu!",
   "CORPORE CUP PÄRNU",
   "TALLINN OPEN",
@@ -38,7 +37,7 @@ export const ComboboxAllDayEventPresets = ({ name }: Props) => {
             <HeadlessCombobox.Input
               className="w-full px-3 py-2 text-sm leading-5 border-none rounded-lg ring-0 focus:ring-0 focus:border-none focus:outline-secondary"
               displayValue={(item: string) => item}
-              placeholder="Vali üritus või vajuta paremal Pealkiri"
+              placeholder="Vali Preset"
               onChange={event => setQuery(event.target.value)}
             />
           </HeadlessCombobox.Button>

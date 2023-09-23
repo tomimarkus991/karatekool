@@ -71,7 +71,7 @@ export const Presets = ({ setValues }: Props) => {
                 {isEditing ? (
                   <button
                     key={preset.id}
-                    className="flex flex-col mx-auto opacity-50 cursor-pointer w-fit hover:opacity-100"
+                    className="flex flex-col mx-auto scale-125 opacity-50 cursor-pointer w-fit hover:opacity-100"
                     onClick={() => {
                       deletePreset({ id: preset.id });
                     }}
@@ -86,7 +86,7 @@ export const Presets = ({ setValues }: Props) => {
                       groups={preset.groups}
                       highlightedGroups={preset.highlightedGroups}
                     />
-                    <HiTrash className="self-center w-6 h-6 text-red-600" />
+                    <HiTrash className="self-center w-4 h-4 text-red-600" />
                   </button>
                 ) : (
                   <button
@@ -104,7 +104,10 @@ export const Presets = ({ setValues }: Props) => {
                       setIsModalOpen(false);
                     }}
                   >
-                    <AnimationWrapper className="cursor-pointer" variants={animations.smallScale}>
+                    <AnimationWrapper
+                      className="scale-125 cursor-pointer"
+                      variants={animations.smallScale}
+                    >
                       <NormalEventDisplay
                         description={preset.description}
                         event={{

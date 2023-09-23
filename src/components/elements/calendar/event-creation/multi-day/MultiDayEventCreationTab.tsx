@@ -49,7 +49,9 @@ export const MultiDayEventCreationTab = () => {
       {({ isValid }) => (
         <Form>
           <div className="flex flex-col items-center justify-center">
-            <DatePickerWithRange name="dateRange" />
+            <div className="mb-6">
+              <DatePickerWithRange name="dateRange" />
+            </div>
             <ComboboxEventCreationMultiDayEvent name="event" />
             <RealButton type="submit" className="mt-8" isValid={isValid} variant="orange">
               Loo

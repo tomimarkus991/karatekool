@@ -27,7 +27,7 @@ export const GroupPicker = ({ name }: Props) => {
       <Listbox {...field} multiple value={value} onChange={setValue} by="id">
         <Listbox.Options
           static
-          className="relative px-2 py-3 mt-2 text-base bg-white rounded-md shadow-md focus:outline-none sm:text-sm"
+          className="relative px-0 py-3 mt-2 text-base bg-white rounded-md shadow-md sm:px-2 focus:outline-none sm:text-sm"
         >
           <div className="flex flex-row justify-center">
             <div className="grid items-center justify-center grid-cols-4 grid-rows-2 gap-1 mr-8">
@@ -54,7 +54,12 @@ export const GroupPicker = ({ name }: Props) => {
                           )}
                           key={group.id}
                         >
-                          <p className={cn(groupLetterColorMapper(group?.letter as GroupLetters))}>
+                          <p
+                            className={cn(
+                              "text-sm sm:text-base",
+                              groupLetterColorMapper(group?.letter as GroupLetters),
+                            )}
+                          >
                             {group.letter}
                           </p>
                         </div>
@@ -89,13 +94,13 @@ export const GroupPicker = ({ name }: Props) => {
                       >
                         <p
                           className={cn(
-                            "underline decoration-red-500",
+                            "underline decoration-red-500 text-sm sm:text-base",
                             groupLetterColorMapper(group?.letter as GroupLetters),
                           )}
                         >
                           {group.letter}
                         </p>
-                        <p className="text-red-500 ml-[0.06rem]">!</p>
+                        <p className="text-red-500 ml-[0.06rem] text-sm sm:text-base">!</p>
                       </div>
                     )}
                   </Listbox.Option>

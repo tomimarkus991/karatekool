@@ -44,7 +44,7 @@ export const CalendarDate = ({ events, date, month }: Props) => {
           ref={ref}
           className={cn(
             "w-full h-full m-auto box-border p-[0.1rem] sm:p-1",
-            "border-stone-100 border-r first:border-l",
+            "border-stone-100 border-r first:border-l overflow-y-hidden",
             user?.role === "admin" && "hover:border-secondary hover:border",
           )}
           onClick={(e: any) => {
@@ -60,20 +60,20 @@ export const CalendarDate = ({ events, date, month }: Props) => {
           <div id="open-creation-modal" className={cn("flex flex-col h-full")}>
             {/* <PlusCircle
               size={40}
-              className={cn(
+              className={cn( 
                 user?.role === "admin" &&
-                  "absolute opacity-5 text-stone-500 ml-auto mr-auto h-full left-0 right-0 text-center",
+                  "absolute opacity-5 text-stone-500 ml-automr-auto h-full left-0 right-0 text-center",
               )}
             /> */}
             <AnimationWrapper
               id="open-creation-modal"
-              className={cn("flex justify-center mb-1 md:mb-0")}
+              className={cn("flex justify-center")}
               variants={user?.role === "admin" ? animations.smallScale : undefined}
             >
               <time
                 id="open-creation-modal"
                 className={cn(
-                  "font-number font-medium text-xs sm:text-sm md:text-base",
+                  "font-number font-medium text-[0.6rem] sm:text-sm md:text-base",
                   isToday(date)
                     ? // ? "text-white bg-primary h-4 w-4 sm:h-5 sm:w-5 rounded-full text-center"
                       "text-primary"
