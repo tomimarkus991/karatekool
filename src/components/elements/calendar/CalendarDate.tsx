@@ -44,7 +44,7 @@ export const CalendarDate = ({ events, date, month }: Props) => {
           ref={ref}
           className={cn(
             "w-full h-full m-auto box-border p-[0.1rem] sm:p-1",
-            "border-stone-100 border-r first:border-l overflow-y-hidden",
+            "border-stone-100 border-r first:border-l",
             user?.role === "admin" && "hover:border-secondary hover:border",
           )}
           onClick={(e: any) => {
