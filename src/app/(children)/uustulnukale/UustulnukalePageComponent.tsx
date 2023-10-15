@@ -26,8 +26,6 @@ export const UustulnukalePageComponent = () => {
         <Link href="/registreerimise-info">
           <p className="text-xl underline text-secondary md:text-2xl">Registreerimise info</p>
         </Link>
-
-        <p className="mt-6 text-2xl font-bold text-primary">SEPTEMBRI TREENINGUD ON TASUTA!</p>
       </AnimationWrapper>
 
       <Accordion
