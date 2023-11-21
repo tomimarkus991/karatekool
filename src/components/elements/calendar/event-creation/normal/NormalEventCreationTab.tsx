@@ -117,7 +117,10 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
               {/* left side */}
               <div className="flex flex-col p-6 mb-6 md:shadow-lg sm2:mb-0 rounded-2xl md:ring-1 ring-gray-50 focus:outline-none">
                 <div className="self-center mb-4">
-                  <Presets setValues={setValues} />
+                  <Presets
+                    setValues={setValues}
+                    currentPickedStartDate={values.selectedStartDates}
+                  />
                 </div>
                 <div className="flex flex-row my-4">
                   <div className="pt-2">

@@ -28,9 +28,7 @@ export const useCreateCalendarEvent = () => {
     groupIds = [],
     highlightedGroupIds = [],
   }: Props) => {
-    // create as many events as there are in selectedStartDates
-    console.log("123456", id);
-
+    // create as many events as there are rows in selectedStartDates
     selectedStartDates.forEach(async start => {
       const createEventRes = await supabase
         .from("event")

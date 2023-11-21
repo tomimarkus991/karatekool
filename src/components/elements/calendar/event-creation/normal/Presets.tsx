@@ -1,5 +1,3 @@
-"use client";
-
 import { parseISO } from "date-fns";
 import { useState } from "react";
 import { HiPencil, HiTrash, HiX } from "react-icons/hi";
@@ -12,9 +10,10 @@ import { NormalEventDisplay } from "../../events";
 
 interface Props {
   setValues: (data: NormalEventFormValues) => any;
+  currentPickedStartDate: Date[];
 }
 
-export const Presets = ({ setValues }: Props) => {
+export const Presets = ({ setValues, currentPickedStartDate }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -96,8 +95,8 @@ export const Presets = ({ setValues }: Props) => {
                       setValues({
                         isHighlighted: preset.is_highlighted,
                         selectedGroups,
-                        trailer: preset.trailer,
-                        selectedStartDates: [],
+                        selectedStartDates: currentPickedStartDate,
+                        trailer: preset.trailer || {},
                         startTime: preset.start ? parseISO(preset.start) : new Date(),
                         description: preset?.description || "",
                       });
