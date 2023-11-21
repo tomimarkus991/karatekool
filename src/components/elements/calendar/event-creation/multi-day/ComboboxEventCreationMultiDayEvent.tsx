@@ -60,7 +60,7 @@ export const ComboboxEventCreationMultiDayEvent = ({ name }: Props) => {
           leaveTo="opacity-0"
           afterLeave={() => setQuery("")}
         >
-          <HeadlessCombobox.Options className="absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg ring-0 focus:outline-none sm:text-sm">
+          <HeadlessCombobox.Options className="z-[1400] w-full py-1 mt-1 overflow-hidden text-base bg-white rounded-md shadow-lg ring-0 focus:outline-none sm:text-sm">
             {filteredData.length === 0 && query !== "" ? (
               <div className="relative px-4 py-2 text-gray-700 cursor-default select-none">
                 Midagi ei leitud. Vajuta
