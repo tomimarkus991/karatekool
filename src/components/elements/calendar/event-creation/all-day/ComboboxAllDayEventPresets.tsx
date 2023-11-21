@@ -37,7 +37,8 @@ export const ComboboxAllDayEventPresets = ({ name }: Props) => {
             <HeadlessCombobox.Input
               className="w-full px-3 py-2 text-sm leading-5 border-none rounded-lg ring-0 focus:ring-0 focus:border-none focus:outline-secondary"
               displayValue={(item: string) => item}
-              placeholder="Vali Preset"
+              placeholder="Vali valmis üritus"
+              autoComplete="off"
               onChange={event => setQuery(event.target.value)}
             />
           </HeadlessCombobox.Button>
