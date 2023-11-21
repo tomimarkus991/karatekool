@@ -16,5 +16,5 @@ export const useGetMultiDayEventPresets = () => {
     return data || [];
   };
 
-  return useQuery(["multi_day_event_presets"], async () => getQuery());
+  return useQuery({ queryKey: ["multi_day_event_presets"], queryFn: async () => getQuery() });
 };

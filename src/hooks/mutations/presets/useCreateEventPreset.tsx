@@ -38,7 +38,8 @@ export const useCreateEventPreset = () => {
     return res;
   };
 
-  return useMutation((user: Props) => execute(user), {
+  return useMutation({
+    mutationFn: (user: Props) => execute(user),
     onSuccess: () => {
       toast.success("Uus preset loodud!");
       queryClient.invalidateQueries({ queryKey: ["event_presets"] });

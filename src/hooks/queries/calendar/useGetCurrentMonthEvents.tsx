@@ -11,7 +11,7 @@ export const useGetCurrentMonthEvents = (
 ) => {
   const { supabase } = useSupabase();
 
-  const getEvents = async () => {
+  const getQuery = async () => {
     const { data, error } = await supabase
       .from("event")
       .select(
@@ -39,9 +39,8 @@ export const useGetCurrentMonthEvents = (
     return _eventData || [];
   };
 
-  return useQuery(
-    ["get_calendar_events", firstDayOfCurrentMonth, lastDayOfCurrentMonth],
-    async () => getEvents(),
-    {},
-  );
+  return useQuery({
+    queryKey: ["get_calendar_events", firstDayOfCurrentMonth, lastDayOfCurrentMonth],
+    queryFn: async () => getQuery(),
+  });
 };

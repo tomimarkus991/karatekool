@@ -22,5 +22,5 @@ export const useGetEmailWhitelist = () => {
     return arrayOfEmails || [];
   };
 
-  return useQuery(["get_email_whitelist"], async () => getQuery());
+  return useQuery({ queryKey: ["get_email_whitelist"], queryFn: async () => getQuery() });
 };

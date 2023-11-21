@@ -16,7 +16,7 @@ export default function Page() {
   const {
     mutate: sendPasswordResetEmail,
     isError,
-    isLoading,
+    isPending,
     isSuccess,
   } = useSendPasswordResetEmail();
 
@@ -45,7 +45,7 @@ export default function Page() {
             >
               {({ isValid, handleSubmit }) => (
                 <AnimatePresence mode="popLayout">
-                  {isLoading || !isSuccess || isError ? (
+                  {isPending || !isSuccess || isError ? (
                     <Form className={cn("flex flex-col")}>
                       <motion.div
                         exit={{ opacity: 0 }}
@@ -72,7 +72,7 @@ export default function Page() {
                             isValid={isValid}
                           >
                             <>
-                              {isLoading ? (
+                              {isPending ? (
                                 <Loader2 size={24} className="animate-spinner" />
                               ) : (
                                 "Saada"

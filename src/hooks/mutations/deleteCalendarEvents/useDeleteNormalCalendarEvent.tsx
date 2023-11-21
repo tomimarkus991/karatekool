@@ -39,7 +39,8 @@ export const useDeleteNormalCalendarEvent = () => {
     return res;
   };
 
-  return useMutation((user: Props) => execute(user), {
+  return useMutation({
+    mutationFn: (user: Props) => execute(user),
     onSuccess: () => {
       toast.success("Üritus kustutatud");
       queryClient.invalidateQueries({

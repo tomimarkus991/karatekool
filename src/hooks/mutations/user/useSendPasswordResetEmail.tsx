@@ -29,7 +29,8 @@ export const useSendPasswordResetEmail = () => {
     return { data, error };
   };
 
-  return useMutation((user: SendResetPasswordProps) => sendPasswordResetEmail(user), {
+  return useMutation({
+    mutationFn: (user: SendResetPasswordProps) => sendPasswordResetEmail(user),
     onSuccess: () => {
       queryClient.removeQueries();
     },

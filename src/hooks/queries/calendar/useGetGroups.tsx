@@ -30,5 +30,5 @@ export const useGetGroups = () => {
     };
   };
 
-  return useQuery(["groups"], async () => getQuery());
+  return useQuery({ queryKey: ["groups"], queryFn: async () => getQuery() });
 };

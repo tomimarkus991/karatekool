@@ -16,5 +16,5 @@ export const useGetMaterials = () => {
     return data || [];
   };
 
-  return useQuery(["get_materials"], async () => getQuery());
+  return useQuery({ queryKey: ["get_materials"], queryFn: async () => getQuery() });
 };

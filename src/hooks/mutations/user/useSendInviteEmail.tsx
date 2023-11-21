@@ -26,7 +26,8 @@ export const useSendInviteEmail = () => {
     }
   };
 
-  return useMutation((user: Props) => sendInviteEmail(user), {
+  return useMutation({
+    mutationFn: (user: Props) => sendInviteEmail(user),
     onSuccess: () => {
       queryClient.removeQueries();
     },

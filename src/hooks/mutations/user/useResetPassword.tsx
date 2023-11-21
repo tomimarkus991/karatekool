@@ -27,7 +27,8 @@ export const useResetPassword = () => {
     }
   };
 
-  return useMutation((user: ResetPasswordProps) => query(user), {
+  return useMutation({
+    mutationFn: (user: ResetPasswordProps) => query(user),
     onSuccess: () => {
       queryClient.removeQueries();
     },

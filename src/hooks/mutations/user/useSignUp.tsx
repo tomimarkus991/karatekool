@@ -62,7 +62,8 @@ export const useSignUp = () => {
     }
   };
 
-  return useMutation((user: SignUpProps) => signUp(user), {
+  return useMutation({
+    mutationFn: (user: SignUpProps) => signUp(user),
     onSuccess: () => {
       queryClient.removeQueries();
       // dont navigate show confirm email prompt

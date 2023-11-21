@@ -26,7 +26,7 @@ import { SidebarLink } from ".";
 
 export const MobileSidebarContent = () => {
   const { data: user } = useUser();
-  const { mutate: signOut, isLoading: isSigningOut } = useSignOut();
+  const { mutate: signOut, isPending: isSigningOut } = useSignOut();
   const { setSidebarState } = useSidebar();
   const [isModalOpen, setIsModalOpen] = useState(false);
 

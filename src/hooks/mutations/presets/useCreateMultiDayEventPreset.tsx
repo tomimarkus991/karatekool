@@ -22,7 +22,8 @@ export const useCreateMultiDayEventPreset = () => {
     return res;
   };
 
-  return useMutation((user: Props) => execute(user), {
+  return useMutation({
+    mutationFn: (user: Props) => execute(user),
     onSuccess: () => {
       toast.success("Uus mitme päeva üritus on loodud");
       queryClient.invalidateQueries({ queryKey: ["multi_day_event_presets"] });

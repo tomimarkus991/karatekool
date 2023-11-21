@@ -41,7 +41,9 @@ export const useGetEventPresets = () => {
     return finalPresets || [];
   };
 
-  return useQuery(["event_presets"], async () => getQuery(), {
+  return useQuery({
+    queryKey: ["event_presets"],
+    queryFn: async () => getQuery(),
     enabled: !!allGroups && !!allTrailers,
   });
 };

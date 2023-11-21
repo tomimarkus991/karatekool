@@ -16,5 +16,5 @@ export const useGetTrailers = () => {
     return data;
   };
 
-  return useQuery(["trailers"], async () => getQuery());
+  return useQuery({ queryKey: ["trailers"], queryFn: async () => getQuery() });
 };

@@ -53,7 +53,8 @@ export const useUpdateProfile = () => {
     return res;
   };
 
-  return useMutation((user: Props) => execute(user), {
+  return useMutation({
+    mutationFn: (user: Props) => execute(user),
     onSuccess: () => {
       toast.success("Profiil uuendatud");
       queryClient.invalidateQueries({ queryKey: ["user"] });

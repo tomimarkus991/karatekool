@@ -19,7 +19,7 @@ export default function Page() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
 
-  const { mutate: resetPassword, isLoading, isError, isSuccess } = useResetPassword();
+  const { mutate: resetPassword, isPending, isError, isSuccess } = useResetPassword();
 
   const [initialValues] = useState<ResetPasswordFormValues>({
     password: "",
@@ -46,7 +46,7 @@ export default function Page() {
             {({ isValid, handleSubmit }) => (
               <>
                 <AnimatePresence mode="popLayout">
-                  {isLoading || !isSuccess || isError ? (
+                  {isPending || !isSuccess || isError ? (
                     <motion.div
                       exit={{ opacity: 0 }}
                       transition={{
@@ -114,7 +114,7 @@ export default function Page() {
                             isValid={isValid}
                           >
                             <>
-                              {isLoading ? (
+                              {isPending ? (
                                 <Loader2 size={24} className="animate-spinner" />
                               ) : (
                                 "Uuenda"

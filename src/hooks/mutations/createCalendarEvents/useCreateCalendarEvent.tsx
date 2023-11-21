@@ -86,7 +86,8 @@ export const useCreateCalendarEvent = () => {
     });
   };
 
-  return useMutation((user: Props) => execute(user), {
+  return useMutation({
+    mutationFn: (user: Props) => execute(user),
     onSuccess: () => {
       toast.success("Uus üritus on loodud");
       setTimeout(() => {

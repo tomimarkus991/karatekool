@@ -22,7 +22,8 @@ export const useSignOut = () => {
     }
   };
 
-  return useMutation(() => signOut(), {
+  return useMutation({
+    mutationFn: () => signOut(),
     onSuccess: () => {
       queryClient.removeQueries();
       if (isMobile) {

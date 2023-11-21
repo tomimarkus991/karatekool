@@ -27,7 +27,8 @@ export const useSignIn = () => {
     }
   };
 
-  return useMutation((user: SignInProps) => signIn(user), {
+  return useMutation({
+    mutationFn: (user: SignInProps) => signIn(user),
     onSuccess: () => {
       if (typeof window !== "undefined") {
         window.location.reload();

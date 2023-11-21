@@ -6,10 +6,14 @@ import { useSupabase } from "@/context";
 export const useUser = () => {
   const { supabase, session } = useSupabase();
 
-  const fetchUser = async () => {
+  const getQuery = async () => {
     // if (localStorage.getItem("sb-wqdplpmiyvwmetnipmwd-auth-token") === null) {
     //   return null;
     // }
+
+    if (!session) {
+      return null;
+    }
 
     const { data } = await supabase
       .from("profile")
@@ -39,5 +43,5 @@ export const useUser = () => {
     return data;
   };
 
-  return useQuery(["user"], () => fetchUser());
+  return useQuery({ queryKey: ["user"], queryFn: () => getQuery() });
 };
