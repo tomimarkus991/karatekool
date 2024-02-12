@@ -19,8 +19,8 @@ export const UustulnukalePageComponent = () => {
         animate={section1TextControl}
         variants={animations.pageItems.fadeInFromLeft}
       >
-        <p className="mb-4 text-2xl font-semibold sm:text-3xl">
-          Klubisse registreerumine on alanud!
+        <p className="mb-4 text-xl font-semibold sm:text-2xl">
+          Uute liikmete vastuvõtt klubisse toimub taas Septembris!
         </p>
 
         <Link href="/registreerimise-info">

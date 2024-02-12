@@ -2,7 +2,6 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import Link from "next/link";
 
 // import { Scroller, MobileScroller } from "../../components/elements/home-page/Scrollers";
 // import { LetterDecryptor } from "../../components/elements/LetterDecryptor";
@@ -85,16 +84,9 @@ export const MainComponent = () => {
               animate={section1TextControl}
               variants={animations.pageItems.fadeInFromLeft}
             >
-              <p className="mb-4 text-2xl font-semibold text-center sm:text-3xl md:text-4xl">
-                Klubisse registreerumine on alanud!
+              <p className="mb-4 text-xl font-semibold text-center sm:text-2xl md:text-3xl">
+                Uute liikmete vastuvõtt klubisse toimub taas Septembris!
               </p>
-              <AnimationWrapper variants={animations.smallScale}>
-                <Link href="/registreerimise-info">
-                  <p className="text-xl underline text-secondary md:text-2xl xl:text-3xl">
-                    Registreerimise info
-                  </p>
-                </Link>
-              </AnimationWrapper>
             </AnimationWrapper>
 
             <AnimationWrapper
