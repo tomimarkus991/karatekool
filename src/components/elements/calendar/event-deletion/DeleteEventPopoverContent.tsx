@@ -27,6 +27,10 @@ export const DeleteEventPopoverContent = ({ children, deleteEvent, event }: Prop
     return 2;
   };
 
+  if (!user || user?.role !== "admin") {
+    return <></>;
+  }
+
   return (
     <PopoverContent className="max-w-xs lg:max-w-sm">
       <div className="flex flex-row">
@@ -66,7 +70,7 @@ export const DeleteEventPopoverContent = ({ children, deleteEvent, event }: Prop
 
         <div className="flex flex-col items-center justify-center">
           {children}
-          {event && (
+          {event && user?.role === "admin" && (
             <CalendarEventCreationModal
               isModalOpen={isEventCreationModalOpen}
               setIsModalOpen={setIsEventCreationModalOpen}
