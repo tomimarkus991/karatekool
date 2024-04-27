@@ -18,7 +18,7 @@ import { EventData } from "@/types";
 
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "../../../Popover";
 
-import { GroupPicker, Presets, PreviewEvent, TrailerPicker } from ".";
+import { GroupPicker, PreviewEvent, TrailerPicker } from ".";
 
 const mergeDateAndTime = (startDate: Date, startTime: Date): Date => {
   const result = new Date(startDate.getTime());
@@ -137,12 +137,12 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
             <div className="flex flex-col justify-between sm2:flex-row max-h-[35rem] md:max-h-[50rem] scrollbar-overflow px-5 py-10">
               {/* left side */}
               <div className="flex flex-col p-6 mb-6 md:shadow-lg sm2:mb-0 rounded-2xl md:ring-1 ring-gray-50 focus:outline-none">
-                <div className="self-center mb-4">
+                {/* <div className="self-center mb-4">
                   <Presets
                     setValues={setValues}
                     currentPickedStartDate={values.selectedStartDates}
                   />
-                </div>
+                </div> */}
                 <div className="flex flex-row justify-around my-4">
                   <div className="pt-2">
                     {/* add popover with some preset times and form to add time */}
