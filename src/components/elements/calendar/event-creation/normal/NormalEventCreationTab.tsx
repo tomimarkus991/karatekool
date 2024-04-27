@@ -210,6 +210,13 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
                           >
                             19:00
                           </TimeButton>
+                          <TimeButton
+                            onClick={() =>
+                              setValues({ ...values, startTime: new Date(2022, 0, 1, 19, 15, 0) })
+                            }
+                          >
+                            19:15
+                          </TimeButton>
                         </div>
                         {/* <div className="flex flex-row">
                           <FormikInput
