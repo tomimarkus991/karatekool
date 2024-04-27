@@ -98,7 +98,7 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
           isHighlighted,
           selectedStartDates,
         },
-        { setSubmitting },
+        { setSubmitting, setFieldValue },
       ) => {
         setSubmitting(true);
 
@@ -123,6 +123,9 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
           isHighlighted,
           selectedStartDates: startDates,
         });
+
+        // reset groups to zero
+        setFieldValue("selectedGroups", []);
 
         setSubmitting(false);
       }}

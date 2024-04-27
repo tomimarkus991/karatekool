@@ -6,14 +6,12 @@ import { useGetGroups } from "@/hooks";
 import { cn, groupLetterColorMapper } from "@/lib";
 import { GroupLetters } from "@/types";
 
-import { InputErrorText } from "../../../forms";
-
 interface Props {
   name: string;
 }
 
 export const GroupPicker = ({ name }: Props) => {
-  const [field, { value, error, touched }, { setValue }] =
+  const [field, { value, error }, { setValue }] =
     useField<NormalEventSelectedGroupsFormValues>(name);
 
   const { data } = useGetGroups();
@@ -27,7 +25,10 @@ export const GroupPicker = ({ name }: Props) => {
       <Listbox {...field} multiple value={value} onChange={setValue} by="id">
         <Listbox.Options
           static
-          className="relative px-0 py-3 mt-2 text-base bg-white rounded-md shadow-md sm:px-2 focus:outline-none sm:text-sm"
+          className={cn(
+            "relative px-0 py-3 mt-2 text-base bg-white rounded-md shadow-md sm:px-2 focus:outline-none sm:text-sm",
+            error ? "border border-red-500" : "border border-white",
+          )}
         >
           <div className="flex flex-row justify-center">
             <div className="grid items-center justify-center grid-cols-4 grid-rows-2 gap-1 mr-8">
@@ -110,7 +111,7 @@ export const GroupPicker = ({ name }: Props) => {
           </div>
         </Listbox.Options>
       </Listbox>
-      <InputErrorText className="mt-3" touched={touched} error={error} />
+      {/* <InputErrorText className="mt-3" touched={touched} error={error} /> */}
     </>
   );
 };
