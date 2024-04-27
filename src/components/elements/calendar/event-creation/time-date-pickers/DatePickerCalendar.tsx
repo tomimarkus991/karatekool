@@ -46,6 +46,7 @@ const DatePickerCalendar = ({
 }: DatePickerCalendarProps) => (
   <DayPicker
     showOutsideDays={showOutsideDays}
+    fixedWeeks={showOutsideDays}
     locale={et}
     className={cn("p-3", className)}
     classNames={{
@@ -71,7 +72,7 @@ const DatePickerCalendar = ({
       ),
       day_selected: "bg-secondary !rounded-full text-white hover:opacity-90 focus:bg-secondary",
       day_today: "text-secondary",
-      day_outside: "invisible",
+      day_outside: cn(showOutsideDays ? "opacity-50" : "invisible"),
       day_disabled: "opacity-50",
       day_range_middle: "bg-secondary-light !rounded-none !hover:opacity-90",
       day_hidden: "invisible",
@@ -80,8 +81,8 @@ const DatePickerCalendar = ({
       ...classNames,
     }}
     components={{
-      IconLeft: props1 => <ChevronLeft className="w-4 h-4" {...props1} />,
-      IconRight: props2 => <ChevronRight className="w-4 h-4" {...props2} />,
+      IconLeft: props1 => <ChevronLeft className="size-4" {...props1} />,
+      IconRight: props2 => <ChevronRight className="size-4" {...props2} />,
     }}
     formatters={{ formatCaption }}
     {...props}

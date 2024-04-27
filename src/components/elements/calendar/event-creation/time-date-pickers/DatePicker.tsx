@@ -22,7 +22,7 @@ export const DatePicker = ({ name, className, ...props }: Props) => {
       <PopoverTrigger>
         <AnimationWrapper variants={animations.subtleScale}>
           <DatePickerCalendarButton variant="ghost" className="pl-0 ml-0 text-left group">
-            <HiOutlineCalendar className="w-6 h-6 mr-2 text-stone-700 group-hover:text-stone-800" />
+            <HiOutlineCalendar className="mr-2 size-6 text-stone-700 group-hover:text-stone-800" />
             {value ? format(value, "PPP") : <p className="text-lg">Vali kuupäev</p>}
           </DatePickerCalendarButton>
         </AnimationWrapper>
@@ -63,7 +63,7 @@ export const MultiDatePicker = ({ name, className, ...props }: Props) => {
             variant="ghost"
             className="pl-0 ml-0 overflow-hidden text-left group"
           >
-            <HiOutlineCalendar className="w-6 h-6 mr-2 text-stone-700 group-hover:text-stone-800" />
+            <HiOutlineCalendar className="mr-2 size-6 text-stone-700 group-hover:text-stone-800" />
             {values?.length && values[0] ? (
               <p className="text-lg">{sortedDates.map(value => ` ${value} `)}</p>
             ) : (

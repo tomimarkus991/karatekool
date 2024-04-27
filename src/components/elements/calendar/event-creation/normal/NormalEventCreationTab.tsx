@@ -273,7 +273,7 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
                     </Popover>
                   </div>
 
-                  <MultiDatePicker name="selectedStartDates" />
+                  <MultiDatePicker showOutsideDays name="selectedStartDates" />
                 </div>
 
                 <GroupPicker name="selectedGroups" />
