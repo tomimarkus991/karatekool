@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileTimePicker as MTimePicker } from "@mui/x-date-pickers/MobileTimePicker";
-import { getHours, getMinutes } from "date-fns";
+import { format, getHours, getMinutes, parseISO } from "date-fns";
 import { useField } from "formik";
 import { HiOutlineClock } from "react-icons/hi";
 
@@ -67,11 +67,14 @@ export const TimePicker = ({ name }: Props) => {
           {...field}
           ampm={false}
           slots={{ field: props => <TextFieldPicker props={props} /> }}
-          value={value}
+          // value={"Choose time"}
           className="!border-2 !border-secondary !text-secondary"
           onChange={(date: Date | null) => {
             setValue(date);
           }}
+          views={["hours", "minutes"]}
+          format="hh:mm"
+          label="Vali kellaaeg"
           formatDensity="spacious"
         />
       </ThemeProvider>

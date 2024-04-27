@@ -11,11 +11,12 @@ import {
   FormikToggle,
   MultiDatePicker,
   RealButton,
-  TimePicker,
   animations,
 } from "@/components";
 import { useCreateCalendarEvent, useCreateEventPreset } from "@/hooks";
 import { EventData } from "@/types";
+
+import { Popover, PopoverContent, PopoverTrigger } from "../../../Popover";
 
 import { GroupPicker, Presets, PreviewEvent, TrailerPicker } from ".";
 
@@ -34,9 +35,24 @@ interface Props {
   event?: EventData;
 }
 
+interface TimeButtonProps {
+  children: React.ReactNode;
+  onClick: () => void;
+}
+
+const TimeButton = ({ children, onClick }: TimeButtonProps) => {
+  return (
+    <button onClick={onClick} className="text-sm text-stone-600">
+      {children}
+    </button>
+  );
+};
+
 export const NormalEventCreationTab = ({ openDate, event }: Props) => {
   const editEventInitialValues: NormalEventFormValues = {
-    startTime: event ? new Date(event.start) : new Date(),
+    startTime: event ? new Date(event.start) : new Date(2022, 0, 1, 18, 0),
+    // startHour: event ? Number(event.start.split("T")[1].split(":")[0]) : 18,
+    // startMinute: event ? Number(event.start.split("T")[1].split(":")[1]) : 0,
     selectedStartDates: event ? [new Date(event.start)] : [new Date()],
     selectedGroups: event ? [...event.group, ...event.highlighted_group] : ([] as any),
     trailer: event && event.event_trailer !== null ? event.event_trailer : {},
@@ -50,9 +66,11 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
     event
       ? editEventInitialValues
       : {
-          startTime: new Date(),
+          startTime: new Date(2022, 0, 1, 18, 0),
           selectedStartDates: [openDate],
           selectedGroups: [],
+          // startHour: 18,
+          // startMinute: 0,
           trailer: {},
           description: "",
           isHighlighted: false,
@@ -122,9 +140,127 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
                     currentPickedStartDate={values.selectedStartDates}
                   />
                 </div>
-                <div className="flex flex-row my-4">
+                <div className="flex flex-row justify-around my-4">
                   <div className="pt-2">
-                    <TimePicker name="startTime" />
+                    {/* add popover with some preset times and form to add time */}
+                    <Popover>
+                      <PopoverTrigger>
+                        <AnimationWrapper variants={animations.smallScale}>
+                          <p className="text-lg">
+                            {String(values.startTime.getHours()).padStart(2, "0")}:
+                            {String(values.startTime.getMinutes()).padStart(2, "0")}
+                          </p>
+                        </AnimationWrapper>
+                      </PopoverTrigger>
+                      <PopoverContent className="z-[1300]">
+                        <div className="grid w-40 h-24 grid-cols-3">
+                          <TimeButton
+                            onClick={() =>
+                              setValues({ ...values, startTime: new Date(2022, 0, 1, 15, 0, 0) })
+                            }
+                          >
+                            15:00
+                          </TimeButton>
+                          <TimeButton
+                            onClick={() =>
+                              setValues({ ...values, startTime: new Date(2022, 0, 1, 16, 15, 0) })
+                            }
+                          >
+                            16:15
+                          </TimeButton>
+                          <TimeButton
+                            onClick={() =>
+                              setValues({ ...values, startTime: new Date(2022, 0, 1, 16, 30, 0) })
+                            }
+                          >
+                            16:30
+                          </TimeButton>
+                          <TimeButton
+                            onClick={() =>
+                              setValues({ ...values, startTime: new Date(2022, 0, 1, 17, 30, 0) })
+                            }
+                          >
+                            17:30
+                          </TimeButton>
+                          <TimeButton
+                            onClick={() =>
+                              setValues({ ...values, startTime: new Date(2022, 0, 1, 17, 45, 0) })
+                            }
+                          >
+                            17:45
+                          </TimeButton>
+                          <TimeButton
+                            onClick={() =>
+                              setValues({ ...values, startTime: new Date(2022, 0, 1, 18, 0, 0) })
+                            }
+                          >
+                            18:00
+                          </TimeButton>
+                          <TimeButton
+                            onClick={() =>
+                              setValues({ ...values, startTime: new Date(2022, 0, 1, 18, 45, 0) })
+                            }
+                          >
+                            18:45
+                          </TimeButton>
+                          <TimeButton
+                            onClick={() =>
+                              setValues({ ...values, startTime: new Date(2022, 0, 1, 19, 0, 0) })
+                            }
+                          >
+                            19:00
+                          </TimeButton>
+                        </div>
+                        {/* <div className="flex flex-row">
+                          <FormikInput
+                            label="tund"
+                            className="mr-2"
+                            placeholder="18"
+                            onChange={() => {
+                              console.log(values);
+                              setValues({
+                                ...values,
+                                startTime: new Date(
+                                  2022,
+                                  0,
+                                  1,
+                                  Number(values.startHour),
+                                  Number(values.startMinute),
+                                ),
+                              });
+                            }}
+                            name="startHour"
+                            type="number"
+                            inputSize="sm"
+                            min={15}
+                            max={19}
+                          />
+                          <FormikInput
+                            label="minut"
+                            placeholder="0"
+                            onChange={() => {
+                              console.log(values.startHour, values.startMinute);
+
+                              setValues({
+                                ...values,
+                                startTime: new Date(
+                                  2022,
+                                  0,
+                                  1,
+                                  Number(values.startHour),
+                                  Number(values.startMinute),
+                                ),
+                              });
+                            }}
+                            name="startMinute"
+                            type="number"
+                            inputSize="sm"
+                            min={0}
+                            max={59}
+                          />
+                        </div> */}
+                      </PopoverContent>
+                    </Popover>
                   </div>
 
                   <MultiDatePicker name="selectedStartDates" />

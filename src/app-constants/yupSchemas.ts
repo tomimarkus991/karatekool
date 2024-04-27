@@ -68,6 +68,8 @@ export type UpdateProfileFormValues = InferType<typeof UpdateProfile>;
 // create normal event
 const NormalEvent = object().shape({
   startTime: date().default(new Date()).required("Vajalik"),
+  // startHour: number(),
+  // startMinute: number(),
   selectedStartDates: array()
     .of(date().required())
     .default([])
