@@ -16,7 +16,7 @@ import {
 import { useCreateCalendarEvent, useCreateEventPreset } from "@/hooks";
 import { EventData } from "@/types";
 
-import { Popover, PopoverContent, PopoverTrigger } from "../../../Popover";
+import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "../../../Popover";
 
 import { GroupPicker, Presets, PreviewEvent, TrailerPicker } from ".";
 
@@ -153,71 +153,74 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
                         </AnimationWrapper>
                       </PopoverTrigger>
                       <PopoverContent className="z-[1300]">
-                        <div className="grid w-40 h-24 grid-cols-3">
-                          <TimeButton
-                            onClick={() =>
-                              setValues({ ...values, startTime: new Date(2022, 0, 1, 15, 0, 0) })
-                            }
-                          >
-                            15:00
-                          </TimeButton>
-                          <TimeButton
-                            onClick={() =>
-                              setValues({ ...values, startTime: new Date(2022, 0, 1, 16, 15, 0) })
-                            }
-                          >
-                            16:15
-                          </TimeButton>
-                          <TimeButton
-                            onClick={() =>
-                              setValues({ ...values, startTime: new Date(2022, 0, 1, 16, 30, 0) })
-                            }
-                          >
-                            16:30
-                          </TimeButton>
-                          <TimeButton
-                            onClick={() =>
-                              setValues({ ...values, startTime: new Date(2022, 0, 1, 17, 30, 0) })
-                            }
-                          >
-                            17:30
-                          </TimeButton>
-                          <TimeButton
-                            onClick={() =>
-                              setValues({ ...values, startTime: new Date(2022, 0, 1, 17, 45, 0) })
-                            }
-                          >
-                            17:45
-                          </TimeButton>
-                          <TimeButton
-                            onClick={() =>
-                              setValues({ ...values, startTime: new Date(2022, 0, 1, 18, 0, 0) })
-                            }
-                          >
-                            18:00
-                          </TimeButton>
-                          <TimeButton
-                            onClick={() =>
-                              setValues({ ...values, startTime: new Date(2022, 0, 1, 18, 45, 0) })
-                            }
-                          >
-                            18:45
-                          </TimeButton>
-                          <TimeButton
-                            onClick={() =>
-                              setValues({ ...values, startTime: new Date(2022, 0, 1, 19, 0, 0) })
-                            }
-                          >
-                            19:00
-                          </TimeButton>
-                          <TimeButton
-                            onClick={() =>
-                              setValues({ ...values, startTime: new Date(2022, 0, 1, 19, 15, 0) })
-                            }
-                          >
-                            19:15
-                          </TimeButton>
-                        </div>
+                        <PopoverClose>
+                          <div className="grid w-40 h-24 grid-cols-3">
+                            <TimeButton
+                              onClick={() =>
+                                setValues({ ...values, startTime: new Date(2022, 0, 1, 15, 0, 0) })
+                              }
+                            >
+                              15:00
+                            </TimeButton>
+
+                            <TimeButton
+                              onClick={() =>
+                                setValues({ ...values, startTime: new Date(2022, 0, 1, 16, 15, 0) })
+                              }
+                            >
+                              16:15
+                            </TimeButton>
+                            <TimeButton
+                              onClick={() =>
+                                setValues({ ...values, startTime: new Date(2022, 0, 1, 16, 30, 0) })
+                              }
+                            >
+                              16:30
+                            </TimeButton>
+                            <TimeButton
+                              onClick={() =>
+                                setValues({ ...values, startTime: new Date(2022, 0, 1, 17, 30, 0) })
+                              }
+                            >
+                              17:30
+                            </TimeButton>
+                            <TimeButton
+                              onClick={() =>
+                                setValues({ ...values, startTime: new Date(2022, 0, 1, 17, 45, 0) })
+                              }
+                            >
+                              17:45
+                            </TimeButton>
+                            <TimeButton
+                              onClick={() =>
+                                setValues({ ...values, startTime: new Date(2022, 0, 1, 18, 0, 0) })
+                              }
+                            >
+                              18:00
+                            </TimeButton>
+                            <TimeButton
+                              onClick={() =>
+                                setValues({ ...values, startTime: new Date(2022, 0, 1, 18, 45, 0) })
+                              }
+                            >
+                              18:45
+                            </TimeButton>
+                            <TimeButton
+                              onClick={() =>
+                                setValues({ ...values, startTime: new Date(2022, 0, 1, 19, 0, 0) })
+                              }
+                            >
+                              19:00
+                            </TimeButton>
+                            <TimeButton
+                              onClick={() =>
+                                setValues({ ...values, startTime: new Date(2022, 0, 1, 19, 15, 0) })
+                              }
+                            >
+                              19:15
+                            </TimeButton>
+                          </div>
+                        </PopoverClose>
                         {/* <div className="flex flex-row">
                           <FormikInput
                             label="tund"
