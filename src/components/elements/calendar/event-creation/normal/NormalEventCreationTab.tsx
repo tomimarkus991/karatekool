@@ -134,7 +134,7 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
       {({ values, isValid, setValues }) => {
         return (
           <Form>
-            <div className="flex flex-col justify-between sm2:flex-row max-h-[35rem] md:max-h-[50rem] scrollbar-overflow px-5 py-10">
+            <div className="flex flex-col justify-between sm2:flex-row max-h-[35rem] md:max-h-[50rem] scrollbar-overflow p-5">
               {/* left side */}
               <div className="flex flex-col p-6 mb-6 md:shadow-lg sm2:mb-0 rounded-2xl md:ring-1 ring-gray-50 focus:outline-none">
                 <div className="self-center mb-4">
@@ -279,7 +279,10 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
                   <MultiDatePicker showOutsideDays name="selectedStartDates" />
                 </div>
 
-                <GroupPicker name="selectedGroups" />
+                <div className="flex flex-row justify-between space-x-2">
+                  <GroupPicker name="selectedGroups" />
+                  <TrailerPicker name="trailer" />
+                </div>
 
                 <div className="flex flex-col mt-6">
                   <div className="flex flex-row items-center justify-center">
@@ -298,7 +301,6 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
                       name="description"
                     />
                   </div>
-                  <TrailerPicker name="trailer" />
                 </div>
               </div>
               {/* right side */}

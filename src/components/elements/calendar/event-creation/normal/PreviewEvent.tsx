@@ -68,7 +68,7 @@ export const PreviewEvent = ({ values }: Props) => {
               </div>
             </div>
             {values.description && (
-              <p className="text-[0.4rem] xs:text-[0.6rem] sm:text-[0.71rem] font-semibold text-left -mt-[0.2rem]">
+              <p className="text-[0.4rem] xs:text-xs2 sm:text-[0.71rem] font-semibold text-left -mt-[0.2rem]">
                 {values.description}
               </p>
             )}

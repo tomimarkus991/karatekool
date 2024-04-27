@@ -18,7 +18,7 @@ export const GroupPicker = ({ name }: Props) => {
 
   if (!data) return null;
 
-  const { groups, highlightedGroups } = data;
+  const { groups } = data;
 
   return (
     <>
@@ -31,7 +31,7 @@ export const GroupPicker = ({ name }: Props) => {
           )}
         >
           <div className="flex flex-row justify-center">
-            <div className="grid items-center justify-center grid-cols-4 grid-rows-2 gap-1 mr-8">
+            <div className="grid items-center justify-center grid-cols-4 grid-rows-2 gap-1">
               {groups.map(group => {
                 const isGroupDisabled = value?.some(
                   selectedGroup =>
@@ -71,7 +71,7 @@ export const GroupPicker = ({ name }: Props) => {
               })}
             </div>
 
-            <div className="grid items-center justify-center grid-cols-4 grid-rows-2 gap-1">
+            {/* <div className="grid items-center justify-center grid-cols-4 grid-rows-2 gap-1">
               {highlightedGroups.map(group => {
                 const isGroupDisabled = value?.some(
                   selectedGroup =>
@@ -107,7 +107,7 @@ export const GroupPicker = ({ name }: Props) => {
                   </Listbox.Option>
                 );
               })}
-            </div>
+            </div> */}
           </div>
         </Listbox.Options>
       </Listbox>

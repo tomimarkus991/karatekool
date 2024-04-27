@@ -34,7 +34,7 @@ export const TrailerPicker = ({ name }: Props) => {
       <Listbox {...field} value={value} onChange={handleChange}>
         <Listbox.Options
           static
-          className="flex flex-row py-3 mt-5 space-x-4 text-sm bg-white rounded-md shadow-lg px-7 max-w-fit ring-1 ring-gray-100 focus:outline-none"
+          className="flex flex-row py-3 space-x-4 text-sm bg-white rounded-md shadow-md px-7 focus:outline-none"
         >
           {trailers.map(trailer => (
             <Listbox.Option key={trailer.id} value={trailer}>
