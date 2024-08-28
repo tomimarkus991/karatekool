@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     if (success) {
       const data = await resend.emails.send({
         from: "onboarding@resend.dev",
-        to: ["tomimarkusalber@gmail.com", "info@karatekool.ee"],
+        to: ["info@karatekool.ee"],
         subject: `Küsimus ${name}`,
         react: SendSupportQuestionEmailTemplate({ email, name, question }),
       });
