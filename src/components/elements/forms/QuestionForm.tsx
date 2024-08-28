@@ -79,7 +79,7 @@ export const QuestionForm = ({ requestSuccess, setRequestSuccess, setIsModalOpen
                                 key="sub-modal-x-icon"
                                 variants={animations.rotate360}
                               >
-                                <HiX className="size-8 fill-stone-700 hover:fill-stone-800" />
+                                <HiX className="w-8 h-8 fill-stone-700 hover:fill-stone-800" />
                               </AnimationWrapper>
                             </div>
                           </div>
@@ -89,7 +89,7 @@ export const QuestionForm = ({ requestSuccess, setRequestSuccess, setIsModalOpen
                           </div>
                         )}
 
-                        <div className={cn("flex items-center flex-col py-2 px-3")}>
+                        <div className={cn("flex items-center flex-col py-2 mb-5 px-3")}>
                           <div className="w-full mt-3 space-y-2">
                             <FormikInput
                               required
@@ -114,9 +114,6 @@ export const QuestionForm = ({ requestSuccess, setRequestSuccess, setIsModalOpen
                             />
                           </div>
                         </div>
-                        <p className="mb-4 font-semibold text-center">
-                          Uute liikmete vastuvõtt klubisse toimub taas Septembris!
-                        </p>
                         <div className="flex justify-center pb-8">
                           <RealButton
                             variant="red"

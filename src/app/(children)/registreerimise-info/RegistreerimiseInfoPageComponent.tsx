@@ -146,7 +146,7 @@ export const RegistreerimiseInfoPageComponent = () => {
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
         <div className="space-y-3">
           <p className="font-sans text-lg font-semibold tracking-wide md:text-2xl">
-            Uute liikmete vastuvõtt klubisse toimub taas Septembris!
+            INFO UUSLIIKMETELE ja LASTEVANEMATELE
           </p>
           <p className="text-lg text-secondary">Nüke 35-õppeaasta!</p>
           <div className="flex flex-row">
@@ -201,13 +201,13 @@ export const RegistreerimiseInfoPageComponent = () => {
           </button>
         </AnimationWrapper>
       </div>
-      {/* <p className="my-4 text-lg font-semibold text-primary">2023/2024 hooaja TREENINGUD</p> */}
+      <p className="my-4 text-lg font-semibold text-primary">2023/2024 hooaja TREENINGUD</p>
 
-      {/* <TrainingsTab /> */}
+      <TrainingsTab />
 
-      {/* <p className="mt-10 text-xl text-secondary">
+      <p className="mt-10 text-xl text-secondary">
         Kõigile L- ja C-grupi registreerunutele saadetakse täpsem info e-maili teel!
-      </p> */}
+      </p>
     </div>
   );
 };
