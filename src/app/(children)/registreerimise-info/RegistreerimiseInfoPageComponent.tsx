@@ -69,6 +69,9 @@ export const TrainingsTab = () => {
                 <li className="mb-2 font-semibold list-disc md:text-xl text-secondary">
                   KLUBISSE REGISTREERUMINE
                 </li>
+                <p className="mb-1 text-xl font-semibold text-primary">
+                  Kiirustage, kuna kohtade arv on piiratud!
+                </p>
                 <p className="md:text-lg">
                   Kõigil karatehuvilistel on võimalik registreerida ennast Nüke treeningutele (lapse
                   nimi, isikukood, kool, klass) aadressil{" "}
@@ -123,6 +126,9 @@ export const TrainingsTab = () => {
                 <li className="mb-2 font-semibold list-disc md:text-xl text-secondary">
                   KLUBISSE REGISTREERUMINE
                 </li>
+                <p className="mb-1 text-xl font-semibold text-primary">
+                  Kiirustage, kuna kohtade arv on piiratud!
+                </p>
                 <p className="md:text-lg">
                   Kõigil karatehuvilistel on võimalik registreerida ennast Nüke treeningutele
                   aadressil <span className="text-blue-500 underline">info@karatekool.ee</span>{" "}
@@ -165,6 +171,11 @@ export const RegistreerimiseInfoPageComponent = () => {
             </p>
             <BiSolidQuoteAltRight className="text-gray-300" />
           </div>
+        </div>
+        <div>
+          <p className="mt-5 text-xl font-bold tracking-wide text-center font-sans sm:max-w-[15rem] text-primary sm:mt-0">
+            SEPTEMBRI TREENINGUD ON TASUTA!
+          </p>
         </div>
       </div>
 
