@@ -39,6 +39,7 @@ const Sidebar = dynamic(() =>
 );
 
 import { AnimationWrapper, animations } from "../../components";
+import { CurrentYear } from "../../config";
 import { useAnimateScroll } from "../../hooks";
 import { cn } from "../../lib";
 
@@ -56,6 +57,8 @@ export const MainComponent = () => {
   const { control: cherryBranchTextControl, ref: cherryBranchTextRef } = useAnimateScroll();
   const { control: samuraiTextControl, ref: samuraiTextRef } = useAnimateScroll();
   const { control: craneTextControl, ref: craneTextRef } = useAnimateScroll();
+
+  const year = `Nüke ${CurrentYear}-õppeaasta!`;
 
   // const targetRef = useRef<HTMLDivElement | null>(null);
   // const { scrollYProgress } = useScroll({
@@ -110,7 +113,7 @@ export const MainComponent = () => {
                 )}
               >
                 <LetterDecryptor delay={1250} time={1250}>
-                  Nüke 35-õppeaasta!
+                  {year}
                 </LetterDecryptor>
               </p>
             </AnimationWrapper>

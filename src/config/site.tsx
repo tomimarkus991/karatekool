@@ -129,3 +129,7 @@ export const justRoutes: JustRouter[] = [
     href: definedRoutes.inviteUser,
   },
 ];
+
+export const CurrentSeason = "2024/2025";
+
+export const CurrentYear = "36";

@@ -19,9 +19,9 @@ export const KlubistPageComponent = () => {
 
   const IconText = ({ icon, text }: Props) => (
     <>
-      <div className="w-[20%] flex justify-center items-center">{icon}</div>
+      <div className="w-1/5 flex justify-center items-center">{icon}</div>
 
-      <p className="ml-2 w-[80%] text-base font-light md:ml-4 md:text-lg">{text}</p>
+      <p className="ml-2 w-4/5 text-base font-light md:ml-4 md:text-lg">{text}</p>
     </>
   );
 
@@ -42,7 +42,7 @@ export const KlubistPageComponent = () => {
         <LetterDecryptor delay={200}>Klubi Nüke peaõpetaja</LetterDecryptor>
       </h1>
       <div className="flex flex-col items-center justify-center md:flex-row">
-        <div className="relative aspect-[1/1] w-60 h-60 lg:mr-24 md:w-80 md:h-80 object-cover">
+        <div className="relative aspect-[1/1] size-60 lg:mr-24 md:size-80 object-cover">
           <Image
             src={TreenerHerik}
             alt="Treener Herik"
@@ -67,7 +67,7 @@ export const KlubistPageComponent = () => {
                     width={0}
                     height={0}
                     alt="belt"
-                    className="w-[3.5rem] sm:w-[4rem]"
+                    className="w-14 sm:w-16"
                     src="/icons/belt.svg"
                   />
                 }
@@ -81,7 +81,7 @@ export const KlubistPageComponent = () => {
                     width="0"
                     height="0"
                     alt="medal"
-                    className="w-[2.5rem] sm:w-[3rem]"
+                    className="w-10 sm:w-12"
                     src="/icons/medal.svg"
                   />
                 }
@@ -95,7 +95,7 @@ export const KlubistPageComponent = () => {
                     width="0"
                     height="0"
                     alt="karateka"
-                    className="w-[3rem] sm:w-[3.5rem]"
+                    className="w-12 sm:w-14"
                     src="/icons/karateka.svg"
                   />
                 }
@@ -116,7 +116,7 @@ export const KlubistPageComponent = () => {
             </div>
           </Tab>
           <Tab as={Fragment}>
-            <div className="remove-ring absolute bottom-[50%] md:bottom-[50%] sm:bottom-[45%] left-[25%]">
+            <div className="remove-ring absolute bottom-[50%] md:bottom-[50%] sm:bottom-[45%] left-1/4">
               <RealDiamondButton variant="casualAqua">Missioon</RealDiamondButton>
             </div>
           </Tab>
@@ -152,9 +152,9 @@ export const KlubistPageComponent = () => {
                   <LetterDecryptor>Missioon</LetterDecryptor>
                 </p>
                 <p>
-                  Karate-do klubi Nüke missiooniks on karate-do ja spordi õpetamise kaudu terve,
-                  targa, heasoovliku, tugeva tahte ja iseloomuga ning aktiivse ja sportliku
-                  eluhoiakuga inimese kasvatamine.
+                  Karate-do klubi Nüke missioon on – karate-do ja spordi õpetamise kaudu terve,
+                  targa, heasoovliku, tugeva iseloomuga ning aktiivse ja sportliku eluhoiakuga
+                  inimese kasvatamine.
                 </p>
               </div>
             </AboutPanel>

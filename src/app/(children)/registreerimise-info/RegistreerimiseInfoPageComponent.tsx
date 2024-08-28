@@ -10,6 +10,7 @@ import { BiSolidQuoteAltLeft, BiSolidQuoteAltRight } from "react-icons/bi";
 import { AnimationWrapper, TwoElementMovingBox, animations } from "@/components";
 import { cn } from "@/lib";
 
+import { CurrentSeason, CurrentYear } from "../../../config";
 import { dojoContentVariants } from "../kontakt/ContactDojos";
 import { ContactDojosTab } from "../kontakt/ContactUtils";
 
@@ -28,7 +29,7 @@ export const TrainingsTab = () => {
           Treeningud ALGKLASSIDE LASTELE
         </ContactDojosTab>
         <ContactDojosTab selectedIndex={selectedIndex} index={1}>
-          Treeningud noortele ja täiskasvanutele
+          Treeningud noortele (13. aastased ja vanemad)
         </ContactDojosTab>
         <TwoElementMovingBox selectedIndex={selectedIndex} />
       </Tab.List>
@@ -49,11 +50,17 @@ export const TrainingsTab = () => {
                 </li>
 
                 <div className="">
-                  <p className="text-lg font-bold underline md:text-xl">L-grupp</p>
+                  <p className="text-lg font-bold underline md:text-xl">A-grupp</p>
                   <div className="font-semibold md:text-lg">
                     <p>TEISIPÄEVAL kell 15:00 – 16:00</p>
-                    <p>KOLMAPÄEVAL kell 15:00 – 16:00</p>
+                    <p>KOLMAPÄEVAL kell 16:15 – 17:15</p>
                     <p>REEDEL kell 15:00 – 16:00</p>
+                    <p>
+                      LAUPÄEVAL kell 10:00 – 11:00{" "}
+                      <Link href={"/karateka"}>
+                        <span className="underline">vastavalt treeninggraafikule</span>
+                      </Link>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -71,10 +78,11 @@ export const TrainingsTab = () => {
 
               <div>
                 <li className="mb-2 font-semibold list-disc md:text-xl text-secondary">
-                  ESIMESED TREENINGUD TOIMUVAD
+                  ESIMESED TREENINGUD A-grupile TOIMUVAD
                 </li>
                 <p className="font-semibold md:text-lg text-primary">
-                  juba TEISIPÄEVAL (5. sept.), KOLMAPÄEVAL (6. sept.), REEDEL (8. sept.)
+                  juba TEISIPÄEVAL (3. sept.), KOLMAPÄEVAL (4. sept.), REEDEL (6. sept.) ja
+                  LAUPÄEVAL (7. sept.).
                 </p>
                 <p className="mt-2 font-semibold md:text-lg">Selga tavalised spordiriided!</p>
               </div>
@@ -92,16 +100,17 @@ export const TrainingsTab = () => {
             <div className="space-y-8">
               <div>
                 <li className="mb-2 font-semibold list-disc md:text-xl text-secondary">
-                  Treeningud noortele ja täiskasvanutele, VHK spordisaal (Vene 22)
+                  Treeningud noortele (13. aastased ja vanemad), VHK spordisaal (Vene 22)
                 </li>
 
                 <div className="">
-                  <p className="text-lg font-bold underline md:text-xl">C-grupp</p>
+                  <p className="text-lg font-bold underline md:text-xl">L-grupp</p>
                   <div className="font-semibold md:text-lg">
-                    <p>TEISIPÄEVAL kell 17:45 – 19:00</p>
-                    <p>NELJAPÄEVAL kell 17:45 – 19:00</p>
+                    <p>TEISIPÄEVAL kell 16:15 – 17:30</p>
+                    <p>NELJAPÄEVAL kell 16:30 – 17:30</p>
+                    <p>REEDEL kell 16:15 – 17:30</p>
                     <p>
-                      LAUPÄEVAL{" "}
+                      LAUPÄEVAL kell 10 - 11{" "}
                       <Link href={"/karateka"}>
                         <span className="underline">vastavalt treeninggraafikule</span>
                       </Link>
@@ -117,8 +126,7 @@ export const TrainingsTab = () => {
                 <p className="md:text-lg">
                   Kõigil karatehuvilistel on võimalik registreerida ennast Nüke treeningutele
                   aadressil <span className="text-blue-500 underline">info@karatekool.ee</span>{" "}
-                  (11.-19. aastastel – nimi, isikukood, kool, klass) ja (20.a. ja vanemad – nimi ja
-                  vanus)
+                  (nimi, isikukood, kool, klass).
                 </p>
               </div>
 
@@ -127,7 +135,8 @@ export const TrainingsTab = () => {
                   ESIMESED TREENINGUD TOIMUVAD
                 </li>
                 <p className="font-semibold md:text-lg text-primary">
-                  juba TEISIPÄEVAL (5. sept.), NELJAPÄEVAL (7. sept.)
+                  juba TEISIPÄEVAL (3. sept.), NELJAPÄEVAL (5. sept.), REEDEL (6. sept.) ja
+                  LAUPÄEVAL (7. sept.)
                 </p>
                 <p className="mt-2 font-semibold md:text-lg">Selga tavalised spordiriided!</p>
               </div>
@@ -148,7 +157,7 @@ export const RegistreerimiseInfoPageComponent = () => {
           <p className="font-sans text-lg font-semibold tracking-wide md:text-2xl">
             INFO UUSLIIKMETELE ja LASTEVANEMATELE
           </p>
-          <p className="text-lg text-secondary">Nüke 35-õppeaasta!</p>
+          <p className="text-lg text-secondary">Nüke {CurrentYear}-õppeaasta!</p>
           <div className="flex flex-row">
             <BiSolidQuoteAltLeft className="text-gray-300" />
             <p className="ml-1 mr-2 text-xl italic font-semibold">
@@ -160,8 +169,8 @@ export const RegistreerimiseInfoPageComponent = () => {
       </div>
 
       <p className="my-6 text-lg font-semibold">
-        Karate-do klubi Nüke missioon on terve, targa, heasoovliku, tugeva iseloomuga ja sportliku
-        eluhoiakuga inimese kasvatamine karate-do ja spordi kaudu.
+        Karate-do klubi Nüke missioon on – karate-do ja spordi õpetamise kaudu terve, targa,
+        heasoovliku, tugeva iseloomuga ning aktiivse ja sportliku eluhoiakuga inimese kasvatamine.
       </p>
 
       <div className="space-y-3">
@@ -201,12 +210,15 @@ export const RegistreerimiseInfoPageComponent = () => {
           </button>
         </AnimationWrapper>
       </div>
-      <p className="my-4 text-lg font-semibold text-primary">2023/2024 hooaja TREENINGUD</p>
+      <p className="my-4 text-lg font-semibold text-primary">
+        {CurrentSeason} hooaja treeningud VHK spordisaalis (Vene 22)
+      </p>
 
       <TrainingsTab />
 
       <p className="mt-10 text-xl text-secondary">
-        Kõigile L- ja C-grupi registreerunutele saadetakse täpsem info e-maili teel!
+        Kõigile A- ja L-grupi registreerunutele, saadetakse täpsem info (klubi, treeningtasu jm
+        kohta) maili teel!
       </p>
     </div>
   );
