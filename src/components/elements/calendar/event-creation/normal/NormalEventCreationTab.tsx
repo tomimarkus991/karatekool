@@ -42,7 +42,7 @@ interface TimeButtonProps {
 
 const TimeButton = ({ children, onClick }: TimeButtonProps) => {
   return (
-    <button onClick={onClick} className="text-sm text-stone-600">
+    <button onClick={onClick} className="text-stone-600">
       {children}
     </button>
   );
@@ -157,7 +157,36 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
                       </PopoverTrigger>
                       <PopoverContent className="z-[1300]">
                         <PopoverClose>
-                          <div className="grid w-40 h-24 grid-cols-3">
+                          <div className="grid w-40 grid-cols-4 h-36">
+                            <TimeButton
+                              onClick={() =>
+                                setValues({ ...values, startTime: new Date(2022, 0, 1, 10, 0, 0) })
+                              }
+                            >
+                              10:00
+                            </TimeButton>
+                            <TimeButton
+                              onClick={() =>
+                                setValues({ ...values, startTime: new Date(2022, 0, 1, 11, 0, 0) })
+                              }
+                            >
+                              11:00
+                            </TimeButton>
+                            <TimeButton
+                              onClick={() =>
+                                setValues({ ...values, startTime: new Date(2022, 0, 1, 12, 30, 0) })
+                              }
+                            >
+                              12:30
+                            </TimeButton>
+                            <TimeButton
+                              onClick={() =>
+                                setValues({ ...values, startTime: new Date(2022, 0, 1, 14, 45, 0) })
+                              }
+                            >
+                              14:45
+                            </TimeButton>
+
                             <TimeButton
                               onClick={() =>
                                 setValues({ ...values, startTime: new Date(2022, 0, 1, 15, 0, 0) })
