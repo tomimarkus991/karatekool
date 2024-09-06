@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { HiPencil, HiTrash, HiX } from "react-icons/hi";
 
-import { AnimationWrapper, CalendarEventCreationModal, RealButton, animations } from "@/components";
+import { AnimationWrapper, CalendarEventCreationModal, animations } from "@/components";
 import { useUser } from "@/hooks";
 import { EventData, EventTypes } from "@/types";
 
-import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "../../Popover";
+import { PopoverClose, PopoverContent } from "../../Popover";
 
 interface Props {
   children: React.ReactNode;
@@ -34,39 +34,14 @@ export const DeleteEventPopoverContent = ({ children, deleteEvent, event }: Prop
   return (
     <PopoverContent className="max-w-xs lg:max-w-sm">
       <div className="flex flex-row">
-        <Popover>
-          <PopoverTrigger>
-            {user?.role === "admin" && (
-              <AnimationWrapper
-                className="self-center mr-4 cursor-pointer"
-                variants={animations.smallScaleXs}
-              >
-                <HiTrash className="w-4 h-4 text-red-600 md:w-5 md:h-5" />
-              </AnimationWrapper>
-            )}
-          </PopoverTrigger>
-          <PopoverContent className="z-50 p-4 mt-5">
-            <div className="flex flex-col">
-              <p className="mb-4 text-sm font-semibold text-center md:text-xl">
-                Oled kindel, et soovid seda kustutada?
-              </p>
-              <div className="flex flex-row items-center justify-center">
-                <PopoverClose>
-                  <RealButton className="px-3 ml-4 text-xs md:text-base md:px-6" variant="orange">
-                    Tagasi
-                  </RealButton>
-                </PopoverClose>
-                <RealButton
-                  className="px-3 ml-4 text-xs md:text-base md:px-6"
-                  variant="red"
-                  onClick={() => deleteEvent()}
-                >
-                  Kustuta
-                </RealButton>
-              </div>
-            </div>
-          </PopoverContent>
-        </Popover>
+        {user?.role === "admin" && (
+          <AnimationWrapper
+            className="self-center mr-4 cursor-pointer"
+            variants={animations.smallScaleXs}
+          >
+            <HiTrash onClick={() => deleteEvent()} className="text-red-600 size-4 md:size-5" />
+          </AnimationWrapper>
+        )}
 
         <div className="flex flex-col items-center justify-center">
           {children}
@@ -79,7 +54,7 @@ export const DeleteEventPopoverContent = ({ children, deleteEvent, event }: Prop
               event={event}
               button={
                 <HiPencil
-                  className="w-6 h-6 mt-3 cursor-pointer text-secondary"
+                  className="mt-3 cursor-pointer size-6 text-secondary"
                   onClick={() => setIsEventCreationModalOpen(true)}
                 />
               }
@@ -92,7 +67,7 @@ export const DeleteEventPopoverContent = ({ children, deleteEvent, event }: Prop
             className="self-center ml-4 cursor-pointer"
             variants={animations.smallScaleXs}
           >
-            <HiX className="self-center w-4 h-4 cursor-pointer md:w-5 md:h-5 text-stone-800" />
+            <HiX className="self-center cursor-pointer size-4 md:size-5 text-stone-800" />
           </AnimationWrapper>
         </PopoverClose>
       </div>
