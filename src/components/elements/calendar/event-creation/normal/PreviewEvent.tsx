@@ -43,17 +43,14 @@ export const PreviewEvent = ({ values }: Props) => {
                 <MapGroupLetter
                   groups={
                     filteredGroups.length === 0 && filteredHighlightedGroups.length === 0
-                      ? [
-                          { id: 17, letter: "S", highlighted: false },
-                          { id: 23, letter: "K", highlighted: false },
-                        ]
+                      ? []
                       : filteredGroups
                   }
                 />
                 <MapHighLightedGroupLetter
                   highlightedGroups={
                     filteredGroups.length === 0 && filteredHighlightedGroups.length === 0
-                      ? [{ id: 5, letter: "N", highlighted: true }]
+                      ? []
                       : filteredHighlightedGroups
                   }
                 />
