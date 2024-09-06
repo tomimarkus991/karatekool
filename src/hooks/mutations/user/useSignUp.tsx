@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import Link from "next/link";
 import { toast } from "react-hot-toast";
 
 import { definedRoutes } from "@/config";
@@ -31,18 +30,15 @@ export const useSignUp = () => {
 
     if (error) {
       // when user is not whitelisted
-      if (error.message.includes('insert or update on table "identities"')) {
+      if (
+        error.message.includes('insert or update on table "identities"') ||
+        error.message.includes("Database error loading user after sign-up")
+      ) {
         toast.error(
           <div className="">
-            <p className="text-lg font-semibold max-w-[14rem]">
-              Tundub, et sa pole veel klubi liikmete nimekirjas
+            <p className="text-lg font-semibold max-w-56">
+              Tundub, et sa pole veel klubi liikmete nimekirjas. Kirjuta info@karatekool.ee
             </p>
-            <div className="flex flex-row">
-              <Link href="/apply-to-club" onClick={() => toast.dismiss("whitelist-toast")}>
-                <p className="text-lg font-semibold text-primary">Vajuta siia,</p>
-              </Link>
-              <p className="ml-1 text-lg font-semibold">et luba taodelda</p>
-            </div>
           </div>,
           { duration: 30000, id: "whitelist-toast" },
         );

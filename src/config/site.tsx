@@ -35,7 +35,6 @@ export const siteConfig: SiteConfig = {
 const bigIconCss = "mr-2 h-10 w-10 fill-inherit";
 
 export const definedRoutes = {
-  apply: "/apply-to-club",
   emailConfirmed: "/email-confirmed",
   forgotPassword: "/forgot-password",
   inviteUser: "/invite-user",
@@ -118,9 +117,6 @@ export const justRoutes: JustRouter[] = [
   },
   {
     href: definedRoutes.resetPassword,
-  },
-  {
-    href: definedRoutes.apply,
   },
   {
     href: definedRoutes.emailConfirmed,

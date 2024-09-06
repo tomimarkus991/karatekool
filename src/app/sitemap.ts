@@ -8,10 +8,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
-      url: `${baseUrl}/apply-to-club`,
-      lastModified: new Date(),
-    },
-    {
       url: `${baseUrl}/blob`,
       lastModified: new Date(),
     },

@@ -3,10 +3,9 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
-import { Form, Formik, useFormikContext } from "formik";
+import { Form, Formik } from "formik";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { useState } from "react";
 import { HiEye, HiEyeOff, HiX } from "react-icons/hi";
 
 import { RegisterFormValues, YupSchemas } from "@/app-constants";
@@ -19,59 +18,18 @@ import {
   animations,
 } from "@/components";
 import { useSidebar } from "@/context";
-import { useSignUp, useGetEmailWhitelist } from "@/hooks";
+import { useSignUp } from "@/hooks";
 import { cn } from "@/lib";
 
 interface Props {
   closeModal?: () => void;
 }
 
-interface FormObserverProps {
-  whitelistedEmails: string[];
-  setIsAllowedToRegister: (isAllowedToRegister: boolean) => void;
-}
-
-const FormObserver = ({ whitelistedEmails, setIsAllowedToRegister }: FormObserverProps) => {
-  const { values } = useFormikContext();
-  const typedValues = values as RegisterFormValues;
-
-  useEffect(() => {
-    const startTime = Date.now();
-    const interval1 = setInterval(() => {
-      const elapsedTime = Date.now() - startTime;
-
-      if (elapsedTime > 2000) {
-        if (!whitelistedEmails.includes(typedValues.email) && typedValues.email !== "") {
-          setIsAllowedToRegister(false);
-          toast.error("Teil ei ole lubatud registreerida. Palun taotle luba");
-          clearInterval(interval1);
-        } else if (typedValues.email === "") {
-          setIsAllowedToRegister(false);
-          clearInterval(interval1);
-        } else {
-          setIsAllowedToRegister(true);
-          toast.success("Te saate registreerida");
-          clearInterval(interval1);
-        }
-      }
-    }, 2000);
-
-    return () => {
-      clearInterval(interval1);
-    };
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [typedValues.email]);
-
-  return null;
-};
-
 export const RegisterForm = ({ closeModal }: Props) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
   const { closeSidebarIfMobile } = useSidebar();
 
-  const [isAllowedToRegister, setIsAllowedToRegister] = useState(true);
   const { mutate: signUp } = useSignUp();
 
   const [initialValues] = useState<RegisterFormValues>({
@@ -80,8 +38,6 @@ export const RegisterForm = ({ closeModal }: Props) => {
     password: "",
     passwordConfirmation: "",
   });
-
-  const { data: whitelistedEmails = [] } = useGetEmailWhitelist();
 
   const title = "Mul juba on kasutaja. Logi sisse";
 
@@ -101,17 +57,13 @@ export const RegisterForm = ({ closeModal }: Props) => {
     >
       {({ isValid, handleSubmit }) => (
         <Form className="relative flex flex-col">
-          <FormObserver
-            whitelistedEmails={whitelistedEmails}
-            setIsAllowedToRegister={setIsAllowedToRegister}
-          />
           <ResizablePanel duration={1}>
             {closeModal ? (
               <div className="flex flex-row items-center justify-between pt-6 px-7">
                 <p className="text-xl font-bold">Registreeri</p>
                 <div role="button" tabIndex={0} onClick={closeModal}>
                   <AnimationWrapper key="sub-modal-x-icon" variants={animations.rotate360}>
-                    <HiX className="w-8 h-8 fill-stone-700 hover:fill-stone-800" />
+                    <HiX className="size-8 fill-stone-700 hover:fill-stone-800" />
                   </AnimationWrapper>
                 </div>
               </div>
@@ -126,25 +78,6 @@ export const RegisterForm = ({ closeModal }: Props) => {
                 "flex overflow-y-auto items-center flex-col py-2 px-3",
               )}
             >
-              <Link
-                onClick={() => {
-                  if (closeModal) closeModal();
-
-                  closeSidebarIfMobile();
-                }}
-                href="/apply-to-club"
-              >
-                <AnimationWrapper variants={animations.smallScaleXs}>
-                  <p
-                    className={cn(
-                      "font-semibold text-secondary text-center",
-                      isAllowedToRegister ? "hidden" : "text-base",
-                    )}
-                  >
-                    Kui sa pole veel luba taotlenud, vajuta siia.
-                  </p>
-                </AnimationWrapper>
-              </Link>
               <Link href={"/question"}>
                 <AnimationWrapper variants={animations.smallScaleXs}>
                   <p className="mt-2 font-semibold text-primary">
@@ -181,11 +114,11 @@ export const RegisterForm = ({ closeModal }: Props) => {
                     >
                       {isPasswordVisible ? (
                         <AnimationWrapper variants={animations.smallScale}>
-                          <HiEyeOff className="w-5 h-5 fill-stone-600" />
+                          <HiEyeOff className="size-5 fill-stone-600" />
                         </AnimationWrapper>
                       ) : (
                         <AnimationWrapper variants={animations.smallScale}>
-                          <HiEye className="w-5 h-5 fill-stone-600" />
+                          <HiEye className="size-5 fill-stone-600" />
                         </AnimationWrapper>
                       )}
                     </div>
@@ -205,11 +138,11 @@ export const RegisterForm = ({ closeModal }: Props) => {
                     >
                       {isConfirmPasswordVisible ? (
                         <AnimationWrapper variants={animations.smallScale}>
-                          <HiEyeOff className="w-5 h-5 fill-stone-600" />
+                          <HiEyeOff className="size-5 fill-stone-600" />
                         </AnimationWrapper>
                       ) : (
                         <AnimationWrapper variants={animations.smallScale}>
-                          <HiEye className="w-5 h-5 fill-stone-600" />
+                          <HiEye className="size-5 fill-stone-600" />
                         </AnimationWrapper>
                       )}
                     </div>
