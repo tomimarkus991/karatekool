@@ -232,6 +232,20 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
                             </TimeButton>
                             <TimeButton
                               onClick={() =>
+                                setValues({ ...values, startTime: new Date(2022, 0, 1, 18, 15, 0) })
+                              }
+                            >
+                              18:15
+                            </TimeButton>
+                            <TimeButton
+                              onClick={() =>
+                                setValues({ ...values, startTime: new Date(2022, 0, 1, 18, 30, 0) })
+                              }
+                            >
+                              18:30
+                            </TimeButton>
+                            <TimeButton
+                              onClick={() =>
                                 setValues({ ...values, startTime: new Date(2022, 0, 1, 18, 45, 0) })
                               }
                             >
