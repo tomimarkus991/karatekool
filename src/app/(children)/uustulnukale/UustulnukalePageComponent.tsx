@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Accordion, AccordionContentList, AnimationWrapper, animations } from "@/components";
 import { useAnimateScroll } from "@/hooks";
 
+import { getIfUserCanRegisterToClub } from "../../../config";
+
 export const UustulnukalePageComponent = () => {
   const iconClassName = "h-8 w-8 text-[#E50815]";
   const titleClassname = "!text-lg font-semibold xs2:!text-xl";
@@ -13,22 +15,32 @@ export const UustulnukalePageComponent = () => {
 
   return (
     <div className="flex flex-col items-center justify-center mb-8 space-y-4 font-catamaran">
-      <AnimationWrapper
-        className="mx-auto mb-3 text-center"
-        ref={section1TextRef}
-        animate={section1TextControl}
-        variants={animations.pageItems.fadeInFromLeft}
-      >
-        <p className="mb-4 text-2xl font-semibold sm:text-3xl">
-          Klubisse registreerumine on alanud!
-        </p>
+      {getIfUserCanRegisterToClub() ? (
+        <>
+          <AnimationWrapper
+            className="mx-auto mb-3 text-center"
+            ref={section1TextRef}
+            animate={section1TextControl}
+            variants={animations.pageItems.fadeInFromLeft}
+          >
+            <p className="mb-4 text-2xl font-semibold sm:text-3xl">
+              Klubisse registreerumine on alanud!
+            </p>
 
-        <Link href="/registreerimise-info">
-          <p className="text-xl underline text-secondary md:text-2xl">Registreerimise info</p>
-        </Link>
+            <Link href="/registreerimise-info">
+              <p className="text-xl underline text-secondary md:text-2xl">Registreerimise info</p>
+            </Link>
 
-        <p className="mt-6 text-2xl font-bold text-primary">SEPTEMBRI TREENINGUD ON TASUTA!</p>
-      </AnimationWrapper>
+            <p className="mt-6 text-2xl font-bold text-primary">SEPTEMBRI TREENINGUD ON TASUTA!</p>
+          </AnimationWrapper>
+        </>
+      ) : (
+        <>
+          <p className="mb-4 text-2xl font-semibold sm:text-3xl">
+            Klubisse saab taas registreerida Augustis!
+          </p>
+        </>
+      )}
 
       <Accordion
         key="Miks tulla harjutama just Nüke klubisse?"

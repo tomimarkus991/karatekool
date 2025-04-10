@@ -25,19 +25,19 @@ export const Footer = ({ bg = "bg-surface-bg" }: Props) => (
       >
         <div className="flex flex-col items-center">
           <Icons.logoWhite />
-          <p className="mt-2 text-sm text-center text-white">© 2023 nüke karate-do klubi</p>
+          <p className="mt-2 text-sm text-center text-white">© 2025 nüke karate-do klubi</p>
           <Link className="sm:hidden" href="/kontakt">
             <p className="mt-3 text-lg text-center text-white">Kontakt</p>
           </Link>
           <div className="flex flex-row items-center justify-center mt-5 space-x-2">
             <Link href={socialMedia.instagram}>
               <AnimationWrapper variants={animations.smallScale}>
-                <FaInstagram className="w-[32px] h-[32px]" />
+                <FaInstagram className="size-[32px]" />
               </AnimationWrapper>
             </Link>
             <Link href={socialMedia.facebook}>
               <AnimationWrapper variants={animations.smallScale}>
-                <FaFacebook className="w-8 h-8" />
+                <FaFacebook className="size-8" />
               </AnimationWrapper>
             </Link>
           </div>

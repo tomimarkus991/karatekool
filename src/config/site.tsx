@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { getMonth } from "date-fns";
 import Image from "next/image";
 
 import { Icons } from "@/components/icons/Icons";
@@ -129,3 +130,13 @@ export const justRoutes: JustRouter[] = [
 export const CurrentSeason = "2024/2025";
 
 export const CurrentYear = "36";
+
+export const getIfUserCanRegisterToClub = () => {
+  const currentMonth = getMonth(new Date());
+
+  // when month is august or september render registering UI
+  if (currentMonth === 7 || currentMonth === 8) {
+    return true;
+  }
+  return false;
+};

@@ -39,7 +39,7 @@ const Sidebar = dynamic(() =>
 );
 
 import { AnimationWrapper, animations } from "../../components";
-import { CurrentYear } from "../../config";
+import { CurrentYear, getIfUserCanRegisterToClub } from "../../config";
 import { useAnimateScroll } from "../../hooks";
 import { cn } from "../../lib";
 
@@ -82,26 +82,28 @@ export const MainComponent = () => {
           />
 
           <div className="flex flex-col justify-start items-start px-6 lg:absolute z-10 md:z-0 lg:left-0 lg:!top-[30%] lg:ml-16 xl:ml-32 2xl:ml-80">
-            <AnimationWrapper
-              className="mx-auto mb-5 text-center md:mb-0"
-              ref={section1TextRef}
-              animate={section1TextControl}
-              variants={animations.pageItems.fadeInFromLeft}
-            >
-              <p className="mb-4 text-2xl font-semibold text-center sm:text-3xl md:text-4xl">
-                Klubisse registreerumine on alanud!
-              </p>
-              <p className="mb-6 text-xl font-bold md:text-2xl xl:text-3xl text-primary">
-                SEPTEMBRI TREENINGUD ON TASUTA!
-              </p>
-              <AnimationWrapper variants={animations.smallScale}>
-                <Link href="/registreerimise-info">
-                  <p className="text-xl underline text-secondary md:text-2xl xl:text-3xl">
-                    Registreerimise info
-                  </p>
-                </Link>
+            {getIfUserCanRegisterToClub() ?? (
+              <AnimationWrapper
+                className="mx-auto mb-5 text-center md:mb-0"
+                ref={section1TextRef}
+                animate={section1TextControl}
+                variants={animations.pageItems.fadeInFromLeft}
+              >
+                <p className="mb-4 text-2xl font-semibold text-center sm:text-3xl md:text-4xl">
+                  Klubisse registreerumine on alanud!
+                </p>
+                <p className="mb-6 text-xl font-bold md:text-2xl xl:text-3xl text-primary">
+                  SEPTEMBRI TREENINGUD ON TASUTA!
+                </p>
+                <AnimationWrapper variants={animations.smallScale}>
+                  <Link href="/registreerimise-info">
+                    <p className="text-xl underline text-secondary md:text-2xl xl:text-3xl">
+                      Registreerimise info
+                    </p>
+                  </Link>
+                </AnimationWrapper>
               </AnimationWrapper>
-            </AnimationWrapper>
+            )}
 
             <AnimationWrapper
               className="mx-auto text-center sm:mt-8 lg:mt-20"
