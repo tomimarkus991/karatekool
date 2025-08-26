@@ -127,9 +127,9 @@ export const justRoutes: JustRouter[] = [
   },
 ];
 
-export const CurrentSeason = "2024/2025";
+export const CurrentSeason = "2025/2026";
 
-export const CurrentYear = "36";
+export const CurrentYear = "37";
 
 export const getIfUserCanRegisterToClub = () => {
   const currentMonth = getMonth(new Date());

@@ -2,7 +2,6 @@
 
 import { Tab } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { BiSolidQuoteAltLeft, BiSolidQuoteAltRight } from "react-icons/bi";
@@ -29,7 +28,7 @@ export const TrainingsTab = () => {
           Treeningud ALGKLASSIDE LASTELE
         </ContactDojosTab>
         <ContactDojosTab selectedIndex={selectedIndex} index={1}>
-          Treeningud noortele (13. aastased ja vanemad)
+          Treeningud NOORTELE ja TÄISKASVANUTELE
         </ContactDojosTab>
         <TwoElementMovingBox selectedIndex={selectedIndex} />
       </Tab.List>
@@ -53,14 +52,8 @@ export const TrainingsTab = () => {
                   <p className="text-lg font-bold underline md:text-xl">A-grupp</p>
                   <div className="font-semibold md:text-lg">
                     <p>TEISIPÄEVAL kell 15:00 – 16:00</p>
-                    <p>KOLMAPÄEVAL kell 16:15 – 17:15</p>
+                    <p>KOLMAPÄEVAL kell 16:30 – 17:30</p>
                     <p>REEDEL kell 15:00 – 16:00</p>
-                    <p>
-                      LAUPÄEVAL kell 10:00 – 11:00{" "}
-                      <Link href={"/karateka"}>
-                        <span className="underline">vastavalt treeninggraafikule</span>
-                      </Link>
-                    </p>
                   </div>
                 </div>
               </div>
@@ -84,8 +77,7 @@ export const TrainingsTab = () => {
                   ESIMESED TREENINGUD A-grupile TOIMUVAD
                 </li>
                 <p className="font-semibold md:text-lg text-primary">
-                  juba TEISIPÄEVAL (3. sept.), KOLMAPÄEVAL (4. sept.), REEDEL (6. sept.) ja
-                  LAUPÄEVAL (7. sept.).
+                  juba TEISIPÄEVAL (2. sept.), KOLMAPÄEVAL (3. sept.)
                 </p>
                 <p className="mt-2 font-semibold md:text-lg">Selga tavalised spordiriided!</p>
               </div>
@@ -103,21 +95,14 @@ export const TrainingsTab = () => {
             <div className="space-y-8">
               <div>
                 <li className="mb-2 font-semibold list-disc md:text-xl text-secondary">
-                  Treeningud noortele (13. aastased ja vanemad), VHK spordisaal (Vene 22)
+                  Treeningud NOORTELE ja TÄISKASVANUTELE, VHK spordisaal (Vene 22)
                 </li>
 
                 <div className="">
-                  <p className="text-lg font-bold underline md:text-xl">L-grupp</p>
+                  <p className="text-lg font-bold underline md:text-xl">S-grupp</p>
                   <div className="font-semibold md:text-lg">
-                    <p>TEISIPÄEVAL kell 16:15 – 17:30</p>
-                    <p>NELJAPÄEVAL kell 16:30 – 17:30</p>
-                    <p>REEDEL kell 16:15 – 17:30</p>
-                    <p>
-                      LAUPÄEVAL kell 10 - 11{" "}
-                      <Link href={"/karateka"}>
-                        <span className="underline">vastavalt treeninggraafikule</span>
-                      </Link>
-                    </p>
+                    <p>ESMASPÄEVAL kell 18:45 – 20:00</p>
+                    <p>KOLMAPÄEVAL kell 18:45 – 20:00</p>
                   </div>
                 </div>
               </div>
@@ -132,19 +117,19 @@ export const TrainingsTab = () => {
                 <p className="md:text-lg">
                   Kõigil karatehuvilistel on võimalik registreerida ennast Nüke treeningutele
                   aadressil <span className="text-blue-500 underline">info@karatekool.ee</span>{" "}
-                  (nimi, isikukood, kool, klass).
+                  (19.a. ja nooremad – nimi, isikukood, kool, klass / 20.a. ja vanemad – nimi,
+                  vanus, telefon)
                 </p>
               </div>
 
               <div>
                 <li className="mb-2 font-semibold list-disc md:text-xl text-secondary">
-                  ESIMESED TREENINGUD TOIMUVAD
+                  ESIMESED TREENINGUD S-grupile TOIMUVAD siis,
                 </li>
                 <p className="font-semibold md:text-lg text-primary">
-                  juba TEISIPÄEVAL (3. sept.), NELJAPÄEVAL (5. sept.), REEDEL (6. sept.) ja
-                  LAUPÄEVAL (7. sept.)
+                  kui gruppi registreerunute arv on piisav. Kõigile registreerunutele antakse
+                  esimestest treeningutest teada e-maili teel!
                 </p>
-                <p className="mt-2 font-semibold md:text-lg">Selga tavalised spordiriided!</p>
               </div>
             </div>
           </Tab.Panel>
@@ -173,7 +158,7 @@ export const RegistreerimiseInfoPageComponent = () => {
           </div>
         </div>
         <div>
-          <p className="mt-5 text-xl font-bold tracking-wide text-center font-sans sm:max-w-[15rem] text-primary sm:mt-0">
+          <p className="mt-5 font-sans text-xl font-bold tracking-wide text-center sm:max-w-60 text-primary sm:mt-0">
             SEPTEMBRI TREENINGUD ON TASUTA!
           </p>
         </div>
@@ -228,7 +213,7 @@ export const RegistreerimiseInfoPageComponent = () => {
       <TrainingsTab />
 
       <p className="mt-10 text-xl text-secondary">
-        Kõigile A- ja L-grupi registreerunutele, saadetakse täpsem info (klubi, treeningtasu jm
+        Kõigile V- ja S-grupi registreerunutele, saadetakse täpsem info (klubi, treeningtasu jm
         kohta) maili teel!
       </p>
     </div>
