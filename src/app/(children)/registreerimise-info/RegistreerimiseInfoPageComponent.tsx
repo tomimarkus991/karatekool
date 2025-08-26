@@ -13,6 +13,9 @@ import { CurrentSeason, CurrentYear } from "../../../config";
 import { dojoContentVariants } from "../kontakt/ContactDojos";
 import { ContactDojosTab } from "../kontakt/ContactUtils";
 
+const firstGroupLetter = "V";
+const secondGroupLetter = "S";
+
 export const TrainingsTab = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -49,7 +52,7 @@ export const TrainingsTab = () => {
                 </li>
 
                 <div className="">
-                  <p className="text-lg font-bold underline md:text-xl">A-grupp</p>
+                  <p className="text-lg font-bold underline md:text-xl">{firstGroupLetter}-grupp</p>
                   <div className="font-semibold md:text-lg">
                     <p>TEISIPÄEVAL kell 15:00 – 16:00</p>
                     <p>KOLMAPÄEVAL kell 16:30 – 17:30</p>
@@ -74,7 +77,7 @@ export const TrainingsTab = () => {
 
               <div>
                 <li className="mb-2 font-semibold list-disc md:text-xl text-secondary">
-                  ESIMESED TREENINGUD A-grupile TOIMUVAD
+                  ESIMESED TREENINGUD {firstGroupLetter}-grupile TOIMUVAD
                 </li>
                 <p className="font-semibold md:text-lg text-primary">
                   juba TEISIPÄEVAL (2. sept.), KOLMAPÄEVAL (3. sept.)
@@ -99,7 +102,9 @@ export const TrainingsTab = () => {
                 </li>
 
                 <div className="">
-                  <p className="text-lg font-bold underline md:text-xl">S-grupp</p>
+                  <p className="text-lg font-bold underline md:text-xl">
+                    {secondGroupLetter}-grupp
+                  </p>
                   <div className="font-semibold md:text-lg">
                     <p>ESMASPÄEVAL kell 18:45 – 20:00</p>
                     <p>KOLMAPÄEVAL kell 18:45 – 20:00</p>
@@ -124,7 +129,7 @@ export const TrainingsTab = () => {
 
               <div>
                 <li className="mb-2 font-semibold list-disc md:text-xl text-secondary">
-                  ESIMESED TREENINGUD S-grupile TOIMUVAD siis,
+                  ESIMESED TREENINGUD {secondGroupLetter}-grupile TOIMUVAD siis,
                 </li>
                 <p className="font-semibold md:text-lg text-primary">
                   kui gruppi registreerunute arv on piisav. Kõigile registreerunutele antakse
@@ -213,8 +218,8 @@ export const RegistreerimiseInfoPageComponent = () => {
       <TrainingsTab />
 
       <p className="mt-10 text-xl text-secondary">
-        Kõigile V- ja S-grupi registreerunutele, saadetakse täpsem info (klubi, treeningtasu jm
-        kohta) maili teel!
+        Kõigile {firstGroupLetter}- ja {secondGroupLetter}-grupi registreerunutele, saadetakse
+        täpsem info (klubi, treeningtasu jm kohta) maili teel!
       </p>
     </div>
   );
