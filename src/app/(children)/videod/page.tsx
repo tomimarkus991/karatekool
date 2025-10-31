@@ -4,8 +4,8 @@ import ReactPlayer from "react-player";
 
 export default function Page() {
   return (
-    <div className="flex flex-row items-center justify-center mt-10">
-      <div className="flex flex-col items-center justify-center mr-20">
+    <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
+      <div className="flex flex-col items-center justify-center mb-6 md:mr-20 md:mb-0">
         <p className="mb-3 font-sans text-lg text-center md:text-3xl">Karated tutvustav video</p>
         <ReactPlayer
           width="100%"
