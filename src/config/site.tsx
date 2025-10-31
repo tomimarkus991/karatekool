@@ -48,6 +48,7 @@ export const definedRoutes = {
   newcomer: "/uustulnukale",
   home: "/",
   videos: "/videod",
+  ajalugu: "/ajalugu",
   buklet: "/buklet",
 };
 
@@ -56,6 +57,7 @@ export const socialMedia = {
   instagram: "https://www.instagram.com/karatekoolnyke/" as any,
 };
 
+// icons https://www.svgrepo.com/collection/school-elements-4/
 export const routes: Router[] = [
   {
     href: definedRoutes.home,
@@ -96,11 +98,20 @@ export const routes: Router[] = [
     ),
   },
   {
+    href: definedRoutes.ajalugu,
+    routeName: "Ajalugu",
+    bigIcon: (
+      <div className={cn(bigIconCss, "relative")}>
+        <Image fill alt="history" src="/icons/library.svg" />
+      </div>
+    ),
+  },
+  {
     href: definedRoutes.videos,
     routeName: "Videod",
     bigIcon: (
       <div className={cn(bigIconCss, "relative")}>
-        <Image fill alt="house" src="/icons/videod.svg" />
+        <Image fill alt="vid" src="/icons/videod.svg" />
       </div>
     ),
   },

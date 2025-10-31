@@ -68,6 +68,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
+      url: `${baseUrl}/ajalugu`,
+      lastModified: new Date(),
+    },
+    {
       url: `${baseUrl}/videod`,
       lastModified: new Date(),
     },

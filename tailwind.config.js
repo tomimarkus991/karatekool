@@ -67,6 +67,7 @@ module.exports = {
       colors: {
         "surface-bg": "#F7F8FA",
         "text-primary": "#393939",
+        "text-caption": "#6E6E6E",
         "tab-bg": "#F6F6F8",
         primary: "#E50815",
         secondary: "#E58D08",

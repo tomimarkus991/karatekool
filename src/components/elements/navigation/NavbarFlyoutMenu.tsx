@@ -4,7 +4,7 @@ import { Popover, Transition } from "@headlessui/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment, useRef } from "react";
-import { HiChevronDown, HiFilm, HiMap, HiUserGroup } from "react-icons/hi";
+import { HiChevronDown, HiFilm, HiMap, HiUserGroup, HiLibrary } from "react-icons/hi";
 
 import { cn } from "@/lib";
 
@@ -26,6 +26,12 @@ const routes = [
     description: "Videod meie trennidest",
     href: "/videod",
     icon: HiFilm,
+  },
+  {
+    name: "Ajalugu",
+    description: "Meie lühiajalugu",
+    href: "/ajalugu",
+    icon: HiLibrary,
   },
   // {
   //   name: "Pildid",
@@ -115,9 +121,9 @@ export const NavbarFlyoutMenu = ({ href }: Props) => {
                           key={item.name}
                           className="relative flex p-4 rounded-lg group gap-x-6 hover:bg-gray-50"
                         >
-                          <div className="flex items-center justify-center flex-none mt-1 rounded-lg h-11 w-11 bg-gray-50 group-hover:bg-white">
+                          <div className="flex items-center justify-center flex-none mt-1 rounded-lg size-11 bg-gray-50 group-hover:bg-white">
                             <item.icon
-                              className="w-6 h-6 text-gray-600 duration-300 ease-in group-hover:text-secondary"
+                              className="text-gray-600 duration-300 ease-in size-6 group-hover:text-secondary"
                               aria-hidden="true"
                             />
                           </div>
