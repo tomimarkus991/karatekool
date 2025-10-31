@@ -52,13 +52,13 @@ export const AjaluguPageComponents = () => {
   const { control: erkoTextControl, ref: erkoTextRef } = useAnimateScroll();
 
   return (
-    <div className="max-w-2xl m-auto">
-      <p className="mt-16 font-sans text-lg font-medium text-center md:text-3xl">
+    <div className="max-w-2xl m-auto overflow-x-hidden">
+      <p className="mt-6 font-sans text-xl font-medium text-center md:mt-16 md:text-3xl">
         <LetterDecryptor delay={200} time={1000}>
           KARATE-DO KLUBI NÜKE
         </LetterDecryptor>
       </p>
-      <p className="mb-10 font-sans text-lg font-medium text-center md:text-3xl">
+      <p className="mb-10 font-sans text-xl font-medium text-center md:text-3xl">
         <LetterDecryptor delay={200} time={1000}>
           LÜHIAJALUGU JA MISSIOON
         </LetterDecryptor>
