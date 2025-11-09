@@ -17,6 +17,10 @@ import Foto6 from "./images/Foto-6.png";
 import Foto7 from "./images/Foto-7.png";
 import Foto8 from "./images/Foto-8.png";
 import Foto9 from "./images/Foto-9.png";
+import IgorNeeme4 from "./images/igor_neeme4.png";
+import MartRosmann1 from "./images/mart_rosmann_1.png";
+import MartRosmann2 from "./images/mart_rosmann_kumite_2.png";
+import VilluMengel3 from "./images/villu_mengel_3.png";
 
 const ImageWithCaption = ({
   caption,
@@ -37,6 +41,11 @@ const ImageWithCaption = ({
 
 export const AjaluguPageComponents = () => {
   const { control: MainTextControl, ref: MainTextRef } = useAnimateScroll();
+  const { control: MainText2Control, ref: MainText2Ref } = useAnimateScroll();
+  const { control: MartRosmann1TextControl, ref: MartRosmann1TextRef } = useAnimateScroll();
+  const { control: MartRosmann2TextControl, ref: MartRosmann2TextRef } = useAnimateScroll();
+  const { control: VilluMengelTextControl, ref: VilluMengelTextRef } = useAnimateScroll();
+  const { control: IgorNeemeTextControl, ref: IgorNeemeTextRef } = useAnimateScroll();
   const { control: Foto0TextControl, ref: Foto0TextRef } = useAnimateScroll();
   const { control: Foto1TextControl, ref: Foto1TextRef } = useAnimateScroll();
   const { control: Foto2TextControl, ref: Foto2TextRef } = useAnimateScroll();
@@ -53,47 +62,108 @@ export const AjaluguPageComponents = () => {
 
   return (
     <div className="max-w-2xl m-auto overflow-x-hidden">
-      <p className="mt-6 font-sans text-xl font-medium text-center md:mt-16 md:text-3xl">
-        <LetterDecryptor delay={200} time={1000}>
-          KARATE-DO KLUBI NÜKE
-        </LetterDecryptor>
-      </p>
-      <p className="mb-10 font-sans text-xl font-medium text-center md:text-3xl">
-        <LetterDecryptor delay={200} time={1000}>
-          LÜHIAJALUGU JA MISSIOON
-        </LetterDecryptor>
-      </p>
-      {/* main text */}
+      <div className="sm:mb-20">
+        <p className="mt-6 font-sans text-xl font-medium text-center md:mt-16 md:text-3xl">
+          <LetterDecryptor delay={200} time={1000}>
+            KARATE-DO KLUBI NÜKE
+          </LetterDecryptor>
+        </p>
+        <p className="mb-10 font-sans text-xl font-medium text-center md:text-3xl">
+          <LetterDecryptor delay={200} time={1000}>
+            LÜHIAJALUGU JA MISSIOON
+          </LetterDecryptor>
+        </p>
+      </div>
+      {/* mart rosmann 1 */}
+      <div className="flex flex-col items-center mb-8 sm:mb-12 sm:flex-row">
+        <AnimationWrapper
+          animate={MartRosmann1TextControl}
+          ref={MartRosmann1TextRef}
+          variants={animations.pageItems.fadeInFromLeft}
+          className="max-w-[18rem]"
+        >
+          <p className="text-center sm:text-left">
+            Karate-Do klubi Nüke ajalugu käsitledes võib tõmmata paralleele kogu Eesti karate
+            ajalooga. Nüket võib julgelt pidada Eesti kõige pikema traditsiooniga karateklubiks.
+            Karateklubi Nüke loojaks oli Mart Rosmann (1943-2023), kes ise alustas karate õpinguid
+            1968 aastal esimeses teada olevas karategrupis Eestis.
+          </p>
+        </AnimationWrapper>
+        <ImageWithCaption
+          className="mt-6 sm:ml-12 sm:mt-0"
+          caption="Nüke looja MART ROSMANN (1943-2023)"
+        >
+          <Image
+            src={MartRosmann1}
+            loading="lazy"
+            alt="Nüke looja MART ROSMANN (1943-2023)"
+            className="w-[18rem]"
+            width={700}
+            quality={100}
+            placeholder="blur"
+          />
+        </ImageWithCaption>
+      </div>
+      {/* interlope main 1 */}
       <AnimationWrapper
         animate={MainTextControl}
         ref={MainTextRef}
         variants={animations.pageItems.fadeInFromBottom}
         className="mb-10 sm:mb-20"
       >
-        <p>
-          Karate-Do klubi Nüke ajalugu käsitledes võib tõmmata paralleele kogu Eesti karate
-          ajalooga. Nüket võib julgelt pidada Eesti kõige pikema traditsiooniga karateklubiks.
-          Karateklubi Nüke loojaks oli Mart Rosmann (1943-2023), kes ise alustas karate õpinguid
-          1968 aastal esimeses teada olevas karategrupis Eestis. <br />
+        <p className="text-center">
           See esimene entusiastide grupp, ammutas karate teadmisi ühest jaapani raamatust, mida
           jupikaupa tõlgiti. Karatehuvilised vedasid raamatust näpuga järge ja kõik nähtu püüti kohe
           praktikasse viia. See grupp pani aluse ja hoo sisse kogu Eesti karate liikumisele.
-          <br />
-          Esimesed karate võistlused peeti 1972 aastal, mille võitjaks osutus Nüke klubi looja Mart
-          Rosmann. See oli sügav Nõukogude – vene okupatsiooni aeg, kus kõik oli range kontrolli
-          all.
-          <br />
+        </p>
+      </AnimationWrapper>
+
+      {/* mart rosmann 2 */}
+      <div className="flex flex-col items-center mb-20 sm:mb-10 sm:flex-row">
+        <ImageWithCaption
+          className="my-8 sm:mr-4"
+          caption="Esimesed karate võistlused Eestis 1972, turniiri võitja Mart Rosmann."
+        >
+          <Image
+            src={MartRosmann2}
+            alt="Esimesed karate võistlused Eestis 1972, turniiri võitja Mart Rosmann."
+            className="w-[18rem]"
+            loading="lazy"
+            width={700}
+            quality={100}
+            placeholder="blur"
+          />
+        </ImageWithCaption>
+        <AnimationWrapper
+          animate={MartRosmann2TextControl}
+          ref={MartRosmann2TextRef}
+          variants={animations.pageItems.fadeInFromRight}
+          className="max-w-[18rem]"
+        >
+          <p className="max-w-[18rem] text-center sm:text-left">
+            Esimesed karate võistlused peeti 1972 aastal, mille võitjaks osutus Nüke klubi looja
+            Mart Rosmann. See oli sügav Nõukogude – vene okupatsiooni aeg, kus kõik oli range
+            kontrolli all.
+          </p>
+        </AnimationWrapper>
+      </div>
+
+      {/* interlope main 2*/}
+      <AnimationWrapper
+        animate={MainText2Control}
+        ref={MainText2Ref}
+        variants={animations.pageItems.fadeInFromBottom}
+        className="mb-10 sm:mb-20"
+      >
+        <p className="text-center">
           Kahjuks ei saanud karated harjutada kaua, juba 1973 aastal kuulutati karate kehalise
-          kasvatuse meetodina Nõukogude inimestele sobimatuks.
-          <br />
-          <br />
-          Tänu julgetele entusiastidele, harjutati karated edasi salaja. Klubi looja Mart Rosmann
-          hakkas karated õpetama „põranda all“ 1975 aastal. Selleks ajaks oli ta saanud Eesti üheks
-          tuntumaiks karateõpetajaks. 1980 aastaks sai Moskva õiguse korraldada suve Olümpiamänge ja
-          kuna Rahvusvaheline Olümpiakomitee tunnustas ülemaailmset karateorganisatsiooni WUKO
-          tegevust, siis oli see ka üks põhjusi, miks karate 1978 aastal enne Moskva Olümpiamänge
-          Nõukogude Liidus, taas ametliku loa sai.
-          <br />
+          kasvatuse meetodina Nõukogude inimestele sobimatuks. <br />
+          <br /> Tänu julgetele entusiastidele, harjutati karated edasi salaja. Klubi looja Mart
+          Rosmann hakkas karated õpetama „põranda all“ 1975 aastal. Selleks ajaks oli ta saanud
+          Eesti üheks tuntumaiks karateõpetajaks. 1980 aastaks sai Moskva õiguse korraldada suve
+          Olümpiamänge ja kuna Rahvusvaheline Olümpiakomitee tunnustas ülemaailmset
+          karateorganisatsiooni WUKO tegevust, siis oli see ka üks põhjusi, miks karate 1978 aastal
+          enne Moskva Olümpiamänge Nõukogude Liidus, taas ametliku loa sai. <br />
           <br />
           See oli ka aeg, mil Mart Rosmann lõi nüüd juba ametlikult Karate-Do klubi Nüke. Miks pani
           Mart Rosmann oma klubile nimeks „NÜKE“? M. Rosmanni kommentaar:“ Nüke on eestikeelne sõna,
@@ -102,51 +172,113 @@ export const AjaluguPageComponents = () => {
           sellise nime. Tipptasemel karatekade hulgas on paremad need, kelle pea on rohkem väärt.“
         </p>
       </AnimationWrapper>
-      {/* foto 0 */}
-      <div className="flex flex-col items-center mb-8 sm:mb-20 sm:flex-row">
+
+      {/* villu mengel */}
+      <AnimationWrapper
+        ref={VilluMengelTextRef}
+        animate={VilluMengelTextControl}
+        variants={animations.pageItems.fadeInFromLeft}
+        className="flex flex-col items-center justify-center mb-10"
+      >
         <ImageWithCaption
-          className="my-8 sm:ml-12 sm:hidden"
-          caption="FOTO „Herik Tölpt judo trennis 1974.a.“ (fotol ülemine rida vasakult kolmas)"
+          className="mb-12"
+          caption="Nüke võistleja VILLU MENGEL.
+Kuulus eesti koondisesse kaheksal korral.
+NSVLi esivõistlustel 2-koht kumite’s (1980) ja 3-koht meeskondlikus kumites (1981, 1983).
+V. Mengel valiti 1980 aastal parimaks kumite-kahevõitlejaks Eestis."
         >
           <Image
-            src={Foto0}
-            loading="eager"
-            priority
-            alt="FOTO „Herik Tölpt judo trennis 1974.a.“(fotol ülemine rida vasakult kolmas)"
-            className="w-[40rem]"
+            src={VilluMengel3}
+            loading="lazy"
+            alt="Nüke võistleja VILLU MENGEL.
+Kuulus eesti koondisesse kaheksal korral.
+NSVLi esivõistlustel 2-koht kumite’s (1980) ja 3-koht meeskondlikus kumites (1981, 1983).
+V. Mengel valiti 1980 aastal parimaks kumite-kahevõitlejaks Eestis."
+            className="w-[20rem]"
             width={700}
             quality={100}
             placeholder="blur"
           />
         </ImageWithCaption>
+      </AnimationWrapper>
 
+      {/* igor neeme */}
+      <div className="flex flex-col items-center mb-8 sm:mb-20 sm:flex-row">
+        <ImageWithCaption
+          className="my-8"
+          caption="Nüke võistleja IGOR NEEMRE.
+          Kuulus eesti koondisesse 10 korral,
+          NSVLi meister kumites (1973) ja katas (1983)."
+        >
+          <Image
+            src={IgorNeeme4}
+            alt="Nüke võistleja IGOR NEEMRE. Kuulus eesti koondisesse 10 korral, NSVLi meister kumites (1973) ja katas (1983)."
+            className="w-[18rem]"
+            loading="lazy"
+            width={100}
+            quality={100}
+            placeholder="blur"
+          />
+        </ImageWithCaption>
+        <AnimationWrapper
+          animate={IgorNeemeTextControl}
+          ref={IgorNeemeTextRef}
+          variants={animations.pageItems.fadeInFromRight}
+          className="max-w-[18rem]"
+        >
+          <p className="max-w-[18rem] text-center sm:text-left">
+            Aastatel 1978 – 1984, oli Eesti karate NSVL tugevaim. Eesti sai üheks karateliikumise
+            esmaarendajaks Nõukogude Liidus. Tallinn oli kohaks, kus korraldati 1979 aastal esimene
+            üle Nõukogude Liiduline karateturniir.
+            <br />
+            <br />
+            Esimesel võistlustel osales 150 sportlast 12 liiduvabariigist, sealhulgas ka
+            Leningradist ja Moskvast. Ka Nüke klubi liikmed, M. Rosmanni õpilased Villu Mengel ja
+            Igor Neemre, võitsid Nõukogude Liidu meistrivõistluste tiitleid nii katas kui kumites.
+            <br />
+            <br />
+            See oli aeg, kui 1980 aastal, liitusin ka mina Herik Tölpt koos vennaga Nüke klubi
+            treeningutega.
+          </p>
+        </AnimationWrapper>
+      </div>
+
+      {/* foto 0 */}
+      <div className="flex flex-col items-center mb-8 sm:mb-16 sm:flex-row">
+        <ImageWithCaption
+          className="mt-6 sm:ml-12 sm:mt-0 sm:hidden"
+          caption="FOTO „Herik Tölpt judo trennis 1974.a.“ (fotol ülemine rida vasakult kolmas)"
+        >
+          <Image
+            src={Foto0}
+            loading="lazy"
+            alt="FOTO „Herik Tölpt judo trennis 1974.a.“ (fotol ülemine rida vasakult kolmas)"
+            className="w-[20rem]"
+            width={700}
+            quality={100}
+            placeholder="blur"
+          />
+        </ImageWithCaption>
         <AnimationWrapper
           animate={Foto0TextControl}
           ref={Foto0TextRef}
           variants={animations.pageItems.fadeInFromLeft}
           className="max-w-[18rem]"
         >
-          <p>
-            Aastatel 1978 – 1984, oli Eesti karate NSVL tugevaim. Eesti sai üheks karateliikumise
-            esmaarendajaks Nõukogude Liidus. Tallinn oli kohaks, kus korraldati 1979 aastal esimene
-            üle Nõukogude Liiduline karateturniir. Esimesel võistlustel osales 150 sportlast 12
-            liiduvabariigist, sealhulgas ka Leningradist ja Moskvast. Ka Nüke klubi liikmed, M.
-            Rosmanni õpilased Villu Mengel ja Igor Neemre, võitsid Nõukogude Liidu meistrivõistluste
-            tiitleid nii katas kui kumites. See oli aeg, kui 1980 aastal, liitusin ka mina Herik
-            Tölpt koos vennaga Nüke klubi treeningutega. Enne karated, nooremas koolieas, õppisin 7
-            aastat judot. Judotreeninguid alustasin juba 1974. aastal 7. aastasena, siis panin selga
-            esmakordselt ka jaapanikimono.
+          <p className="text-center sm:text-left">
+            Enne karated, nooremas koolieas, õppisin 7 aastat judot. Judotreeninguid alustasin juba
+            1974. aastal 7. aastasena, siis panin selga esmakordselt ka jaapanikimono.
           </p>
         </AnimationWrapper>
         <ImageWithCaption
-          className="hidden my-8 sm:ml-12 sm:block"
+          className="hidden mt-6 sm:ml-12 sm:mt-0 sm:block"
           caption="FOTO „Herik Tölpt judo trennis 1974.a.“ (fotol ülemine rida vasakult kolmas)"
         >
           <Image
             src={Foto0}
             loading="lazy"
-            alt="FOTO „Herik Tölpt judo trennis 1974.a.“(fotol ülemine rida vasakult kolmas)"
-            className="w-[40rem]"
+            alt="FOTO „Herik Tölpt judo trennis 1974.a.“ (fotol ülemine rida vasakult kolmas)"
+            className="w-[20rem]"
             width={700}
             quality={100}
             placeholder="blur"
@@ -563,7 +695,7 @@ export const AjaluguPageComponents = () => {
         className="flex flex-col items-center justify-center"
       >
         <ImageWithCaption
-          className="mb-12 sm:ml-12"
+          className="mb-12"
           caption="ERKO TÖLPT mitmekordne Eesti meister nii katas kui kumites, Põhjamaade hõbe kumites"
         >
           <Image
