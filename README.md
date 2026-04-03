@@ -31,4 +31,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 [MIT](./LICENSE)
 
-Copyright (c) 2022, tomimarkus991
+Copyright (c) 2026, tomimarkus991
