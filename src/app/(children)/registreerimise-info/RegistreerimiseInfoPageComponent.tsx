@@ -13,8 +13,8 @@ import { CurrentSeason, CurrentYear } from "../../../config";
 import { dojoContentVariants } from "../kontakt/ContactDojos";
 import { ContactDojosTab } from "../kontakt/ContactUtils";
 
-const firstGroupLetter = "V";
-const secondGroupLetter = "S";
+const firstGroupLetter = "A";
+const secondGroupLetter = "M";
 
 export const TrainingsTab = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -28,10 +28,10 @@ export const TrainingsTab = () => {
         )}
       >
         <ContactDojosTab selectedIndex={selectedIndex} index={0}>
-          Treeningud ALGKLASSIDE LASTELE
+          Treeningud algklasside lastele
         </ContactDojosTab>
         <ContactDojosTab selectedIndex={selectedIndex} index={1}>
-          Treeningud NOORTELE ja TÄISKASVANUTELE
+          Treeningud 11a. ja vanemad + täiskasvanud
         </ContactDojosTab>
         <TwoElementMovingBox selectedIndex={selectedIndex} />
       </Tab.List>
@@ -54,9 +54,10 @@ export const TrainingsTab = () => {
                 <div className="">
                   <p className="text-lg font-bold underline md:text-xl">{firstGroupLetter}-grupp</p>
                   <div className="font-semibold md:text-lg">
-                    <p>TEISIPÄEVAL kell 15:00 – 16:00</p>
-                    <p>KOLMAPÄEVAL kell 16:30 – 17:30</p>
-                    <p>REEDEL kell 15:00 – 16:00</p>
+                    <p>TEISIPÄEVAL kell 15:00</p>
+                    <p>KOLMAPÄEVAL kell 16:30</p>
+                    <p>REEDEL kell 15:00</p>
+                    <p>LAUPÄEVAL kell 10:00</p>
                   </div>
                 </div>
               </div>
@@ -77,10 +78,10 @@ export const TrainingsTab = () => {
 
               <div>
                 <li className="mb-2 font-semibold list-disc md:text-xl text-secondary">
-                  ESIMESED TREENINGUD {firstGroupLetter}-grupile TOIMUVAD
+                  ESIMESED TREENINGUD {firstGroupLetter}-grupile toimuvad
                 </li>
                 <p className="font-semibold md:text-lg text-primary">
-                  juba TEISIPÄEVAL (2. sept.), KOLMAPÄEVAL (3. sept.)
+                  juba KOLMAPÄEVAL (2. sept), REEDEL (4. sept)
                 </p>
                 <p className="mt-2 font-semibold md:text-lg">Selga tavalised spordiriided!</p>
               </div>
@@ -106,8 +107,9 @@ export const TrainingsTab = () => {
                     {secondGroupLetter}-grupp
                   </p>
                   <div className="font-semibold md:text-lg">
-                    <p>ESMASPÄEVAL kell 18:45 – 20:00</p>
-                    <p>KOLMAPÄEVAL kell 18:45 – 20:00</p>
+                    <p>ESMASPÄEVAL kell 17:15</p>
+                    <p>KOLMAPÄEVAL kell 17:30</p>
+                    <p>LAUPÄEVAL kell 11:00</p>
                   </div>
                 </div>
               </div>
@@ -122,18 +124,16 @@ export const TrainingsTab = () => {
                 <p className="md:text-lg">
                   Kõigil karatehuvilistel on võimalik registreerida ennast Nüke treeningutele
                   aadressil <span className="text-blue-500 underline">info@karatekool.ee</span>{" "}
-                  (19.a. ja nooremad – nimi, isikukood, kool, klass / 20.a. ja vanemad – nimi,
-                  vanus, telefon)
+                  (nimi ja isikukood)
                 </p>
               </div>
 
               <div>
                 <li className="mb-2 font-semibold list-disc md:text-xl text-secondary">
-                  ESIMESED TREENINGUD {secondGroupLetter}-grupile TOIMUVAD siis,
+                  ESIMESED TREENINGUD {secondGroupLetter}-grupile toimuvad
                 </li>
                 <p className="font-semibold md:text-lg text-primary">
-                  kui gruppi registreerunute arv on piisav. Kõigile registreerunutele antakse
-                  esimestest treeningutest teada e-maili teel!
+                  juba KOLMAPÄEVAL (2. septembril)
                 </p>
               </div>
             </div>
@@ -161,11 +161,6 @@ export const RegistreerimiseInfoPageComponent = () => {
             </p>
             <BiSolidQuoteAltRight className="text-gray-300" />
           </div>
-        </div>
-        <div>
-          <p className="mt-5 font-sans text-xl font-bold tracking-wide text-center sm:max-w-60 text-primary sm:mt-0">
-            SEPTEMBRI TREENINGUD ON TASUTA!
-          </p>
         </div>
       </div>
 

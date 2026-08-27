@@ -92,9 +92,6 @@ export const MainComponent = () => {
                 <p className="mb-4 text-2xl font-semibold text-center sm:text-3xl md:text-4xl">
                   Klubisse registreerumine on alanud!
                 </p>
-                <p className="mb-6 text-xl font-bold md:text-2xl xl:text-3xl text-primary">
-                  SEPTEMBRI TREENINGUD ON TASUTA!
-                </p>
                 <AnimationWrapper variants={animations.smallScale}>
                   <Link href="/registreerimise-info">
                     <p className="text-xl underline text-secondary md:text-2xl xl:text-3xl">
