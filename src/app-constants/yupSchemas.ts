@@ -56,6 +56,66 @@ const SendQuestionForm = object().shape({
 
 export type SendQuestionFormValues = InferType<typeof SendQuestionForm>;
 
+const Parent = object().shape({
+  name: string().default(""),
+  phone: string().default(""),
+  email: string().email("Email peab olema päris").default(""),
+});
+
+export type ParentFormValues = InferType<typeof Parent>;
+
+const isParentComplete = (parent?: Partial<ParentFormValues>) =>
+  !!parent?.name?.trim() && !!parent?.phone?.trim() && !!parent?.email?.trim();
+
+const SignUpUnderage = object()
+  .shape({
+    firstName: string().required("Vajalik"),
+    lastName: string().required("Vajalik"),
+    personalCode: string()
+      .matches(/^[1-6]\d{10}$/, "Isikukood peab olema 11-kohaline number")
+      .required("Vajalik"),
+    phone: string().required("Vajalik"),
+    email: string().email("Email peab olema päris").required("Vajalik"),
+    school: string().required("Vajalik"),
+    grade: string().required("Vajalik"),
+    address: string().required("Vajalik"),
+    infoEmail: string().email("Email peab olema päris").required("Vajalik"),
+    sportType: string()
+      .oneOf(["main", "secondary"], "Palun vali põhiala või kõrvalala")
+      .required("Palun vali põhiala või kõrvalala"),
+    mother: Parent,
+    father: Parent,
+    familyMembers: string().default(""),
+  })
+  .test({
+    name: "parentInfo",
+    test(value, ctx) {
+      if (isParentComplete(value.mother) || isParentComplete(value.father)) return true;
+
+      return ctx.createError({
+        path: "parentInfo",
+        message: "Vähemalt ühe vanema nimi, telefon ja email peavad olema täidetud",
+      });
+    },
+  });
+
+export type SignUpUnderageFormValues = InferType<typeof SignUpUnderage>;
+
+const SignUpAdult = object().shape({
+  firstName: string().required("Vajalik"),
+  lastName: string().required("Vajalik"),
+  birthDate: string().required("Vajalik"),
+  phone: string().required("Vajalik"),
+  email: string().email("Email peab olema päris").required("Vajalik"),
+  familyMembers: string().default(""),
+});
+
+export type SignUpAdultFormValues = InferType<typeof SignUpAdult>;
+
+export type SignUpRequestBody =
+  | ({ type: "underage" } & SignUpUnderageFormValues)
+  | ({ type: "adult" } & SignUpAdultFormValues);
+
 const UpdateProfile = object().shape({
   name: string().min(3),
   avatar: string(),
@@ -164,4 +224,6 @@ export const YupSchemas = {
   UpdateProfile,
   Events,
   SendQuestionForm,
+  SignUpUnderage,
+  SignUpAdult,
 };

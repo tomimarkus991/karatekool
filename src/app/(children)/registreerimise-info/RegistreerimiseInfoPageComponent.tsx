@@ -2,11 +2,12 @@
 
 import { Tab } from "@headlessui/react";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { BiSolidQuoteAltLeft, BiSolidQuoteAltRight } from "react-icons/bi";
 
-import { AnimationWrapper, TwoElementMovingBox, animations } from "@/components";
+import { AnimationWrapper, RealButton, TwoElementMovingBox, animations } from "@/components";
 import { cn } from "@/lib";
 
 import { CurrentSeason, CurrentYear } from "../../../config";
@@ -15,6 +16,14 @@ import { ContactDojosTab } from "../kontakt/ContactUtils";
 
 const firstGroupLetter = "A";
 const secondGroupLetter = "M";
+
+const SignUpButton = () => (
+  <Link href="/registreeri" className="inline-block my-4">
+    <RealButton variant="red" size="lg" tabIndex={-1} className="shadow-lg">
+      Registreeri trenni
+    </RealButton>
+  </Link>
+);
 
 export const TrainingsTab = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -70,9 +79,13 @@ export const TrainingsTab = () => {
                   Kiirustage, kuna kohtade arv on piiratud!
                 </p>
                 <p className="md:text-lg">
-                  Kõigil karatehuvilistel on võimalik registreerida ennast Nüke treeningutele (lapse
-                  nimi, isikukood, kool, klass) aadressil{" "}
-                  <span className="text-blue-500 underline">info@karatekool.ee</span>
+                  Nüke treeningutele saab registreerida allolevat nuppu vajutades ja
+                  registreerimisvormi täites.
+                </p>
+                <SignUpButton />
+                <p className="md:text-lg">
+                  Registreerida on võimalik ka otse kirjutades (lapse nimi, isikukood, kool, klass)
+                  aadressil <span className="text-blue-500 underline">info@karatekool.ee</span>
                 </p>
               </div>
 
@@ -122,9 +135,13 @@ export const TrainingsTab = () => {
                   Kiirustage, kuna kohtade arv on piiratud!
                 </p>
                 <p className="md:text-lg">
-                  Kõigil karatehuvilistel on võimalik registreerida ennast Nüke treeningutele
-                  aadressil <span className="text-blue-500 underline">info@karatekool.ee</span>{" "}
-                  (nimi ja isikukood)
+                  Nüke treeningutele saab registreerida allolevat nuppu vajutades ja
+                  registreerimisvormi täites.
+                </p>
+                <SignUpButton />
+                <p className="md:text-lg">
+                  Registreerida on võimalik ka otse kirjutades (nimi ja isikukood) aadressil{" "}
+                  <span className="text-blue-500 underline">info@karatekool.ee</span>
                 </p>
               </div>
 
