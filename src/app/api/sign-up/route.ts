@@ -52,17 +52,10 @@ export async function POST(req: Request) {
     }
     const { data, error } = await resend.emails.send({
       from: "onboarding@resend.dev",
-      to: ["allmannartur@gmail.com"],
+      to: ["info@karatekool.ee"],
       subject,
       react,
     });
-
-    // const { data, error } = await resend.emails.send({
-      // from: "onboarding@resend.dev",
-      // to: ["info@karatekool.ee"],
-      // subject,
-      // react,
-    // });
     if (error) {
       return NextResponse.json({ error }, { status: 500 });
     }
