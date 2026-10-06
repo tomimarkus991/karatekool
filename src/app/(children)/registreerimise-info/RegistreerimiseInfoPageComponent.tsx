@@ -89,15 +89,7 @@ export const TrainingsTab = () => {
                 </p>
               </div>
 
-              <div>
-                <li className="mb-2 font-semibold list-disc md:text-xl text-secondary">
-                  ESIMESED TREENINGUD {firstGroupLetter}-grupile toimuvad
-                </li>
-                <p className="font-semibold md:text-lg text-primary">
-                  juba KOLMAPÄEVAL (2. sept), REEDEL (4. sept)
-                </p>
-                <p className="mt-2 font-semibold md:text-lg">Selga tavalised spordiriided!</p>
-              </div>
+              <p className="font-semibold md:text-lg">Selga tavalised spordiriided!</p>
             </div>
           </Tab.Panel>
 
@@ -142,15 +134,6 @@ export const TrainingsTab = () => {
                 <p className="md:text-lg">
                   Registreerida on võimalik ka otse kirjutades (nimi ja isikukood) aadressil{" "}
                   <span className="text-blue-500 underline">info@karatekool.ee</span>
-                </p>
-              </div>
-
-              <div>
-                <li className="mb-2 font-semibold list-disc md:text-xl text-secondary">
-                  ESIMESED TREENINGUD {secondGroupLetter}-grupile toimuvad
-                </li>
-                <p className="font-semibold md:text-lg text-primary">
-                  juba KOLMAPÄEVAL (2. septembril)
                 </p>
               </div>
             </div>
