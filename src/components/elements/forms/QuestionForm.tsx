@@ -27,6 +27,7 @@ interface Props {
 }
 
 export const QuestionForm = ({ requestSuccess, setRequestSuccess, setIsModalOpen }: Props) => {
+  const [requestError, setRequestError] = useState(false);
   const [initialValues] = useState<SendQuestionFormValues>({
     name: "",
     email: "",
@@ -43,6 +44,7 @@ export const QuestionForm = ({ requestSuccess, setRequestSuccess, setIsModalOpen
             validateOnChange={true}
             onSubmit={async (formData, { setSubmitting }) => {
               setSubmitting(true);
+              setRequestError(false);
 
               const applicationSent = await fetch("/api/send-question", {
                 method: "POST",
@@ -50,9 +52,11 @@ export const QuestionForm = ({ requestSuccess, setRequestSuccess, setIsModalOpen
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify(formData),
-              });
-              if (applicationSent.ok) {
+              }).catch(() => undefined);
+              if (applicationSent?.ok) {
                 setRequestSuccess(true);
+              } else {
+                setRequestError(true);
               }
 
               setSubmitting(false);
@@ -114,6 +118,12 @@ export const QuestionForm = ({ requestSuccess, setRequestSuccess, setIsModalOpen
                             />
                           </div>
                         </div>
+                        {requestError && (
+                          <p className="px-3 mb-4 text-sm font-medium text-center text-red-500">
+                            Küsimuse saatmine ebaõnnestus. Palun proovi uuesti või kirjuta aadressil
+                            info@karatekool.ee
+                          </p>
+                        )}
                         <div className="flex justify-center pb-8">
                           <RealButton
                             variant="red"
