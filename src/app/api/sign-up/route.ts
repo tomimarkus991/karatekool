@@ -23,6 +23,7 @@ const buildEmail = async (body: SignUpRequestBody) => {
 
     return {
       rateLimitKey: values.infoEmail,
+      replyTo: values.infoEmail,
       subject: `Registreerimine (laps) ${values.firstName} ${values.lastName}`,
       react: SignUpUnderageEmailTemplate(values),
     };
@@ -33,6 +34,7 @@ const buildEmail = async (body: SignUpRequestBody) => {
 
     return {
       rateLimitKey: values.email,
+      replyTo: values.email,
       subject: `Registreerimine (täiskasvanu) ${values.firstName} ${values.lastName}`,
       react: SignUpAdultEmailTemplate(values),
     };
@@ -44,15 +46,16 @@ const buildEmail = async (body: SignUpRequestBody) => {
 export async function POST(req: Request) {
   try {
     const body = (await req.json()) as SignUpRequestBody;
-    const { rateLimitKey, subject, react } = await buildEmail(body);
+    const { rateLimitKey, replyTo, subject, react } = await buildEmail(body);
 
     const { success } = await rateLimit.limit(`sign-up:${rateLimitKey.toLowerCase()}`);
     if (!success) {
       return NextResponse.json({ error: "Too many requests" }, { status: 429 });
     }
     const { data, error } = await resend.emails.send({
-      from: "onboarding@resend.dev",
+      from: "Karatekool <noreply@karatekool.ee>",
       to: ["info@karatekool.ee"],
+      reply_to: replyTo,
       subject,
       react,
     });
