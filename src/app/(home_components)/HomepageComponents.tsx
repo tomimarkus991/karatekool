@@ -108,15 +108,21 @@ export const MainComponent = () => {
               animate={section1TextControl}
               variants={animations.pageItems.fadeInFromLeftDelayed}
             >
-              <p
-                className={cn(
-                  "text-3xl font-semibold md:text-4xl xl:text-5xl",
-                  "text-transparent bg-clip-text bg-secondary-gradient animate-text",
-                )}
-              >
-                <LetterDecryptor delay={1250} time={1250}>
+              {/* Invisible copy keeps the final size so the scrambling text doesn't shift the layout */}
+              <p className="relative text-3xl font-semibold md:text-4xl xl:text-5xl">
+                <span className="invisible" aria-hidden>
                   {year}
-                </LetterDecryptor>
+                </span>
+                <span
+                  className={cn(
+                    "absolute inset-0",
+                    "text-transparent bg-clip-text bg-secondary-gradient animate-text",
+                  )}
+                >
+                  <LetterDecryptor delay={1250} time={1250}>
+                    {year}
+                  </LetterDecryptor>
+                </span>
               </p>
             </AnimationWrapper>
           </div>
