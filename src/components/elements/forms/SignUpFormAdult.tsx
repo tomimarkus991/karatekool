@@ -70,10 +70,6 @@ export const SignUpFormAdult = () => {
                       key="form"
                     >
                       <div className="flex flex-col">
-                        <div className="flex items-start justify-start pl-3">
-                          <p className="text-xl font-bold">Registreerimine (täiskasvanu)</p>
-                        </div>
-
                         <div className={cn("flex items-center flex-col py-2 mb-5 px-3")}>
                           <div className="grid w-full grid-cols-1 gap-2 mt-3 sm:grid-cols-2">
                             <FormikInput

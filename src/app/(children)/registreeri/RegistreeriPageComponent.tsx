@@ -1,9 +1,13 @@
 "use client";
 
+import { Tab } from "@headlessui/react";
 import { useState } from "react";
 
-import { SignUpFormAdult, SignUpFormUnderage } from "@/components";
+import { SignUpFormAdult, SignUpFormUnderage, TwoElementMovingBox } from "@/components";
+import { Icons } from "@/components/icons/Icons";
 import { cn } from "@/lib";
+
+import { ContactDojosTab } from "../kontakt/ContactUtils";
 
 type SignUpType = "underage" | "adult";
 
@@ -14,41 +18,33 @@ const signUpTypeOptions: { value: SignUpType; label: string }[] = [
 
 export const RegistreeriPageComponent = () => {
   const [signUpType, setSignUpType] = useState<SignUpType>("underage");
+  const selectedIndex = signUpTypeOptions.findIndex(option => option.value === signUpType);
 
   return (
     <div className="flex flex-col items-center gap-6 pb-12">
-      <div className="flex flex-col items-center gap-3">
-        <p className="text-2xl font-bold">Registreeri trenni</p>
-        <div className="max-w-[40rem] space-y-1 text-center text-stone-600">
-          <p>Vali allpool, kelle andmeid registreerid.</p>
-          <p>
-            <span className="font-semibold">Laps (7–19 aastat)</span> – vorm on mõeldud täitmiseks
-            lapsevanemale.
-          </p>
-          <p>
-            <span className="font-semibold">Täiskasvanu</span> – vorm on mõeldud täitmiseks trenni
-            tulijale endale.
-          </p>
+      <div className="flex flex-col items-center w-full gap-3">
+        <div className="flex flex-row items-center gap-2">
+          <p className="mb-4 text-3xl font-bold">Tule karate trenni</p>
+          <Icons.karateka className="w-12 h-12 mb-4" />
         </div>
-        <div role="tablist" className="flex flex-row gap-1 p-1 bg-white rounded-xl">
-          {signUpTypeOptions.map(option => (
-            <button
-              key={option.value}
-              type="button"
-              role="tab"
-              aria-selected={signUpType === option.value}
-              onClick={() => setSignUpType(option.value)}
-              className={cn(
-                "px-5 py-2 text-lg font-semibold rounded-lg transition-colors",
-                signUpType === option.value
-                  ? "bg-orange-400 text-white"
-                  : "text-stone-600 hover:bg-stone-100",
-              )}
-            >
-              {option.label}
-            </button>
-          ))}
-        </div>
+        <Tab.Group
+          selectedIndex={selectedIndex}
+          onChange={index => setSignUpType(signUpTypeOptions[index].value)}
+        >
+          <Tab.List
+            className={cn(
+              "flex flex-row relative px-1 w-full bg-stone-100 rounded-xl max-w-md mx-auto",
+              "shadow-lg ring-1 ring-stone-400 ring-opacity-5 mb-4",
+            )}
+          >
+            {signUpTypeOptions.map((option, index) => (
+              <ContactDojosTab key={option.value} selectedIndex={selectedIndex} index={index}>
+                {option.label}
+              </ContactDojosTab>
+            ))}
+            <TwoElementMovingBox selectedIndex={selectedIndex} />
+          </Tab.List>
+        </Tab.Group>
       </div>
 
       <div className="w-full">

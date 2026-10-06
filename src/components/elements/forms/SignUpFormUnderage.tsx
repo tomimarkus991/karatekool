@@ -88,9 +88,9 @@ export const SignUpFormUnderage = () => {
                       key="form"
                     >
                       <div className="flex flex-col">
-                        <div className="flex items-start justify-start pl-3">
-                          <p className="text-xl font-bold">Registreerimine (alaealine)</p>
-                        </div>
+                        <p className="px-3 font-semibold text-center text-primary">
+                          Laps (7–19 aastat) – vorm on mõeldud täitmiseks lapsevanemale.
+                        </p>
 
                         <div className={cn("flex items-center flex-col py-2 mb-5 px-3")}>
                           <div className="grid w-full grid-cols-1 gap-2 mt-3 sm:grid-cols-2">
