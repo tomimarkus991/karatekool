@@ -38,7 +38,7 @@ const Sidebar = dynamic(() =>
   import("../../components/elements/sidebar/Sidebar").then(mod => mod.Sidebar),
 );
 
-import { AnimationWrapper, animations } from "../../components";
+import { AnimationWrapper, RealButton, animations } from "../../components";
 import { CurrentYear, getIfUserCanRegisterToClub } from "../../config";
 import { useAnimateScroll } from "../../hooks";
 import { cn } from "../../lib";
@@ -124,6 +124,13 @@ export const MainComponent = () => {
                   </LetterDecryptor>
                 </span>
               </p>
+            </AnimationWrapper>
+            <AnimationWrapper variants={animations.smallScale} className="mx-auto mt-6">
+              <Link href="/registreerimise-info" className="inline-block">
+                <RealButton variant="red" size="md" tabIndex={-1} className="shadow-lg">
+                  Registreeri trenni
+                </RealButton>
+              </Link>
             </AnimationWrapper>
           </div>
           {/* <div className="relative lg:absolute z-10 top-[40%] md:!top-[70%] lg:!top-[50%] lg:ml-112 xl:ml-24 2xl:ml-64">
