@@ -146,8 +146,8 @@ export const CurrentYear = "38";
 export const getIfUserCanRegisterToClub = () => {
   const currentMonth = getMonth(new Date());
 
-  // when month is august or september render registering UI
-  if (currentMonth === 7 || currentMonth === 8) {
+  // when month is august, september or october render registering UI
+  if (currentMonth === 7 || currentMonth === 8 || currentMonth === 9) {
     return true;
   }
   return false;
