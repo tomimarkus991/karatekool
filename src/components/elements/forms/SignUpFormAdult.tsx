@@ -135,6 +135,7 @@ export const SignUpFormAdult = () => {
                           <RealButton
                             variant="red"
                             size="md"
+                            className="text-lg lg:text-lg"
                             onClick={handleSubmit as any}
                             isValid={isValid}
                           >

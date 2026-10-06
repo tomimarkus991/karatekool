@@ -19,7 +19,7 @@ const secondGroupLetter = "M";
 
 const SignUpButton = () => (
   <Link href="/registreeri" className="inline-block my-4">
-    <RealButton variant="red" size="lg" tabIndex={-1} className="shadow-lg">
+    <RealButton variant="red" size="md" tabIndex={-1} className="shadow-lg">
       Registreeri trenni
     </RealButton>
   </Link>
