@@ -139,6 +139,7 @@ export const justRoutes: JustRouter[] = [
 ];
 
 export const CurrentSeason = "2026/2027";
+export const Year = "2026";
 
 export const CurrentYear = "38";
 

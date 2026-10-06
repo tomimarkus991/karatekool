@@ -5,7 +5,7 @@ import { FaInstagram, FaFacebook } from "react-icons/fa";
 
 import { AnimationWrapper, animations, WaveBackground } from "@/components";
 import { Icons } from "@/components/icons/Icons";
-import { socialMedia } from "@/config";
+import { socialMedia, Year } from "@/config";
 import { cn } from "@/lib";
 
 interface Props {
@@ -25,7 +25,7 @@ export const Footer = ({ bg = "bg-surface-bg" }: Props) => (
       >
         <div className="flex flex-col items-center">
           <Icons.logoWhite />
-          <p className="mt-2 text-sm text-center text-white">© 2025 nüke karate-do klubi</p>
+          <p className="mt-2 text-sm text-center text-white">© {Year} nüke karate-do klubi</p>
           <Link className="sm:hidden" href="/kontakt">
             <p className="mt-3 text-lg text-center text-white">Kontakt</p>
           </Link>
