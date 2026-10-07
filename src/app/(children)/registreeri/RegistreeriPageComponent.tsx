@@ -24,6 +24,9 @@ export const RegistreeriPageComponent = () => {
     <div className="flex flex-col items-center gap-6 pb-12">
       <div className="flex flex-col items-center w-full gap-3">
         <div className="flex flex-row items-center gap-2">
+          <p className="mb-4 text-4xl font-bold">Klubisse registreerimise vorm</p>
+        </div>
+        <div className="flex flex-row items-center gap-2">
           <p className="mb-4 text-3xl font-bold">Tule karate trenni</p>
           <Icons.karateka className="w-12 h-12 mb-4" />
         </div>
