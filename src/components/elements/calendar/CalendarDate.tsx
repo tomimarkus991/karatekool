@@ -42,6 +42,7 @@ export const CalendarDate = ({ events, date, month }: Props) => {
       button={
         <button
           ref={ref}
+          data-testid={`calendar-day-${format(date, "yyyy-MM-dd")}`}
           className={cn(
             "w-full h-full m-auto box-border p-[0.1rem] sm:p-1",
             "border-stone-100 border-r first:border-l",

@@ -12,7 +12,10 @@
     "tc": "tsc --noEmit",
     "lint:fix": "eslint --fix --ext .js,.ts,.tsx ./src --ignore-path .gitignore",
     "sitemap": "next-sitemap",
-    "supabase:types": "npx supabase gen types typescript --project-id wqdplpmiyvwmetnipmwd > src/types/supabase.ts"
+    "supabase:types": "npx supabase gen types typescript --project-id wqdplpmiyvwmetnipmwd > src/types/supabase.ts",
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui",
+    "dev:e2e": "node e2e/dev-server.mjs"
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^9.7.2",
@@ -92,8 +95,9 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^14.0.3",
+    "@playwright/test": "^1.64.1",
     "@redlotus/tsconfig": "^1.0.4",
-    "@types/node": "20.9.3",
+    "@types/node": "^20.19.0",
     "@types/react": "18.2.38",
     "@types/react-dom": "18.2.16",
     "@types/three": "^0.158.3",
@@ -109,7 +113,7 @@
     "lint-staged": "^15.1.0",
     "postcss": "^8.4.31",
     "raw-loader": "^4.0.2",
-    "supabase": "^1.113.2",
+    "supabase": "^2.122.0",
     "tailwind-scrollbar": "^3.0.5",
     "tailwind-scrollbar-hide": "^1.1.7",
     "tailwindcss": "^3.3.5",
