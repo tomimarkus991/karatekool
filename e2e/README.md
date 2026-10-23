@@ -27,6 +27,13 @@ yarn e2e:ui       # Playwright UI mode
 
 Do not run `yarn dev:e2e` and your normal `yarn dev` at the same time: both use port 3000.
 
+## CI
+
+`.github/workflows/e2e.yml` runs the suite on every pull request to `main`: it starts local Supabase
+(database, auth, REST, storage only), builds the site and runs `yarn e2e`. On failure, download the
+`playwright-report` artifact and open it with `npx playwright show-report <folder>`; traces of failed
+tests are inside.
+
 ## Layout
 
 - `features/` – one spec file per feature; `test.describe` is the feature, `test(...)` the scenario
