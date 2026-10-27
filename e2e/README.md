@@ -45,6 +45,22 @@ Do not run `yarn dev:e2e` and your normal `yarn dev` at the same time: both use 
 On failure, download the `playwright-report` artifact and open it with
 `npx playwright show-report <folder>`; traces of failed tests are inside.
 
+A failing suite blocks merging only once `main` requires the check, which the repository owner sets
+after the job has run on a pull request at least once (GitHub only offers checks it has seen):
+Settings → Branches → Add branch protection rule for `main` → "Require status checks to pass before
+merging" → pick `e2e`. Or with `gh`:
+
+```sh
+gh api --method PUT repos/tomimarkus991/karatekool/branches/main/protection --input - <<'EOF'
+{
+  "required_status_checks": { "strict": false, "contexts": ["e2e"] },
+  "enforce_admins": false,
+  "required_pull_request_reviews": null,
+  "restrictions": null
+}
+EOF
+```
+
 ## Layout
 
 - `features/` – one spec file per feature; `test.describe` is the feature, `test(...)` the scenario
