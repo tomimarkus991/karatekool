@@ -47,6 +47,21 @@ export interface Person {
   email: string;
 }
 
+/** Someone acting against the backend: a signed-up person, or a visitor who is not signed in */
+export type Actor = Person | "visitor";
+
+/**
+ * Calls made straight to the backend, bypassing the site. Each resolves to true when the
+ * backend carried the call out and false when it refused.
+ */
+export interface DirectCalls {
+  createTraining(training: NewTraining): Promise<boolean>;
+  /** Changes the description of the Training that starts at `start` */
+  changeTrainingDescription(start: string, description: string): Promise<boolean>;
+  /** Deletes the Training that starts at `start` */
+  deleteTraining(start: string): Promise<boolean>;
+}
+
 /**
  * Everything a scenario may ask of the backend. Backend-neutral on purpose: the same
  * scenarios run against Supabase now and Spring Boot later (docs/adr/0001).
@@ -65,6 +80,8 @@ export interface TestBackend {
   aMember(preferences?: MemberPreferences): Promise<Person>;
   /** An Admin on the Whitelist, signed in to the browser */
   anAdmin(): Promise<Person>;
+  /** Direct backend calls made as `actor`, to check who may change what */
+  attemptAs(actor: Actor): DirectCalls;
   /** The newest email sent to `address`, or undefined if none arrived. */
   lastMailTo(address: string): Promise<Mail | undefined>;
   /** Every email sent to `address`, newest first. */

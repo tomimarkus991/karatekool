@@ -7,6 +7,8 @@ import type { GroupLetters } from "../../../src/types/types";
 
 import { mailpit, rateLimitStore } from "./local-services";
 import type {
+  Actor,
+  DirectCalls,
   MemberPreferences,
   NewAllDayEvent,
   NewMultiDayEvent,
@@ -142,6 +144,69 @@ export const supabaseBackend = (browser: BrowserContext, siteUrl: string): TestB
     return { email };
   };
 
+  // A client acting as `actor` with the public key, exactly as a browser could
+  const clientFor = async (actor: Actor) => {
+    const client = createClient<Database>(url, required("NEXT_PUBLIC_SUPABASE_ANON_KEY"), {
+      auth: { persistSession: false },
+    });
+    if (actor !== "visitor") {
+      const { error } = await client.auth.signInWithPassword({
+        email: actor.email,
+        password: PASSWORD,
+      });
+      if (error) throw new Error(`sign in ${actor.email}: ${error.message}`);
+    }
+    return client;
+  };
+
+  // Row level security hides rows instead of failing, so a refused change or delete touches nothing
+  const attemptAs = (actor: Actor): DirectCalls => {
+    const client = clientFor(actor);
+
+    return {
+      async createTraining({ start, end, groups }) {
+        const { data: event, error } = await (await client)
+          .from("event")
+          .insert({ event_type: "NORMAL", start, normal_event_end: end })
+          .select("id")
+          .single();
+        if (error) return false;
+
+        const ids = await groupIds(groups);
+        const { error: groupError } = await (await client)
+          .from("event_group")
+          .insert(ids.map(group_id => ({ event_id: event.id, group_id })));
+        return !groupError;
+      },
+
+      async changeTrainingDescription(start, description) {
+        const { data, error } = await (await client)
+          .from("event")
+          .update({ description })
+          .eq("event_type", "NORMAL")
+          .eq("start", start)
+          .select("id");
+        return !error && data.length > 0;
+      },
+
+      async deleteTraining(start) {
+        const db = await client;
+        const { data: events } = await db
+          .from("event")
+          .select("id")
+          .eq("event_type", "NORMAL")
+          .eq("start", start);
+        const ids = (events ?? []).map(event => event.id);
+
+        // Children first, as the site does
+        await db.from("event_group").delete().in("event_id", ids);
+        await db.from("event_highlighted_group").delete().in("event_id", ids);
+        const { data, error } = await db.from("event").delete().in("id", ids).select("id");
+        return !error && data.length > 0;
+      },
+    };
+  };
+
   const trailerId = async (text: string) => {
     const { data, error } = await db.from("event_trailer").select("id").eq("text", text).single();
     if (error) throw new Error(`Trailer "${text}" is missing from seed data: ${error.message}`);
@@ -242,6 +307,8 @@ export const supabaseBackend = (browser: BrowserContext, siteUrl: string): TestB
       });
       if (eventError) throw new Error(eventError.message);
     },
+
+    attemptAs,
 
     aMember: (preferences = {}) => aPerson(null, preferences),
     anAdmin: () => aPerson("admin", {}),
