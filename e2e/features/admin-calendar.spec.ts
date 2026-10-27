@@ -284,46 +284,43 @@ test.describe("Admin manages the calendar", () => {
     });
   });
 
-  // Deleting a Multi-day event deletes every Multi-day event with the same title: the delete
-  // matches on the title's id, not the event's (useDeleteMultiDayCalendarEvent.tsx:15, called with
-  // multi_day_event.id from MultiDayEvent.tsx:62 and DayViewMultiDayEvent.tsx:56).
-  test.fixme(
-    "an Admin deletes one of two Multi-day events with the same title and the other stays",
-    async ({ page, backend }) => {
-      const calendar = calendarPage(page);
-      const dialog = eventDialog(page);
+  test("an Admin deletes one of two Multi-day events with the same title and the other stays", async ({
+    page,
+    backend,
+  }) => {
+    const calendar = calendarPage(page);
+    const dialog = eventDialog(page);
 
-      await Given("a Multi-day event Preset and a signed-in Admin", async () => {
-        await backend.aPreset({ kind: "multiDayEvent", title: "Kevadlaager" });
-        await backend.anAdmin();
-      });
+    await Given("a Multi-day event Preset and a signed-in Admin", async () => {
+      await backend.aPreset({ kind: "multiDayEvent", title: "Kevadlaager" });
+      await backend.anAdmin();
+    });
 
-      await Given("two Multi-day events from that Preset, 12–14 and 19–21 March", async () => {
-        for (const [firstDay, lastDay] of [
-          [12, 14],
-          [19, 21],
-        ]) {
-          // Sequential on purpose: each one is created in a freshly opened dialog
-          // eslint-disable-next-line no-await-in-loop
-          await calendar.open();
-          // eslint-disable-next-line no-await-in-loop
-          await calendar.createEvent();
-          // eslint-disable-next-line no-await-in-loop
-          await dialog.createMultiDayEvent({ firstDay, lastDay, title: "Kevadlaager" });
-        }
-      });
-
-      await When("the Admin deletes the first one", async () => {
+    await Given("two Multi-day events from that Preset, 12–14 and 19–21 March", async () => {
+      for (const [firstDay, lastDay] of [
+        [12, 14],
+        [19, 21],
+      ]) {
+        // Sequential on purpose: each one is created in a freshly opened dialog
+        // eslint-disable-next-line no-await-in-loop
         await calendar.open();
-        await calendar.deleteTitledEvent(calendar.day("2026-03-12"), "Kevadlaager");
-      });
+        // eslint-disable-next-line no-await-in-loop
+        await calendar.createEvent();
+        // eslint-disable-next-line no-await-in-loop
+        await dialog.createMultiDayEvent({ firstDay, lastDay, title: "Kevadlaager" });
+      }
+    });
 
-      await Then("a visitor still sees the second one", async () => {
-        await page.context().clearCookies();
-        await calendar.open();
-        await expect(calendar.day("2026-03-19")).toContainText("Kevadlaager");
-        await expect(calendar.day("2026-03-12")).not.toContainText("Kevadlaager");
-      });
-    },
-  );
+    await When("the Admin deletes the first one", async () => {
+      await calendar.open();
+      await calendar.deleteTitledEvent(calendar.day("2026-03-12"), "Kevadlaager");
+    });
+
+    await Then("a visitor still sees the second one", async () => {
+      await page.context().clearCookies();
+      await calendar.open();
+      await expect(calendar.day("2026-03-19")).toContainText("Kevadlaager");
+      await expect(calendar.day("2026-03-12")).not.toContainText("Kevadlaager");
+    });
+  });
 });
