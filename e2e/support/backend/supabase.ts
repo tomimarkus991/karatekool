@@ -1,10 +1,19 @@
+import type { BrowserContext } from "@playwright/test";
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { createClient } from "@supabase/supabase-js";
 
 import type { Database } from "../../../src/types/supabase";
 import type { GroupLetters } from "../../../src/types/types";
 
 import { mailpit, rateLimitStore } from "./local-services";
-import type { NewAllDayEvent, NewMultiDayEvent, NewTraining, TestBackend } from "./port";
+import type {
+  MemberPreferences,
+  NewAllDayEvent,
+  NewMultiDayEvent,
+  NewTraining,
+  Person,
+  TestBackend,
+} from "./port";
 
 const required = (name: string) => {
   const value = process.env[name];
@@ -22,6 +31,8 @@ const scenarioTables = [
   "event_preset",
 ] as const;
 
+const PASSWORD = "e2e-password";
+
 /** Midnight in Tallinn on an ISO date, as the site's date pickers store it */
 const tallinnMidnight = (isoDate: string) => {
   const noonUtc = new Date(`${isoDate}T12:00:00Z`);
@@ -35,7 +46,11 @@ const tallinnMidnight = (isoDate: string) => {
   return new Date(`${isoDate}T00:00:00${offset}`).toISOString();
 };
 
-export const supabaseBackend = (): TestBackend => {
+/**
+ * @param browser where signed-in people end up
+ * @param siteUrl the site's address, which the session cookies belong to
+ */
+export const supabaseBackend = (browser: BrowserContext, siteUrl: string): TestBackend => {
   const url = required("NEXT_PUBLIC_SUPABASE_URL");
   // reset() deletes everything, so never point it at the hosted project
   const { hostname } = new URL(url);
@@ -72,6 +87,61 @@ export const supabaseBackend = (): TestBackend => {
     });
   };
 
+  // Signs in the way the site's server does and hands the resulting session cookies to the browser.
+  // The auth helpers write the cookies themselves, so their format is never spelled out here.
+  const signIn = async (email: string) => {
+    const jar = new Map<string, string>();
+    const cookies = {
+      get: (name: string) => (jar.has(name) ? { name, value: jar.get(name) } : undefined),
+      set: (name: string, value: string) => jar.set(name, value),
+    };
+    const { auth } = createRouteHandlerClient<Database>(
+      // A stand-in for Next's cookie store; the helpers only call get and set
+      { cookies: () => cookies as never },
+      { supabaseUrl: url, supabaseKey: required("NEXT_PUBLIC_SUPABASE_ANON_KEY") },
+    );
+    const { error } = await auth.signInWithPassword({ email, password: PASSWORD });
+    if (error) throw new Error(`sign in ${email}: ${error.message}`);
+
+    await browser.addCookies(
+      Array.from(jar.entries())
+        .filter(([, value]) => value)
+        .map(([name, value]) => ({ name, value, url: siteUrl })),
+    );
+  };
+
+  let people = 0;
+  const aPerson = async (
+    role: "admin" | null,
+    { group, calendarType }: MemberPreferences,
+  ): Promise<Person> => {
+    people += 1;
+    const email = `${role ?? "member"}${people}@example.com`;
+
+    // Sign-up is refused for addresses that are not on the Whitelist
+    const { error: whitelistError } = await db.from("email_whitelist").insert({ email });
+    if (whitelistError) throw new Error(whitelistError.message);
+
+    const { data, error } = await db.auth.admin.createUser({
+      email,
+      password: PASSWORD,
+      email_confirm: true,
+    });
+    if (error) throw new Error(`create ${email}: ${error.message}`);
+
+    const { error: profileError } = await db.from("profile").insert({
+      id: data.user.id,
+      username: email.split("@")[0],
+      role,
+      group: group ?? null,
+      calendar_type: calendarType ?? null,
+    });
+    if (profileError) throw new Error(profileError.message);
+
+    await signIn(email);
+    return { email };
+  };
+
   const trailerId = async (text: string) => {
     const { data, error } = await db.from("event_trailer").select("id").eq("text", text).single();
     if (error) throw new Error(`Trailer "${text}" is missing from seed data: ${error.message}`);
@@ -86,6 +156,15 @@ export const supabaseBackend = (): TestBackend => {
         const { error } = await db.from(table).delete().gte("id", 0);
         if (error) throw new Error(`reset ${table}: ${error.message}`);
       }
+
+      const { error: profileError } = await db.from("profile").delete().not("id", "is", null);
+      if (profileError) throw new Error(`reset profile: ${profileError.message}`);
+      const { error: whitelistError } = await db.from("email_whitelist").delete().gte("id", 0);
+      if (whitelistError) throw new Error(`reset email_whitelist: ${whitelistError.message}`);
+      const { data, error: listError } = await db.auth.admin.listUsers({ perPage: 1000 });
+      if (listError) throw new Error(`reset auth users: ${listError.message}`);
+      await Promise.all(data.users.map(user => db.auth.admin.deleteUser(user.id)));
+
       await Promise.all([mail.clear(), rateLimit.clear()]);
     },
 
@@ -163,6 +242,9 @@ export const supabaseBackend = (): TestBackend => {
       });
       if (eventError) throw new Error(eventError.message);
     },
+
+    aMember: (preferences = {}) => aPerson(null, preferences),
+    anAdmin: () => aPerson("admin", {}),
 
     lastMailTo: address => mail.lastMailTo(address),
   };

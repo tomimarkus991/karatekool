@@ -23,6 +23,9 @@ export const calendarPage = (page: Page) => {
     open: ({ group }: { group?: GroupLetters } = {}) =>
       page.goto(group ? `/karateka?group=${group}` : "/karateka"),
 
+    /** Opens the Event dialog on today's date; only Admins have this button */
+    createEvent: () => page.getByRole("button", { name: "Loo trenn" }).click(),
+
     showGroup: (letter: GroupLetters) =>
       page.getByRole("button", { name: `Näita ${letter} grupi trenne` }).click(),
 
