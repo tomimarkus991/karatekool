@@ -158,6 +158,15 @@ export const eventDialog = (page: Page) => {
       );
     },
 
+    /** The Multi-day event Presets offered in the title list, in the order shown */
+    multiDayEventPresets: async () => {
+      const panel = await openTab("Mitme päevane sündmus");
+      await titleBox(panel).click();
+      const options = panel.getByRole("option");
+      await expect(options.first()).toBeVisible();
+      return options.allInnerTexts();
+    },
+
     /** Saves a new Multi-day event Preset by typing a title nobody has used yet */
     saveMultiDayEventPreset: async (title: string) => {
       const panel = await openTab("Mitme päevane sündmus");

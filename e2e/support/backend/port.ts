@@ -82,6 +82,9 @@ export interface DirectCalls {
   changeTrainingDescription(start: string, description: string): Promise<boolean>;
   /** Deletes the Training that starts at `start` */
   deleteTraining(start: string): Promise<boolean>;
+  savePreset(preset: NewPreset): Promise<boolean>;
+  /** Deletes the Training Preset at the same time, or the Multi-day event Preset with the same title */
+  deletePreset(preset: NewPreset): Promise<boolean>;
 }
 
 /**

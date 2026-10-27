@@ -209,6 +209,37 @@ export const supabaseBackend = (browser: BrowserContext, siteUrl: string): TestB
         return !error && data.length > 0;
       },
 
+      async savePreset(preset) {
+        const actorClient = await client;
+        if (preset.kind === "multiDayEvent") {
+          const { error } = await actorClient
+            .from("multi_day_event")
+            .insert({ title: preset.title });
+          return !error;
+        }
+        const { error } = await actorClient.from("event_preset").insert({
+          start: tallinnTime(PRESET_DATE, preset.time),
+          group_ids: await groupIds(preset.groups),
+        });
+        return !error;
+      },
+
+      async deletePreset(preset) {
+        const actorClient = await client;
+        const { data, error } =
+          preset.kind === "multiDayEvent"
+            ? await actorClient
+                .from("multi_day_event")
+                .delete()
+                .eq("title", preset.title)
+                .select("id")
+            : await actorClient
+                .from("event_preset")
+                .delete()
+                .eq("start", tallinnTime(PRESET_DATE, preset.time))
+                .select("id");
+        return !error && data.length > 0;
+      },
     };
   };
 
