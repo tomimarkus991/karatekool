@@ -28,60 +28,63 @@ export const useCreateCalendarEvent = () => {
     groupIds = [],
     highlightedGroupIds = [],
   }: Props) => {
-    // create as many events as there are rows in selectedStartDates
-    selectedStartDates.forEach(async start => {
-      const createEventRes = await supabase
-        .from("event")
-        .upsert({
-          id,
-          start,
-          is_highlighted: isHighlighted,
-          trailer_id: trailerId,
-          normal_event_end: normalEventEnd,
-          description,
-          event_type: "NORMAL",
-        })
-        .select()
-        .single();
+    // create as many events as there are rows in selectedStartDates, and only report success
+    // once every one of them and its groups is saved
+    await Promise.all(
+      selectedStartDates.map(async start => {
+        const createEventRes = await supabase
+          .from("event")
+          .upsert({
+            id,
+            start,
+            is_highlighted: isHighlighted,
+            trailer_id: trailerId,
+            normal_event_end: normalEventEnd,
+            description,
+            event_type: "NORMAL",
+          })
+          .select()
+          .single();
 
-      if (createEventRes.error) {
-        toast.error(createEventRes.error.message);
-        throw new Error(createEventRes.error.message);
-      }
+        if (createEventRes.error) {
+          toast.error(createEventRes.error.message);
+          throw new Error(createEventRes.error.message);
+        }
 
-      if (id) {
-        await supabase.from("event_group").delete().eq("event_id", id);
-        await supabase.from("event_highlighted_group").delete().eq("event_id", id);
+        if (id) {
+          await supabase.from("event_group").delete().eq("event_id", id);
+          await supabase.from("event_highlighted_group").delete().eq("event_id", id);
 
-        await supabase.from("event_group").insert(
-          groupIds.map(groupId => ({
-            event_id: id,
-            group_id: groupId,
-          })),
-        );
+          await supabase.from("event_group").insert(
+            groupIds.map(groupId => ({
+              event_id: id,
+              group_id: groupId,
+            })),
+          );
 
-        await supabase.from("event_highlighted_group").insert(
-          highlightedGroupIds.map(groupId => ({
-            event_id: id,
-            highlighted_group_id: groupId,
-          })),
-        );
-      } else if (createEventRes.data.id) {
-        await supabase.from("event_group").insert(
-          groupIds.map(groupId => ({
-            event_id: createEventRes.data.id,
-            group_id: groupId,
-          })),
-        );
+          await supabase.from("event_highlighted_group").insert(
+            highlightedGroupIds.map(groupId => ({
+              event_id: id,
+              highlighted_group_id: groupId,
+            })),
+          );
+        } else if (createEventRes.data.id) {
+          await supabase.from("event_group").insert(
+            groupIds.map(groupId => ({
+              event_id: createEventRes.data.id,
+              group_id: groupId,
+            })),
+          );
 
-        await supabase.from("event_highlighted_group").insert(
-          highlightedGroupIds.map(groupId => ({
-            event_id: createEventRes.data.id,
-            highlighted_group_id: groupId,
-          })),
-        );
-      }
-    });
+          await supabase.from("event_highlighted_group").insert(
+            highlightedGroupIds.map(groupId => ({
+              event_id: createEventRes.data.id,
+              highlighted_group_id: groupId,
+            })),
+          );
+        }
+      }),
+    );
   };
 
   return useMutation({
