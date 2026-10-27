@@ -96,6 +96,43 @@ test.describe("Admin manages the calendar", () => {
     });
   });
 
+  test("an Admin removes a Training's trailer and visitors no longer see it", async ({
+    page,
+    backend,
+  }) => {
+    const calendar = calendarPage(page);
+    const dialog = eventDialog(page);
+
+    await Given("a Group A Training on 10 March at 18:00 with the exam trailer", async () => {
+      await backend.aTraining({
+        start: "2026-03-10T18:00:00+02:00",
+        end: "2026-03-10T19:30:00+02:00",
+        groups: ["A"],
+        trailer: "- EKSAM",
+      });
+      await backend.anAdmin();
+    });
+
+    await When("the Admin opens the Training to edit it", async () => {
+      await calendar.open({ group: "A" });
+      await calendar.editTraining(calendar.day("2026-03-10"), "18:00");
+    });
+
+    await Then("the exam trailer is shown as picked", async () => {
+      expect(await dialog.pickedTrailer()).toBe("- EKSAM");
+    });
+
+    await When("they remove the trailer and save", () => dialog.updateTraining({ trailer: null }));
+
+    await Then("a visitor sees the Training without the trailer", async () => {
+      await page.context().clearCookies();
+      await calendar.open({ group: "A" });
+      const day = calendar.day("2026-03-10");
+      await expect(day).toContainText(/18:00\s*A/);
+      await expect(day).not.toContainText("- EKSAM");
+    });
+  });
+
   test("an Admin edits a Training's time and Groups and visitors see the change", async ({
     page,
     backend,

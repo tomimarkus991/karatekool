@@ -19,7 +19,7 @@ export const useGetCurrentMonthEvents = (
     id,start,is_highlighted,long_event_end,normal_event_end,event_type,description,
     all_day_event (id, title, sub_title),
     multi_day_event (id, title),
-    event_trailer (text),
+    event_trailer (id, text),
     group (id, letter, highlighted),
     highlighted_group (id, letter, highlighted)
     `,
