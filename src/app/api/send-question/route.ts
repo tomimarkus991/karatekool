@@ -11,6 +11,8 @@ const rateLimit = new Ratelimit({
   redis: Redis.fromEnv(),
   limiter: Ratelimit.slidingWindow(5, "1 d"),
   analytics: true,
+  // The default in-memory cache of blocked emails outlives the E2E reset, which only clears Redis
+  ephemeralCache: process.env.E2E === "1" ? false : undefined,
 });
 
 export async function POST(req: Request) {
