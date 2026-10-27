@@ -80,6 +80,8 @@ export interface TestBackend {
   aMember(preferences?: MemberPreferences): Promise<Person>;
   /** An Admin on the Whitelist, signed in to the browser */
   anAdmin(): Promise<Person>;
+  /** Signs an existing person in to the browser again, keeping everything saved for them */
+  signIn(person: Person): Promise<void>;
   /** Direct backend calls made as `actor`, to check who may change what */
   attemptAs(actor: Actor): DirectCalls;
   /** The newest email sent to `address`, or undefined if none arrived. */

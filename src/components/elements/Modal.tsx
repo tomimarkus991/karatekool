@@ -31,7 +31,7 @@ interface ModalHeaderProps {
 export const ModalHeader = ({ children, setOpen, type }: ModalHeaderProps) => (
   <ModalHeaderContainer>
     {type === "back" ? (
-      <div role="button" tabIndex={0} onClick={() => setOpen(false)}>
+      <div role="button" aria-label="Tagasi" tabIndex={0} onClick={() => setOpen(false)}>
         <AnimationWrapper key="modal-header-left-arrow-icon" variants={animations.rotate360}>
           <HiArrowLeft className="w-8 h-8 fill-slate-700 hover:fill-slate-800" />
         </AnimationWrapper>
@@ -42,7 +42,7 @@ export const ModalHeader = ({ children, setOpen, type }: ModalHeaderProps) => (
 
     <ModalTitle>{children}</ModalTitle>
     {type === "close" ? (
-      <div role="button" tabIndex={0} onClick={() => setOpen(false)}>
+      <div role="button" aria-label="Sulge" tabIndex={0} onClick={() => setOpen(false)}>
         <AnimationWrapper key="modal-header-x-icon" variants={animations.rotate360}>
           <HiX className="w-8 h-8 fill-stone-700 hover:fill-stone-800" />
         </AnimationWrapper>

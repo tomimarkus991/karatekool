@@ -23,7 +23,7 @@ export const UserProfile = ({ avatar, username, role, group }: Props) => {
 
   return (
     <Popover>
-      <PopoverTrigger>
+      <PopoverTrigger aria-label="Profiil">
         <AnimationWrapper variants={animations.button} key="ntm-user-icon">
           <Image
             width="0"
@@ -65,8 +65,10 @@ export const UserProfile = ({ avatar, username, role, group }: Props) => {
                 }}
               >
                 <div className="flex items-center justify-start py-2 pl-4 rounded-lg hover:bg-gray-100">
-                  <IoMdSettings className="w-4 h-4 ml-4 mr-8 fill-[#b4b4b4]" />
-                  <p className="text-sm text-semibold text-[#818181]">Seaded</p>
+                  <button className="flex flex-row items-center">
+                    <IoMdSettings className="w-4 h-4 ml-4 mr-8 fill-[#b4b4b4]" />
+                    <p className="text-sm text-semibold text-[#818181]">Seaded</p>
+                  </button>
                 </div>
               </AnimationWrapper>
             }

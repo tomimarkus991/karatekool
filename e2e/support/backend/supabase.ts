@@ -312,6 +312,7 @@ export const supabaseBackend = (browser: BrowserContext, siteUrl: string): TestB
 
     aMember: (preferences = {}) => aPerson(null, preferences),
     anAdmin: () => aPerson("admin", {}),
+    signIn: ({ email }) => signIn(email),
 
     lastMailTo: address => mail.lastMailTo(address),
     mailsTo: address => mail.mailsTo(address),
