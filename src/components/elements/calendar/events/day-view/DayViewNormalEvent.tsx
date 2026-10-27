@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import {
   DeleteEventPopoverContent,
   MapGroupLetter,
-  MapHighLightedGroupLetter,
   NormalEventDisplay,
   NormalEventTime,
 } from "@/components";
@@ -24,14 +23,7 @@ const calculatePosition = (currentHour: number, currentMinutes: number): number 
   56 * (currentHour - 9.4) + currentMinutes * 1.1;
 
 export const DayViewNormalEvent = ({ event, date }: Props) => {
-  const {
-    group: groups,
-    event_trailer,
-    highlighted_group: highlightedGroups,
-    description,
-    event_type,
-    id,
-  } = event;
+  const { group: groups, event_trailer, description, event_type, id } = event;
   const start = parseISO(event.start);
   const { letter } = useCalendarFilters();
   const { mutate: deleteEvent } = useDeleteNormalCalendarEvent();
@@ -51,11 +43,7 @@ export const DayViewNormalEvent = ({ event, date }: Props) => {
   }
 
   // if filter is all show all groups
-  if (
-    letter !== "all" &&
-    !(groups.filter(group => group?.letter === letter).length > 0) &&
-    !(highlightedGroups.filter(highlightedGroup => highlightedGroup?.letter === letter).length > 0)
-  ) {
+  if (letter !== "all" && !groups.some(group => group?.letter === letter)) {
     return <></>;
   }
 
@@ -86,7 +74,6 @@ export const DayViewNormalEvent = ({ event, date }: Props) => {
             />
             <div className={cn("flex justify-center items-center")}>
               <MapGroupLetter groups={groups} dayView />
-              <MapHighLightedGroupLetter highlightedGroups={highlightedGroups} dayView />
               {event_trailer?.text && (
                 <p className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] font-number font-semibold text-center">
                   {event_trailer?.text}
@@ -107,7 +94,6 @@ export const DayViewNormalEvent = ({ event, date }: Props) => {
           event={event}
           eventTrailer={event_trailer}
           groups={groups}
-          highlightedGroups={highlightedGroups}
         />
       </DeleteEventPopoverContent>
     </Popover>

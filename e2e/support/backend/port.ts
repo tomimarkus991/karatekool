@@ -5,8 +5,6 @@ export interface NewTraining {
   start: string;
   end: string;
   groups: GroupLetters[];
-  /** Groups shown with a Highlight; a Group is either here or in `groups` */
-  highlightedGroups?: GroupLetters[];
   highlightedTime?: boolean;
   description?: string;
   /** One of the club's standard trailer texts, e.g. "- EKSAM" */
@@ -27,27 +25,10 @@ export interface NewMultiDayEvent {
   title: string;
 }
 
-/** A saved Training an Admin picks to fill in the Training form */
-export interface NewTrainingPreset {
-  kind: "training";
-  /** Start time in Tallinn, e.g. "18:00" */
-  time: string;
-  groups: GroupLetters[];
-  /** Groups shown with a Highlight; a Group is either here or in `groups` */
-  highlightedGroups?: GroupLetters[];
-  highlightedTime?: boolean;
-  description?: string;
-  /** One of the club's standard trailer texts, e.g. "- EKSAM" */
-  trailer?: string;
-}
-
 /** A saved Multi-day event title an Admin picks when creating a Multi-day event */
-export interface NewMultiDayEventPreset {
-  kind: "multiDayEvent";
+export interface NewPreset {
   title: string;
 }
-
-export type NewPreset = NewTrainingPreset | NewMultiDayEventPreset;
 
 /** An email the site sent, as the recipient's inbox shows it. */
 export interface Mail {
@@ -83,7 +64,7 @@ export interface DirectCalls {
   /** Deletes the Training that starts at `start` */
   deleteTraining(start: string): Promise<boolean>;
   savePreset(preset: NewPreset): Promise<boolean>;
-  /** Deletes the Training Preset at the same time, or the Multi-day event Preset with the same title */
+  /** Deletes the Preset with the same title */
   deletePreset(preset: NewPreset): Promise<boolean>;
 }
 

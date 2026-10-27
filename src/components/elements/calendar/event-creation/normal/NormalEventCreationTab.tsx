@@ -13,7 +13,7 @@ import {
   RealButton,
   animations,
 } from "@/components";
-import { useCreateCalendarEvent, useCreateEventPreset } from "@/hooks";
+import { useCreateCalendarEvent } from "@/hooks";
 import { EventData } from "@/types";
 
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "../../../Popover";
@@ -54,7 +54,7 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
     // startHour: event ? Number(event.start.split("T")[1].split(":")[0]) : 18,
     // startMinute: event ? Number(event.start.split("T")[1].split(":")[1]) : 0,
     selectedStartDates: event ? [new Date(event.start)] : [new Date()],
-    selectedGroups: event ? [...event.group, ...event.highlighted_group] : ([] as any),
+    selectedGroups: event ? event.group : ([] as any),
     trailer: event && event.event_trailer !== null ? event.event_trailer : {},
     description: event?.description || "",
     isHighlighted: event?.is_highlighted || false,
@@ -81,7 +81,6 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
 
   const { mutate: createNewNormalCalendarEvent } = useCreateCalendarEvent();
 
-  const { mutate: createEventPreset } = useCreateEventPreset();
   return (
     <Formik
       initialValues={normalEventInitialValues}
@@ -102,12 +101,7 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
       ) => {
         setSubmitting(true);
 
-        const groupIds =
-          selectedGroups?.filter(group => !group.highlighted).map(group => group.id as number) ||
-          [];
-
-        const highlightedGroupIds =
-          selectedGroups?.filter(group => group.highlighted).map(group => group.id as number) || [];
+        const groupIds = selectedGroups?.map(group => group.id as number) || [];
 
         const startDates = selectedStartDates.map(date => {
           return mergeDateAndTime(date as Date, startTime).toISOString();
@@ -117,7 +111,6 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
           id: event?.id,
           normalEventEnd: endTime,
           groupIds,
-          highlightedGroupIds,
           description,
           trailerId: trailer.id,
           isHighlighted,
@@ -137,12 +130,6 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
             <div className="flex flex-col justify-between sm2:flex-row max-h-[35rem] md:max-h-[50rem] scrollbar-overflow px-5 py-10">
               {/* left side */}
               <div className="flex flex-col p-6 mb-6 md:shadow-lg sm2:mb-0 rounded-2xl md:ring-1 ring-gray-50 focus:outline-none">
-                {/* <div className="self-center mb-4">
-                  <Presets
-                    setValues={setValues}
-                    currentPickedStartDate={values.selectedStartDates}
-                  />
-                </div> */}
                 <div className="flex flex-row justify-around my-4">
                   <div className="pt-2">
                     {/* add popover with some preset times and form to add time */}
@@ -377,35 +364,6 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
                 <RealButton type="submit" isValid={isValid} className="mt-8" variant="orange">
                   {event ? "Uuenda" : "Loo"}
                 </RealButton>
-                {!event && (
-                  <RealButton
-                    className="mt-4"
-                    variant="light"
-                    onClick={() => {
-                      const groupIds = values.selectedGroups
-                        .filter(group => !group.highlighted)
-                        .map(group => group.id as number);
-
-                      const highlightedGroupIds = values.selectedGroups
-                        .filter(group => group.highlighted)
-                        .map(group => group.id as number);
-
-                      createEventPreset({
-                        description: values.description || null,
-                        group_ids: groupIds,
-                        highlighted_group_ids: highlightedGroupIds,
-                        start: mergeDateAndTime(
-                          values.selectedStartDates[0] || new Date(),
-                          values.startTime,
-                        ).toISOString(),
-                        trailer_id: values.trailer.id || null,
-                        is_highlighted: values.isHighlighted,
-                      });
-                    }}
-                  >
-                    Loo preset
-                  </RealButton>
-                )}
               </div>
             </div>
           </Form>

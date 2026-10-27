@@ -4,20 +4,12 @@ import { Given, Then, When } from "../support/bdd";
 import { expect, test } from "../support/fixtures";
 
 test.describe("Admin uses Presets", () => {
-  // The Training Preset picker ("Vali valmis üritus", Presets.tsx) is commented out in
-  // NormalEventCreationTab.tsx:141, so an Admin cannot fill the Training form from a Preset today.
-  // backend.aPreset({ kind: "training", ... }) is ready for this scenario.
-  test.fixme(
-    "an Admin creates a Training from a Preset and it appears with the Preset's time, Groups, Highlights and trailer",
-    async () => {},
-  );
-
   test("an Admin creates a Multi-day event from a Preset", async ({ page, backend }) => {
     const calendar = calendarPage(page);
     const dialog = eventDialog(page);
 
     await Given("a Multi-day event Preset and a signed-in Admin on the calendar", async () => {
-      await backend.aPreset({ kind: "multiDayEvent", title: "Kevadlaager" });
+      await backend.aPreset({ title: "Kevadlaager" });
       await backend.anAdmin();
       await calendar.open();
     });
@@ -67,16 +59,4 @@ test.describe("Admin uses Presets", () => {
       await expect(calendar.day("2026-03-12")).toContainText("Suvelaager");
     });
   });
-
-  // "Loo preset" in the Training tab saves a Training Preset, but the picker that would offer it
-  // (Presets.tsx) is commented out in NormalEventCreationTab.tsx:141, so it can never be picked.
-  test.fixme(
-    "an Admin saves a Training as a Preset and can then pick it when creating a Training",
-    async () => {},
-  );
-
-  // Training Presets are deleted only from the picker in Presets.tsx, which is commented out in
-  // NormalEventCreationTab.tsx:141. Multi-day event Presets (the titles offered in the Multi-day
-  // event tab, ComboboxEventCreationMultiDayEvent.tsx) have no way to be deleted at all.
-  test.fixme("an Admin deletes a Preset and it is no longer offered", async () => {});
 });

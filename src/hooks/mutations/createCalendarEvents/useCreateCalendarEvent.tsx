@@ -10,7 +10,6 @@ interface Props {
   normalEventEnd?: string;
   description?: string;
   groupIds?: number[];
-  highlightedGroupIds?: number[];
   selectedStartDates: string[];
 }
 
@@ -26,7 +25,6 @@ export const useCreateCalendarEvent = () => {
     normalEventEnd,
     description,
     groupIds = [],
-    highlightedGroupIds = [],
   }: Props) => {
     // create as many events as there are rows in selectedStartDates, and only report success
     // once every one of them and its groups is saved
@@ -62,22 +60,12 @@ export const useCreateCalendarEvent = () => {
 
         if (id) {
           throwIfFailed(await supabase.from("event_group").delete().eq("event_id", id));
-          throwIfFailed(await supabase.from("event_highlighted_group").delete().eq("event_id", id));
         }
 
         throwIfFailed(
           await supabase
             .from("event_group")
             .insert(groupIds.map(groupId => ({ event_id: eventId, group_id: groupId }))),
-        );
-
-        throwIfFailed(
-          await supabase.from("event_highlighted_group").insert(
-            highlightedGroupIds.map(groupId => ({
-              event_id: eventId,
-              highlighted_group_id: groupId,
-            })),
-          ),
         );
       }),
     );

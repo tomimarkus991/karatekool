@@ -144,7 +144,6 @@ const NormalEvent = object().shape({
       object().shape({
         id: number().required(),
         letter: string().required(),
-        highlighted: boolean().required(),
       }),
     )
     .default([])

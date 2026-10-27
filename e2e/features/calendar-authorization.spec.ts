@@ -18,14 +18,8 @@ test.describe("Only Admins can change the calendar", () => {
     groups: ["A" as const],
   };
 
-  const existingTrainingPreset = {
-    kind: "training" as const,
-    time: "18:00",
-    groups: ["A" as const],
-  };
-  const existingMultiDayPreset = { kind: "multiDayEvent" as const, title: "Suvelaager" };
-  const newTrainingPreset = { kind: "training" as const, time: "17:00", groups: ["A" as const] };
-  const newMultiDayPreset = { kind: "multiDayEvent" as const, title: "Talvelaager" };
+  const existingMultiDayPreset = { title: "Suvelaager" };
+  const newMultiDayPreset = { title: "Talvelaager" };
 
   for (const who of ["a Member who is not an Admin", "a visitor"] as const) {
     test(`${who} is refused when changing Events directly`, async ({ page, backend }) => {
@@ -60,8 +54,7 @@ test.describe("Only Admins can change the calendar", () => {
       const calendar = calendarPage(page);
       const dialog = eventDialog(page);
 
-      await Given("a Training Preset and a Multi-day event Preset called Suvelaager", async () => {
-        await backend.aPreset(existingTrainingPreset);
+      await Given("a Multi-day event Preset called Suvelaager", async () => {
         await backend.aPreset(existingMultiDayPreset);
       });
       const actor = await Given(who, async () =>
@@ -70,13 +63,10 @@ test.describe("Only Admins can change the calendar", () => {
 
       const attempt = backend.attemptAs(actor);
       await When("they try to save and delete Presets directly", async () => {
-        expect(await attempt.savePreset(newTrainingPreset), "save Training").toBe(false);
-        expect(await attempt.savePreset(newMultiDayPreset), "save Multi-day").toBe(false);
-        expect(await attempt.deletePreset(existingTrainingPreset), "delete Training").toBe(false);
-        expect(await attempt.deletePreset(existingMultiDayPreset), "delete Multi-day").toBe(false);
+        expect(await attempt.savePreset(newMultiDayPreset), "save").toBe(false);
+        expect(await attempt.deletePreset(existingMultiDayPreset), "delete").toBe(false);
       });
 
-      // Training Presets have no picker on the site today (Presets.tsx is commented out)
       await Then("an Admin is offered only the existing Multi-day event Preset", async () => {
         await page.context().clearCookies();
         await backend.anAdmin();
@@ -149,18 +139,15 @@ test.describe("Only Admins can change the calendar", () => {
     const calendar = calendarPage(page);
     const dialog = eventDialog(page);
 
-    await Given("a Training Preset and a Multi-day event Preset called Suvelaager", async () => {
-      await backend.aPreset(existingTrainingPreset);
+    await Given("a Multi-day event Preset called Suvelaager", async () => {
       await backend.aPreset(existingMultiDayPreset);
     });
     const admin = await Given("an Admin", () => backend.anAdmin());
 
     const attempt = backend.attemptAs(admin);
-    await When("they save new Presets and delete the existing ones directly", async () => {
-      expect(await attempt.savePreset(newTrainingPreset), "save Training").toBe(true);
-      expect(await attempt.savePreset(newMultiDayPreset), "save Multi-day").toBe(true);
-      expect(await attempt.deletePreset(existingTrainingPreset), "delete Training").toBe(true);
-      expect(await attempt.deletePreset(existingMultiDayPreset), "delete Multi-day").toBe(true);
+    await When("they save a new Preset and delete the existing one directly", async () => {
+      expect(await attempt.savePreset(newMultiDayPreset), "save").toBe(true);
+      expect(await attempt.deletePreset(existingMultiDayPreset), "delete").toBe(true);
     });
 
     await Then("the Admin is offered only the new Multi-day event Preset", async () => {

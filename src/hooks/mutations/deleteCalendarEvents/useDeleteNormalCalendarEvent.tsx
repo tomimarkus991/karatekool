@@ -19,6 +19,8 @@ export const useDeleteNormalCalendarEvent = () => {
       throw new Error(eventGroupRes.error.message);
     }
 
+    // Highlighted Groups are gone from the site, but older Trainings may still have rows here,
+    // which would block deleting the Training
     const eventHighlightedGroupRes = await supabase
       .from("event_highlighted_group")
       .delete()
