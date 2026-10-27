@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import type { Database } from "../../../src/types/supabase";
 import type { GroupLetters } from "../../../src/types/types";
 
+import { mailpit, rateLimitStore } from "./local-services";
 import type { NewAllDayEvent, NewMultiDayEvent, NewTraining, TestBackend } from "./port";
 
 const required = (name: string) => {
@@ -45,6 +46,8 @@ export const supabaseBackend = (): TestBackend => {
   const db = createClient<Database>(url, required("SUPABASE_SERVICE_ROLE_KEY"), {
     auth: { persistSession: false },
   });
+  const mail = mailpit();
+  const rateLimit = rateLimitStore();
 
   const groupIds = async (letters: GroupLetters[]) => {
     const { data, error } = await db.from("group").select("id, letter").in("letter", letters);
@@ -83,6 +86,7 @@ export const supabaseBackend = (): TestBackend => {
         const { error } = await db.from(table).delete().gte("id", 0);
         if (error) throw new Error(`reset ${table}: ${error.message}`);
       }
+      await Promise.all([mail.clear(), rateLimit.clear()]);
     },
 
     async aTraining({
@@ -159,5 +163,7 @@ export const supabaseBackend = (): TestBackend => {
       });
       if (eventError) throw new Error(eventError.message);
     },
+
+    lastMailTo: address => mail.lastMailTo(address),
   };
 };

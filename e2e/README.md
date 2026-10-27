@@ -12,11 +12,22 @@ Needs Docker running.
 yarn                                # installs Playwright and the Supabase CLI
 npx playwright install chromium     # first time only
 npx supabase start                  # local Supabase from supabase/migrations + supabase/seed.sql
+docker compose -f e2e/docker-compose.yml up -d --wait   # Mailpit and the Redis stand-in
 yarn e2e                            # builds the site in production mode and runs every scenario
 ```
 
 Playwright reads the local Supabase URL and keys from `npx supabase status`, so there is no keys file.
 Tests refuse to run against anything other than a local Supabase, because every test wipes it.
+
+`e2e/docker-compose.yml` runs the other services the site talks to, and `e2e/local-services.json`
+points the web server and the tests at them (it always overrides your shell and `.env.local`):
+
+- **Mailpit** (SMTP on 1025, inbox at http://localhost:8025): with `E2E=1` the form routes send
+  email over SMTP here instead of through Resend. `backend.lastMailTo(address)` reads it.
+- **serverless-redis-http** on 8079, in front of a plain Redis: speaks the Upstash REST API, so the
+  forms' rate limiter runs unchanged.
+
+`reset()` empties both before every test. Stop them with `docker compose -f e2e/docker-compose.yml down`.
 
 While writing tests, keep a dev server pointed at the local stack and Playwright reuses it:
 
@@ -30,9 +41,9 @@ Do not run `yarn dev:e2e` and your normal `yarn dev` at the same time: both use 
 ## CI
 
 `.github/workflows/e2e.yml` runs the suite on every pull request to `main`: it starts local Supabase
-(database, auth, REST, storage only), builds the site and runs `yarn e2e`. On failure, download the
-`playwright-report` artifact and open it with `npx playwright show-report <folder>`; traces of failed
-tests are inside.
+(database, auth, REST, storage only) and `e2e/docker-compose.yml`, builds the site and runs `yarn e2e`.
+On failure, download the `playwright-report` artifact and open it with
+`npx playwright show-report <folder>`; traces of failed tests are inside.
 
 ## Layout
 

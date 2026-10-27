@@ -1,9 +1,12 @@
 import { defineConfig, devices } from "@playwright/test";
 
+import localServices from "./e2e/local-services.json";
 import { localSupabaseEnv } from "./e2e/support/local-supabase";
 
-// Make the local stack's URL and keys visible to the backend fixture and the web server
-Object.assign(process.env, localSupabaseEnv());
+// Make the local stack's URL and keys, and the Mailpit and Redis stand-ins from
+// e2e/docker-compose.yml, visible to the backend fixture and the web server.
+// The stand-ins always win over the shell so reset() can never flush a real Redis.
+Object.assign(process.env, localSupabaseEnv(), localServices);
 
 const baseURL = "http://localhost:3000";
 

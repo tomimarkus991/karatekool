@@ -6,11 +6,7 @@ on:
 
 env:
   E2E_BACKEND: supabase
-  # The form routes create their clients at import time, so the build needs placeholders.
-  # No scenario sends a form yet; the Mailpit and Upstash stand-in tickets replace these.
-  NEXT_PUBLIC_RESEND_API_KEY: re_placeholder
-  UPSTASH_REDIS_REST_URL: http://localhost:8079
-  UPSTASH_REDIS_REST_TOKEN: placeholder
+  # E2E=1, SMTP and Upstash settings come from e2e/local-services.json via playwright.config.ts
 
 jobs:
   e2e:
@@ -33,6 +29,9 @@ jobs:
       - name: Start local Supabase
         # Only the services the site uses: database, auth, REST API and storage
         run: npx supabase start -x studio,imgproxy,edge-runtime,logflare,vector,supavisor,realtime,postgres-meta,mailpit
+
+      - name: Start Mailpit and Redis stand-in
+        run: docker compose -f e2e/docker-compose.yml up -d --wait
 
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium

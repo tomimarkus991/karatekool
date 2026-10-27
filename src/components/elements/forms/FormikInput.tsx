@@ -86,6 +86,7 @@ export const FormikInput = forwardRef<HTMLInputElement, FormikInputProps>(
             )}
             autoFocus={false}
             autoComplete="off"
+            id={name}
             ref={ref}
             {...field}
             {...props}
@@ -135,6 +136,7 @@ export const FormikTextArea = forwardRef<HTMLTextAreaElement, FormikTextareaProp
             )}
             autoFocus={false}
             autoComplete="off"
+            id={name}
             ref={ref}
             {...field}
             {...props}

@@ -27,15 +27,29 @@ export interface NewMultiDayEvent {
   title: string;
 }
 
+/** An email the site sent, as the recipient's inbox shows it. */
+export interface Mail {
+  subject: string;
+  to: string[];
+  replyTo: string[];
+  /** Plain-text body */
+  body: string;
+}
+
 /**
  * Everything a scenario may ask of the backend. Backend-neutral on purpose: the same
  * scenarios run against Supabase now and Spring Boot later (docs/adr/0001).
  * Add operations only when a scenario needs them.
  */
 export interface TestBackend {
-  /** Remove everything scenarios create, leaving only reference data such as Groups. */
+  /**
+   * Remove everything scenarios create, leaving only reference data such as Groups.
+   * Also empties the test inbox and the rate limiter's store.
+   */
   reset(): Promise<void>;
   aTraining(training: NewTraining): Promise<void>;
   anAllDayEvent(event: NewAllDayEvent): Promise<void>;
   aMultiDayEvent(event: NewMultiDayEvent): Promise<void>;
+  /** The newest email sent to `address`, or undefined if none arrived. */
+  lastMailTo(address: string): Promise<Mail | undefined>;
 }
