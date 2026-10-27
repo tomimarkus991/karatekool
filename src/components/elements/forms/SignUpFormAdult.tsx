@@ -17,9 +17,11 @@ import { cn } from "@/lib";
 
 import { LoadingSpinner } from "../LoadingSpinner";
 
+import { requestErrorMessage } from "./requestError";
+
 export const SignUpFormAdult = () => {
   const [requestSuccess, setRequestSuccess] = useState(false);
-  const [requestError, setRequestError] = useState(false);
+  const [requestError, setRequestError] = useState<string | null>(null);
   const [initialValues] = useState<SignUpAdultFormValues>({
     firstName: "",
     lastName: "",
@@ -39,7 +41,7 @@ export const SignUpFormAdult = () => {
             validateOnChange={true}
             onSubmit={async (formData, { setSubmitting }) => {
               setSubmitting(true);
-              setRequestError(false);
+              setRequestError(null);
 
               const applicationSent = await fetch("/api/sign-up", {
                 method: "POST",
@@ -51,7 +53,12 @@ export const SignUpFormAdult = () => {
               if (applicationSent?.ok) {
                 setRequestSuccess(true);
               } else {
-                setRequestError(true);
+                setRequestError(
+                  requestErrorMessage(
+                    applicationSent,
+                    "Registreerimise saatmine ebaõnnestus. Palun proovi uuesti või kirjuta aadressil info@karatekool.ee",
+                  ),
+                );
               }
 
               setSubmitting(false);
@@ -127,8 +134,7 @@ export const SignUpFormAdult = () => {
                         </div>
                         {requestError && (
                           <p className="px-3 mb-4 text-sm font-medium text-center text-red-500">
-                            Registreerimise saatmine ebaõnnestus. Palun proovi uuesti või kirjuta
-                            aadressil info@karatekool.ee
+                            {requestError}
                           </p>
                         )}
                         <div className="flex justify-center pb-8">

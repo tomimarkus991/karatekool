@@ -18,6 +18,8 @@ import { cn } from "@/lib";
 
 import { LoadingSpinner } from "../LoadingSpinner";
 
+import { requestErrorMessage } from "./requestError";
+
 const sportTypeOptions = [
   { value: "main", label: "Põhiala" },
   { value: "secondary", label: "Kõrvalala" },
@@ -30,7 +32,7 @@ const parents = [
 
 export const SignUpFormUnderage = () => {
   const [requestSuccess, setRequestSuccess] = useState(false);
-  const [requestError, setRequestError] = useState(false);
+  const [requestError, setRequestError] = useState<string | null>(null);
   const [initialValues] = useState<SignUpUnderageFormValues>({
     firstName: "",
     lastName: "",
@@ -57,7 +59,7 @@ export const SignUpFormUnderage = () => {
             validateOnChange={true}
             onSubmit={async (formData, { setSubmitting }) => {
               setSubmitting(true);
-              setRequestError(false);
+              setRequestError(null);
 
               const applicationSent = await fetch("/api/sign-up", {
                 method: "POST",
@@ -69,7 +71,12 @@ export const SignUpFormUnderage = () => {
               if (applicationSent?.ok) {
                 setRequestSuccess(true);
               } else {
-                setRequestError(true);
+                setRequestError(
+                  requestErrorMessage(
+                    applicationSent,
+                    "Registreerimise saatmine ebaõnnestus. Palun proovi uuesti või kirjuta aadressil info@karatekool.ee",
+                  ),
+                );
               }
 
               setSubmitting(false);
@@ -264,8 +271,7 @@ export const SignUpFormUnderage = () => {
                         </div>
                         {requestError && (
                           <p className="px-3 mb-4 text-sm font-medium text-center text-red-500">
-                            Registreerimise saatmine ebaõnnestus. Palun proovi uuesti või kirjuta
-                            aadressil info@karatekool.ee
+                            {requestError}
                           </p>
                         )}
                         <div className="flex justify-center pb-8">

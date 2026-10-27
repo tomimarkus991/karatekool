@@ -20,6 +20,8 @@ import { cn } from "@/lib";
 
 import { LoadingSpinner } from "../LoadingSpinner";
 
+import { requestErrorMessage } from "./requestError";
+
 interface Props {
   requestSuccess: boolean;
   setRequestSuccess: (requestSuccess: boolean) => void;
@@ -27,7 +29,7 @@ interface Props {
 }
 
 export const QuestionForm = ({ requestSuccess, setRequestSuccess, setIsModalOpen }: Props) => {
-  const [requestError, setRequestError] = useState(false);
+  const [requestError, setRequestError] = useState<string | null>(null);
   const [initialValues] = useState<SendQuestionFormValues>({
     name: "",
     email: "",
@@ -44,7 +46,7 @@ export const QuestionForm = ({ requestSuccess, setRequestSuccess, setIsModalOpen
             validateOnChange={true}
             onSubmit={async (formData, { setSubmitting }) => {
               setSubmitting(true);
-              setRequestError(false);
+              setRequestError(null);
 
               const applicationSent = await fetch("/api/send-question", {
                 method: "POST",
@@ -56,7 +58,12 @@ export const QuestionForm = ({ requestSuccess, setRequestSuccess, setIsModalOpen
               if (applicationSent?.ok) {
                 setRequestSuccess(true);
               } else {
-                setRequestError(true);
+                setRequestError(
+                  requestErrorMessage(
+                    applicationSent,
+                    "Küsimuse saatmine ebaõnnestus. Palun proovi uuesti või kirjuta aadressil info@karatekool.ee",
+                  ),
+                );
               }
 
               setSubmitting(false);
@@ -74,7 +81,7 @@ export const QuestionForm = ({ requestSuccess, setRequestSuccess, setIsModalOpen
                       }}
                       key="form"
                     >
-                      <Form className={cn("flex flex-col")}>
+                      <div className="flex flex-col">
                         {setIsModalOpen ? (
                           <div className="flex flex-row items-center justify-between pl-3">
                             <p className="text-xl font-bold">Saada küsimus</p>
@@ -120,8 +127,7 @@ export const QuestionForm = ({ requestSuccess, setRequestSuccess, setIsModalOpen
                         </div>
                         {requestError && (
                           <p className="px-3 mb-4 text-sm font-medium text-center text-red-500">
-                            Küsimuse saatmine ebaõnnestus. Palun proovi uuesti või kirjuta aadressil
-                            info@karatekool.ee
+                            {requestError}
                           </p>
                         )}
                         <div className="flex justify-center pb-8">
@@ -134,7 +140,7 @@ export const QuestionForm = ({ requestSuccess, setRequestSuccess, setIsModalOpen
                             {isSubmitting ? <LoadingSpinner size={20} /> : "Saada küsimus"}
                           </RealButton>
                         </div>
-                      </Form>
+                      </div>
                     </motion.div>
                   ) : (
                     <motion.div

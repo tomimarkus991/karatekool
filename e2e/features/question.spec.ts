@@ -39,19 +39,45 @@ test.describe("Question", () => {
 
     await Given("a visitor on the Question form", () => form.open());
 
-    await When("they send a Question with no text and an invalid email", () =>
-      form.send({ name: "Kati Maasikas", email: "kati.example.com" }),
+    await When("they send a Question with no text, an invalid email and a two-letter name", () =>
+      form.send({ name: "Ka", email: "kati.example.com" }),
     );
 
-    await Then("the Question is marked as required and the email as invalid", async () => {
+    await Then("each field says in Estonian what to fix", async () => {
       await expect(form.field("Küsimus?")).toHaveAccessibleDescription("Vajalik");
       await expect(form.field("Email")).toHaveAccessibleDescription("Email peab olema päris");
-      await expect(form.field("Nimi")).toHaveAccessibleDescription("");
+      await expect(form.field("Nimi")).toHaveAccessibleDescription(
+        "Peab olema vähemalt 3 tähemärki",
+      );
     });
 
     await Then("the Question was not sent", async () => {
       await expect(form.confirmation()).toBeHidden();
       expect(await backend.lastMailTo(CLUB_INBOX)).toBeUndefined();
+    });
+  });
+
+  test("a Question sent around the form with missing fields is refused and does not count towards the daily limit", async ({
+    page,
+    backend,
+  }) => {
+    const form = questionFormPage(page);
+
+    await When("a script sends five Questions with Kati's email but no name or text", async () => {
+      for (let sent = 0; sent < 5; sent += 1) {
+        // eslint-disable-next-line no-await-in-loop
+        expect(await form.sendDirectly({ email: KATI_ASKS.email })).toBe(false);
+      }
+    });
+
+    await Then("the club received none of them", async () => {
+      expect(await backend.lastMailTo(CLUB_INBOX)).toBeUndefined();
+    });
+
+    await Then("Kati can still send a Question from the form", async () => {
+      await form.open();
+      await form.send(KATI_ASKS);
+      await expect(form.confirmation()).toBeVisible();
     });
   });
 
@@ -78,8 +104,8 @@ test.describe("Question", () => {
       await form.send(KATI_ASKS);
     });
 
-    await Then("they see that the Question was not sent", async () => {
-      await expect(form.failure()).toBeVisible();
+    await Then("they see that they have reached today's limit", async () => {
+      await expect(form.dailyLimit()).toBeVisible();
       await expect(form.confirmation()).toBeHidden();
     });
 

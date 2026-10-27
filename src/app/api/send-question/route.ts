@@ -1,8 +1,9 @@
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { NextResponse } from "next/server";
+import { ValidationError } from "yup";
 
-import { SendQuestionFormValues } from "../../../app-constants";
+import { YupSchemas } from "../../../app-constants";
 import { SendSupportQuestionEmailTemplate } from "../../../components/emails/SendSupportQuestion";
 import { sendToClub } from "../../../lib/mailer";
 
@@ -17,8 +18,9 @@ const rateLimit = new Ratelimit({
 
 export async function POST(req: Request) {
   try {
-    const requestBodyJson = (await req.json()) as SendQuestionFormValues;
-    const { email, name, question } = requestBodyJson;
+    const { email, name, question } = await YupSchemas.SendQuestionForm.validate(await req.json(), {
+      stripUnknown: true,
+    });
 
     const { success } = await rateLimit.limit(email.toLowerCase());
     if (!success) {
@@ -36,6 +38,10 @@ export async function POST(req: Request) {
 
     return NextResponse.json(data);
   } catch (error) {
+    if (error instanceof ValidationError) {
+      return NextResponse.json({ error: error.errors }, { status: 400 });
+    }
+
     return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
   }
 }
