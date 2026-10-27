@@ -91,22 +91,24 @@ export const CalendarMonthView = ({
             variants={removeImmediately}
             className={cn("z-10 rounded-full cursor-pointer")}
             onClick={previousMonth}
+            aria-label="Eelmine kuu"
           >
             <AnimationWrapper variants={animations.smallScale}>
               <HiChevronLeft className="w-6 h-6 text-gray-600" />
             </AnimationWrapper>
           </motion.button>
-          <motion.p
+          <motion.h2
             variants={animations.calendar.header}
             custom={direction}
             className="min-w-[8rem] absolute inset-0 flex items-center justify-center font-semibold text-lg"
           >
-            <p>{beautifulCurrentMonth}</p>
-          </motion.p>
+            {beautifulCurrentMonth}
+          </motion.h2>
           <motion.button
             variants={removeImmediately}
             className={cn("z-10 rounded-full cursor-pointer")}
             onClick={nextMonth}
+            aria-label="Järgmine kuu"
           >
             <AnimationWrapper variants={animations.smallScale}>
               <HiChevronRight className="w-6 h-6 text-gray-600" />

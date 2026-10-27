@@ -3,7 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import type { Database } from "../../../src/types/supabase";
 import type { GroupLetters } from "../../../src/types/types";
 
-import type { NewTraining, TestBackend } from "./port";
+import type { NewAllDayEvent, NewMultiDayEvent, NewTraining, TestBackend } from "./port";
 
 const required = (name: string) => {
   const value = process.env[name];
@@ -20,6 +20,19 @@ const scenarioTables = [
   "multi_day_event",
   "event_preset",
 ] as const;
+
+/** Midnight in Tallinn on an ISO date, as the site's date pickers store it */
+const tallinnMidnight = (isoDate: string) => {
+  const noonUtc = new Date(`${isoDate}T12:00:00Z`);
+  const offset = new Intl.DateTimeFormat("en", {
+    timeZone: "Europe/Tallinn",
+    timeZoneName: "longOffset",
+  })
+    .formatToParts(noonUtc)
+    .find(part => part.type === "timeZoneName")
+    ?.value.replace("GMT", "");
+  return new Date(`${isoDate}T00:00:00${offset}`).toISOString();
+};
 
 export const supabaseBackend = (): TestBackend => {
   const url = required("NEXT_PUBLIC_SUPABASE_URL");
@@ -43,6 +56,12 @@ export const supabaseBackend = (): TestBackend => {
     });
   };
 
+  const trailerId = async (text: string) => {
+    const { data, error } = await db.from("event_trailer").select("id").eq("text", text).single();
+    if (error) throw new Error(`Trailer "${text}" is missing from seed data: ${error.message}`);
+    return data.id;
+  };
+
   return {
     async reset() {
       for (const table of scenarioTables) {
@@ -53,10 +72,16 @@ export const supabaseBackend = (): TestBackend => {
       }
     },
 
-    async aTraining({ start, end, groups, description }: NewTraining) {
+    async aTraining({ start, end, groups, description, trailer }: NewTraining) {
       const { data: event, error } = await db
         .from("event")
-        .insert({ event_type: "NORMAL", start, normal_event_end: end, description })
+        .insert({
+          event_type: "NORMAL",
+          start,
+          normal_event_end: end,
+          description,
+          trailer_id: trailer ? await trailerId(trailer) : null,
+        })
         .select("id")
         .single();
       if (error) throw new Error(error.message);
@@ -66,6 +91,40 @@ export const supabaseBackend = (): TestBackend => {
         .from("event_group")
         .insert(ids.map(group_id => ({ event_id: event.id, group_id })));
       if (groupError) throw new Error(groupError.message);
+    },
+
+    async anAllDayEvent({ date, title, subtitle }: NewAllDayEvent) {
+      const { data: allDayEvent, error } = await db
+        .from("all_day_event")
+        .insert({ title, sub_title: subtitle })
+        .select("id")
+        .single();
+      if (error) throw new Error(error.message);
+
+      const { error: eventError } = await db.from("event").insert({
+        event_type: "ALL_DAY",
+        start: tallinnMidnight(date),
+        all_day_event: allDayEvent.id,
+      });
+      if (eventError) throw new Error(eventError.message);
+    },
+
+    async aMultiDayEvent({ from, to, title }: NewMultiDayEvent) {
+      const { data: multiDayEvent, error } = await db
+        .from("multi_day_event")
+        .insert({ title })
+        .select("id")
+        .single();
+      if (error) throw new Error(error.message);
+
+      // The date range picker stores both ends as midnight
+      const { error: eventError } = await db.from("event").insert({
+        event_type: "MULTI_DAY",
+        start: tallinnMidnight(from),
+        long_event_end: tallinnMidnight(to),
+        multi_day_event: multiDayEvent.id,
+      });
+      if (eventError) throw new Error(eventError.message);
     },
   };
 };

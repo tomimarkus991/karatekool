@@ -6,6 +6,22 @@ export interface NewTraining {
   end: string;
   groups: GroupLetters[];
   description?: string;
+  /** One of the club's standard trailer texts, e.g. "- EKSAM" */
+  trailer?: string;
+}
+
+export interface NewAllDayEvent {
+  /** Calendar date in Tallinn, e.g. "2026-03-14" */
+  date: string;
+  title: string;
+  subtitle: string;
+}
+
+export interface NewMultiDayEvent {
+  /** First and last calendar day in Tallinn, inclusive, e.g. "2026-03-12" */
+  from: string;
+  to: string;
+  title: string;
 }
 
 /**
@@ -17,4 +33,6 @@ export interface TestBackend {
   /** Remove everything scenarios create, leaving only reference data such as Groups. */
   reset(): Promise<void>;
   aTraining(training: NewTraining): Promise<void>;
+  anAllDayEvent(event: NewAllDayEvent): Promise<void>;
+  aMultiDayEvent(event: NewMultiDayEvent): Promise<void>;
 }
