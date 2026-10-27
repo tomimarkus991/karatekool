@@ -1,12 +1,7 @@
 import { isSameDay, parseISO } from "date-fns";
 import { motion } from "framer-motion";
 
-import {
-  DeleteEventPopoverContent,
-  MapGroupLetter,
-  MapHighLightedGroupLetter,
-  NormalEventTime,
-} from "@/components";
+import { DeleteEventPopoverContent, MapGroupLetter, NormalEventTime } from "@/components";
 import { useCalendarFilters } from "@/context";
 import { useDeleteNormalCalendarEvent } from "@/hooks";
 import { cn } from "@/lib";
@@ -24,7 +19,6 @@ interface NormalEventDisplayProps {
     is_highlighted: boolean;
   };
   groups: GroupData[];
-  highlightedGroups: GroupData[];
   eventTrailer: SEventTrailer | null;
   description: string | null;
 }
@@ -32,7 +26,6 @@ interface NormalEventDisplayProps {
 export const NormalEventDisplay = ({
   event,
   groups,
-  highlightedGroups,
   eventTrailer,
   description,
 }: NormalEventDisplayProps) => (
@@ -44,7 +37,6 @@ export const NormalEventDisplay = ({
       />
       <div className={cn("flex justify-center items-center")}>
         <MapGroupLetter groups={groups} />
-        <MapHighLightedGroupLetter highlightedGroups={highlightedGroups} />
         {eventTrailer?.text && (
           <p className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] whitespace-nowrap font-number font-semibold text-center">
             {eventTrailer?.text}
@@ -61,13 +53,7 @@ export const NormalEventDisplay = ({
 );
 
 export const NormalEvent = ({ event, date }: Props) => {
-  const {
-    group: groups,
-    event_trailer: eventTrailer,
-    highlighted_group: highlightedGroups,
-    description,
-    id,
-  } = event;
+  const { group: groups, event_trailer: eventTrailer, description, id } = event;
   const start = parseISO(event.start);
   const { letter } = useCalendarFilters();
   const { mutate: deleteEvent } = useDeleteNormalCalendarEvent();
@@ -83,11 +69,7 @@ export const NormalEvent = ({ event, date }: Props) => {
   }
 
   // if filter is all show all groups
-  if (
-    letter !== "all" &&
-    !(groups.filter(group => group?.letter === letter).length > 0) &&
-    !(highlightedGroups.filter(highlightedGroup => highlightedGroup?.letter === letter).length > 0)
-  ) {
+  if (letter !== "all" && !groups.some(group => group?.letter === letter)) {
     return <></>;
   }
 
@@ -111,7 +93,6 @@ export const NormalEvent = ({ event, date }: Props) => {
             event={event}
             eventTrailer={eventTrailer}
             groups={groups}
-            highlightedGroups={highlightedGroups}
           />
         </PopoverTrigger>
         <DeleteEventPopoverContent event={event} deleteEvent={() => deleteEvent({ id })}>
@@ -120,7 +101,6 @@ export const NormalEvent = ({ event, date }: Props) => {
             event={event}
             eventTrailer={eventTrailer}
             groups={groups}
-            highlightedGroups={highlightedGroups}
           />
         </DeleteEventPopoverContent>
       </motion.div>

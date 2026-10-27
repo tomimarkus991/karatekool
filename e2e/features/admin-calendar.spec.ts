@@ -65,10 +65,6 @@ test.describe("Admin manages the calendar", () => {
     });
   });
 
-  // The Highlighted Group picker in GroupPicker.tsx is commented out, so an Admin cannot
-  // Highlight a Group from the Event dialog today.
-  test.fixme("an Admin creates a Training with a Highlighted Group", async () => {});
-
   test("an Admin attaches a trailer to a Training and visitors see it", async ({
     page,
     backend,
@@ -329,7 +325,7 @@ test.describe("Admin manages the calendar", () => {
     const dialog = eventDialog(page);
 
     await Given("a Multi-day event Preset and a signed-in Admin", async () => {
-      await backend.aPreset({ kind: "multiDayEvent", title: "Kevadlaager" });
+      await backend.aPreset({ title: "Kevadlaager" });
       await backend.anAdmin();
     });
 

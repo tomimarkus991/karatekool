@@ -59,7 +59,6 @@ export enum EventTypes {
 export interface GroupData {
   id: number;
   letter: string;
-  highlighted: boolean;
 }
 
 export interface EventData {
@@ -73,7 +72,6 @@ export interface EventData {
   all_day_event: SAllDayEvent | null;
   multi_day_event: SMultiDayEvent | null;
   group: GroupData[];
-  highlighted_group: GroupData[];
   event_type: EventTypes;
 }
 

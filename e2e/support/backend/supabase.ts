@@ -31,7 +31,6 @@ const scenarioTables = [
   "event",
   "all_day_event",
   "multi_day_event",
-  "event_preset",
 ] as const;
 
 const PASSWORD = "e2e-password";
@@ -48,9 +47,6 @@ const tallinnTime = (isoDate: string, time = "00:00") => {
     ?.value.replace("GMT", "");
   return new Date(`${isoDate}T${time}:00${offset}`).toISOString();
 };
-
-// The site only reads the time of day from a Training Preset's start
-const PRESET_DATE = "2026-01-05";
 
 /**
  * @param browser where signed-in people end up
@@ -76,19 +72,6 @@ export const supabaseBackend = (browser: BrowserContext, siteUrl: string): TestB
     return letters.map(letter => {
       const group = data.find(g => g.letter === letter);
       if (!group) throw new Error(`Group ${letter} is missing from seed data`);
-      return group.id;
-    });
-  };
-
-  const highlightedGroupIds = async (letters: GroupLetters[]) => {
-    const { data, error } = await db
-      .from("highlighted_group")
-      .select("id, letter")
-      .in("letter", letters);
-    if (error) throw new Error(error.message);
-    return letters.map(letter => {
-      const group = data.find(g => g.letter === letter);
-      if (!group) throw new Error(`Highlighted Group ${letter} is missing from seed data`);
       return group.id;
     });
   };
@@ -209,35 +192,19 @@ export const supabaseBackend = (browser: BrowserContext, siteUrl: string): TestB
         return !error && data.length > 0;
       },
 
-      async savePreset(preset) {
+      async savePreset({ title }) {
         const actorClient = await client;
-        if (preset.kind === "multiDayEvent") {
-          const { error } = await actorClient
-            .from("multi_day_event")
-            .insert({ title: preset.title });
-          return !error;
-        }
-        const { error } = await actorClient.from("event_preset").insert({
-          start: tallinnTime(PRESET_DATE, preset.time),
-          group_ids: await groupIds(preset.groups),
-        });
+        const { error } = await actorClient.from("multi_day_event").insert({ title });
         return !error;
       },
 
-      async deletePreset(preset) {
+      async deletePreset({ title }) {
         const actorClient = await client;
-        const { data, error } =
-          preset.kind === "multiDayEvent"
-            ? await actorClient
-                .from("multi_day_event")
-                .delete()
-                .eq("title", preset.title)
-                .select("id")
-            : await actorClient
-                .from("event_preset")
-                .delete()
-                .eq("start", tallinnTime(PRESET_DATE, preset.time))
-                .select("id");
+        const { data, error } = await actorClient
+          .from("multi_day_event")
+          .delete()
+          .eq("title", title)
+          .select("id");
         return !error && data.length > 0;
       },
     };
@@ -273,7 +240,6 @@ export const supabaseBackend = (browser: BrowserContext, siteUrl: string): TestB
       start,
       end,
       groups,
-      highlightedGroups = [],
       highlightedTime = false,
       description,
       trailer,
@@ -297,17 +263,6 @@ export const supabaseBackend = (browser: BrowserContext, siteUrl: string): TestB
         .from("event_group")
         .insert(ids.map(group_id => ({ event_id: event.id, group_id })));
       if (groupError) throw new Error(groupError.message);
-
-      if (highlightedGroups.length > 0) {
-        const highlightedIds = await highlightedGroupIds(highlightedGroups);
-        const { error: highlightError } = await db.from("event_highlighted_group").insert(
-          highlightedIds.map(highlighted_group_id => ({
-            event_id: event.id,
-            highlighted_group_id,
-          })),
-        );
-        if (highlightError) throw new Error(highlightError.message);
-      }
     },
 
     async anAllDayEvent({ date, title, subtitle }: NewAllDayEvent) {
@@ -345,30 +300,9 @@ export const supabaseBackend = (browser: BrowserContext, siteUrl: string): TestB
     },
 
     attemptAs,
-    async aPreset(preset: NewPreset) {
-      if (preset.kind === "multiDayEvent") {
-        // A Multi-day event's title row doubles as its Preset: the dialog offers every one
-        const { error } = await db.from("multi_day_event").insert({ title: preset.title });
-        if (error) throw new Error(error.message);
-        return;
-      }
-
-      const {
-        time,
-        groups,
-        highlightedGroups = [],
-        highlightedTime = false,
-        description,
-        trailer,
-      } = preset;
-      const { error } = await db.from("event_preset").insert({
-        start: tallinnTime(PRESET_DATE, time),
-        group_ids: await groupIds(groups),
-        highlighted_group_ids: await highlightedGroupIds(highlightedGroups),
-        is_highlighted: highlightedTime,
-        description: description ?? null,
-        trailer_id: trailer ? await trailerId(trailer) : null,
-      });
+    async aPreset({ title }: NewPreset) {
+      // A Multi-day event's title row doubles as its Preset: the dialog offers every one
+      const { error } = await db.from("multi_day_event").insert({ title });
       if (error) throw new Error(error.message);
     },
 

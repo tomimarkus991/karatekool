@@ -5,25 +5,13 @@ import { format } from "date-fns";
 import { NormalEventFormValues } from "@/app-constants";
 import { cn } from "@/lib";
 
-import { NormalEventTime, MapGroupLetter, MapHighLightedGroupLetter } from "../../events";
+import { NormalEventTime, MapGroupLetter } from "../../events";
 
 interface Props {
   values: NormalEventFormValues;
 }
 
 export const PreviewEvent = ({ values }: Props) => {
-  const filteredGroups = values.selectedGroups
-    .filter(group => !group.highlighted)
-    .map(group => ({
-      ...group,
-    }));
-
-  const filteredHighlightedGroups = values.selectedGroups
-    ?.filter(group => group.highlighted)
-    .map(group => ({
-      ...group,
-    }));
-
   return (
     <div className="flex flex-col">
       <p className="self-center font-semibold justify-self-center text-stone-500">
@@ -40,20 +28,7 @@ export const PreviewEvent = ({ values }: Props) => {
             <div id="normal-event" className="flex flex-row items-center justify-start">
               <NormalEventTime start={values.startTime} isHighlighted={values.isHighlighted} />
               <div id="normal-event" className={cn("flex justify-center items-center")}>
-                <MapGroupLetter
-                  groups={
-                    filteredGroups.length === 0 && filteredHighlightedGroups.length === 0
-                      ? []
-                      : filteredGroups
-                  }
-                />
-                <MapHighLightedGroupLetter
-                  highlightedGroups={
-                    filteredGroups.length === 0 && filteredHighlightedGroups.length === 0
-                      ? []
-                      : filteredHighlightedGroups
-                  }
-                />
+                <MapGroupLetter groups={values.selectedGroups} />
                 {values.trailer && (
                   <p
                     id="normal-event"

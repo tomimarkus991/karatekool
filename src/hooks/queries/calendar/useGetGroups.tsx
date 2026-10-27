@@ -8,25 +8,16 @@ export const useGetGroups = () => {
   const getQuery = async () => {
     const { data: groups, error: groupError } = await supabase
       .from("group")
-      .select("id,letter,highlighted")
-      .order("letter", { ascending: true });
-    const { data: highlightedGroups, error: highlightedGroupError } = await supabase
-      .from("highlighted_group")
-      .select("id,letter,highlighted")
+      .select("id,letter")
       .order("letter", { ascending: true });
 
     if (groupError) {
       toast.error(`Error getting groups: ${groupError.message}`);
       throw new Error(groupError.message);
     }
-    if (highlightedGroupError) {
-      toast.error(`Error getting highlighted groups: ${highlightedGroupError.message}`);
-      throw new Error(highlightedGroupError.message);
-    }
 
     return {
       groups,
-      highlightedGroups,
     };
   };
 

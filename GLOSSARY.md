@@ -35,11 +35,11 @@ An Event that fills a single day with a title and subtitle but no time.
 An Event with a title that spans several consecutive days.
 
 **Preset**:
-A saved Training or Multi-day event an Admin reuses to create new ones quickly.
+A saved Multi-day event title an Admin picks when creating a Multi-day event.
 _Avoid_: Template
 
 **Highlight**:
-Visual emphasis an Admin puts on a calendar event's time or on one of its Groups to catch the eye; it carries no other meaning.
+Visual emphasis an Admin puts on a Training's time to catch the eye; it carries no other meaning.
 _Avoid_: Important, priority
 
 **Application**:
