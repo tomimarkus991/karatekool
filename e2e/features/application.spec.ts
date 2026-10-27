@@ -119,8 +119,8 @@ test.describe("Application", () => {
       await form.submitForAdult(JAAN_TAMM);
     });
 
-    await Then("they see that the Application was not sent", async () => {
-      await expect(form.failure()).toBeVisible();
+    await Then("they see that they have reached today's limit", async () => {
+      await expect(form.dailyLimit()).toBeVisible();
       await expect(form.confirmation()).toBeHidden();
     });
 

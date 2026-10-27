@@ -8,7 +8,7 @@ const Login = object().shape({
 export type LoginFormValues = InferType<typeof Login>;
 
 const Register = object().shape({
-  name: string().min(3).required("Vajalik"),
+  name: string().min(3, "Peab olema vähemalt 3 tähemärki").required("Vajalik"),
   email: string().email("Email peab olema päris").required("Vajalik"),
   password: string()
     .min(6, "Salasõna on liiga lühike - peab olema vähemalt 6 tähemärki pikk.")
@@ -40,7 +40,7 @@ const ResetPassword = object().shape({
 export type ResetPasswordFormValues = InferType<typeof ResetPassword>;
 
 const ApplyToClub = object().shape({
-  name: string().min(3).required("Vajalik"),
+  name: string().min(3, "Peab olema vähemalt 3 tähemärki").required("Vajalik"),
   group: string().required("Vajalik"),
   email: string().email("Email peab olema päris").required("Vajalik"),
   reason: string().required("Vajalik"),
@@ -49,7 +49,7 @@ const ApplyToClub = object().shape({
 export type ApplyToClubFormValues = InferType<typeof ApplyToClub>;
 
 const SendQuestionForm = object().shape({
-  name: string().min(3).required("Vajalik"),
+  name: string().min(3, "Peab olema vähemalt 3 tähemärki").required("Vajalik"),
   email: string().email("Email peab olema päris").required("Vajalik"),
   question: string().required("Vajalik"),
 });
@@ -117,7 +117,7 @@ export type SignUpRequestBody =
   | ({ type: "adult" } & SignUpAdultFormValues);
 
 const UpdateProfile = object().shape({
-  name: string().min(3),
+  name: string().min(3, "Peab olema vähemalt 3 tähemärki"),
   avatar: string(),
   group: string(),
   calendarType: string(),

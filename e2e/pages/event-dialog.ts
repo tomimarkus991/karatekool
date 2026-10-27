@@ -19,6 +19,8 @@ export interface TrainingChanges {
   time?: string;
   /** Every Group the Training should have afterwards */
   groups?: GroupLetters[];
+  /** A standard trailer text to attach, or null to remove the current one */
+  trailer?: string | null;
 }
 
 export interface AllDayEventDetails {
@@ -111,6 +113,8 @@ export const eventDialog = (page: Page) => {
     await picker.close();
   };
 
+  const trailers = (panel: Locator) => panel.getByRole("listbox", { name: "Treilerid" });
+
   /** The Multi-day event title box; its list offers the Multi-day event Presets */
   const titleBox = (panel: Locator) => panel.getByPlaceholder("Vali üritus", { exact: true });
 
@@ -135,14 +139,25 @@ export const eventDialog = (page: Page) => {
       );
     },
 
+    /** The trailer picked in the Training tab, or null when there is none */
+    pickedTrailer: async () => {
+      const panel = dialog.getByRole("tabpanel", { name: "Trenn", exact: true });
+      await expect(trailers(panel)).toBeVisible();
+      const picked = trailers(panel).getByRole("option", { selected: true });
+      return (await picked.count()) ? (await picked.innerText()).trim() : null;
+    },
+
     /** Changes the Training the dialog was opened to edit and saves it */
-    updateTraining: async ({ time, groups }: TrainingChanges) => {
+    updateTraining: async ({ time, groups, trailer }: TrainingChanges) => {
       const panel = dialog.getByRole("tabpanel", { name: "Trenn", exact: true });
       if (time) await pickTime(panel, time);
       if (groups) await pickGroups(panel, groups);
+      // Clicking the picked trailer again removes it
+      if (trailer === null) await trailers(panel).getByRole("option", { selected: true }).click();
+      if (trailer)
+        await trailers(panel).getByRole("option", { name: trailer, exact: true }).click();
 
-      // Saving an edit confirms with the same message as creating
-      await savedWith(page, "Uus üritus on loodud", () =>
+      await savedWith(page, "Üritus on uuendatud", () =>
         panel.getByRole("button", { name: "Uuenda", exact: true }).click(),
       );
     },

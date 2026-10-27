@@ -71,10 +71,16 @@ export const applicationFormPage = (page: Page) => {
 
     confirmation: () => page.getByText("Registreerimine saadetud!"),
 
-    /** Shown when the site does not accept the Application, including over the daily limit. */
+    /** Shown when sending the Application fails for any reason other than the daily limit. */
     failure: () =>
       page.getByText(
         "Registreerimise saatmine ebaõnnestus. Palun proovi uuesti või kirjuta aadressil info@karatekool.ee",
+      ),
+
+    /** Shown when the applicant has reached the daily limit of Applications. */
+    dailyLimit: () =>
+      page.getByText(
+        "Tänane saatmise limiit on täis. Proovi homme uuesti või kirjuta aadressil info@karatekool.ee",
       ),
   };
 };

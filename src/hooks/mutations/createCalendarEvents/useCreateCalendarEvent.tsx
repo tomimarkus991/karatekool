@@ -38,7 +38,8 @@ export const useCreateCalendarEvent = () => {
             id,
             start,
             is_highlighted: isHighlighted,
-            trailer_id: trailerId,
+            // null removes a trailer that is already saved
+            trailer_id: trailerId ?? null,
             normal_event_end: normalEventEnd,
             description,
             event_type: "NORMAL",
@@ -51,46 +52,41 @@ export const useCreateCalendarEvent = () => {
           throw new Error(createEventRes.error.message);
         }
 
+        const eventId = createEventRes.data.id;
+        const throwIfFailed = (res: { error: { message: string } | null }) => {
+          if (res.error) {
+            toast.error(res.error.message);
+            throw new Error(res.error.message);
+          }
+        };
+
         if (id) {
-          await supabase.from("event_group").delete().eq("event_id", id);
-          await supabase.from("event_highlighted_group").delete().eq("event_id", id);
-
-          await supabase.from("event_group").insert(
-            groupIds.map(groupId => ({
-              event_id: id,
-              group_id: groupId,
-            })),
-          );
-
-          await supabase.from("event_highlighted_group").insert(
-            highlightedGroupIds.map(groupId => ({
-              event_id: id,
-              highlighted_group_id: groupId,
-            })),
-          );
-        } else if (createEventRes.data.id) {
-          await supabase.from("event_group").insert(
-            groupIds.map(groupId => ({
-              event_id: createEventRes.data.id,
-              group_id: groupId,
-            })),
-          );
-
-          await supabase.from("event_highlighted_group").insert(
-            highlightedGroupIds.map(groupId => ({
-              event_id: createEventRes.data.id,
-              highlighted_group_id: groupId,
-            })),
-          );
+          throwIfFailed(await supabase.from("event_group").delete().eq("event_id", id));
+          throwIfFailed(await supabase.from("event_highlighted_group").delete().eq("event_id", id));
         }
+
+        throwIfFailed(
+          await supabase
+            .from("event_group")
+            .insert(groupIds.map(groupId => ({ event_id: eventId, group_id: groupId }))),
+        );
+
+        throwIfFailed(
+          await supabase.from("event_highlighted_group").insert(
+            highlightedGroupIds.map(groupId => ({
+              event_id: eventId,
+              highlighted_group_id: groupId,
+            })),
+          ),
+        );
       }),
     );
   };
 
   return useMutation({
     mutationFn: (user: Props) => execute(user),
-    onSuccess: () => {
-      toast.success("Uus üritus on loodud");
+    onSuccess: (_, { id }) => {
+      toast.success(id ? "Üritus on uuendatud" : "Uus üritus on loodud");
       setTimeout(() => {
         queryClient.invalidateQueries({
           queryKey: ["get_calendar_events"],

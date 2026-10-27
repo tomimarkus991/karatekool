@@ -1,6 +1,5 @@
 import { Listbox } from "@headlessui/react";
 import { useField } from "formik";
-import { useState } from "react";
 
 import { NormalEventTrailerFormValues } from "@/app-constants";
 import { useGetTrailers } from "@/hooks";
@@ -12,28 +11,22 @@ interface Props {
 
 export const TrailerPicker = ({ name }: Props) => {
   const [field, { value }, { setValue }] = useField<NormalEventTrailerFormValues>(name);
-  const [memorySelect, setMemorySelect] = useState<NormalEventTrailerFormValues | null>(null);
 
   const { data: trailers } = useGetTrailers();
 
   if (!trailers) return null;
 
+  // Picking the picked trailer again removes it
   const handleChange = (trailer: NormalEventTrailerFormValues) => {
-    setMemorySelect(trailer);
-
-    if (trailer === memorySelect) {
-      setValue({});
-      setMemorySelect(null);
-      return;
-    }
-    setValue(trailer);
+    setValue(trailer.id === value.id ? {} : trailer);
   };
 
   return (
     <>
-      <Listbox {...field} value={value} onChange={handleChange}>
+      <Listbox {...field} value={value} by="id" onChange={handleChange}>
         <Listbox.Options
           static
+          aria-label="Treilerid"
           className="flex flex-row py-3 space-x-4 text-sm bg-white rounded-md shadow-md px-7 focus:outline-none"
         >
           {trailers.map(trailer => (

@@ -25,11 +25,12 @@ interface Props {
 
 interface ChildProps {
   width: number;
+  eventId: number;
   multi_day_event: SMultiDayEvent;
 }
 
-const Child = ({ width, multi_day_event }: ChildProps) => {
-  const { title, id } = multi_day_event;
+const Child = ({ width, eventId, multi_day_event }: ChildProps) => {
+  const { title } = multi_day_event;
   const { mutate: deleteEvent } = useDeleteCalendarMultiDayEvent();
 
   return (
@@ -59,7 +60,7 @@ const Child = ({ width, multi_day_event }: ChildProps) => {
         </PopoverTrigger>
       </motion.div>
 
-      <DeleteEventPopoverContent deleteEvent={() => deleteEvent({ id })}>
+      <DeleteEventPopoverContent deleteEvent={() => deleteEvent({ id: eventId })}>
         <p className="text-center">{title}</p>
       </DeleteEventPopoverContent>
     </Popover>
@@ -102,7 +103,7 @@ export const MultiDayEvent = ({ event, date, bounds }: Props) => {
   const width = longEventLengthForWeek * bounds.width - 24;
 
   if (longEventWeekStartDays.some(day => isSameDay(day, date))) {
-    return <Child multi_day_event={multi_day_event} width={width} />;
+    return <Child eventId={event.id} multi_day_event={multi_day_event} width={width} />;
   }
 
   if (!isSameDay(start, date)) {
@@ -110,5 +111,5 @@ export const MultiDayEvent = ({ event, date, bounds }: Props) => {
   }
 
   // when multi day event doesn't go over multiple weeks
-  return <Child multi_day_event={multi_day_event} width={width} />;
+  return <Child eventId={event.id} multi_day_event={multi_day_event} width={width} />;
 };

@@ -53,7 +53,7 @@ export const DayViewMultiDayEvent = ({ event, date }: Props) => {
           </p>
         </PopoverTrigger>
       </motion.div>
-      <DeleteEventPopoverContent deleteEvent={() => deleteEvent({ id: multi_day_event.id })}>
+      <DeleteEventPopoverContent deleteEvent={() => deleteEvent({ id: event.id })}>
         <p className="text-center">{multi_day_event.title}</p>
       </DeleteEventPopoverContent>
     </Popover>
