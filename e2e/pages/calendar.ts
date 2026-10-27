@@ -2,6 +2,8 @@ import { expect, type Locator, type Page } from "@playwright/test";
 
 import type { GroupLetters } from "../../src/types/types";
 
+import { savedWith } from "./toast";
+
 type CalendarView = "Kuu" | "Päev";
 
 export const calendarPage = (page: Page) => {
@@ -10,6 +12,17 @@ export const calendarPage = (page: Page) => {
   // A Training is a button named by its time and Groups, e.g. "18:00 A"
   const training = (within: Locator, time: string) =>
     within.getByRole("button", { name: new RegExp(`^${time}\\b`) });
+
+  // An All-day or Multi-day event is a button named by its title (and an All-day event's subtitle).
+  // Anchored so the month view's day cell, itself a button named by its whole content, never matches.
+  const titled = (within: Locator, title: string) =>
+    within.getByRole("button", { name: new RegExp(`^${title}`) });
+
+  // Clicking an Event opens a popover with its details; an Admin's has the edit and delete buttons
+  const deleteButton = () => page.getByRole("button", { name: "Kustuta üritus" });
+  const editButton = () => page.getByRole("button", { name: "Muuda üritust" });
+
+  const deleteOpened = () => savedWith(page, "Üritus kustutatud", () => deleteButton().click());
 
   // Days and months slide in and out; the calendar ignores clicks until the old one has left
   const move = async (name: string, view: Locator) => {
@@ -64,6 +77,36 @@ export const calendarPage = (page: Page) => {
     /** A Group letter on the Training that starts at `time` */
     trainingGroup: (within: Locator, time: string, letter: GroupLetters) =>
       training(within, time).getByText(letter, { exact: true }),
+
+    /** Opens the details of the Training that starts at `time`, e.g. "18:00" */
+    openTraining: (within: Locator, time: string) => training(within, time).click(),
+
+    /** Opens the details of an All-day or Multi-day event by its title */
+    openTitledEvent: (within: Locator, title: string) => titled(within, title).click(),
+
+    /** The opened Event's delete button; only Admins have it */
+    deleteButton,
+
+    /** The opened Event's edit button; only Admins have it, and only on Trainings */
+    editButton,
+
+    /** Deletes the Training that starts at `time` and waits until the site confirms it */
+    deleteTraining: async (within: Locator, time: string) => {
+      await training(within, time).click();
+      await deleteOpened();
+    },
+
+    /** Deletes an All-day or Multi-day event by its title and waits until the site confirms it */
+    deleteTitledEvent: async (within: Locator, title: string) => {
+      await titled(within, title).click();
+      await deleteOpened();
+    },
+
+    /** Opens the Event dialog to edit the Training that starts at `time` */
+    editTraining: async (within: Locator, time: string) => {
+      await training(within, time).click();
+      await editButton().click();
+    },
 
     /** A day cell in month view, by ISO date ("2026-03-10"); day cells have no accessible name */
     day: (isoDate: string) => page.getByTestId(`calendar-day-${isoDate}`),

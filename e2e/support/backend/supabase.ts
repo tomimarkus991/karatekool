@@ -12,6 +12,7 @@ import type {
   MemberPreferences,
   NewAllDayEvent,
   NewMultiDayEvent,
+  NewPreset,
   NewTraining,
   Person,
   TestBackend,
@@ -35,8 +36,8 @@ const scenarioTables = [
 
 const PASSWORD = "e2e-password";
 
-/** Midnight in Tallinn on an ISO date, as the site's date pickers store it */
-const tallinnMidnight = (isoDate: string) => {
+/** A wall-clock time in Tallinn on an ISO date; midnight is what the site's date pickers store */
+const tallinnTime = (isoDate: string, time = "00:00") => {
   const noonUtc = new Date(`${isoDate}T12:00:00Z`);
   const offset = new Intl.DateTimeFormat("en", {
     timeZone: "Europe/Tallinn",
@@ -45,8 +46,11 @@ const tallinnMidnight = (isoDate: string) => {
     .formatToParts(noonUtc)
     .find(part => part.type === "timeZoneName")
     ?.value.replace("GMT", "");
-  return new Date(`${isoDate}T00:00:00${offset}`).toISOString();
+  return new Date(`${isoDate}T${time}:00${offset}`).toISOString();
 };
+
+// The site only reads the time of day from a Training Preset's start
+const PRESET_DATE = "2026-01-05";
 
 /**
  * @param browser where signed-in people end up
@@ -190,8 +194,8 @@ export const supabaseBackend = (browser: BrowserContext, siteUrl: string): TestB
       },
 
       async deleteTraining(start) {
-        const db = await client;
-        const { data: events } = await db
+        const actorClient = await client;
+        const { data: events } = await actorClient
           .from("event")
           .select("id")
           .eq("event_type", "NORMAL")
@@ -199,11 +203,12 @@ export const supabaseBackend = (browser: BrowserContext, siteUrl: string): TestB
         const ids = (events ?? []).map(event => event.id);
 
         // Children first, as the site does
-        await db.from("event_group").delete().in("event_id", ids);
-        await db.from("event_highlighted_group").delete().in("event_id", ids);
-        const { data, error } = await db.from("event").delete().in("id", ids).select("id");
+        await actorClient.from("event_group").delete().in("event_id", ids);
+        await actorClient.from("event_highlighted_group").delete().in("event_id", ids);
+        const { data, error } = await actorClient.from("event").delete().in("id", ids).select("id");
         return !error && data.length > 0;
       },
+
     };
   };
 
@@ -284,7 +289,7 @@ export const supabaseBackend = (browser: BrowserContext, siteUrl: string): TestB
 
       const { error: eventError } = await db.from("event").insert({
         event_type: "ALL_DAY",
-        start: tallinnMidnight(date),
+        start: tallinnTime(date),
         all_day_event: allDayEvent.id,
       });
       if (eventError) throw new Error(eventError.message);
@@ -301,14 +306,40 @@ export const supabaseBackend = (browser: BrowserContext, siteUrl: string): TestB
       // The date range picker stores both ends as midnight
       const { error: eventError } = await db.from("event").insert({
         event_type: "MULTI_DAY",
-        start: tallinnMidnight(from),
-        long_event_end: tallinnMidnight(to),
+        start: tallinnTime(from),
+        long_event_end: tallinnTime(to),
         multi_day_event: multiDayEvent.id,
       });
       if (eventError) throw new Error(eventError.message);
     },
 
     attemptAs,
+    async aPreset(preset: NewPreset) {
+      if (preset.kind === "multiDayEvent") {
+        // A Multi-day event's title row doubles as its Preset: the dialog offers every one
+        const { error } = await db.from("multi_day_event").insert({ title: preset.title });
+        if (error) throw new Error(error.message);
+        return;
+      }
+
+      const {
+        time,
+        groups,
+        highlightedGroups = [],
+        highlightedTime = false,
+        description,
+        trailer,
+      } = preset;
+      const { error } = await db.from("event_preset").insert({
+        start: tallinnTime(PRESET_DATE, time),
+        group_ids: await groupIds(groups),
+        highlighted_group_ids: await highlightedGroupIds(highlightedGroups),
+        is_highlighted: highlightedTime,
+        description: description ?? null,
+        trailer_id: trailer ? await trailerId(trailer) : null,
+      });
+      if (error) throw new Error(error.message);
+    },
 
     aMember: (preferences = {}) => aPerson(null, preferences),
     anAdmin: () => aPerson("admin", {}),

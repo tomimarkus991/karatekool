@@ -27,6 +27,28 @@ export interface NewMultiDayEvent {
   title: string;
 }
 
+/** A saved Training an Admin picks to fill in the Training form */
+export interface NewTrainingPreset {
+  kind: "training";
+  /** Start time in Tallinn, e.g. "18:00" */
+  time: string;
+  groups: GroupLetters[];
+  /** Groups shown with a Highlight; a Group is either here or in `groups` */
+  highlightedGroups?: GroupLetters[];
+  highlightedTime?: boolean;
+  description?: string;
+  /** One of the club's standard trailer texts, e.g. "- EKSAM" */
+  trailer?: string;
+}
+
+/** A saved Multi-day event title an Admin picks when creating a Multi-day event */
+export interface NewMultiDayEventPreset {
+  kind: "multiDayEvent";
+  title: string;
+}
+
+export type NewPreset = NewTrainingPreset | NewMultiDayEventPreset;
+
 /** An email the site sent, as the recipient's inbox shows it. */
 export interface Mail {
   subject: string;
@@ -76,6 +98,8 @@ export interface TestBackend {
   aTraining(training: NewTraining): Promise<void>;
   anAllDayEvent(event: NewAllDayEvent): Promise<void>;
   aMultiDayEvent(event: NewMultiDayEvent): Promise<void>;
+  /** A Preset that Admins are offered in the Event dialog */
+  aPreset(preset: NewPreset): Promise<void>;
   /** A Member on the Whitelist, signed in to the browser */
   aMember(preferences?: MemberPreferences): Promise<Person>;
   /** An Admin on the Whitelist, signed in to the browser */
