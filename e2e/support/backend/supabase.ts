@@ -247,5 +247,6 @@ export const supabaseBackend = (browser: BrowserContext, siteUrl: string): TestB
     anAdmin: () => aPerson("admin", {}),
 
     lastMailTo: address => mail.lastMailTo(address),
+    mailsTo: address => mail.mailsTo(address),
   };
 };

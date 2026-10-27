@@ -33,22 +33,35 @@ interface MailpitAddress {
 export const mailpit = () => {
   const api = `${localUrl("MAILPIT_URL")}/api/v1`;
 
+  // Search results are newest first
+  const searchTo = async (address: string, limit: number): Promise<{ ID: string }[]> => {
+    const query = encodeURIComponent(`to:"${address}"`);
+    const { messages } = await call(`${api}/search?query=${query}&limit=${limit}`);
+    return messages;
+  };
+
+  const read = async (id: string): Promise<Mail> => {
+    const message = await call(`${api}/message/${id}`);
+    return {
+      subject: message.Subject,
+      to: message.To.map((a: MailpitAddress) => a.Address),
+      replyTo: message.ReplyTo.map((a: MailpitAddress) => a.Address),
+      body: message.Text,
+    };
+  };
+
   return {
     clear: () => call(`${api}/messages`, { method: "DELETE" }),
 
     async lastMailTo(address: string): Promise<Mail | undefined> {
-      // Search results are newest first
-      const query = encodeURIComponent(`to:"${address}"`);
-      const { messages } = await call(`${api}/search?query=${query}&limit=1`);
-      if (messages.length === 0) return undefined;
+      const [newest] = await searchTo(address, 1);
+      return newest ? read(newest.ID) : undefined;
+    },
 
-      const message = await call(`${api}/message/${messages[0].ID}`);
-      return {
-        subject: message.Subject,
-        to: message.To.map((a: MailpitAddress) => a.Address),
-        replyTo: message.ReplyTo.map((a: MailpitAddress) => a.Address),
-        body: message.Text,
-      };
+    async mailsTo(address: string): Promise<Mail[]> {
+      // Far more than any scenario sends; reset() empties the inbox before every test
+      const messages = await searchTo(address, 100);
+      return Promise.all(messages.map(message => read(message.ID)));
     },
   };
 };

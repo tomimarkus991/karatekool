@@ -67,4 +67,6 @@ export interface TestBackend {
   anAdmin(): Promise<Person>;
   /** The newest email sent to `address`, or undefined if none arrived. */
   lastMailTo(address: string): Promise<Mail | undefined>;
+  /** Every email sent to `address`, newest first. */
+  mailsTo(address: string): Promise<Mail[]>;
 }

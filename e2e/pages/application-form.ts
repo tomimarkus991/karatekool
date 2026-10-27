@@ -15,6 +15,15 @@ export interface ChildApplication {
   guardian: { name: string; phone: string; email: string };
 }
 
+export interface AdultApplication {
+  firstName: string;
+  lastName: string;
+  /** ISO date, e.g. "1990-05-17" */
+  birthDate: string;
+  phone: string;
+  email: string;
+}
+
 export const applicationFormPage = (page: Page) => {
   const field = (label: string) => page.getByLabel(label, { exact: true });
 
@@ -44,6 +53,28 @@ export const applicationFormPage = (page: Page) => {
       await page.getByRole("button", { name: "Registreeri", exact: true }).click();
     },
 
+    /** Fill and send an Application for an adult; fields left out stay empty. */
+    submitForAdult: async (adult: Partial<AdultApplication>) => {
+      await page.getByRole("tab", { name: "Täiskasvanu" }).click();
+
+      if (adult.firstName !== undefined) await field("Eesnimi").fill(adult.firstName);
+      if (adult.lastName !== undefined) await field("Perekonnanimi").fill(adult.lastName);
+      if (adult.birthDate !== undefined) await field("Sünnikuupäev").fill(adult.birthDate);
+      if (adult.phone !== undefined) await field("Kontakttelefon").fill(adult.phone);
+      if (adult.email !== undefined) await field("Email").fill(adult.email);
+
+      await page.getByRole("button", { name: "Registreeri", exact: true }).click();
+    },
+
+    /** A form field by its label; its accessible description is the field's error, if any. */
+    field,
+
     confirmation: () => page.getByText("Registreerimine saadetud!"),
+
+    /** Shown when the site does not accept the Application, including over the daily limit. */
+    failure: () =>
+      page.getByText(
+        "Registreerimise saatmine ebaõnnestus. Palun proovi uuesti või kirjuta aadressil info@karatekool.ee",
+      ),
   };
 };
