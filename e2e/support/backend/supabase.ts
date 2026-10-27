@@ -56,6 +56,19 @@ export const supabaseBackend = (): TestBackend => {
     });
   };
 
+  const highlightedGroupIds = async (letters: GroupLetters[]) => {
+    const { data, error } = await db
+      .from("highlighted_group")
+      .select("id, letter")
+      .in("letter", letters);
+    if (error) throw new Error(error.message);
+    return letters.map(letter => {
+      const group = data.find(g => g.letter === letter);
+      if (!group) throw new Error(`Highlighted Group ${letter} is missing from seed data`);
+      return group.id;
+    });
+  };
+
   const trailerId = async (text: string) => {
     const { data, error } = await db.from("event_trailer").select("id").eq("text", text).single();
     if (error) throw new Error(`Trailer "${text}" is missing from seed data: ${error.message}`);
@@ -72,7 +85,15 @@ export const supabaseBackend = (): TestBackend => {
       }
     },
 
-    async aTraining({ start, end, groups, description, trailer }: NewTraining) {
+    async aTraining({
+      start,
+      end,
+      groups,
+      highlightedGroups = [],
+      highlightedTime = false,
+      description,
+      trailer,
+    }: NewTraining) {
       const { data: event, error } = await db
         .from("event")
         .insert({
@@ -80,6 +101,7 @@ export const supabaseBackend = (): TestBackend => {
           start,
           normal_event_end: end,
           description,
+          is_highlighted: highlightedTime,
           trailer_id: trailer ? await trailerId(trailer) : null,
         })
         .select("id")
@@ -91,6 +113,17 @@ export const supabaseBackend = (): TestBackend => {
         .from("event_group")
         .insert(ids.map(group_id => ({ event_id: event.id, group_id })));
       if (groupError) throw new Error(groupError.message);
+
+      if (highlightedGroups.length > 0) {
+        const highlightedIds = await highlightedGroupIds(highlightedGroups);
+        const { error: highlightError } = await db.from("event_highlighted_group").insert(
+          highlightedIds.map(highlighted_group_id => ({
+            event_id: event.id,
+            highlighted_group_id,
+          })),
+        );
+        if (highlightError) throw new Error(highlightError.message);
+      }
     },
 
     async anAllDayEvent({ date, title, subtitle }: NewAllDayEvent) {

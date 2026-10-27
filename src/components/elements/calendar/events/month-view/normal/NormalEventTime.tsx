@@ -15,6 +15,7 @@ export const NormalEventTime = ({ start, isHighlighted, dayView = false }: Props
   <>
     <p
       id="normal-event"
+      data-highlighted={isHighlighted || undefined}
       className={cn(
         "font-number whitespace-nowrap",
         dayView

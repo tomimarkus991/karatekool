@@ -5,6 +5,9 @@ export interface NewTraining {
   start: string;
   end: string;
   groups: GroupLetters[];
+  /** Groups shown with a Highlight; a Group is either here or in `groups` */
+  highlightedGroups?: GroupLetters[];
+  highlightedTime?: boolean;
   description?: string;
   /** One of the club's standard trailer texts, e.g. "- EKSAM" */
   trailer?: string;
