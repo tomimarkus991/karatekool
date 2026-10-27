@@ -67,6 +67,7 @@ export const FormikToggle = ({ tooltip, name }: FormikToggleProps) => {
     <Switch
       className="relative flex items-center mt-1 rounded-full cursor-pointer focus:outline-none w-fit focus:ring-secondary focus:ring-2 focus:ring-offset-2"
       {...(field as any)}
+      id={name}
       checked={pressed}
       onChange={setPressed}
     >

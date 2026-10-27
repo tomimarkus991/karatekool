@@ -58,6 +58,9 @@ export const FormikInput = forwardRef<HTMLInputElement, FormikInputProps>(
     ref,
   ) => {
     const [field, { touched, error }] = useField(name);
+    // Tie the error to the field so assistive tech announces it
+    const errorId = `${props.id || name}-error`;
+    const showError = touched && !!error;
 
     return (
       <div>
@@ -86,6 +89,9 @@ export const FormikInput = forwardRef<HTMLInputElement, FormikInputProps>(
             )}
             autoFocus={false}
             autoComplete="off"
+            id={name}
+            aria-invalid={showError}
+            aria-describedby={showError ? errorId : undefined}
             ref={ref}
             {...field}
             {...props}
@@ -96,7 +102,7 @@ export const FormikInput = forwardRef<HTMLInputElement, FormikInputProps>(
             </div>
           )}
         </div>
-        <InputErrorText className="mt-1 ml-1" touched={touched} error={error} />
+        <InputErrorText id={errorId} className="mt-1 ml-1" touched={touched} error={error} />
       </div>
     );
   },
@@ -114,6 +120,9 @@ interface FormikTextareaProps
 export const FormikTextArea = forwardRef<HTMLTextAreaElement, FormikTextareaProps>(
   ({ label, name, className = "appearance-none", variant, inputSize, required, ...props }, ref) => {
     const [field, { touched, error }] = useField(name);
+    // Tie the error to the field so assistive tech announces it
+    const errorId = `${props.id || name}-error`;
+    const showError = touched && !!error;
 
     return (
       <div>
@@ -135,12 +144,15 @@ export const FormikTextArea = forwardRef<HTMLTextAreaElement, FormikTextareaProp
             )}
             autoFocus={false}
             autoComplete="off"
+            id={name}
+            aria-invalid={showError}
+            aria-describedby={showError ? errorId : undefined}
             ref={ref}
             {...field}
             {...props}
           />
         </div>
-        <InputErrorText className="mt-1 ml-1" touched={touched} error={error} />
+        <InputErrorText id={errorId} className="mt-1 ml-1" touched={touched} error={error} />
       </div>
     );
   },

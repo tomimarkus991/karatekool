@@ -1,0 +1,50 @@
+name: E2E
+
+on:
+  pull_request:
+    branches: [main]
+
+env:
+  E2E_BACKEND: supabase
+  # E2E=1, SMTP and Upstash settings come from e2e/local-services.json via playwright.config.ts
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Start local Supabase
+        # Only the services the site uses: database, auth, REST API and storage
+        run: npx supabase start -x studio,imgproxy,edge-runtime,logflare,vector,supavisor,realtime,postgres-meta,mailpit
+
+      - name: Start Mailpit and Redis stand-in
+        run: docker compose -f e2e/docker-compose.yml up -d --wait
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Run end-to-end suite
+        run: yarn e2e
+
+      - name: Upload report and traces
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 14

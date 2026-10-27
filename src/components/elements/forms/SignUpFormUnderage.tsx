@@ -199,8 +199,10 @@ export const SignUpFormUnderage = () => {
                               Vähemalt ühe vanema kõik andmed peavad olema täidetud.
                             </p>
                             {parents.map(parent => (
-                              <div key={parent.key} className="mt-3">
-                                <p className="ml-1 text-sm font-semibold">{parent.title}</p>
+                              <fieldset key={parent.key} className="mt-3">
+                                <legend className="ml-1 text-sm font-semibold">
+                                  {parent.title}
+                                </legend>
                                 <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                                   <FormikInput
                                     className="w-full"
@@ -225,7 +227,7 @@ export const SignUpFormUnderage = () => {
                                     />
                                   </div>
                                 </div>
-                              </div>
+                              </fieldset>
                             ))}
                             <InputErrorText
                               className="mt-2 ml-1"

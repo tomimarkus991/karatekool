@@ -25,6 +25,7 @@ export const GroupPicker = ({ name }: Props) => {
       <Listbox {...field} multiple value={value} onChange={setValue} by="id">
         <Listbox.Options
           static
+          aria-label="Grupid"
           className={cn(
             "relative px-0 py-3 mt-2 text-base bg-white rounded-md shadow-md sm:px-2 focus:outline-none sm:text-sm",
             error ? "border border-red-500" : "border border-white",

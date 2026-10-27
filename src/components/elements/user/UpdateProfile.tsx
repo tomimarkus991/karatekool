@@ -149,6 +149,7 @@ export const UpdateProfileForm = () => {
             <Listbox value={values.group} onChange={value => setFieldValue("group", value)}>
               <Listbox.Options
                 static
+                aria-label="Grupp"
                 className="relative px-2 py-3 mt-6 text-base bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
               >
                 <div className="grid items-center justify-center grid-cols-6 grid-rows-2 gap-1">
@@ -190,6 +191,7 @@ export const UpdateProfileForm = () => {
             >
               <Listbox.Options
                 static
+                aria-label="Kalendri vaade"
                 className="relative px-2 py-3 mt-6 mb-3 text-base bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
               >
                 <div className="grid items-center justify-center grid-cols-2 grid-rows-1 gap-1">

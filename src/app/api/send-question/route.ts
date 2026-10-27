@@ -1,18 +1,18 @@
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
 
 import { SendQuestionFormValues } from "../../../app-constants";
 import { SendSupportQuestionEmailTemplate } from "../../../components/emails/SendSupportQuestion";
-
-const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
+import { sendToClub } from "../../../lib/mailer";
 
 // Allow 5 questions per email per day
 const rateLimit = new Ratelimit({
   redis: Redis.fromEnv(),
   limiter: Ratelimit.slidingWindow(5, "1 d"),
   analytics: true,
+  // The default in-memory cache of blocked emails outlives the E2E reset, which only clears Redis
+  ephemeralCache: process.env.E2E === "1" ? false : undefined,
 });
 
 export async function POST(req: Request) {
@@ -25,10 +25,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Too many requests" }, { status: 429 });
     }
 
-    const { data, error } = await resend.emails.send({
-      from: "Karatekool <noreply@karatekool.ee>",
-      to: ["info@karatekool.ee"],
-      reply_to: email,
+    const { data, error } = await sendToClub({
+      replyTo: email,
       subject: `Küsimus ${name}`,
       react: SendSupportQuestionEmailTemplate({ email, name, question }),
     });

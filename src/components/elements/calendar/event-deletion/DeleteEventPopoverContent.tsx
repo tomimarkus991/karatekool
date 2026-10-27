@@ -39,7 +39,9 @@ export const DeleteEventPopoverContent = ({ children, deleteEvent, event }: Prop
             className="self-center mr-4 cursor-pointer"
             variants={animations.smallScaleXs}
           >
-            <HiTrash onClick={() => deleteEvent()} className="text-red-600 size-4 md:size-5" />
+            <button type="button" aria-label="Kustuta üritus" onClick={() => deleteEvent()}>
+              <HiTrash className="text-red-600 size-4 md:size-5" />
+            </button>
           </AnimationWrapper>
         )}
 
@@ -53,10 +55,14 @@ export const DeleteEventPopoverContent = ({ children, deleteEvent, event }: Prop
               selectedTab={openIndex()}
               event={event}
               button={
-                <HiPencil
-                  className="mt-3 cursor-pointer size-6 text-secondary"
+                <button
+                  type="button"
+                  aria-label="Muuda üritust"
+                  className="mt-3"
                   onClick={() => setIsEventCreationModalOpen(true)}
-                />
+                >
+                  <HiPencil className="cursor-pointer size-6 text-secondary" />
+                </button>
               }
             />
           )}

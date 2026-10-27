@@ -44,6 +44,7 @@ export const MapHighLightedGroupLetter = ({
       <div id="normal-event" className={cn("flex flex-row")} key={highlightedGroup?.letter}>
         <p
           id="normal-event"
+          data-highlighted
           className={cn(
             "underline decoration-red-500",
             groupLetterColorMapper(highlightedGroup?.letter),

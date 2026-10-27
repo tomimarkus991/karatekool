@@ -3,3 +3,9 @@ extends:
 
 rules:
   arrow-body-style: off
+
+overrides:
+  # Playwright, not React Testing Library
+  - files: ["e2e/**/*.ts"]
+    rules:
+      testing-library/prefer-screen-queries: off

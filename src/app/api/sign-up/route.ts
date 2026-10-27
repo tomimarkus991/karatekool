@@ -1,20 +1,20 @@
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
 import { ValidationError } from "yup";
 
 import { SignUpRequestBody, YupSchemas } from "../../../app-constants";
 import { SignUpAdultEmailTemplate } from "../../../components/emails/SignUpAdultEmailTemplate";
 import { SignUpUnderageEmailTemplate } from "../../../components/emails/SignUpUnderageEmailTemplate";
-
-const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
+import { sendToClub } from "../../../lib/mailer";
 
 // Allow 5 sign-ups per email per day
 const rateLimit = new Ratelimit({
   redis: Redis.fromEnv(),
   limiter: Ratelimit.slidingWindow(5, "1 d"),
   analytics: true,
+  // The default in-memory cache of blocked emails outlives the E2E reset, which only clears Redis
+  ephemeralCache: process.env.E2E === "1" ? false : undefined,
 });
 
 const buildEmail = async (body: SignUpRequestBody) => {
@@ -52,13 +52,7 @@ export async function POST(req: Request) {
     if (!success) {
       return NextResponse.json({ error: "Too many requests" }, { status: 429 });
     }
-    const { data, error } = await resend.emails.send({
-      from: "Karatekool <noreply@karatekool.ee>",
-      to: ["info@karatekool.ee"],
-      reply_to: replyTo,
-      subject,
-      react,
-    });
+    const { data, error } = await sendToClub({ replyTo, subject, react });
     if (error) {
       return NextResponse.json({ error }, { status: 500 });
     }

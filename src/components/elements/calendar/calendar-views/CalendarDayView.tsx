@@ -111,13 +111,14 @@ export const CalendarDayView = ({
   ];
 
   return (
-    <>
+    <div data-testid="calendar-day-view">
       <div className="flex items-center justify-center">
         <header className="relative my-6 flex justify-between items-center max-w-fit min-w-[18rem]">
           <motion.button
             variants={removeImmediately}
             className={cn("z-10 rounded-full cursor-pointer")}
             onClick={previousDay}
+            aria-label="Eelmine päev"
           >
             <AnimationWrapper variants={animations.smallScale}>
               <HiChevronLeft className="w-6 h-6 text-gray-600" />
@@ -145,6 +146,7 @@ export const CalendarDayView = ({
             variants={removeImmediately}
             className={cn("z-10 rounded-full cursor-pointer")}
             onClick={nextDay}
+            aria-label="Järgmine päev"
           >
             <AnimationWrapper variants={animations.smallScale}>
               <HiChevronRight className="w-6 h-6 text-gray-600" />
@@ -199,6 +201,6 @@ export const CalendarDayView = ({
           </div>
         </div>
       </motion.div>
-    </>
+    </div>
   );
 };
