@@ -1,0 +1,15 @@
+# The Playwright E2E suite: test-support endpoints on (see e2e/TestSupportController), mail to the
+# suite's Mailpit, and the local database, which every test wipes.
+spring:
+  mail:
+    host: localhost
+    port: 1025
+    username: ""
+    properties:
+      mail.smtp.ssl.enable: false
+
+app:
+  jwt:
+    secret: e2e-only-secret-that-is-at-least-32-bytes-long
+  auth:
+    google-client-ids: e2e
