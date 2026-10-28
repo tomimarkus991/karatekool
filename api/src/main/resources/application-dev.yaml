@@ -1,3 +1,12 @@
+# Mail goes to a local Mailpit (docker compose in e2e/), whose inbox is at http://localhost:8025
+spring:
+  mail:
+    host: localhost
+    port: 1025
+    username: ""
+    properties:
+      mail.smtp.ssl.enable: false
+
 app:
   jwt:
     secret: dev-only-secret-that-is-at-least-32-bytes-long

@@ -37,6 +37,7 @@ public class SecurityConfig {
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll() // OpenAPI and Swagger UI
                         .requestMatchers("/actuator/health", "/error").permitAll()
                         .requestMatchers(HttpMethod.GET, "/events", "/groups", "/trailers", "/presets").permitAll() // The calendar is public
+                        .requestMatchers(HttpMethod.POST, "/questions", "/applications/adult", "/applications/child").permitAll() // So are the forms
                         .requestMatchers("/events/**", "/trainings/**", "/all-day-events/**", "/multi-day-events/**", "/presets/**").hasRole(ADMIN) // Only Admins change it
                         .anyRequest().hasRole(MEMBER) // Everything else needs someone who is still on the Whitelist
                 )
