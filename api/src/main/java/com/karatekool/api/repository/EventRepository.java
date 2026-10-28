@@ -19,4 +19,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             order by e.startsAt
             """)
     List<Event> findInRange(Instant from, Instant to);
+
+    boolean existsByPresetId(Long presetId);
 }
