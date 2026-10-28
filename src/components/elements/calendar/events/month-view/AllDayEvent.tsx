@@ -2,7 +2,7 @@ import { isSameDay, parseISO } from "date-fns";
 import { motion } from "framer-motion";
 
 import { useCalendarFilters } from "@/context";
-import { useDeleteCalendarAllDayEvent } from "@/hooks";
+import { useDeleteCalendarEvent } from "@/hooks";
 import { EventData } from "@/types";
 
 import { cn } from "../../../../../lib";
@@ -17,7 +17,7 @@ interface Props {
 export const AllDayEvent = ({ event, date }: Props) => {
   const { all_day_event } = event;
   const start = parseISO(event.start);
-  const { mutate: deleteEvent } = useDeleteCalendarAllDayEvent();
+  const { mutate: deleteEvent } = useDeleteCalendarEvent();
   const { letter } = useCalendarFilters();
 
   if (!isSameDay(start, date) || !all_day_event) {

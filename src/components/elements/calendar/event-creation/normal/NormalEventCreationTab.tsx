@@ -88,15 +88,7 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
       validateOnMount
       validateOnChange
       onSubmit={(
-        {
-          startTime,
-          endTime,
-          selectedGroups,
-          description,
-          trailer,
-          isHighlighted,
-          selectedStartDates,
-        },
+        { startTime, selectedGroups, description, trailer, isHighlighted, selectedStartDates },
         { setSubmitting, setFieldValue },
       ) => {
         setSubmitting(true);
@@ -109,7 +101,6 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
 
         createNewNormalCalendarEvent({
           id: event?.id,
-          normalEventEnd: endTime,
           groupIds,
           description,
           trailerId: trailer.id,

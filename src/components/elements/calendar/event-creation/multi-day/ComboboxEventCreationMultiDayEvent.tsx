@@ -22,7 +22,7 @@ export const ComboboxEventCreationMultiDayEvent = ({ name }: Props) => {
 
   useEffect(() => {
     if (newCreatedEvent) {
-      setValue(newCreatedEvent.data as MultiDayEventEventFormik);
+      setValue(newCreatedEvent as MultiDayEventEventFormik);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newCreatedEvent]);

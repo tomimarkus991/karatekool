@@ -16,7 +16,7 @@ import {
   animations,
   defaultTransition,
 } from "@/components";
-import { cn } from "@/lib";
+import { api, cn } from "@/lib";
 
 import { LoadingSpinner } from "../LoadingSpinner";
 
@@ -48,19 +48,13 @@ export const QuestionForm = ({ requestSuccess, setRequestSuccess, setIsModalOpen
               setSubmitting(true);
               setRequestError(null);
 
-              const applicationSent = await fetch("/api/send-question", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
-              }).catch(() => undefined);
-              if (applicationSent?.ok) {
+              try {
+                await api("/questions", { method: "POST", body: formData });
                 setRequestSuccess(true);
-              } else {
+              } catch (error) {
                 setRequestError(
                   requestErrorMessage(
-                    applicationSent,
+                    error,
                     "Küsimuse saatmine ebaõnnestus. Palun proovi uuesti või kirjuta aadressil info@karatekool.ee",
                   ),
                 );

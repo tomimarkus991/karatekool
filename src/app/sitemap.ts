@@ -40,14 +40,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
-      url: `${baseUrl}/materjalid`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrl}/register`,
-      lastModified: new Date(),
-    },
-    {
       url: `${baseUrl}/reset-password`,
       lastModified: new Date(),
     },

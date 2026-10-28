@@ -1,56 +1,30 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
-import { useSupabase } from "@/context";
+import { api, ApiGroup } from "@/lib";
 
 interface Props {
-  name: string;
   avatar: string;
+  /** A Group letter */
   group: string;
   calendarType: string;
 }
 
-interface UpdatedFields {
-  username?: string;
-  avatar?: string;
-  group?: string;
-  calendar_type?: string;
-}
-
 export const useUpdateProfile = () => {
-  const { supabase } = useSupabase();
   const queryClient = useQueryClient();
 
-  const execute = async ({ avatar, name, calendarType, group }: Props) => {
-    const updatedFields: UpdatedFields = {};
+  const execute = async ({ avatar, calendarType, group }: Props) => {
+    const groups = group ? await api<ApiGroup[]>("/groups") : [];
 
-    if (name) {
-      updatedFields.username = name;
-    }
-
-    if (avatar) {
-      updatedFields.avatar = avatar;
-    }
-
-    if (group) {
-      updatedFields.group = group;
-    }
-
-    if (calendarType) {
-      updatedFields.calendar_type = calendarType;
-    }
-
-    const res = await supabase
-      .from("profile")
-      .update(updatedFields)
-      .match({ id: (await supabase.auth.getUser()).data.user?.id });
-
-    if (res.error) {
-      toast.error(res.error.message);
-      throw new Error(res.error.message);
-    }
-
-    return res;
+    // Left out fields stay as they are
+    await api("/me", {
+      method: "PATCH",
+      body: {
+        avatar: avatar || undefined,
+        groupId: groups.find(g => g.letter === group)?.id,
+        calendarView: { Kuu: "MONTH", Päev: "DAY" }[calendarType],
+      },
+    });
   };
 
   return useMutation({
@@ -58,6 +32,9 @@ export const useUpdateProfile = () => {
     onSuccess: () => {
       toast.success("Profiil uuendatud");
       queryClient.invalidateQueries({ queryKey: ["user"] });
+    },
+    onError: error => {
+      toast.error(error.message);
     },
   });
 };

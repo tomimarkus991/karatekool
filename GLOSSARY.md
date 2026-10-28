@@ -1,6 +1,6 @@
 # Karatekool Nüke
 
-The public website of the Karatekool Nüke karate club, with a members-only area for the training calendar and study materials.
+The public website of the Karatekool Nüke karate club, with a training calendar that Members can personalise and Admins manage.
 
 ## Language
 

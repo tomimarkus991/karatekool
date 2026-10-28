@@ -8,7 +8,7 @@ import {
   NormalEventTime,
 } from "@/components";
 import { useCalendarFilters } from "@/context";
-import { useDeleteNormalCalendarEvent } from "@/hooks";
+import { useDeleteCalendarEvent } from "@/hooks";
 import { cn } from "@/lib";
 import { EventData, EventTypes } from "@/types";
 
@@ -26,7 +26,7 @@ export const DayViewNormalEvent = ({ event, date }: Props) => {
   const { group: groups, event_trailer, description, event_type, id } = event;
   const start = parseISO(event.start);
   const { letter } = useCalendarFilters();
-  const { mutate: deleteEvent } = useDeleteNormalCalendarEvent();
+  const { mutate: deleteEvent } = useDeleteCalendarEvent();
 
   if (EventTypes.NORMAL !== event_type) {
     return <></>;
