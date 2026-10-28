@@ -28,15 +28,15 @@ C4Container
   Rel(visitor, spa, "Uses", "HTTPS")
   Rel(member, spa, "Uses", "HTTPS")
   Rel(spa, next, "Loads pages", "HTTPS, RSC payload")
-  Rel(spa, google, "Gets a Google ID token", "GIS button")
-  Rel(spa, api, "Exchanges ID token for API JWT; reads and writes calendar, profile; posts forms", "HTTPS JSON, Bearer JWT, CORS")
-  Rel(api, google, "Verifies ID token signatures", "HTTPS JWKS")
+  Rel(spa, google, "Gets a Google access token", "GIS token popup")
+  Rel(spa, api, "Exchanges Google token for API JWT; reads and writes calendar, profile; posts forms", "HTTPS JSON, Bearer JWT, CORS")
+  Rel(api, google, "Checks Google tokens", "HTTPS tokeninfo, JWKS")
   Rel(api, db, "Reads and writes", "JDBC")
   Rel(api, resend, "Sends plain-text club mail", "SMTPS")
   Rel(spa, embeds, "Embeds videos and maps", "iframe")
 ```
 
-- **Auth**: `POST /auth/google {idToken}` verifies the Google ID token (issuer, audience in `GOOGLE_CLIENT_IDS`, verified email) and returns the API's own 30-day HS256 JWT (`JWT_SECRET`). Roles are not in the token: `SecurityConfig` looks the email up in the Whitelist on every request, so removing someone takes effect at once. Public: `GET /events, /groups, /trailers, /presets` and the three form endpoints; Admin only: calendar writes; everything else needs a Member.
+- **Auth**: `POST /auth/google {accessToken}` (the site's own button, Google's popup token flow) asks Google's tokeninfo whether the token was issued to a client in `GOOGLE_CLIENT_IDS` with a verified email; `{idToken}` is still accepted and checked against Google's keys. Either way it returns the API's own 30-day HS256 JWT (`JWT_SECRET`). Roles are not in the token: `SecurityConfig` looks the email up in the Whitelist on every request, so removing someone takes effect at once. Public: `GET /events, /groups, /trailers, /presets` and the three form endpoints; Admin only: calendar writes; everything else needs a Member.
 - **Mail**: Applications and Questions are rate-limited to 5 per kind per sender email per 24 h in the `mail_sent` table, then sent over SMTP (`RESEND_API_KEY` as password). The mail health check is off so an SMTP outage does not mark the API down.
 - **Frontend config**: `NEXT_PUBLIC_API_URL` (default `http://localhost:8080/api/v1`) and `NEXT_PUBLIC_GOOGLE_CLIENT_ID`; without a client ID, development shows a dev sign-in button that the API's `dev` profile accepts. API config: `CORS_ALLOWED_ORIGINS`, `GOOGLE_CLIENT_IDS`, `JWT_SECRET`, `RESEND_API_KEY`, datasource variables.
 - **API deploy** (`.github/workflows/deploy-api.yml`): on push to `main` touching `api/**`, builds `api/Dockerfile`, pushes to Docker Hub, copies `docker-compose.prod.yml` to the VPS (`/my-apps/karatekool`) and runs `postgres:17` plus the API behind Traefik with Let's Encrypt at `api.karatekool.alber.ee`. `verify-api.yml` runs `./mvnw verify` (Testcontainers) on PRs touching `api/**`.

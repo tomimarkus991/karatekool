@@ -10,10 +10,11 @@ export const useSignInWithGoogle = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (idToken: string) => {
+    // An access token from Google's popup; the API checks it was issued to our client
+    mutationFn: async (accessToken: string) => {
       const { token } = await api<{ token: string }>("/auth/google", {
         method: "POST",
-        body: { idToken },
+        body: { accessToken },
       });
       setToken(token);
     },
