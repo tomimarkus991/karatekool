@@ -123,7 +123,7 @@ export const CalendarFilterButtons = ({
             <RealButton
               key={name}
               className="relative group"
-              variant="gray"
+              variant="orange"
               size="xs"
               focus={true}
               onClick={() => choose({ name })}
