@@ -4,7 +4,10 @@ export interface NewTraining {
   /** ISO date-time with offset, e.g. "2026-03-10T18:00:00+02:00" */
   start: string;
   end: string;
+  /** Empty for a Named Training */
   groups: GroupLetters[];
+  /** A Named Training's name, e.g. "Falco Cup" */
+  name?: string;
   highlightedTime?: boolean;
   description?: string;
   /** One of the club's standard trailer texts, e.g. "- EKSAM" */

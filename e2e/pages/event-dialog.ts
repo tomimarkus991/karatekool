@@ -7,7 +7,10 @@ import { savedWith } from "./toast";
 export interface TrainingDetails {
   /** One of the dialog's preset start times, e.g. "17:30" */
   time: string;
-  groups: GroupLetters[];
+  /** Left out or empty for a Named Training */
+  groups?: GroupLetters[];
+  /** A Named Training's name, e.g. "Falco Cup" */
+  name?: string;
   description?: string;
   highlightedTime?: boolean;
   /** One of the club's standard trailer texts, e.g. "- EKSAM" */
@@ -19,6 +22,8 @@ export interface TrainingChanges {
   time?: string;
   /** Every Group the Training should have afterwards */
   groups?: GroupLetters[];
+  /** The Training's new name */
+  name?: string;
   /** A standard trailer text to attach, or null to remove the current one */
   trailer?: string | null;
 }
@@ -113,6 +118,8 @@ export const eventDialog = (page: Page) => {
     await picker.close();
   };
 
+  const nameBox = (panel: Locator) => panel.getByLabel("Trenni nimi", { exact: true });
+
   const trailers = (panel: Locator) => panel.getByRole("listbox", { name: "Treilerid" });
 
   /** The Multi-day event title box; its list offers the Multi-day event Presets */
@@ -122,7 +129,8 @@ export const eventDialog = (page: Page) => {
     /** Fills the Training tab and creates the Training on the dialog's date */
     createTraining: async ({
       time,
-      groups,
+      groups = [],
+      name,
       description,
       highlightedTime,
       trailer,
@@ -130,6 +138,7 @@ export const eventDialog = (page: Page) => {
       const panel = dialog.getByRole("tabpanel", { name: "Trenn", exact: true });
       await pickTime(panel, time);
       await pickGroups(panel, groups);
+      if (name) await nameBox(panel).fill(name);
       if (trailer) await panel.getByRole("option", { name: trailer, exact: true }).click();
       if (description) await panel.getByLabel("Mis trennis toimub?").fill(description);
       if (highlightedTime) await panel.getByRole("switch", { name: "Tõsta trenn esile" }).click();
@@ -147,11 +156,16 @@ export const eventDialog = (page: Page) => {
       return (await picked.count()) ? (await picked.innerText()).trim() : null;
     },
 
+    /** The name in the Training tab; empty when the Training is not a Named Training */
+    trainingName: () =>
+      nameBox(dialog.getByRole("tabpanel", { name: "Trenn", exact: true })).inputValue(),
+
     /** Changes the Training the dialog was opened to edit and saves it */
-    updateTraining: async ({ time, groups, trailer }: TrainingChanges) => {
+    updateTraining: async ({ time, groups, name, trailer }: TrainingChanges) => {
       const panel = dialog.getByRole("tabpanel", { name: "Trenn", exact: true });
       if (time) await pickTime(panel, time);
       if (groups) await pickGroups(panel, groups);
+      if (name) await nameBox(panel).fill(name);
       // Clicking the picked trailer again removes it
       if (trailer === null) await trailers(panel).getByRole("option", { selected: true }).click();
       if (trailer)
