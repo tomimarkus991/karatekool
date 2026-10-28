@@ -1,3 +1,5 @@
+# Own project name: the folder is called 'api' in other repos too, and they would share containers
+name: karatekool-api
 services:
   postgres:
     image: 'postgres:latest'

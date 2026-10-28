@@ -7,7 +7,9 @@ import org.springframework.context.annotation.Import;
 /** Full app against a Testcontainers Postgres. Subclasses share one context (and one container). */
 @SpringBootTest(properties = {
         "app.jwt.secret=test-secret-that-is-at-least-32-bytes-long",
-        "app.auth.google-client-ids=test-client-id"
+        "app.auth.google-client-ids=test-client-id",
+        "whitelist.admins=admin@example.com",
+        "whitelist.members=user@example.com,old@example.com,new@example.com"
 })
 @AutoConfigureMockMvc
 @Import(TestcontainersConfiguration.class)

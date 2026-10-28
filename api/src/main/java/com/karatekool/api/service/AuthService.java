@@ -1,5 +1,6 @@
 package com.karatekool.api.service;
 
+import com.karatekool.api.config.Whitelist;
 import com.karatekool.api.dto.AuthRequestDto;
 import com.karatekool.api.dto.AuthResponseDto;
 import com.karatekool.api.dto.UserDto;
@@ -8,8 +9,10 @@ import com.karatekool.api.repository.AppUserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 @Slf4j
 @Service
@@ -20,6 +23,7 @@ public class AuthService {
     private final TokenService tokenService;
     private final GoogleTokenVerifier googleTokenVerifier;
     private final AppUserRepository userRepository;
+    private final Whitelist whitelist;
 
     private final boolean skipGoogleVerification;
     private final String devUserEmail;
@@ -28,6 +32,7 @@ public class AuthService {
             TokenService tokenService,
             GoogleTokenVerifier googleTokenVerifier,
             AppUserRepository userRepository,
+            Whitelist whitelist,
             Environment environment,
             @Value("${app.auth.skip-google-verification:false}") boolean skipGoogleVerification,
             @Value("${app.auth.dev-user-email:#{null}}") String devUserEmail) {
@@ -35,6 +40,7 @@ public class AuthService {
         this.tokenService = tokenService;
         this.googleTokenVerifier = googleTokenVerifier;
         this.userRepository = userRepository;
+        this.whitelist = whitelist;
         this.skipGoogleVerification = skipGoogleVerification;
         this.devUserEmail = devUserEmail;
 
@@ -59,7 +65,7 @@ public class AuthService {
 
         String token = tokenService.generateToken(user.getId(), user.getEmail());
 
-        return new AuthResponseDto(token, new UserDto(user.getId(), user.getEmail(), user.getName()));
+        return new AuthResponseDto(token, new UserDto(user.getId(), user.getEmail(), user.getName(), whitelist.isAdmin(user.getEmail())));
     }
 
     @Transactional
@@ -68,6 +74,9 @@ public class AuthService {
     }
 
     private AppUser getOrCreateGoogleUser(GoogleTokenVerifier.GoogleIdentity identity) {
+        if (!whitelist.allows(identity.email())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Email is not on the Whitelist");
+        }
         return getOrCreateUser(identity.sub(), identity.email(), identity.name());
     }
 

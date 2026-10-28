@@ -4,3 +4,8 @@ app:
   auth:
     skip-google-verification: true
     dev-user-email: dev@karatekool.app
+
+# The dev user is an Admin so the calendar can be managed locally
+whitelist:
+  admins:
+    - dev@karatekool.app

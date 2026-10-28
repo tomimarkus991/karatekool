@@ -1,6 +1,8 @@
 spring:
   application:
     name: api
+  config:
+    import: classpath:whitelist.yaml
   main:
     banner-mode: off
   threads:

@@ -4,20 +4,30 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+    public static final String MEMBER = "MEMBER";
+    public static final String ADMIN = "ADMIN";
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, Whitelist whitelist) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -25,14 +35,40 @@ public class SecurityConfig {
                         .requestMatchers("/auth/google").permitAll() // The login endpoint is public so users can actually log in
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll() // OpenAPI and Swagger UI
                         .requestMatchers("/actuator/health", "/error").permitAll()
-                        .anyRequest().authenticated() // Everything else requires authentication
+                        .anyRequest().hasRole(MEMBER) // Everything else needs someone who is still on the Whitelist
                 )
-                .exceptionHandling(exceptions -> exceptions.authenticationEntryPoint(jsonUnauthorized()))
-                .oauth2ResourceServer(oauth2 -> oauth2
-                        .jwt(Customizer.withDefaults())
+                .exceptionHandling(exceptions -> exceptions
                         .authenticationEntryPoint(jsonUnauthorized())
+                        .accessDeniedHandler(jsonForbidden())
+                )
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(jwt -> jwt.jwtAuthenticationConverter(whitelistRoles(whitelist)))
+                        .authenticationEntryPoint(jsonUnauthorized())
+                        .accessDeniedHandler(jsonForbidden())
                 );
         return http.build();
+    }
+
+    // Roles come from the Whitelist on every request, not from the token, so removing someone
+    // from the Whitelist takes effect without waiting for their token to expire
+    private JwtAuthenticationConverter whitelistRoles(Whitelist whitelist) {
+        JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+        converter.setJwtGrantedAuthoritiesConverter((Jwt jwt) -> {
+            String email = jwt.getClaimAsString("email");
+            List<GrantedAuthority> roles = new ArrayList<>();
+            if (whitelist.allows(email)) roles.add(new SimpleGrantedAuthority("ROLE_" + MEMBER));
+            if (whitelist.isAdmin(email)) roles.add(new SimpleGrantedAuthority("ROLE_" + ADMIN));
+            return roles;
+        });
+        return converter;
+    }
+
+    private AccessDeniedHandler jsonForbidden() {
+        return (request, response, exception) -> {
+            response.setStatus(HttpStatus.FORBIDDEN.value());
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            response.getWriter().write("{\"error\":\"Forbidden\"}");
+        };
     }
 
     // Missing, invalid and expired tokens all answer in the same { "error": ... } shape as the rest of the API
