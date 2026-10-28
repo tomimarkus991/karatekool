@@ -1,9 +1,6 @@
 import type { Mail } from "./port";
 
-/**
- * The test services from e2e/docker-compose.yml that every backend shares: Mailpit catches the
- * site's email and serverless-redis-http stands in for Upstash. playwright.config.ts sets the URLs.
- */
+/** Mailpit from e2e/docker-compose.yml, which catches the API's email. playwright.config.ts sets the URL. */
 
 const localUrl = (name: string) => {
   const value = process.env[name];
@@ -63,22 +60,5 @@ export const mailpit = () => {
       const messages = await searchTo(address, 100);
       return Promise.all(messages.map(message => read(message.ID)));
     },
-  };
-};
-
-/** The rate limiter's store, through the same Upstash REST protocol the site uses. */
-export const rateLimitStore = () => {
-  const url = localUrl("UPSTASH_REDIS_REST_URL");
-
-  return {
-    clear: () =>
-      call(url, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.UPSTASH_REDIS_REST_TOKEN}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(["FLUSHALL"]),
-      }),
   };
 };

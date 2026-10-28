@@ -1,19 +1,12 @@
 import { defineConfig, devices } from "@playwright/test";
 
 import localServices from "./e2e/local-services.json";
-import { localSupabaseEnv } from "./e2e/support/local-supabase";
 
-const spring = process.env.E2E_BACKEND === "spring";
 const apiUrl = "http://localhost:8080/api/v1";
 
-// Make the backend's address, and the Mailpit and Redis stand-ins from e2e/docker-compose.yml,
-// visible to the backend fixture and the web server. The stand-ins always win over the shell so
-// reset() can never flush a real Redis.
-Object.assign(
-  process.env,
-  spring ? { NEXT_PUBLIC_API_URL: apiUrl, E2E_API_URL: apiUrl } : localSupabaseEnv(),
-  localServices,
-);
+// Point the site and the backend fixture at the local API, and the fixture at Mailpit from
+// e2e/docker-compose.yml. These always win over the shell so reset() can never wipe a real API.
+Object.assign(process.env, { NEXT_PUBLIC_API_URL: apiUrl, E2E_API_URL: apiUrl }, localServices);
 
 const baseURL = "http://localhost:3000";
 
@@ -51,5 +44,5 @@ export default defineConfig({
     trace: "retain-on-failure",
   },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
-  webServer: spring ? [api, site] : site,
+  webServer: [api, site],
 });
