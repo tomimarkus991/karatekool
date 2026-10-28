@@ -67,5 +67,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/videod`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/privacy-policy`,
+      lastModified: new Date(),
+    },
   ];
 }
