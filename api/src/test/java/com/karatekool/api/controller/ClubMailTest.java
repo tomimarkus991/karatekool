@@ -1,6 +1,7 @@
 package com.karatekool.api.controller;
 
 import com.karatekool.api.IntegrationTest;
+import com.karatekool.api.service.MailRateLimiter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -45,6 +46,9 @@ class ClubMailTest extends IntegrationTest {
 
     @Autowired
     private JdbcTemplate jdbc;
+
+    @Autowired
+    private MailRateLimiter rateLimiter;
 
     @MockitoBean
     private JavaMailSender mailSender;
@@ -140,6 +144,17 @@ class ClubMailTest extends IntegrationTest {
         }
 
         send("/questions", QUESTION).andExpect(status().isNoContent());
+    }
+
+    @Test
+    void sendersEmails_areForgottenAfterADay() throws Exception {
+        jdbc.update("insert into mail_sent (rate_key, sent_at) values ('question:old@example.com', now() - interval '25 hours')");
+        send("/questions", QUESTION).andExpect(status().isNoContent());
+
+        rateLimiter.forgetOldSends();
+
+        assertThat(jdbc.queryForList("select rate_key from mail_sent", String.class))
+                .containsExactly("question:kati@example.com");
     }
 
     @Test

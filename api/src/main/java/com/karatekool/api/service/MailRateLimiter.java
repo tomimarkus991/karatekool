@@ -3,6 +3,7 @@ package com.karatekool.api.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.simple.JdbcClient;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -33,6 +34,14 @@ public class MailRateLimiter {
         }
         jdbc.sql("insert into mail_sent (rate_key, sent_at) values (?, ?)")
                 .params(key, Timestamp.from(now))
+                .update();
+    }
+
+    /** Senders' emails are only needed for the limit, so they're kept no longer than its window */
+    @Scheduled(cron = "0 0 * * * *")
+    public void forgetOldSends() {
+        jdbc.sql("delete from mail_sent where sent_at <= ?")
+                .param(Timestamp.from(clock.instant().minus(WINDOW)))
                 .update();
     }
 }

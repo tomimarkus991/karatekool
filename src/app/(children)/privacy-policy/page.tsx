@@ -37,7 +37,7 @@ export default function Page() {
           Need andmed saadetakse e-kirjana klubi postkasti info@karatekool.ee ja neid kasutatakse
           ainult trenni registreerimiseks ja sinuga ühenduse võtmiseks. Veebileht ise neid ei
           salvesta. Liiga paljude kirjade vältimiseks jätame meelde ainult saatja e-posti aadressi
-          ja saatmise aja.
+          ja saatmise aja ning kustutame need ööpäeva möödudes.
         </p>
       </Section>
 
