@@ -45,6 +45,9 @@ app:
     # At least 32 characters (HS256)
     secret: ${JWT_SECRET:}
     expiration: 30d
+  cors:
+    # Comma-separated origins of the site
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000}
   auth:
     # Comma-separated Google OAuth client IDs whose ID tokens we accept (the Android app sends the web client ID)
     google-client-ids: ${GOOGLE_CLIENT_IDS:}
