@@ -32,8 +32,8 @@ export const MapGroupLetter = ({ groups, name, dayView = false }: MapGroupLetter
     {name && (
       <p
         id="normal-event"
-        // Line height after the size: Tailwind's text sizes carry their own, and the last one wins
-        className={cn("text-primary text-left", className(dayView), "leading-none")}
+        // Important: each breakpoint's text size (md:text-base…) sets its own line height again
+        className={cn("text-primary text-left !leading-none", className(dayView))}
       >
         {name}
       </p>
