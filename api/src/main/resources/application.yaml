@@ -1,0 +1,66 @@
+spring:
+  application:
+    name: api
+  config:
+    import: classpath:whitelist.yaml
+  main:
+    banner-mode: off
+  threads:
+    virtual:
+      enabled: true
+  # Club mail goes through Resend's SMTP server
+  mail:
+    host: ${MAIL_HOST:smtp.resend.com}
+    port: ${MAIL_PORT:465}
+    username: ${MAIL_USERNAME:resend}
+    password: ${RESEND_API_KEY:}
+    properties:
+      mail.smtp.ssl.enable: ${MAIL_SSL:true}
+  jpa:
+    open-in-view: false
+    # Flyway builds the DB. Hibernate just double-checks that the Java models match.
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 100
+        order_inserts: true
+
+server:
+  servlet:
+    context-path: /api/v1
+  # Behind Traefik in production: trust its X-Forwarded-* headers for the real scheme and host
+  forward-headers-strategy: framework
+  # Never expose stack traces or raw exception messages in HTTP error responses
+  error:
+    include-stacktrace: never
+    include-message: never
+
+app:
+  mail:
+    from: Karatekool <noreply@karatekool.ee>
+    to: info@karatekool.ee
+  jwt:
+    # At least 32 characters (HS256)
+    secret: ${JWT_SECRET:}
+    expiration: 30d
+  cors:
+    # Comma-separated origins of the site
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000}
+  auth:
+    # Comma-separated Google OAuth client IDs whose ID tokens we accept (the Android app sends the web client ID)
+    google-client-ids: ${GOOGLE_CLIENT_IDS:}
+    skip-google-verification: false
+
+management:
+  health:
+    # A brief SMTP outage shouldn't mark the whole API as down
+    mail:
+      enabled: false
+
+# Only report warnings and errors, except INFO logs for our own code
+logging:
+  level:
+    root: WARN
+    com.karatekool: INFO

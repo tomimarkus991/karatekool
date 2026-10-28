@@ -1,0 +1,8 @@
+# The Whitelist: email addresses allowed to sign in, and which of them are Admins.
+# Admins don't need to be listed under members too. Letter case doesn't matter.
+# Changes take effect on the next deploy, including for people who are already signed in.
+whitelist:
+  admins:
+    - tomimarkusalber@gmail.com
+    - allmannartur@gmail.com
+  members: []
