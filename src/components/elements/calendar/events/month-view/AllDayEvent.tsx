@@ -18,7 +18,7 @@ export const AllDayEvent = ({ event, date }: Props) => {
   const { all_day_event } = event;
   const start = parseISO(event.start);
   const { mutate: deleteEvent } = useDeleteCalendarEvent();
-  const { letter } = useCalendarFilters();
+  const { filter } = useCalendarFilters();
 
   if (!isSameDay(start, date) || !all_day_event) {
     return <></>;
@@ -46,7 +46,7 @@ export const AllDayEvent = ({ event, date }: Props) => {
               id="all-day-event"
               className={cn(
                 "text-blue-600 text-[0.5rem] xs:text-[0.6rem] sm:text-sm md:text-lg",
-                letter === "all" ? "mb-3" : "mb-0 lg:mb-3",
+                filter === "all" ? "mb-3" : "mb-0 lg:mb-3",
               )}
             >
               {title}
@@ -55,7 +55,7 @@ export const AllDayEvent = ({ event, date }: Props) => {
               id="all-day-event"
               className={cn(
                 "text-[0.5rem] xs:text-[0.58rem] sm:text-[0.65rem] md:text-[0.8rem]",
-                letter === "all" ? "block" : "hidden lg:block",
+                filter === "all" ? "block" : "hidden lg:block",
               )}
             >
               {sub_title}

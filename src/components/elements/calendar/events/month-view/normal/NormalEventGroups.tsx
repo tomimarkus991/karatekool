@@ -3,6 +3,8 @@ import { cn, groupLetterColorMapper } from "@/lib";
 
 interface MapGroupLetterProps {
   groups: NormalEventSelectedGroupsFormValues;
+  /** A Named Training's name, shown where its Groups go */
+  name?: string | null;
   dayView?: boolean;
 }
 
@@ -16,7 +18,7 @@ const className = (dayView: boolean) =>
 // const className = (overflowX: boolean) =>
 //   cn("font-quicksand font-semibold", overflowX ? "text-base ml-[0.1rem]" : "text-lg ml-1");
 
-export const MapGroupLetter = ({ groups, dayView = false }: MapGroupLetterProps) => (
+export const MapGroupLetter = ({ groups, name, dayView = false }: MapGroupLetterProps) => (
   <>
     {groups.map(group => (
       <p
@@ -27,5 +29,14 @@ export const MapGroupLetter = ({ groups, dayView = false }: MapGroupLetterProps)
         {group?.letter}
       </p>
     ))}
+    {name && (
+      <p
+        id="normal-event"
+        // Important: each breakpoint's text size (md:text-base…) sets its own line height again
+        className={cn("text-primary text-left !leading-none", className(dayView))}
+      >
+        {name}
+      </p>
+    )}
   </>
 );

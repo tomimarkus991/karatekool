@@ -166,6 +166,8 @@ export const Calendar = () => {
             <CalendarFilterButtons
               calendarRef={calendarRef}
               currentMonthString={currentMonthString}
+              events={events}
+              firstDayOfCurrentMonth={firstDayOfCurrentMonth}
             />
             <div ref={calendarRef}>
               <ResizablePanel>

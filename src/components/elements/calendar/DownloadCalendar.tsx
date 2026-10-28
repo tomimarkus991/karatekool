@@ -5,6 +5,7 @@ import { HiDownload } from "react-icons/hi";
 import { useScreenshot } from "use-react-screenshot";
 
 import { useCalendarFilters } from "@/context";
+import { filterLabel, isNamedTrainingFilter } from "@/lib";
 
 import { RealButton } from "../button";
 import { Tooltip } from "../Tooltip";
@@ -15,7 +16,8 @@ interface Props {
 }
 
 export const DownloadCalendar = ({ currentMonthString, calendarRef }: Props) => {
-  const { letter } = useCalendarFilters();
+  // The image is the calendar as shown, so it follows the same filter
+  const { filter } = useCalendarFilters();
 
   const [, takeScreenShot] = useScreenshot({
     type: "image/png",
@@ -27,7 +29,10 @@ export const DownloadCalendar = ({ currentMonthString, calendarRef }: Props) => 
     link.href = picture;
     link.setAttribute(
       "download",
-      `kalender-${letter}-${currentMonthString.replaceAll(" ", "-")}.png`,
+      `kalender-${filterLabel(filter).replaceAll(" ", "-")}-${currentMonthString.replaceAll(
+        " ",
+        "-",
+      )}.png`,
     );
     document.body.appendChild(link);
     link.click();
@@ -41,19 +46,21 @@ export const DownloadCalendar = ({ currentMonthString, calendarRef }: Props) => 
   return (
     <RealButton
       size="icon"
-      disabled={letter === "none"}
+      disabled={filter === "none"}
       className="px-0 md2:px-3 disabled:opacity-75 disabled:cursor-not-allowed group"
       onClick={downloadScreenshot}
     >
       <Tooltip
         tooltip={
-          letter === "all" ? (
+          filter === "all" ? (
             `Lae kõikide gruppide kalender alla`
-          ) : letter === "none" ? (
+          ) : filter === "none" ? (
             "Vali ennem grupp, mille kalender alla laadida"
+          ) : isNamedTrainingFilter(filter) ? (
+            <div className="whitespace-nowrap">{`Lae "${filter.name}" trennide kalender alla`}</div>
           ) : (
             <div className="whitespace-nowrap">
-              Lae <span className="!uppercase text-white">{letter}</span> grupi kalender alla
+              Lae <span className="!uppercase text-white">{filter}</span> grupi kalender alla
             </div>
           )
         }

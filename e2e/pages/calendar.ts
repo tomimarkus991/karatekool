@@ -31,9 +31,20 @@ export const calendarPage = (page: Page) => {
   };
   const moveMonth = (name: string) => move(name, monthHeadings());
 
+  // A Named Training's filter button is named after it in quotes, e.g. 'Näita "Falco Cup" trenne'
+  const namedTrainingButtons = () => page.getByRole("button", { name: /^Näita ".+" trenne/ });
+
+  const downloadWith = async (button: Locator) => {
+    const [download] = await Promise.all([page.waitForEvent("download"), button.click()]);
+    const stream = await download.createReadStream();
+    const chunks: Buffer[] = [];
+    for await (const chunk of stream) chunks.push(chunk as Buffer);
+    return { name: download.suggestedFilename(), content: Buffer.concat(chunks) };
+  };
+
   return {
-    /** Opens the calendar page, optionally through a link that names a Group */
-    open: ({ group }: { group?: GroupLetters } = {}) =>
+    /** Opens the calendar page, optionally through a link that names a Group or "all" of them */
+    open: ({ group }: { group?: GroupLetters | "all" } = {}) =>
       page.goto(group ? `/karateka?group=${group}` : "/karateka"),
 
     /** Opens the Event dialog on today's date; only Admins have this button */
@@ -41,6 +52,13 @@ export const calendarPage = (page: Page) => {
 
     showGroup: (letter: GroupLetters) =>
       page.getByRole("button", { name: `Näita ${letter} grupi trenne` }).click(),
+
+    /** Shows only the Named Trainings with this name, e.g. "Falco Cup" */
+    showNamedTraining: (name: string) =>
+      page.getByRole("button", { name: `Näita "${name}" trenne` }).click(),
+
+    /** The filter buttons of Named Trainings, one per name used in the shown month */
+    namedTrainingButtons,
 
     /** Opens the view menu, labelled with the current view, picks another one and closes the menu */
     switchView: async (view: CalendarView) => {
@@ -50,16 +68,12 @@ export const calendarPage = (page: Page) => {
     },
 
     /** Downloads the shown month for a Group; resolves to the file the browser saved */
-    download: async (letter: GroupLetters) => {
-      const [download] = await Promise.all([
-        page.waitForEvent("download"),
-        page.getByRole("button", { name: `Lae ${letter} grupi kalender alla` }).click(),
-      ]);
-      const stream = await download.createReadStream();
-      const chunks: Buffer[] = [];
-      for await (const chunk of stream) chunks.push(chunk as Buffer);
-      return { name: download.suggestedFilename(), content: Buffer.concat(chunks) };
-    },
+    download: (letter: GroupLetters) =>
+      downloadWith(page.getByRole("button", { name: `Lae ${letter} grupi kalender alla` })),
+
+    /** Downloads the shown month for a Named Training's filter; resolves to the saved file */
+    downloadNamedTraining: (name: string) =>
+      downloadWith(page.getByRole("button", { name: `Lae "${name}" trennide kalender alla` })),
 
     nextDay: () => move("Järgmine päev", page.getByTestId("calendar-day-view")),
     previousDay: () => move("Eelmine päev", page.getByTestId("calendar-day-view")),

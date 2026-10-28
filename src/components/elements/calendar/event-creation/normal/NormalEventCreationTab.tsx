@@ -55,6 +55,7 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
     // startMinute: event ? Number(event.start.split("T")[1].split(":")[1]) : 0,
     selectedStartDates: event ? [new Date(event.start)] : [new Date()],
     selectedGroups: event ? event.group : ([] as any),
+    trainingName: event?.name ?? "",
     trailer: event && event.event_trailer !== null ? event.event_trailer : {},
     description: event?.description || "",
     isHighlighted: event?.is_highlighted || false,
@@ -69,6 +70,7 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
           startTime: new Date(2022, 0, 1, 18, 0),
           selectedStartDates: [openDate],
           selectedGroups: [],
+          trainingName: "",
           // startHour: 18,
           // startMinute: 0,
           trailer: {},
@@ -88,7 +90,15 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
       validateOnMount
       validateOnChange
       onSubmit={(
-        { startTime, selectedGroups, description, trailer, isHighlighted, selectedStartDates },
+        {
+          startTime,
+          selectedGroups,
+          trainingName,
+          description,
+          trailer,
+          isHighlighted,
+          selectedStartDates,
+        },
         { setSubmitting, setFieldValue },
       ) => {
         setSubmitting(true);
@@ -102,6 +112,7 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
         createNewNormalCalendarEvent({
           id: event?.id,
           groupIds,
+          name: trainingName,
           description,
           trailerId: trailer.id,
           isHighlighted,
@@ -110,6 +121,7 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
 
         // reset groups to zero
         setFieldValue("selectedGroups", []);
+        setFieldValue("trainingName", "");
 
         setSubmitting(false);
       }}
@@ -317,6 +329,15 @@ export const NormalEventCreationTab = ({ openDate, event }: Props) => {
                 <div className="flex flex-row justify-between space-x-2">
                   <GroupPicker name="selectedGroups" />
                   <TrailerPicker name="trailer" />
+                </div>
+
+                <div className="mt-4">
+                  <FormikInput
+                    inputSize="sm"
+                    label="Trenni nimi"
+                    placeholder="Falco Cup"
+                    name="trainingName"
+                  />
                 </div>
 
                 <div className="flex flex-col mt-6">

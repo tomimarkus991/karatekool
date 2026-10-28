@@ -20,6 +20,8 @@ const toEventData = (event: ApiEvent): EventData => ({
       : null,
   multi_day_event: event.preset,
   group: event.groups,
+  // A Training's title is its name; All-day events keep theirs in all_day_event
+  name: event.kind === "TRAINING" ? event.title : null,
   event_type: {
     TRAINING: EventTypes.NORMAL,
     ALL_DAY: EventTypes.ALL_DAY,

@@ -37,6 +37,14 @@ export type GroupLetters = "S" | "S1" | "L" | "C" | "V" | "A" | "E" | "N" | "M" 
 
 export type GroupFilters = GroupLetters | "all" | "none";
 
+/** Shows only the Named Trainings with this name */
+export interface NamedTrainingFilter {
+  name: string;
+}
+
+/** What the calendar shows: one Group, all of them, nothing yet, or one Named Training's name */
+export type CalendarFilter = GroupFilters | NamedTrainingFilter;
+
 export interface SEventTrailer {
   id: number;
   text: string;
@@ -73,6 +81,8 @@ export interface EventData {
   all_day_event: SAllDayEvent | null;
   multi_day_event: SMultiDayEvent | null;
   group: GroupData[];
+  /** A Named Training's name; null for every other Event */
+  name: string | null;
   event_type: EventTypes;
 }
 

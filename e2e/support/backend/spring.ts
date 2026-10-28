@@ -150,7 +150,7 @@ export const springBackend = (browser: BrowserContext): TestBackend => {
 
   const createTrainings = async (training: NewTraining, token?: string) => {
     // The API has no Training end; the site shows a start time only (#33)
-    const { start, groups, highlightedTime = false, description, trailer } = training;
+    const { start, groups, name, highlightedTime = false, description, trailer } = training;
     return call("/trainings", {
       method: "POST",
       token,
@@ -160,6 +160,7 @@ export const springBackend = (browser: BrowserContext): TestBackend => {
         highlighted: highlightedTime,
         description,
         trailerId: trailer ? await trailerId(trailer) : undefined,
+        title: name,
       }),
     });
   };

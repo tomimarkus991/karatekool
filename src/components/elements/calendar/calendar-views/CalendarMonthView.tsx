@@ -53,7 +53,7 @@ export const CalendarMonthView = ({
     end: lastDayOfCalendarMonth,
   });
 
-  const { letter } = useCalendarFilters();
+  const { filter } = useCalendarFilters();
 
   const month = parse(currentMonthString, currentMonthType, new Date());
   const { isMobile } = useIsMobile();
@@ -156,7 +156,7 @@ export const CalendarMonthView = ({
                 key={week.toISOString()}
                 className={cn(
                   "grid grid-cols-7 border-t first:border-t-0 last:border-b-0 border-stone-100",
-                  letter === "all" ? "h-28 sm:h-36 md:h-44" : "h-16 sm:h-20 md:h-28 lg:h-32",
+                  filter === "all" ? "h-28 sm:h-36 md:h-44" : "h-16 sm:h-20 md:h-28 lg:h-32",
                 )}
               >
                 {daysForWeek.map(day => (
