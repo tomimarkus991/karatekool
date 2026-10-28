@@ -8,14 +8,19 @@ spring:
   threads:
     virtual:
       enabled: true
-  # Club mail goes through Resend's SMTP server
+  # Club mail goes through Resend's SMTP server. Hetzner blocks outgoing port 465, so it uses
+  # Resend's other SSL port, 2465.
   mail:
     host: ${MAIL_HOST:smtp.resend.com}
-    port: ${MAIL_PORT:465}
+    port: ${MAIL_PORT:2465}
     username: ${MAIL_USERNAME:resend}
     password: ${RESEND_API_KEY:}
     properties:
       mail.smtp.ssl.enable: ${MAIL_SSL:true}
+      # Fail a send in seconds rather than leave the visitor waiting on a dead connection
+      mail.smtp.connectiontimeout: 10000
+      mail.smtp.timeout: 10000
+      mail.smtp.writetimeout: 10000
   jpa:
     open-in-view: false
     # Flyway builds the DB. Hibernate just double-checks that the Java models match.
