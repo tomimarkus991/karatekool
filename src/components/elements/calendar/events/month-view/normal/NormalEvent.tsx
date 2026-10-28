@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { DeleteEventPopoverContent, MapGroupLetter, NormalEventTime } from "@/components";
 import { useCalendarFilters } from "@/context";
 import { useDeleteCalendarEvent } from "@/hooks";
-import { cn } from "@/lib";
+import { cn, showsTraining } from "@/lib";
 import { EventData, GroupData, SEventTrailer } from "@/types";
 
 import { Popover, PopoverTrigger } from "../../../../Popover";
@@ -17,6 +17,7 @@ interface NormalEventDisplayProps {
   event: {
     start: string | null;
     is_highlighted: boolean;
+    name?: string | null;
   };
   groups: GroupData[];
   eventTrailer: SEventTrailer | null;
@@ -36,7 +37,7 @@ export const NormalEventDisplay = ({
         isHighlighted={event.is_highlighted}
       />
       <div className={cn("flex justify-center items-center")}>
-        <MapGroupLetter groups={groups} />
+        <MapGroupLetter groups={groups} name={event.name} />
         {eventTrailer?.text && (
           <p className="text-red-500 ml-1 lg:text-xs xl:text-sm sm:ml-[0.1rem] text-[0.5rem] sm:text-[0.55rem] whitespace-nowrap font-number font-semibold text-center">
             {eventTrailer?.text}
@@ -55,7 +56,7 @@ export const NormalEventDisplay = ({
 export const NormalEvent = ({ event, date }: Props) => {
   const { group: groups, event_trailer: eventTrailer, description, id } = event;
   const start = parseISO(event.start);
-  const { letter } = useCalendarFilters();
+  const { filter } = useCalendarFilters();
   const { mutate: deleteEvent } = useDeleteCalendarEvent();
 
   // show event if it is the same day as the date
@@ -63,13 +64,7 @@ export const NormalEvent = ({ event, date }: Props) => {
     return <></>;
   }
 
-  // if filter is none then show nothing
-  if (letter === "none") {
-    return <></>;
-  }
-
-  // if filter is all show all groups
-  if (letter !== "all" && !groups.some(group => group?.letter === letter)) {
+  if (!showsTraining(filter, event)) {
     return <></>;
   }
 
