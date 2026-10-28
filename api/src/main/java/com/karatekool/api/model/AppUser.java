@@ -27,6 +27,19 @@ public class AppUser {
 
     private String name;
 
+    // Preferences: the Group and view the calendar opens with
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_id")
+    private ClubGroup group;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "calendar_view")
+    private CalendarView calendarView;
+
+    @Builder.Default
+    @Column(nullable = false)
+    private String avatar = "avatar.svg";
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;

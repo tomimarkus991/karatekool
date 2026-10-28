@@ -65,7 +65,7 @@ public class AuthService {
 
         String token = tokenService.generateToken(user.getId(), user.getEmail());
 
-        return new AuthResponseDto(token, new UserDto(user.getId(), user.getEmail(), user.getName(), whitelist.isAdmin(user.getEmail())));
+        return new AuthResponseDto(token, UserDto.from(user, whitelist.isAdmin(user.getEmail())));
     }
 
     @Transactional
