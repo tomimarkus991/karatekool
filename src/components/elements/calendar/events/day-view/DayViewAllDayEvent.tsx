@@ -1,7 +1,7 @@
 import { isSameDay, parseISO } from "date-fns";
 import { motion } from "framer-motion";
 
-import { useDeleteCalendarAllDayEvent } from "@/hooks";
+import { useDeleteCalendarEvent } from "@/hooks";
 import { EventData, EventTypes } from "@/types";
 
 import { Popover, PopoverTrigger } from "../../../Popover";
@@ -15,7 +15,7 @@ interface Props {
 export const DayViewAllDayEvent = ({ event, date }: Props) => {
   const { all_day_event, event_type } = event;
   const start = parseISO(event.start);
-  const { mutate: deleteEvent } = useDeleteCalendarAllDayEvent();
+  const { mutate: deleteEvent } = useDeleteCalendarEvent();
 
   if (EventTypes.ALL_DAY !== event_type) {
     return <></>;

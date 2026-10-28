@@ -6,7 +6,6 @@ import { useState } from "react";
 import { UpdateProfileFormValues, YupSchemas, avatars } from "@/app-constants";
 import {
   AnimationWrapper,
-  FormikInput,
   Modal,
   ModalFooterContainer,
   ModalHeader,
@@ -107,7 +106,6 @@ export const UpdateProfileForm = () => {
   const { data: user } = useUser();
 
   const [initialValues] = useState<UpdateProfileFormValues>({
-    name: "",
     avatar: "",
     calendarType: user?.calendar_type || "",
     group: user?.group || "",
@@ -120,11 +118,10 @@ export const UpdateProfileForm = () => {
       initialValues={initialValues}
       validationSchema={YupSchemas.UpdateProfile}
       validateOnChange={true}
-      onSubmit={async ({ avatar, name, calendarType, group }, { setSubmitting }) => {
+      onSubmit={async ({ avatar, calendarType, group }, { setSubmitting }) => {
         setSubmitting(true);
 
         updateProfile({
-          name: name as string,
           avatar: avatar as string,
           calendarType: calendarType as string,
           group: group as string,
@@ -144,7 +141,7 @@ export const UpdateProfileForm = () => {
               userAvatar={user?.avatar || ""}
               submitForm={submitForm}
             />
-            <FormikInput label="Nimi" placeholder={user?.username || "Nimi"} name="name" />
+            <p className="mt-2 text-lg font-semibold">{user?.username}</p>
 
             <Listbox value={values.group} onChange={value => setFieldValue("group", value)}>
               <Listbox.Options

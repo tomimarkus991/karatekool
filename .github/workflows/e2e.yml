@@ -4,10 +4,6 @@ on:
   pull_request:
     branches: [main]
 
-env:
-  E2E_BACKEND: supabase
-  # E2E=1, SMTP and Upstash settings come from e2e/local-services.json via playwright.config.ts
-
 jobs:
   e2e:
     runs-on: ubuntu-latest
@@ -26,11 +22,15 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
-      - name: Start local Supabase
-        # Only the services the site uses: database, auth, REST API and storage
-        run: npx supabase start -x studio,imgproxy,edge-runtime,logflare,vector,supavisor,realtime,postgres-meta,mailpit
+      # Playwright starts the API with its e2e profile; Spring starts api/compose.yaml's database
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'temurin'
+          cache: maven
 
-      - name: Start Mailpit and Redis stand-in
+      - name: Start Mailpit
         run: docker compose -f e2e/docker-compose.yml up -d --wait
 
       - name: Install Playwright browser

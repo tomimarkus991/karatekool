@@ -1,46 +1,34 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 
-import { useSupabase } from "@/context";
+import { api, ApiError, ApiUser, clearToken, getToken } from "@/lib";
 
+/** The signed-in person, or null when nobody is */
 export const useUser = () => {
-  const { supabase, session } = useSupabase();
-
   const getQuery = async () => {
-    // if (localStorage.getItem("sb-wqdplpmiyvwmetnipmwd-auth-token") === null) {
-    //   return null;
-    // }
-
-    if (!session) {
+    if (!getToken()) {
       return null;
     }
 
-    const { data } = await supabase
-      .from("profile")
-      .select(
-        `
-          id,
-          username,
-          avatar,
-          role,
-          group,
-          calendar_type
-        `,
-      )
-      .eq("id", session?.user.id)
-      .single();
-
-    // if (error) {
-    //   toast.error("Error fetching user");
-    //   throw new Error(error.message);
-    // }
-
-    // if (!data) {
-    //   toast.error("User not Found");
-    //   throw new Error("User not Found");
-    // }
-
-    return data;
+    try {
+      const user = await api<ApiUser>("/me");
+      return {
+        id: user.id,
+        email: user.email,
+        username: user.name,
+        avatar: user.avatar,
+        role: user.admin ? "admin" : null,
+        group: user.group?.letter ?? null,
+        calendar_type: user.calendarView && { MONTH: "Kuu", DAY: "Päev" }[user.calendarView],
+      };
+    } catch (error) {
+      // An expired token, or someone taken off the Whitelist: they are signed out
+      if (error instanceof ApiError && (error.status === 401 || error.status === 403)) {
+        clearToken();
+        return null;
+      }
+      throw error;
+    }
   };
 
   return useQuery({ queryKey: ["user"], queryFn: () => getQuery() });

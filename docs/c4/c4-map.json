@@ -14,32 +14,48 @@
       "depth_overrides": {
         "components/elements": 3
       }
+    },
+    {
+      "name": "api",
+      "title": "Spring Boot API",
+      "lang": "java",
+      "root": "api/src/main/java",
+      "depth": 4,
+      "exclude": []
     }
   ],
   "output": "docs/c4",
-  "migrations": null,
+  "migrations": "api/src/main/resources/db/migration",
   "levels": {
     "level-1": [
       "package.json",
       "README.md",
       ".env.example",
-      "next.config.js"
+      "next.config.js",
+      "api/pom.xml",
+      "api/src/main/resources/application.yaml"
     ],
     "level-2": [
       "package.json",
       "next.config.js",
       ".env.example",
       ".github/workflows",
+      "docker-compose.prod.yml",
+      "api/Dockerfile",
+      "api/compose.yaml",
+      "api/pom.xml",
+      "api/src/main/resources",
       "src/lib",
-      "src/app/api",
       "src/app/layout.tsx",
-      "src/context/SupabaseContext.tsx"
+      "playwright.config.ts",
+      "e2e/docker-compose.yml"
     ],
     "level-3": [
-      "src"
+      "src",
+      "api/src/main/java"
     ],
     "database": [
-      "src/types/supabase.ts"
+      "api/src/main/resources/db/migration"
     ]
   },
   "human_docs": "docs/architecture",
@@ -52,7 +68,7 @@
     "web/app": {
       "label": "Root layout and home",
       "tech": "Next.js App Router, React Query",
-      "desc": "Root layout, session bootstrap, sitemap, robots"
+      "desc": "Root layout, providers, sitemap, robots"
     },
     "web/app-constants": {
       "label": "Form schemas",
@@ -62,17 +78,12 @@
     "web/app/(children)": {
       "label": "Site pages",
       "tech": "Next.js App Router, Headless UI",
-      "desc": "Public, member and auth pages (Estonian routes)"
+      "desc": "Public pages, calendar, forms, Google login page"
     },
     "web/app/(home_components)": {
       "label": "Home page sections",
       "tech": "Next.js",
       "desc": "Landing page sections and hero images"
-    },
-    "web/app/api": {
-      "label": "API route handlers",
-      "tech": "Next.js Route Handlers, Resend, Upstash",
-      "desc": "Rate-limited sign-up and question emails"
     },
     "web/components": {
       "label": "Component barrel",
@@ -107,7 +118,7 @@
     "web/components/elements/forms": {
       "label": "Forms",
       "tech": "Formik, Yup",
-      "desc": "Login, register, sign-up and question forms"
+      "desc": "Application and question forms posting to API"
     },
     "web/components/elements/home-page": {
       "label": "Home scrollers",
@@ -131,23 +142,13 @@
     },
     "web/components/elements/user": {
       "label": "User account UI",
-      "tech": "Formik",
-      "desc": "Login/register modals, profile view and edit"
-    },
-    "web/components/emails": {
-      "label": "Email templates",
-      "tech": "React (JSX)",
-      "desc": "Sign-up and question email bodies"
+      "tech": "Google Identity Services, Formik",
+      "desc": "Google sign-in, profile view and edit"
     },
     "web/components/icons": {
       "label": "Icons",
       "tech": "lucide-react",
       "desc": "Icon set and wave background"
-    },
-    "web/components/supabase": {
-      "label": "Auth listener",
-      "tech": "Supabase JS",
-      "desc": "Refreshes server data on auth change"
     },
     "web/config": {
       "label": "Site config",
@@ -155,9 +156,9 @@
       "desc": "Routes, navigation and site constants"
     },
     "web/context": {
-      "label": "Supabase context",
-      "tech": "Supabase auth-helpers",
-      "desc": "Provides browser Supabase client and session"
+      "label": "Context barrel",
+      "tech": "React context",
+      "desc": "Re-exports sidebar and calendar filter contexts"
     },
     "web/context/calendar-filters": {
       "label": "Calendar filters",
@@ -176,18 +177,18 @@
     },
     "web/hooks/mutations": {
       "label": "Data mutations",
-      "tech": "TanStack Query, Supabase JS",
-      "desc": "Calendar events, presets, auth and profile writes"
+      "tech": "TanStack Query",
+      "desc": "Calendar, Preset, sign-in and profile writes via API"
     },
     "web/hooks/queries": {
       "label": "Data queries",
-      "tech": "TanStack Query, Supabase JS",
-      "desc": "Events, groups, presets, materials, user reads"
+      "tech": "TanStack Query",
+      "desc": "Events, Groups, Presets, trailers, Member reads via API"
     },
     "web/lib": {
-      "label": "Supabase clients and utils",
-      "tech": "Supabase auth-helpers, tailwind-merge",
-      "desc": "Browser/server Supabase clients, class utils"
+      "label": "API client and utils",
+      "tech": "fetch, tailwind-merge",
+      "desc": "API calls with the stored token, class utils"
     },
     "web/three": {
       "label": "3D barrel",
@@ -211,8 +212,53 @@
     },
     "web/types": {
       "label": "Types",
-      "tech": "TypeScript, Supabase codegen",
-      "desc": "Generated Database types and app types"
+      "tech": "TypeScript",
+      "desc": "Event and app types for components"
+    },
+    "api/(root)": {
+      "label": "Application",
+      "tech": "Spring Boot",
+      "desc": "Entry point and dev profile data seeder"
+    },
+    "api/config": {
+      "label": "Security and config",
+      "tech": "Spring Security, OAuth2 resource server, springdoc",
+      "desc": "JWT auth, Whitelist roles, CORS, clock, OpenAPI"
+    },
+    "api/controller": {
+      "label": "REST controllers",
+      "tech": "Spring Web MVC, Jakarta Validation",
+      "desc": "Auth, calendar, Admin calendar, profile, club mail"
+    },
+    "api/dto": {
+      "label": "DTOs",
+      "tech": "Java records, Jakarta Validation",
+      "desc": "Request and response shapes"
+    },
+    "api/e2e": {
+      "label": "E2E test support",
+      "tech": "Spring Web MVC (e2e profile)",
+      "desc": "Wipes data, signs people in for Playwright"
+    },
+    "api/model": {
+      "label": "Entities",
+      "tech": "JPA, Hibernate, Lombok",
+      "desc": "Members, Events, Groups, trailers, Presets"
+    },
+    "api/repository": {
+      "label": "Repositories",
+      "tech": "Spring Data JPA",
+      "desc": "Entity queries, Events in a date range"
+    },
+    "api/service": {
+      "label": "Services",
+      "tech": "Spring, Spring Mail, Google API client",
+      "desc": "Sign-in, calendar rules, preferences, rate-limited mail"
+    },
+    "api/util": {
+      "label": "JWT utils",
+      "tech": "Spring Security",
+      "desc": "Reads the Member id from the JWT"
     }
   }
 }

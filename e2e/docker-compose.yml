@@ -1,26 +1,11 @@
-# Test services the E2E suite needs next to local Supabase. Start with:
+# Test services the E2E suite needs next to the API. Start with:
 #   docker compose -f e2e/docker-compose.yml up -d --wait
 name: karatekool-e2e
 
 services:
-  # Inbox for every email the site sends when E2E=1 (SMTP 1025, web UI and API 8025)
+  # Inbox for every email the API sends under its dev and e2e profiles (SMTP 1025, web UI and API 8025)
   mailpit:
     image: axllent/mailpit:v1.27.0
     ports:
       - "1025:1025"
       - "8025:8025"
-
-  # Upstash-compatible REST API in front of a plain Redis, so the rate limiter runs unchanged
-  redis-http:
-    image: hiett/serverless-redis-http:0.0.10
-    environment:
-      SRH_MODE: env
-      SRH_TOKEN: e2e
-      SRH_CONNECTION_STRING: redis://redis:6379
-    ports:
-      - "8079:80"
-    depends_on:
-      - redis
-
-  redis:
-    image: redis:7-alpine

@@ -1,19 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
-import { useSupabase } from "@/context";
+import { api } from "@/lib";
 
 export const useGetTrailers = () => {
-  const { supabase } = useSupabase();
   const getQuery = async () => {
-    const { data, error } = await supabase.from("event_trailer").select(`id,text`);
-
-    if (error) {
-      toast.error(`Error getting trailers: ${error.message}`);
-      throw new Error(error.message);
+    try {
+      return await api<{ id: number; text: string }[]>("/trailers");
+    } catch (error) {
+      toast.error(`Error getting trailers: ${(error as Error).message}`);
+      throw error;
     }
-
-    return data;
   };
 
   return useQuery({ queryKey: ["trailers"], queryFn: async () => getQuery() });

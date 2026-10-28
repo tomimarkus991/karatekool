@@ -69,14 +69,14 @@ export interface DirectCalls {
 }
 
 /**
- * Everything a scenario may ask of the backend. Backend-neutral on purpose: the same
- * scenarios run against Supabase now and Spring Boot later (docs/adr/0001).
+ * Everything a scenario may ask of the backend. Backend-neutral on purpose, so scenarios say what
+ * they need rather than how the Spring API provides it (docs/adr/0001).
  * Add operations only when a scenario needs them.
  */
 export interface TestBackend {
   /**
    * Remove everything scenarios create, including people, leaving only reference data such as Groups.
-   * Also empties the test inbox and the rate limiter's store.
+   * Also empties the test inbox.
    */
   reset(): Promise<void>;
   aTraining(training: NewTraining): Promise<void>;

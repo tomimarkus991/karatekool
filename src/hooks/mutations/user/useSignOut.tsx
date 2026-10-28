@@ -1,34 +1,18 @@
 "use client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { toast } from "react-hot-toast";
 
-import { useSupabase } from "@/context";
-
-import { useIsMobile } from "../../useIsMobile";
+import { clearToken } from "@/lib";
 
 export const useSignOut = () => {
-  const { push, refresh } = useRouter();
+  const { push } = useRouter();
   const queryClient = useQueryClient();
-  const { supabase } = useSupabase();
-  const { isMobile } = useIsMobile();
-
-  const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
-
-    if (error) {
-      toast.error("Error signing out");
-      throw new Error(error.message);
-    }
-  };
 
   return useMutation({
-    mutationFn: () => signOut(),
+    // The API keeps no sessions, so forgetting the token is all there is to it
+    mutationFn: async () => clearToken(),
     onSuccess: () => {
       queryClient.removeQueries();
-      if (isMobile) {
-        refresh();
-      }
       push("/");
     },
   });

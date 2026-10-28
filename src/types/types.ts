@@ -38,6 +38,7 @@ export type GroupLetters = "S" | "S1" | "L" | "C" | "V" | "A" | "E" | "N" | "M" 
 export type GroupFilters = GroupLetters | "all" | "none";
 
 export interface SEventTrailer {
+  id: number;
   text: string;
 }
 interface SAllDayEvent {

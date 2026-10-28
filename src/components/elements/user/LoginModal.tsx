@@ -3,12 +3,11 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 
-import { Formik } from "formik";
 import { useState } from "react";
 
-import { YupSchemas, LoginFormValues } from "@/app-constants";
-import { LoginForm, Modal, RealButton } from "@/components";
-import { useSignIn } from "@/hooks";
+import { Modal, ModalHeader, RealButton } from "@/components";
+
+import { GoogleSignInButton } from "./GoogleSignInButton";
 
 interface Props {
   title?: string;
@@ -17,19 +16,9 @@ interface Props {
 
 export const LoginModal = ({ title, type = "button" }: Props) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const { mutate: signIn } = useSignIn();
-
-  const [initialValues] = useState<LoginFormValues>({
-    email: "",
-    password: "",
-  });
 
   const openModal = () => {
     setIsLoginModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsLoginModalOpen(false);
   };
 
   const modalButton = () => {
@@ -61,29 +50,13 @@ export const LoginModal = ({ title, type = "button" }: Props) => {
       maxWidth="sm"
       modalButton={modalButton()}
     >
-      <Formik
-        initialValues={initialValues}
-        validationSchema={YupSchemas.Login}
-        validateOnChange={true}
-        onSubmit={(values, { setSubmitting }) => {
-          setSubmitting(true);
-
-          const { email, password } = values;
-
-          signIn({ email, password });
-
-          setSubmitting(false);
-        }}
-      >
-        {({ isValid, handleSubmit, isSubmitting }) => (
-          <LoginForm
-            closeModal={closeModal}
-            isLoggingIn={isSubmitting}
-            isValid={isValid}
-            handleSubmit={handleSubmit}
-          />
-        )}
-      </Formik>
+      <ModalHeader setOpen={setIsLoginModalOpen} type="close">
+        Logi sisse
+      </ModalHeader>
+      <div className="flex flex-col items-center py-8 space-y-4">
+        <p className="text-center">Logi sisse oma Google&apos;i kontoga.</p>
+        <GoogleSignInButton />
+      </div>
     </Modal>
   );
 };

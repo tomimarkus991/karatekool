@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
-import { useSupabase } from "@/context";
+import { api } from "@/lib";
 
 interface Props {
   title: string;
@@ -10,40 +10,11 @@ interface Props {
 }
 
 export const useCreateCalendarAllDayEvent = () => {
-  const { supabase } = useSupabase();
   const queryClient = useQueryClient();
 
-  const execute = async ({ title, subTitle, start }: Props) => {
-    const createAllDayEventRes = await supabase
-      .from("all_day_event")
-      .insert({
-        title,
-        sub_title: subTitle,
-      })
-      .select()
-      .single();
-
-    if (createAllDayEventRes.error) {
-      toast.error(createAllDayEventRes.error.message);
-      throw new Error(createAllDayEventRes.error.message);
-    }
-
-    const res = await supabase.from("event").insert({
-      start,
-      event_type: "ALL_DAY",
-      all_day_event: createAllDayEventRes.data?.id,
-    });
-
-    if (res.error) {
-      toast.error(res.error.message);
-      throw new Error(res.error.message);
-    }
-
-    return res;
-  };
-
   return useMutation({
-    mutationFn: (user: Props) => execute(user),
+    mutationFn: ({ title, subTitle, start }: Props) =>
+      api("/all-day-events", { method: "POST", body: { start, title, subtitle: subTitle } }),
     onSuccess: () => {
       toast.success("Uus päeva üritus on loodud");
       setTimeout(() => {
@@ -51,6 +22,9 @@ export const useCreateCalendarAllDayEvent = () => {
           queryKey: ["get_calendar_events"],
         });
       }, 200);
+    },
+    onError: error => {
+      toast.error(error.message);
     },
   });
 };

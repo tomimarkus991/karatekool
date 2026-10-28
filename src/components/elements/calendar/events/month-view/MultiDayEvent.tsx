@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 import { RectReadOnly } from "react-use-measure";
 
 import { DeleteEventPopoverContent } from "@/components";
-import { useDeleteCalendarMultiDayEvent } from "@/hooks";
+import { useDeleteCalendarEvent } from "@/hooks";
 import { cn } from "@/lib";
 import { EventData, SMultiDayEvent } from "@/types";
 
@@ -31,7 +31,7 @@ interface ChildProps {
 
 const Child = ({ width, eventId, multi_day_event }: ChildProps) => {
   const { title } = multi_day_event;
-  const { mutate: deleteEvent } = useDeleteCalendarMultiDayEvent();
+  const { mutate: deleteEvent } = useDeleteCalendarEvent();
 
   return (
     <Popover>

@@ -1,42 +1,41 @@
-<!-- generated from ac15630618e4, 2026-10-23 -->
-<!-- c4-map config 3f246a9f97f3 -->
+<!-- generated from 20cbc6e7a9d6, 2026-10-28 -->
+<!-- c4-map config 77b83c238bd4 -->
 
 # Containers: Karatekool Nüke website
 
-Drawn from [docs/c4/level-2.md](../c4/level-2.md). One Next.js 14.0.3 app: the browser part talks to Supabase directly with the anon key and the user's JWT (authorization rests on Supabase RLS); the server part renders pages and handles the two email form endpoints. YouTube/Maps iframes are left out. See also [context](c4-context.md), [components](README.md).
+Drawn from [docs/c4/level-2.md](../c4/level-2.md). The browser app calls the Spring Boot API for everything: the calendar, Member preferences, sign-in and the forms. The browser exchanges a Google ID token for the API's own token and sends it with each call. It also embeds YouTube videos and Google Maps in iframes (not drawn). The API owns its Postgres database and deploys to a VPS behind Traefik at api.karatekool.alber.ee. See also [context](c4-context.md), [web components](c4-components-data.md) and [API components](c4-components-api.md).
 
 ```mermaid
 C4Container
   title Containers - Karatekool Nüke website
-  UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="2")
+  UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="1")
 
-  Person(user, "Visitor / member", "Uses the site")
+  Person(visitor, "Visitor", "Prospective member or parent")
+  Person(member, "Member / Admin", "Signed in with Google")
 
   System_Boundary(site, "Karatekool Nüke website") {
-    Container(spa, "Browser app (PWA)", "React 18, TanStack Query 5", "Pages, calendar, forms")
-    Container(server, "Next.js server", "Next.js 14 App Router, Node", "SSR, /api/sign-up, /api/send-question")
+    Container(spa, "Browser app", "React, Next.js, TanStack Query", "Pages, calendar, forms")
+    Container(next, "Next.js server", "Next.js 14", "Serves pages and assets")
+    Container(api, "API", "Spring Boot 4, Java 25", "REST under /api/v1")
+    ContainerDb(db, "Database", "PostgreSQL, Flyway", "Calendar, Members, mail limits")
   }
 
-  Boundary(managed, "Managed services", "") {
-    Container(auth, "Supabase Auth", "GoTrue, JWT", "Sign-up, login, invites")
-    ContainerDb(db, "Supabase Postgres", "PostgREST, RLS", "Calendar, profiles")
-    Container(storage, "Supabase Storage", "Bucket 'materials'", "Member files")
-    System_Ext(upstash, "Upstash Redis", "5 per email per day")
-    System_Ext(resend, "Resend", "Email to club inbox")
+  Boundary(ext, "External", "") {
+    System_Ext(resend, "Resend", "SMTP relay")
+    System_Ext(google, "Google Identity", "Sign-in, token keys")
   }
 
-  Rel(user, spa, "Uses", "HTTPS")
-  Rel(spa, server, "Loads pages, posts forms", "HTTPS/JSON")
-  Rel(spa, auth, "Signs in/up", "supabase-js")
-  Rel(spa, db, "Reads/writes", "PostgREST")
-  Rel(spa, storage, "Downloads", "HTTPS")
-  Rel(server, auth, "Reads session", "cookies")
-  Rel(server, upstash, "Checks limit", "REST")
-  Rel(server, resend, "Sends email", "REST")
+  Rel(visitor, spa, "Uses", "HTTPS")
+  Rel(member, spa, "Uses", "HTTPS")
+  Rel(spa, next, "Loads pages", "HTTPS")
+  Rel(spa, api, "Calls with token", "JSON/HTTPS")
+  Rel(spa, google, "Gets ID token", "GIS")
+  Rel(api, db, "Reads, writes", "JDBC")
+  Rel(api, google, "Checks token keys", "HTTPS")
+  Rel(api, resend, "Sends mail", "SMTPS")
 
-  UpdateRelStyle(user, spa, $offsetX="-60", $offsetY="-40")
-  UpdateRelStyle(server, auth, $offsetX="-20", $offsetY="40")
-  UpdateRelStyle(spa, auth, $offsetX="-20", $offsetY="-40")
-  UpdateRelStyle(spa, db, $offsetX="70", $offsetY="-40")
-
-```
+  UpdateRelStyle(visitor, spa, $offsetX="-60", $offsetY="-40")
+  UpdateRelStyle(member, spa, $offsetX="40", $offsetY="-40")
+  UpdateRelStyle(spa, next, $offsetX="-40", $offsetY="-30")
+  UpdateRelStyle(spa, api, $offsetX="-130")
+  UpdateRelStyle(api, db, $offsetX="-40", $offsetY="-30")```

@@ -36,15 +36,10 @@ export const siteConfig: SiteConfig = {
 const bigIconCss = "mr-2 h-10 w-10 fill-inherit";
 
 export const definedRoutes = {
-  emailConfirmed: "/email-confirmed",
-  forgotPassword: "/forgot-password",
-  inviteUser: "/invite-user",
   karateka: "/karateka",
   aboutClub: "/klubist",
   contact: "/kontakt",
   login: "/login",
-  register: "/register",
-  resetPassword: "/reset-password",
   newcomer: "/uustulnukale",
   home: "/",
   videos: "/videod",
@@ -120,21 +115,6 @@ export const routes: Router[] = [
 export const justRoutes: JustRouter[] = [
   {
     href: definedRoutes.login,
-  },
-  {
-    href: definedRoutes.register,
-  },
-  {
-    href: definedRoutes.forgotPassword,
-  },
-  {
-    href: definedRoutes.resetPassword,
-  },
-  {
-    href: definedRoutes.emailConfirmed,
-  },
-  {
-    href: definedRoutes.inviteUser,
   },
 ];
 

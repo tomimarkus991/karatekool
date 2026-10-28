@@ -1,7 +1,7 @@
 import { parseISO, isWithinInterval } from "date-fns";
 import { motion } from "framer-motion";
 
-import { useDeleteCalendarMultiDayEvent } from "@/hooks";
+import { useDeleteCalendarEvent } from "@/hooks";
 import { cn } from "@/lib";
 import { EventData, EventTypes } from "@/types";
 
@@ -17,7 +17,7 @@ export const DayViewMultiDayEvent = ({ event, date }: Props) => {
   const { long_event_end, multi_day_event, event_type } = event;
   const start = parseISO(event.start);
 
-  const { mutate: deleteEvent } = useDeleteCalendarMultiDayEvent();
+  const { mutate: deleteEvent } = useDeleteCalendarEvent();
 
   if (EventTypes.MULTI_DAY !== event_type) {
     return <></>;

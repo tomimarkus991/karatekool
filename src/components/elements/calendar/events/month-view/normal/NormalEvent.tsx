@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 import { DeleteEventPopoverContent, MapGroupLetter, NormalEventTime } from "@/components";
 import { useCalendarFilters } from "@/context";
-import { useDeleteNormalCalendarEvent } from "@/hooks";
+import { useDeleteCalendarEvent } from "@/hooks";
 import { cn } from "@/lib";
 import { EventData, GroupData, SEventTrailer } from "@/types";
 
@@ -56,7 +56,7 @@ export const NormalEvent = ({ event, date }: Props) => {
   const { group: groups, event_trailer: eventTrailer, description, id } = event;
   const start = parseISO(event.start);
   const { letter } = useCalendarFilters();
-  const { mutate: deleteEvent } = useDeleteNormalCalendarEvent();
+  const { mutate: deleteEvent } = useDeleteCalendarEvent();
 
   // show event if it is the same day as the date
   if (!isSameDay(start, date)) {

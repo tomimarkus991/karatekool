@@ -13,7 +13,7 @@ import {
   ResizablePanel,
   defaultTransition,
 } from "@/components";
-import { cn } from "@/lib";
+import { api, cn } from "@/lib";
 
 import { LoadingSpinner } from "../LoadingSpinner";
 
@@ -43,19 +43,13 @@ export const SignUpFormAdult = () => {
               setSubmitting(true);
               setRequestError(null);
 
-              const applicationSent = await fetch("/api/sign-up", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ type: "adult", ...formData }),
-              }).catch(() => undefined);
-              if (applicationSent?.ok) {
+              try {
+                await api("/applications/adult", { method: "POST", body: formData });
                 setRequestSuccess(true);
-              } else {
+              } catch (error) {
                 setRequestError(
                   requestErrorMessage(
-                    applicationSent,
+                    error,
                     "Registreerimise saatmine ebaõnnestus. Palun proovi uuesti või kirjuta aadressil info@karatekool.ee",
                   ),
                 );

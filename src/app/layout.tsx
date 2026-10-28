@@ -12,9 +12,6 @@ import { Catamaran, Quicksand, Rubik } from "next/font/google";
 import { NextLayoutProps } from "@/types";
 
 import { cn } from "@/lib";
-import SupabaseListener from "../components/supabase/supabaseListener";
-import { SupabaseProvider } from "@/context/SupabaseContext";
-import { createServerClient } from "../lib/supabaseServer";
 import { Three3DLayout } from "@/three/components/Three3DLayout";
 
 const APP_NAME = "Karatekool Nüke";
@@ -60,13 +57,7 @@ const quicksand = Quicksand({
   subsets: ["latin"],
 });
 
-export default async function RootLayout({ children }: NextLayoutProps) {
-  const supabase = createServerClient();
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
+export default function RootLayout({ children }: NextLayoutProps) {
   return (
     <html
       className="scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400 scrollbar-track-transparent scrollbar-thin scrollbar-thumb-rounded-full"
@@ -93,10 +84,7 @@ export default async function RootLayout({ children }: NextLayoutProps) {
         )}
       >
         <Three3DLayout>
-          <SupabaseProvider session={session}>
-            <SupabaseListener serverAccessToken={session?.access_token} />
-            <AppWrapper>{children}</AppWrapper>
-          </SupabaseProvider>
+          <AppWrapper>{children}</AppWrapper>
         </Three3DLayout>
       </body>
     </html>
