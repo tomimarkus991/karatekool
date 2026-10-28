@@ -79,4 +79,13 @@ class WhitelistTest extends IntegrationTest {
     private String token(ResultActions login) throws Exception {
         return login.andReturn().getResponse().getContentAsString().replaceAll(".*\"token\":\"([^\"]+)\".*", "$1");
     }
+
+    @Test
+    void outsideTheE2eProfile_nobodyCanWipeTheDatabaseOrAddPeople() throws Exception {
+        mockMvc.perform(post("/test-support/reset")).andExpect(status().isNotFound());
+        mockMvc.perform(post("/test-support/people")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"email\": \"intruder@example.com\", \"admin\": true}"))
+                .andExpect(status().isNotFound());
+    }
 }
