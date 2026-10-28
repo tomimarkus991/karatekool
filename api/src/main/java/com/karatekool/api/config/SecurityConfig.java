@@ -2,6 +2,7 @@ package com.karatekool.api.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -35,6 +36,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/google").permitAll() // The login endpoint is public so users can actually log in
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll() // OpenAPI and Swagger UI
                         .requestMatchers("/actuator/health", "/error").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/events", "/groups", "/trailers", "/presets").permitAll() // The calendar is public
                         .anyRequest().hasRole(MEMBER) // Everything else needs someone who is still on the Whitelist
                 )
                 .exceptionHandling(exceptions -> exceptions
