@@ -28,7 +28,7 @@ export const PreviewEvent = ({ values }: Props) => {
             <div id="normal-event" className="flex flex-row items-center justify-start">
               <NormalEventTime start={values.startTime} isHighlighted={values.isHighlighted} />
               <div id="normal-event" className={cn("flex justify-center items-center")}>
-                <MapGroupLetter groups={values.selectedGroups} />
+                <MapGroupLetter groups={values.selectedGroups} name={values.trainingName} />
                 {values.trailer && (
                   <p
                     id="normal-event"

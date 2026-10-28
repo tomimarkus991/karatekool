@@ -94,7 +94,7 @@ const NormalEvent = object().shape({
       message: "Palun vali üritus",
       test: value => value !== undefined && value.length > 0,
     }),
-  // selectedGroups has to be bigger than 0
+  // A Training needs Groups or a name; with a name and no Groups it is a Named Training
   selectedGroups: array()
     .of(
       object().shape({
@@ -105,9 +105,10 @@ const NormalEvent = object().shape({
     .default([])
     .required("Vajalik")
     .test({
-      message: "Vali vähemalt üks grupp",
-      test: value => value.length > 0,
+      message: "Vali vähemalt üks grupp või anna trennile nimi",
+      test: (value, { parent }) => value.length > 0 || !!parent.trainingName?.trim(),
     }),
+  trainingName: string().default(""),
   isHighlighted: boolean().default(false),
   trailer: object().shape({ id: number(), text: string() }).default(undefined),
   description: string().default(undefined),

@@ -10,6 +10,8 @@ interface Props {
   trailerId?: number;
   description?: string;
   groupIds?: number[];
+  /** A Named Training's name; blank for a Training of Groups */
+  name?: string;
   selectedStartDates: string[];
 }
 
@@ -23,8 +25,16 @@ export const useCreateCalendarEvent = () => {
     trailerId,
     description,
     groupIds = [],
+    name,
   }: Props) => {
-    const training = { groupIds, highlighted: isHighlighted, description, trailerId };
+    // The API keeps a Training's name as its title and treats a blank one as none
+    const training = {
+      groupIds,
+      title: name?.trim() || undefined,
+      highlighted: isHighlighted,
+      description,
+      trailerId,
+    };
 
     // A change replaces the whole Training; a new one is saved once per start
     if (id) {
