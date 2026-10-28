@@ -22,7 +22,7 @@ C4Container
   }
 
   System_Ext(google, "Google Identity", "accounts.google.com GIS script; googleapis.com JWKS")
-  System_Ext(resend, "Resend SMTP", "smtp.resend.com:465; from noreply@karatekool.ee to info@karatekool.ee")
+  System_Ext(resend, "Resend SMTP", "smtp.resend.com:2465; from noreply@karatekool.ee to info@karatekool.ee")
   System_Ext(embeds, "YouTube / Google Maps", "iframe embeds")
 
   Rel(visitor, spa, "Uses", "HTTPS")

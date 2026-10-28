@@ -28,7 +28,7 @@ C4Context
   Rel(member, site, "Signs in, views calendar, saves preferences", "HTTPS")
   Rel(admin, site, "Creates, changes and deletes calendar Events and Presets", "HTTPS")
   Rel(site, google, "Gets ID tokens in the browser; verifies them on the API", "HTTPS (GIS script, JWKS)")
-  Rel(site, resend, "Sends Application and Question emails", "SMTPS 465")
+  Rel(site, resend, "Sends Application and Question emails", "SMTPS 2465")
   Rel(site, youtube, "Embeds videos", "iframe (react-player)")
   Rel(site, gmaps, "Embeds maps", "iframe")
   Rel(site, gfonts, "Downloads fonts at build", "HTTPS")
