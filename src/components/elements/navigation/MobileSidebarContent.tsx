@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { HiLogout, HiX } from "react-icons/hi";
 
-import { AnimationWrapper, animations, LoginModal, Modal, ModalHeader } from "@/components";
+import { AnimationWrapper, animations, GoogleSignInButton, Modal, ModalHeader } from "@/components";
 import { Icons } from "@/components/icons/Icons";
 import { routes } from "@/config";
 import { useSidebar } from "@/context";
@@ -117,7 +117,7 @@ export const MobileSidebarContent = () => {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center flex-1 space-y-2">
-            {isSigningOut ? <LoadingSpinner /> : <LoginModal type="sidebarButton" />}
+            {isSigningOut ? <LoadingSpinner /> : <GoogleSignInButton />}
           </div>
         )}
       </div>
