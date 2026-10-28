@@ -18,7 +18,8 @@ export const useSignInWithGoogle = () => {
       setToken(token);
     },
     onSuccess: () => {
-      queryClient.removeQueries();
+      // Reset, not remove: the navbar and the page on screen refetch as the signed-in person
+      queryClient.resetQueries();
       push("/karateka");
     },
     onError: error => {

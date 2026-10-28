@@ -10,7 +10,7 @@ import { useBoundedScroll, useUser } from "@/hooks";
 import { cn } from "@/lib";
 
 import { Icons } from "../../icons/Icons";
-import { LoginModal } from "../user/LoginModal";
+import { GoogleSignInButton } from "../user/GoogleSignInButton";
 import { UserProfile } from "../user/UserProfile";
 
 import { NavbarTopLink } from "./components";
@@ -120,11 +120,9 @@ export const NavbarTop = ({ bg = "bg-surface-bg" }: Props) => {
                   group={user?.group || null}
                 />
               ) : (
-                <>
-                  <div className="z-10 max-lg:hidden lg:block">
-                    <LoginModal />
-                  </div>
-                </>
+                <div className="z-10 max-lg:hidden lg:block">
+                  <GoogleSignInButton />
+                </div>
               )}
             </div>
           </div>

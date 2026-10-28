@@ -27,7 +27,7 @@ declare global {
   }
 }
 
-/** Google's own sign-in button; the API turns Google's ID token into its own token */
+/** Google's own sign-in button, so one click opens Google's dialog; the API turns Google's ID token into its own token */
 export const GoogleSignInButton = () => {
   const container = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -42,18 +42,19 @@ export const GoogleSignInButton = () => {
     window.google.accounts.id.renderButton(container.current, {
       theme: "outline",
       size: "large",
-      text: "signin_with",
+      shape: "pill",
+      text: "signin",
       locale: "et",
     });
   }, [isLoaded, signIn]);
 
   if (!CLIENT_ID) {
-    // The API's dev profile signs any token in as its dev user
-    return process.env.NODE_ENV === "development" ? (
-      <RealButton variant="orange" onClick={() => signIn("dev")}>
-        Logi sisse arendajana
+    // Development and E2E have no client ID; the API's dev profile signs any token in as its dev user
+    return (
+      <RealButton variant="red" className="px-6" onClick={() => signIn("dev")}>
+        Logi sisse
       </RealButton>
-    ) : null;
+    );
   }
 
   return (

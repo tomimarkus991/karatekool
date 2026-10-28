@@ -12,7 +12,8 @@ export const useSignOut = () => {
     // The API keeps no sessions, so forgetting the token is all there is to it
     mutationFn: async () => clearToken(),
     onSuccess: () => {
-      queryClient.removeQueries();
+      // Reset, not remove: what is on screen refetches as signed out
+      queryClient.resetQueries();
       push("/");
     },
   });
