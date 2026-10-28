@@ -1,42 +1,38 @@
-<!-- generated from ac15630618e4, 2026-10-23 -->
-<!-- c4-map config 3f246a9f97f3 -->
+<!-- generated from 20cbc6e7a9d6, 2026-10-28 -->
+<!-- c4-map config 77b83c238bd4 -->
 
-# Components: data access and auth
+# Components: web data access and auth
 
-Drawn from [docs/c4/level-3.md](../c4/level-3.md). How UI reaches Supabase: components call TanStack Query hooks (`src/hooks`, `hooks/queries`, `hooks/mutations`, merged here), which take the browser client from the Supabase context. Sibling: [forms and email](c4-components-forms-email.md).
+Drawn from [docs/c4/level-3.md](../c4/level-3.md). How the web app reaches the API. Pages and UI components call TanStack Query hooks (`src/hooks`, `hooks/queries` and `hooks/mutations` are merged here). The hooks, and the forms directly, go through the API client in `src/lib/api.ts`, which adds the stored token. Barrel modules (`components/index`, `components/elements`) are left out and their edges drawn straight through. Sibling: [API components](c4-components-api.md).
 
 ```mermaid
 C4Component
-  title Components - data access and auth
+  title Components - web data access and auth
   UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
 
-  Container_Boundary(web, "Next.js web app") {
-    Component(calendar, "Training calendar", "date-fns, Formik", "Views, create, delete")
-    Component(userui, "User account UI", "Formik", "Login, profile")
-    Component(hooks, "Data hooks", "TanStack Query", "Queries and mutations")
-    Component(pages, "Site pages", "App Router", "app/(children)")
-    Component(ctx, "Supabase context", "React context", "Client + session")
-    Component(listener, "Auth listener", "supabase-js", "Refreshes on auth change")
-    Component(lib, "Supabase clients", "auth-helpers", "Browser/server clients")
-    Component(layout, "Root layout", "App Router", "Reads session on server")
-  }
-  Boundary(ext, "External", "") {
-    System_Ext(supabase, "Supabase", "Auth, Postgres, Storage")
+  Container_Boundary(web, "Browser app") {
+    Component(pages, "Site pages", "Next.js App Router", "Public pages and calendar page")
+    Component(nav, "Navigation", "Next.js", "Top bar, sidebar")
+    Component(calendar, "Training calendar", "date-fns, Formik", "Views, Event editing")
+    Component(user, "User account UI", "Google Identity Services", "Sign-in, profile")
+    Component(hooks, "Data hooks", "TanStack Query", "Reads and writes")
+    Component(forms, "Forms", "Formik, Yup", "Applications, Questions")
+    Component(lib, "API client", "fetch", "Adds the stored token")
   }
 
-  Rel(pages, hooks, "Uses")
+  Boundary(ext, "Other containers", "") {
+    Container_Ext(api, "API", "Spring Boot", "REST under /api/v1")
+  }
+
+  Rel(pages, nav, "Renders")
+  Rel(pages, calendar, "Renders")
+  Rel(nav, user, "Opens")
   Rel(calendar, hooks, "Uses")
-  Rel(userui, hooks, "Uses")
-  Rel(hooks, ctx, "Gets client")
-  Rel(layout, ctx, "Provides session")
-  Rel(listener, ctx, "Subscribes")
-  Rel(layout, lib, "Server client")
-  Rel(ctx, lib, "Browser client")
-  Rel(lib, supabase, "Calls", "HTTPS")
+  Rel(user, hooks, "Uses")
+  Rel(hooks, lib, "Calls")
+  Rel(forms, lib, "Posts via")
+  Rel(lib, api, "Calls", "JSON/HTTPS")
 
-  UpdateRelStyle(pages, hooks, $offsetX="-20", $offsetY="-25")
-  UpdateRelStyle(listener, ctx, $offsetX="-30", $offsetY="-25")
-  UpdateRelStyle(layout, lib, $offsetX="-30", $offsetY="-25")
-  UpdateRelStyle(lib, supabase, $offsetY="-45")
-
+  UpdateRelStyle(pages, nav, $offsetX="-30", $offsetY="-25")
+  UpdateRelStyle(lib, api, $offsetX="-90", $offsetY="-50")
 ```
