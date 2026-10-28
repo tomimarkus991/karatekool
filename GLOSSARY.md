@@ -25,8 +25,12 @@ Anything on the club's calendar: a Training, an All-day event or a Multi-day eve
 _Avoid_: Entry, item
 
 **Training**:
-An Event at a set time for one or more Groups.
+An Event at a set time for one or more Groups, or a Named Training.
 _Avoid_: Normal event, class, session
+
+**Named Training**:
+A Training with its own name instead of Groups, for a mixed set of people such as Falco Cup competitors. Visitors see it under a filter button with its name and under "all", not under any single Group.
+_Avoid_: Special training, custom group
 
 **All-day event**:
 An Event that fills a single day with a title and subtitle but no time.
