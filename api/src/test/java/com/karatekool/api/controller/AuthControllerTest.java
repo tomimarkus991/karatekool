@@ -1,6 +1,7 @@
 package com.karatekool.api.controller;
 
 import com.karatekool.api.IntegrationTest;
+import com.karatekool.api.service.GoogleAccessTokenVerifier;
 import com.karatekool.api.service.GoogleTokenVerifier;
 import com.karatekool.api.service.GoogleTokenVerifier.GoogleIdentity;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,9 @@ class AuthControllerTest extends IntegrationTest {
 
     @MockitoBean
     private GoogleTokenVerifier googleTokenVerifier;
+
+    @MockitoBean
+    private GoogleAccessTokenVerifier googleAccessTokenVerifier;
 
     @Test
     void login_createsTheUserAndReturnsAWorkingToken() throws Exception {
@@ -60,6 +64,27 @@ class AuthControllerTest extends IntegrationTest {
     }
 
     @Test
+    void login_withAGoogleAccessToken_signsTheSamePersonIn() throws Exception {
+        String sub = UUID.randomUUID().toString();
+        when(googleTokenVerifier.verify("id-token")).thenReturn(new GoogleIdentity(sub, "user@example.com", "User"));
+        when(googleAccessTokenVerifier.verify("access-token")).thenReturn(new GoogleIdentity(sub, "user@example.com", "User"));
+
+        String firstId = login("id-token").andReturn().getResponse().getContentAsString().replaceAll(".*\"id\":(\\d+).*", "$1");
+
+        send("{\"accessToken\": \"access-token\"}")
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.token").isString())
+                .andExpect(jsonPath("$.user.id").value(Long.parseLong(firstId)));
+    }
+
+    @Test
+    void login_withAnAccessToken_stillNeedsTheWhitelist() throws Exception {
+        when(googleAccessTokenVerifier.verify("stranger")).thenReturn(new GoogleIdentity("x", "stranger@example.com", "S"));
+
+        send("{\"accessToken\": \"stranger\"}").andExpect(status().isForbidden());
+    }
+
+    @Test
     void login_rejectsAnInvalidGoogleToken() throws Exception {
         when(googleTokenVerifier.verify("forged"))
                 .thenThrow(new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid Google token"));
@@ -73,7 +98,7 @@ class AuthControllerTest extends IntegrationTest {
     void login_rejectsABlankToken() throws Exception {
         login(" ")
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.error").value("idToken must not be blank"));
+                .andExpect(jsonPath("$.error").value("A Google token is required"));
     }
 
     @Test
@@ -90,8 +115,10 @@ class AuthControllerTest extends IntegrationTest {
     }
 
     private ResultActions login(String idToken) throws Exception {
-        return mockMvc.perform(post("/auth/google")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"idToken\":\"" + idToken + "\"}"));
+        return send("{\"idToken\":\"" + idToken + "\"}");
+    }
+
+    private ResultActions send(String json) throws Exception {
+        return mockMvc.perform(post("/auth/google").contentType(MediaType.APPLICATION_JSON).content(json));
     }
 }
