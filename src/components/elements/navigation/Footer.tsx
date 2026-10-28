@@ -26,6 +26,9 @@ export const Footer = ({ bg = "bg-surface-bg" }: Props) => (
         <div className="flex flex-col items-center">
           <Icons.logoWhite />
           <p className="mt-2 text-sm text-center text-white">© {Year} nüke karate-do klubi</p>
+          <Link href="/privacy-policy">
+            <p className="mt-1 text-xs text-center text-white underline">Privaatsuspoliitika</p>
+          </Link>
           <Link className="sm:hidden" href="/kontakt">
             <p className="mt-3 text-lg text-center text-white">Kontakt</p>
           </Link>
