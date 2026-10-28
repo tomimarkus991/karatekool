@@ -6,6 +6,7 @@ on:
     paths:
       - "api/**"
       - "docker-compose.prod.yml"
+      - "deploy/**"
   workflow_dispatch:
 
 jobs:
@@ -42,13 +43,13 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: mkdir -p /my-apps/karatekool
 
-      - name: Copy docker-compose.prod.yml to VPS
+      - name: Copy docker-compose.prod.yml and the backup script to VPS
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_IP }}
           username: deploy
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "docker-compose.prod.yml"
+          source: "docker-compose.prod.yml,deploy/backup-db.sh"
           target: "/my-apps/karatekool/"
 
       - name: Deploy to VPS
@@ -66,3 +67,5 @@ jobs:
             docker compose -f docker-compose.prod.yml up -d
             docker compose -f docker-compose.prod.yml ps
             docker image prune -f
+            chmod +x deploy/backup-db.sh
+            (crontab -l 2>/dev/null | grep -v karatekool/deploy/backup-db.sh || true; echo "0 3 * * 1 /my-apps/karatekool/deploy/backup-db.sh") | crontab -
