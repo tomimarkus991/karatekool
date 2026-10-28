@@ -22,6 +22,7 @@ public class AuthService {
 
     private final TokenService tokenService;
     private final GoogleTokenVerifier googleTokenVerifier;
+    private final GoogleAccessTokenVerifier googleAccessTokenVerifier;
     private final AppUserRepository userRepository;
     private final Whitelist whitelist;
 
@@ -31,6 +32,7 @@ public class AuthService {
     public AuthService(
             TokenService tokenService,
             GoogleTokenVerifier googleTokenVerifier,
+            GoogleAccessTokenVerifier googleAccessTokenVerifier,
             AppUserRepository userRepository,
             Whitelist whitelist,
             Environment environment,
@@ -39,6 +41,7 @@ public class AuthService {
 
         this.tokenService = tokenService;
         this.googleTokenVerifier = googleTokenVerifier;
+        this.googleAccessTokenVerifier = googleAccessTokenVerifier;
         this.userRepository = userRepository;
         this.whitelist = whitelist;
         this.skipGoogleVerification = skipGoogleVerification;
@@ -61,11 +64,25 @@ public class AuthService {
     public AuthResponseDto googleLogin(AuthRequestDto request) {
         AppUser user = skipGoogleVerification
                 ? getOrCreateDevUser()
-                : getOrCreateGoogleUser(googleTokenVerifier.verify(request.idToken()));
+                : getOrCreateGoogleUser(verify(request));
 
         String token = tokenService.generateToken(user.getId(), user.getEmail());
 
         return new AuthResponseDto(token, UserDto.from(user, whitelist.isAdmin(user.getEmail())));
+    }
+
+    private GoogleTokenVerifier.GoogleIdentity verify(AuthRequestDto request) {
+        if (hasText(request.accessToken())) {
+            return googleAccessTokenVerifier.verify(request.accessToken());
+        }
+        if (hasText(request.idToken())) {
+            return googleTokenVerifier.verify(request.idToken());
+        }
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "A Google token is required");
+    }
+
+    private static boolean hasText(String value) {
+        return value != null && !value.isBlank();
     }
 
     @Transactional

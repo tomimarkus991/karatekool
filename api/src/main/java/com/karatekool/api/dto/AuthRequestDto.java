@@ -1,7 +1,7 @@
 package com.karatekool.api.dto;
 
-import jakarta.validation.constraints.NotBlank;
-
+/** A Google ID token (Google's own button) or access token (the site's own button); one is needed */
 public record AuthRequestDto(
-        @NotBlank String idToken
+        String idToken,
+        String accessToken
 ) {}
